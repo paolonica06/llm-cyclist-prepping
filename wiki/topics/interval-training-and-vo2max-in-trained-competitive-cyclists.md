@@ -1,6 +1,6 @@
 # interval training and VO2max in trained competitive cyclists
 
-> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-23 20:20 UTC** · Ricerca `interval-training-and-vo2max-in--e473a5` · Studi verificati inclusi: **40**.
+> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-23 20:21 UTC** · Ricerca `interval-training-and-vo2max-in--e473a5` · Studi verificati inclusi: **40**.
 
 Ogni affermazione è collegata ai paper che la sostengono. I record non verificati sono esclusi da questa sintesi.
 
@@ -109,4 +109,5 @@ La base attuale include 40 studi verificati (1 ad alta confidenza). Su alcuni ou
 
 ## Cronologia aggiornamenti
 
+- **2026-07-23 20:21 UTC** — ricerca `interval-training-and-vo2max-in--e473a5`: 40 studi verificati sintetizzati (query: 7, grezzi: 197).
 - **2026-07-23 20:20 UTC** — ricerca `interval-training-and-vo2max-in--e473a5`: 40 studi verificati sintetizzati (query: 7, grezzi: 197).
