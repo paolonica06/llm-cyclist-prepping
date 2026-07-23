@@ -1,27 +1,25 @@
-# International Investment and International Trade in the Product Cycle
+# Concomitant application of sprint and high-intensity interval training on maximal oxygen uptake and work output in well-trained cyclists
 
-- **Autori**: Raymond Vernon
-- **Anno**: 1966 · **Rivista**: The Quarterly Journal of Economics
-- **DOI**: https://doi.org/10.2307/1880689 · **PMID**: n/d
-- **Provenienza banche dati**: openalex
+- **Autori**: Hebisz Paulina, Hebisz Rafał, Zatoń Marek, Ochmann Bartosz, Mielnik Natalia
+- **Anno**: 2016 · **Rivista**: European Journal of Applied Physiology
+- **DOI**: https://doi.org/10.1007/s00421-016-3405-z · **PMID**: n/d
+- **Provenienza banche dati**: crossref
 - **Scoperto via**: query
 
 **Verifica metadati**: ✔ verificato
 
-  - ⚠ Primo autore discordante: 'raymond' vs 'vernon'
-
 ## Qualità metodologica
 - Tipo di studio: **unknown**
-- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **low**
+- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **high**
   - sample: unknown
   - control: absent_or_unclear
   - randomization: absent_or_unclear
   - duration: unknown
-  - measures: unclear
-  - transferability: low
+  - measures: objective
+  - transferability: high
   - _Numerosità del campione non riportata nel testo disponibile._
 
-## Dati estratti (fonte: abstract, metodo: heuristic)
+## Dati estratti (fonte: not_available, metodo: heuristic)
 - **Disegno dello studio**: _non disponibile_
 - **Partecipanti**: _non disponibile_
 - **Livello di allenamento**: _non disponibile_
@@ -36,6 +34,3 @@
 - **Effect size**: _non disponibile_
 - **Limiti**: _non disponibile_
 - **Conflitti di interesse**: _non disponibile_
-
-## Abstract
-International audience

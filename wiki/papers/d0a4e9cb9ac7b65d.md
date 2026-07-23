@@ -9,8 +9,8 @@
 
 **Verifica metadati**: ✔ verificato
 
-  - ⚠ PMID non risolvibile su PubMed: 19417232
-  - ⚠ Primo autore discordante: 'matthew' vs 'w.'
+  - ⚠ DOI non risolvibile su Crossref: https://doi.org/10.1123/ijspp.4.1.110
+  - ⚠ Primo autore discordante: 'matthew' vs 'driller'
 
 ## Qualità metodologica
 - Tipo di studio: **crossover**

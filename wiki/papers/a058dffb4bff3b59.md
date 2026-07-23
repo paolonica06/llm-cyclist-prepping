@@ -1,8 +1,8 @@
-# Effect of Various Regimes of High Intensity Interval Training (HIIT) on Changes in Maximal Oxygen Uptake and Hemodynamic Function
+# Figure 3: Oxygen consumption and heart rate during sprint interval training (SIT) and continuous moderate intensity exercise (CMIE).
 
-- **Autori**: Astorino Todd A., Edmunds Ross M., Clark Amy, Gallant Rachael M., King Leesa, Namm Samantha, Fischer Anthony, Wood Kimi A.
-- **Anno**: 2016 · **Rivista**: Medicine &amp; Science in Sports &amp; Exercise
-- **DOI**: https://doi.org/10.1249/01.mss.0000486490.56887.22 · **PMID**: n/d
+- **Autori**: n/d
+- **Anno**: n/d · **Rivista**: n/d
+- **DOI**: https://doi.org/10.7717/peerj.7077/fig-3 · **PMID**: n/d
 - **Provenienza banche dati**: crossref
 - **Scoperto via**: query
 
@@ -15,7 +15,7 @@
   - control: absent_or_unclear
   - randomization: absent_or_unclear
   - duration: unknown
-  - measures: objective
+  - measures: unclear
   - transferability: low
   - _Numerosità del campione non riportata nel testo disponibile._
 
