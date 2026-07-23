@@ -1,0 +1,41 @@
+# An indirect continuous running multistage field test: the Université de Montréal track test.
+
+- **Autori**: L Léger, R.V. Boucher
+- **Anno**: 1980 · **Rivista**: PubMed
+- **DOI**: n/d · **PMID**: 7389053
+- **Provenienza banche dati**: openalex
+- **Scoperto via**: citation_chase:1fa7e4a85fd74499
+
+**Verifica metadati**: ✔ verificato
+
+  - ⚠ Primo autore discordante: 'l' vs 'leger'
+  - ⚠ Rivista discordante: «PubMed» vs «Canadian journal of applied sport sciences. Journal canadien des sciences appliquees au sport»
+
+## Qualità metodologica
+- Tipo di studio: **unknown**
+- Qualità: **moderate** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **moderate**
+  - sample: adequate
+  - control: absent_or_unclear
+  - randomization: absent_or_unclear
+  - duration: unknown
+  - measures: objective
+  - transferability: moderate
+
+## Dati estratti (fonte: abstract, metodo: heuristic)
+- **Disegno dello studio**: _non disponibile_
+- **Partecipanti** (`abstract`): In order to assess the validity of the UM-TT, 25 subjects, 24.4 +/- 2.8 years old (X +/- SD) had their VO2max predicted with the UM-TT and measured directly with a running multistage treadmill test.
+- **Livello di allenamento** (`abstract`): trained
+- **Sesso** (`abstract`): mixed
+- **Età** (`abstract`): 24.4 +/- 2.8
+- **Numerosità campione** (`abstract`): 25
+- **Protocollo**: _non disponibile_
+- **Comparatore**: _non disponibile_
+- **Durata**: _non disponibile_
+- **Outcome** (`abstract`): In order to assess the validity of the UM-TT, 25 subjects, 24.4 +/- 2.8 years old (X +/- SD) had their VO2max predicted with the UM-TT and measured directly with a running multistage treadmill test.
+- **Risultati** (`abstract`): The first stage is set at a walking speed that requires 5 Mets; thereafter the speed is increased by 1 Met every two minutes.
+- **Effect size**: _non disponibile_
+- **Limiti**: _non disponibile_
+- **Conflitti di interesse**: _non disponibile_
+
+## Abstract
+The object of this study was to report on the validity and reliability of the Université de Montréal Track Test (UM-TT). The UM-TT is a continuous maximal indirect multistage running field test based on the energy cost of running. The first stage is set at a walking speed that requires 5 Mets; thereafter the speed is increased by 1 Met every two minutes. In order to assess the validity of the UM-TT, 25 subjects, 24.4 +/- 2.8 years old (X +/- SD) had their VO2max predicted with the UM-TT and measured directly with a running multistage treadmill test. Averages (+/- SD) were not significantly different (61.5 +/- 10.6 and 61.4 +/- 10.9 ml O2 . kg-1 . min-1, respectively), other statistics being r = 0.96, delta = 0.09 +/- 2.90 ml O2 . kg-1 . min-1 and Syx = 2.81 ml O2 . kg-1 . min-1. Seven males, 20.6 +/- 1.0 years old, had also their VO2max measured directly during the UM-TT. Comparison of predicted and directly measured VO2max yielded similar results: 70.0 +/- 4.5 and 70.7 +/- 6.0 ml O2 . kg-1 . min-1, respectively with r = 0.66, delta = 0.67 +/- 4.53 and Syx = 3.71. Reliability of the UM-TT was assessed by repeating the test twice on 60 subjects (49 males and 11 females; 39 subjects below 30 years old and 21, above; and 30 subjects below and above 15 Mets). Results were as follows: X +/- SD = 54.1 +/- 8.2 and 54.2 +/- 8.5, r = 0.97, delta 0.11 +/- 1.92, and Syx = 1.92. Similar reliability trends were observed for each one of the subgroups of subjects. It is concluded that the UM-TT is valid and reliable to estimate the VO2max of trained and untrained young and middle-age males and females.
