@@ -8,6 +8,10 @@
 
 **Profilo (tuo):** **passista / cronoman** — la tua arma è tenere **watt alti e costanti a lungo** (soglia, crono, fughe da lontano, tirare). **Gare: pianura / mosse veloci** (fughe che arrivano o volata di gruppo).
 
+**Curva di potenza reale (dati intervals, best stagionale):** 5s **1180 W** · 1′ **633 W** · 5′ **402 W** (5.46 w/kg) · 20′ **323 W** · eFTP **329 W** · **TTE 18′**. Rapporto 5′/20′ = **1.24 → diesel** (profilo confermato); sprint 16 w/kg = nella norma; **TTE corta = la leva è allungare la tenuta a soglia**. *(VO₂max e valori "da lab" sono stimati, mai testati → non usati.)*
+
+**⚠️ Baseline reale ≠ 329:** il **329 è il tuo picco stagionale**; negli **ultimi 42 giorni sei a eFTP 300 / 20′ 291** (detrained post-crollo, e verosimilmente **sottostimato** perché non fai un 20′ massimale da tempo). **Il test del 28-lug (CP 3′+12′) fissa il baseline vero**, e su quello ricalibro tutte le zone/target. **Obiettivo 340 = stretch goal onesto** (+11 W sul tuo massimo di sempre): recuperare 320–330 è molto probabile, 340 è la parte ambiziosa.
+
 **Decisione condivisa — ibrido + specializzazione sul profilo:**
 - **Ricostruire la base** (volume + FTP + durabilità), con le **gare come allenamento**, forma crescente, **nessuna gara-A**, FTP 340 al 30-set come marker;
 - **Specializzare sui tuoi punti di forza** (la strategia giusta per te, perché profilo e gare coincidono): **soglia prolungata, TT-effort, over-unders, fuga-sim**;
@@ -71,7 +75,7 @@ La regola: **prima elimina il deficit che ti fa *perdere* la gara, poi affila l'
 | **Sab** | 25/7 | 🟢 Lunga | **4 h @ 200–235 W** · CHO 60 g/h | 4 |
 | Dom | 26/7 | 🟢 Z2 | 3 h @ 195–230 W | 3 |
 | Lun | 27/7 | 😴 Recupero | 1h30 Z1 <181 W | 1.5 |
-| Mar | 28/7 | 🟠 Soglia | **3×12′ @ 298–308 W** rec 5′ (in 2 h) | 2 |
+| **Mar** | 28/7 | 🎯 **TEST CP 3′+12′** | all-out → FTP reale (baseline vero) · vedi §9 | 1.5 |
 | Mer | 29/7 | 🟢 Z2 + ⚡ | 2h30 @ 195–225 W + 6×15″ allunghi @ 500 W | 2.5 |
 | Gio | 30/7 | 🔵 Apertura crono | **2×8′ @ 305–315 W** aero rec 5′ (in 1h45) | 1.75 |
 | Ven | 31/7 | 😌 Scarico | 1h30 Z1 + 3×1′ @ 330 W | 1.5 |
@@ -191,12 +195,15 @@ Uscite >2 h: 60 g/h; lunghe/gare/fuga-sim: **80–90 g/h** (glucosio:fruttosio 2
 
 ## 9. Test — `dati_atleta`
 
+**Protocollo = test Critical Power 3′+12′** (non 20′×0.95): più coerente per un diesel con TTE 18′ (un 20′ all-out è oltre la sua tenuta → sottostima). Riscaldamento 25′ + aperture → **3′ all-out** → **30′ recupero pieno** → **12′ all-out** → def.
+- **CP = (4·P₁₂ − P₃)/3** ≈ FTP reale · **W′ = (P₃ − P₁₂)·240** J (capacità anaerobica).
+
 | # | Data | Scopo |
 |---|---|---|
-| PRE | 28-lug ✅ | FTP 329 |
-| Intermedio | 25-ago | ricalibra zone (~334–338 W) |
-| **POST** | 30-set | **FTP obiettivo 340 W** |
-| *Durabilità* | lunga S6–S7 | 20′ **dopo 1000 kJ** (~2.5–3 h): decremento vs freschi — per un passista è **il** test che conta (tenuta della fuga) |
+| **PRE** | 28-lug | **CP 3′+12′ → FTP reale** (baseline vero, ricalibra tutte le zone) |
+| Intermedio | 25-ago | ripeti CP 3′+12′, verifica traiettoria |
+| **POST** | 30-set | CP 3′+12′ → **obiettivo FTP 340 W** |
+| *Durabilità* | lunga S6–S7 | 12′ **dopo 1000 kJ** (~2.5–3 h): decremento vs freschi — per un passista è **il** test che conta (tenuta della fuga) |
 
 ## 10. Guardrail, ramp & onestà
 
