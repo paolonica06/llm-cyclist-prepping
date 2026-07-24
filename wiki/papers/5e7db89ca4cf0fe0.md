@@ -12,31 +12,34 @@
   - ⚠ [PubMed] Primo autore discordante: 'christopher' vs 'minson'
 
 ## Qualità metodologica
-- Tipo di studio: **crossover**
-- Qualità: **moderate** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **moderate**
-  - sample: unknown
-  - control: present
-  - randomization: absent_or_unclear
-  - duration: short
-  - measures: objective
-  - transferability: moderate
-  - _Numerosità del campione non riportata nel testo disponibile._
-  - _Durata dell'intervento breve (~3 settimane)._
+- Tipo di studio: **articolo di dibattito o proposta CrossTalk**
+- Qualità: **low** · Confidenza: **high** · Trasferibilità ciclisti competitivi: **low**
+  - sample: low
+  - control: low
+  - randomization: low
+  - duration: low
+  - measures: low
+  - transferability: low
+  - _È un'argomentazione scientifica, non uno studio sperimentale né una revisione sistematica._
+  - _Seleziona evidenze a sostegno di una posizione e non presenta metodi riproducibili di ricerca e valutazione degli studi._
+  - _Non dispone di campione, controllo, randomizzazione o misure proprie._
+  - _Le ipotesi fisiologiche sono pertinenti agli sport endurance, ma non dimostrano un beneficio prestativo nei ciclisti competitivi._
+  - _Può generare ipotesi, non supportare da solo decisioni applicative._
 
-## Dati estratti (fonte: abstract, metodo: heuristic)
-- **Disegno dello studio** (`abstract`): crossover
-- **Partecipanti** (`abstract`): The extent to which such adaptations improve performance is poorly resolved, especially in elite athletes, and it is likely that there will be a high degree of individual variation.
-- **Livello di allenamento** (`abstract`): trained
-- **Sesso** (`abstract`): mixed
+## Dati estratti (fonte: abstract, metodo: llm)
+- **Disegno dello studio** (`abstract`): CrossTalk proposal.
+- **Partecipanti**: _non disponibile_
+- **Livello di allenamento**: _non disponibile_
+- **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
 - **Numerosità campione**: _non disponibile_
-- **Protocollo** (`abstract`): Scoon and colleagues used a crossover study design and showed an ∼29% increase in running time-to-exhaustion (which equates to 2% increase in velocity) over ∼5 km in runners after 3 weeks of sauna bathing immediately following each training session, versus controlled training (Scoon et al.
-- **Comparatore** (`abstract`): lacking a control condition) (Shvartz et al.
-- **Durata** (`abstract`): 3 week
-- **Outcome** (`abstract`): Endurance performance is optimized in relatively cool temperatures (∼10–14°C; Ely et al.
-- **Risultati** (`abstract`): acclimatization) or artificial environment (acclimation), hereafter collectively termed HA, elicits greater cardiovascular and thermoregulatory adaptations than are obtained by training in temperate conditions (Convertino et al.
-- **Effect size** (`abstract`): 29% increase
-- **Limiti**: _non disponibile_
+- **Protocollo**: _non disponibile_
+- **Comparatore** (`abstract`): Heat acclimatization/acclimation versus training or exercise in cool or temperate conditions, as discussed in the proposal.
+- **Durata**: _non disponibile_
+- **Outcome** (`abstract`): Endurance performance in cool conditions and potentially ergogenic haematological, vascular, cardiac, skeletal-muscle, and thermoregulatory adaptations.
+- **Risultati** (`abstract`): The article presents evidence supporting the proposition that heat acclimatization can be ergogenic in certain individuals and exercise settings. Proposed adaptations include plasma-volume expansion, vascular adaptations, metabolic efficiency, ventricular compliance, cellular stress protection, lower resting core temperature, increased sweating and cutaneous blood flow, and heat-shock-protein induction. Proposed outcomes include increased maximal cardiac output, reduced submaximal heart rate, improved fluid balance, aerobic power and efficiency, slower tissue heat accumulation, enhanced cellular protection, and increased metabolic capacity. The authors acknowledge that more questions than answers remain regarding the ergogenic utility of heat acclimatization.
+- **Effect size**: _non disponibile_
+- **Limiti** (`abstract`): The authors acknowledge substantial uncertainty and state that more questions than answers remain regarding the ergogenic utility of heat acclimatization.
 - **Conflitti di interesse**: _non disponibile_
 
 ## Abstract
