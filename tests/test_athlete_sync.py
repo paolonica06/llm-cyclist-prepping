@@ -58,3 +58,31 @@ def test_sync_offline_is_clean_noop(tmp_path):
     assert summary["activities"] == 0
     assert db.list_timeseries(a.id) == []
     assert db.list_activities(a.id) == []
+
+
+def test_sync_second_run_adds_new_point_without_duplicating(tmp_path):
+    db = _db(tmp_path)
+    a = _athlete(db)
+    agent = AthleteSyncAgent(db)
+
+    calls = {"n": 0}
+
+    async def daily(aid, oldest=None, newest=None):
+        calls["n"] += 1
+        pts = [TimeseriesPoint(athlete_id=aid, metric_type=MetricType.CTL,
+                               date="2026-07-20", value=80.0)]
+        if calls["n"] >= 2:                       # secondo sync: un punto NUOVO (data diversa)
+            pts.append(TimeseriesPoint(athlete_id=aid, metric_type=MetricType.CTL,
+                                       date="2026-07-21", value=82.0))
+        return pts
+
+    async def acts(aid, oldest=None, newest=None):
+        return []
+
+    agent.intervals.fetch_daily = daily
+    agent.intervals.fetch_activities = acts
+
+    asyncio.run(agent.run(a.id))
+    asyncio.run(agent.run(a.id))
+    points = db.list_timeseries(a.id, MetricType.CTL.value)
+    assert [p.date for p in points] == ["2026-07-20", "2026-07-21"]   # aggiunto, non duplicato

@@ -272,20 +272,20 @@ class TrainingPlan(BaseModel):
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
 
-    def supersede(self, *, valid_to: Optional[str] = None) -> "TrainingPlan":
-        """Marca `self` come superseded e restituisce la versione successiva (copia).
+    def next_version(self, *, valid_from: Optional[str] = None) -> "TrainingPlan":
+        """Restituisce la versione successiva (copia profonda pura): **non muta** `self`.
 
-        Il chiamante persiste entrambi. La nuova versione è una copia profonda,
-        quindi modificarla non tocca il blob della versione precedente.
+        La transizione atomica — marcare questa versione SUPERSEDED e persistere la
+        nuova come attiva — è responsabilità di `Database.supersede_plan`, così lo
+        stato non può restare a metà.
         """
-        self.status = PlanStatus.SUPERSEDED
-        self.valid_to = valid_to
         nxt = self.model_copy(deep=True)
         nxt.version = self.version + 1
         nxt.id = make_plan_id(self.athlete_id, nxt.version)
         nxt.status = PlanStatus.ACTIVE
-        nxt.valid_from = valid_to
+        nxt.valid_from = valid_from
         nxt.valid_to = None
+        nxt.created_at = None
         return nxt
 
 

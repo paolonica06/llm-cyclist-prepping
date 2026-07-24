@@ -40,3 +40,13 @@ def test_derive_executed_block_from_activities():
     assert out["executed_end"] == "2026-07-25"      # l'attività di agosto è fuori dal blocco
     assert out["executed_load"] == 120
     assert out["activity_count"] == 2
+
+
+def test_derive_executed_block_with_no_activities():
+    block = TrainingBlock(id="b1", plan_id="p1", goal="base",
+                          planned_start="2026-07-01", planned_end="2026-07-31")
+    out = derive_executed_block(block, [])
+    assert out["executed_start"] is None
+    assert out["executed_end"] is None
+    assert out["executed_load"] == 0
+    assert out["activity_count"] == 0

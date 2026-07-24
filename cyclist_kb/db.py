@@ -227,7 +227,10 @@ class Database:
     def save_athlete(self, athlete: Athlete) -> Athlete:
         """Upsert dell'atleta (identità + contesto qualitativo)."""
         now = _now()
-        athlete.created_at = athlete.created_at or now
+        existing = self.conn.execute(
+            "SELECT created_at FROM athletes WHERE id=?", (athlete.id,)
+        ).fetchone()
+        athlete.created_at = (existing["created_at"] if existing else athlete.created_at) or now
         athlete.updated_at = now
         self.conn.execute(
             "INSERT INTO athletes (id, name, discipline, created_at, updated_at, data) "
@@ -374,7 +377,10 @@ class Database:
     # -- Fase B: Piani ------------------------------------------------------ #
     def save_plan(self, plan: TrainingPlan) -> TrainingPlan:
         now = _now()
-        plan.created_at = plan.created_at or now
+        existing = self.conn.execute(
+            "SELECT created_at FROM plans WHERE id=?", (plan.id,)
+        ).fetchone()
+        plan.created_at = (existing["created_at"] if existing else plan.created_at) or now
         plan.updated_at = now
         self.conn.execute(
             "INSERT INTO plans (id, athlete_id, version, status, created_at, updated_at, data) "
@@ -409,8 +415,34 @@ class Database:
         return [TrainingPlan.model_validate_json(r["data"]) for r in rows]
 
     def active_plan(self, athlete_id: str) -> Optional[TrainingPlan]:
+        """La versione attiva più recente, o None se non ce n'è nessuna."""
         plans = self.list_plans(athlete_id, status=PlanStatus.ACTIVE.value)
         return plans[-1] if plans else None
+
+    def supersede_plan(self, new_plan: TrainingPlan) -> TrainingPlan:
+        """Transizione atomica: marca SUPERSEDED i piani attivi dell'atleta e
+        persiste `new_plan` come nuova versione attiva, in **un solo commit**
+        (blob e colonna coerenti). Evita lo stato a metà."""
+        now = _now()
+        for p in self.list_plans(new_plan.athlete_id, status=PlanStatus.ACTIVE.value):
+            p.status = PlanStatus.SUPERSEDED
+            p.updated_at = now
+            self.conn.execute(
+                "UPDATE plans SET status=?, updated_at=?, data=? WHERE id=?",
+                (p.status.value, now, p.model_dump_json(), p.id),
+            )
+        new_plan.created_at = new_plan.created_at or now
+        new_plan.updated_at = now
+        self.conn.execute(
+            "INSERT INTO plans (id, athlete_id, version, status, created_at, updated_at, data) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET status=excluded.status, "
+            "updated_at=excluded.updated_at, data=excluded.data",
+            (new_plan.id, new_plan.athlete_id, new_plan.version, new_plan.status.value,
+             new_plan.created_at, new_plan.updated_at, new_plan.model_dump_json()),
+        )
+        self.conn.commit()
+        return new_plan
 
     # -- Fase B: Memoria di trasferibilità ---------------------------------- #
     def save_memo(self, memo: TransferabilityMemo) -> TransferabilityMemo:

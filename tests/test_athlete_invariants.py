@@ -50,6 +50,14 @@ def test_freeze_citation_snapshots_verified():
     assert cit.record_id == rec.id               # puntatore soft
 
 
+def test_citable_accepts_metadata_verified():
+    # Entrambi gli stati citabili passano il gate (non solo SYNTHESIZED).
+    rec = _verified_record()
+    rec.state = RecordState.METADATA_VERIFIED
+    assert citable_evidence(rec) is True
+    assert freeze_citation(rec).verified is True
+
+
 def test_frozen_block_immutable_across_replanning(tmp_path):
     db = Database(path=tmp_path / "kb.sqlite3")
     aid = "ath-1"
@@ -63,12 +71,11 @@ def test_frozen_block_immutable_across_replanning(tmp_path):
     v1 = TrainingPlan(id=v1_id, athlete_id=aid, version=1, blocks=[frozen])
     db.save_plan(v1)
 
-    # Ri-pianificazione: nuova versione, poi muto il blocco della nuova versione.
-    v2 = v1.supersede(valid_to="2026-08-01")
+    # Ri-pianificazione: nuova versione (copia pura), poi muto il blocco della nuova.
+    v2 = v1.next_version(valid_from="2026-08-01")
     v2.blocks[0].prescriptions[0].target_watts = 999
     v2.blocks[0].goal = "soglia"
-    db.save_plan(v1)
-    db.save_plan(v2)
+    db.supersede_plan(v2)
 
     # v1 riletta dal DB: lo snapshot congelato è INTATTO (la memoria non mente).
     reloaded = db.get_plan(v1_id)

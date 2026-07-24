@@ -2,7 +2,8 @@
 
 from cyclist_kb.db import Database
 from cyclist_kb.athlete_models import (
-    Assessment, AssessmentProtocol, Athlete, MetricType, PlanStatus, Race,
+    Assessment, AssessmentProtocol, Athlete, MetricType, PlanStatus,
+    Prescription, Race,
     RacePriority, TimeseriesPoint, TrainingBlock, TrainingPlan,
     TransferabilityMemo, TransferabilityVerdict, make_assessment_id,
     make_athlete_id, make_block_id, make_memo_id, make_plan_id, make_race_id,
@@ -100,9 +101,8 @@ def test_plan_versioning_supersede(tmp_path):
     v1.blocks.append(TrainingBlock(id=make_block_id(v1_id, 0), plan_id=v1_id, goal="base"))
     db.save_plan(v1)
 
-    v2 = v1.supersede(valid_to="2026-05-01")   # muta v1.status → superseded, restituisce v2
-    db.save_plan(v1)                            # persiste v1 aggiornato
-    db.save_plan(v2)
+    v2 = v1.next_version(valid_from="2026-05-01")   # copia pura, NON muta v1
+    db.supersede_plan(v2)                           # transizione atomica (un solo commit)
 
     assert db.active_plan(a.id).id == v2.id
     assert db.active_plan(a.id).version == 2
@@ -123,3 +123,49 @@ def test_memo_roundtrip(tmp_path):
     assert memos[0].verdict == TransferabilityVerdict.TRANSFERRED
     assert memos[0].confidence == QualityLevel.MODERATE
     assert memos[0].caveats == ["sonno scarso nell'ultima settimana"]
+
+
+def test_timeseries_since_boundary_is_inclusive(tmp_path):
+    db = _db(tmp_path)
+    a = db.save_athlete(_athlete())
+    db.add_timeseries_point(TimeseriesPoint(athlete_id=a.id, metric_type=MetricType.CTL,
+                                            date="2026-07-21", value=80.0))
+    # since == data del punto → incluso (>=); since successivo → escluso.
+    assert len(db.list_timeseries(a.id, MetricType.CTL.value, since="2026-07-21")) == 1
+    assert db.list_timeseries(a.id, MetricType.CTL.value, since="2026-07-22") == []
+
+
+def test_prescription_defaults_unsupported(tmp_path):
+    db = _db(tmp_path)
+    a = db.save_athlete(_athlete())
+    pid = make_plan_id(a.id, 1)
+    plan = TrainingPlan(id=pid, athlete_id=a.id, version=1, blocks=[
+        TrainingBlock(id=make_block_id(pid, 0), plan_id=pid, goal="vo2max",
+                      prescriptions=[Prescription(description="4x8'", target_watts=336)])])
+    db.save_plan(plan)
+    reloaded = db.get_plan(pid)
+    # Una prescrizione senza evidenza dichiarata è "non supportata" di default.
+    assert reloaded.blocks[0].prescriptions[0].supported is False
+
+
+def test_plan_supersede_to_v3(tmp_path):
+    db = _db(tmp_path)
+    a = db.save_athlete(_athlete())
+    v1 = TrainingPlan(id=make_plan_id(a.id, 1), athlete_id=a.id, version=1)
+    db.save_plan(v1)
+    v2 = v1.next_version(); db.supersede_plan(v2)
+    v3 = v2.next_version(); db.supersede_plan(v3)
+    assert db.active_plan(a.id).version == 3
+    versions = {p.version: p.status for p in db.list_plans(a.id)}
+    assert versions == {1: PlanStatus.SUPERSEDED, 2: PlanStatus.SUPERSEDED, 3: PlanStatus.ACTIVE}
+
+
+def test_active_plan_none_when_no_active(tmp_path):
+    db = _db(tmp_path)
+    a = db.save_athlete(_athlete())
+    assert db.active_plan(a.id) is None                       # nessun piano
+    v1 = TrainingPlan(id=make_plan_id(a.id, 1), athlete_id=a.id, version=1)
+    db.save_plan(v1)
+    v2 = v1.next_version(); db.supersede_plan(v2)
+    v2.status = PlanStatus.SUPERSEDED; db.save_plan(v2)        # solo piani superseded
+    assert db.active_plan(a.id) is None

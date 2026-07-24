@@ -42,10 +42,13 @@ class HttpFetcher:
     async def _request(self, url: str, params: Optional[Dict[str, Any]], as_json: bool,
                        headers: Optional[Dict[str, str]] = None):
         assert self._client is not None
+        # Gli header per-richiesta si FONDONO con quelli di default (User-Agent/mailto):
+        # così un'eventuale Authorization non fa perdere la cortesia della polite pool.
+        merged = {**self._headers, **(headers or {})}
         delay = 1.0
         for attempt in range(1, self._max_retries + 1):
             try:
-                resp = await self._client.get(url, params=params, headers=headers)
+                resp = await self._client.get(url, params=params, headers=merged)
                 if resp.status_code == 429 or resp.status_code >= 500:
                     logger.warning("HTTP %s da %s (tentativo %d)", resp.status_code, url, attempt)
                     if attempt < self._max_retries:
