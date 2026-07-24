@@ -12,7 +12,10 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from .athlete_models import ActivitySummary, EvidenceCitation, TrainingBlock
+from .athlete_models import (
+    ActivitySummary, EvidenceCitation, ProvenanceKind, TrainingBlock,
+    TransferabilityVerdict,
+)
 from .models import PaperRecord, RecordState
 
 # Stati in cui un'evidenza è considerata verificata (coerente col Verification gate).
@@ -122,3 +125,116 @@ def freeze_citation(record: PaperRecord, frozen_at: Optional[str] = None) -> Evi
         transferability=transfer,
         frozen_at=frozen_at,
     )
+
+
+# --------------------------------------------------------------------------- #
+# Task 3 (CP3) — Funzioni pure per il CoachAgent
+# --------------------------------------------------------------------------- #
+
+def block_compliance_verdict(planned_load: float, executed_load_: float,
+                             threshold: float = DEFAULT_COMPLIANCE_THRESHOLD) -> str:
+    """Verdetto compliance di un blocco: 'pass' | 'fail' | 'overload'.
+
+    Usa `compliance` (non cappata) internamente: >1.0 segnala sovraccarico.
+    """
+    ratio = compliance(planned_load, executed_load_)
+    if ratio > 1.0 + 1e-9:
+        return "overload"
+    return "pass" if ratio >= threshold else "fail"
+
+
+def attribution_verdict(compliance_ratio: float, metric_delta: Optional[float],
+                        threshold: float = DEFAULT_COMPLIANCE_THRESHOLD) -> TransferabilityVerdict:
+    """Attribuisce il delta di metrica al blocco, solo se la compliance supera la soglia.
+
+    Se compliance_ratio < threshold → INCONCLUSIVE (US 9: non si impara sotto soglia).
+    Se metric_delta è None → INCONCLUSIVE (nessun dato di miglioramento).
+    Altrimenti: TRANSFERRED se delta > 0, NOT_TRANSFERRED altrimenti.
+    """
+    if compliance_ratio < threshold:
+        return TransferabilityVerdict.INCONCLUSIVE
+    if metric_delta is None:
+        return TransferabilityVerdict.INCONCLUSIVE
+    return (TransferabilityVerdict.TRANSFERRED if metric_delta > 0
+            else TransferabilityVerdict.NOT_TRANSFERRED)
+
+
+def assessment_gap_to_goal(current: Optional[float], goal: Optional[float]) -> Optional[float]:
+    """Distanza assoluta (goal − current). None se uno dei valori manca."""
+    if current is None or goal is None:
+        return None
+    return goal - current
+
+
+def goal_reached(current: Optional[float], goal: Optional[float],
+                 tolerance: float = 0.0) -> bool:
+    """True se current >= goal − tolerance. False se uno dei valori manca."""
+    if current is None or goal is None:
+        return False
+    return current >= goal - tolerance
+
+
+def block_planned_load(block: TrainingBlock) -> float:
+    """Somma il carico pianificato derivandolo dalle Prescription; 0.0 se non derivabile.
+
+    Proxy grezzo: ore × reps (TSS non disponibile senza FTP e zone).
+    """
+    total = 0.0
+    for p in block.prescriptions:
+        if p.duration_s and p.target_watts:
+            total += (p.duration_s / 3600.0) * (p.reps or 1)
+    return total
+
+
+def freeze_athlete_data_citation(ref_id: str, title: Optional[str] = None,
+                                 note: Optional[str] = None,
+                                 frozen_at: Optional[str] = None) -> EvidenceCitation:
+    """Crea una Citazione N=1 da un dato dell'atleta (Assessment, misura, ecc.).
+
+    source_kind = ATHLETE_DATA; mai doi/pmid; verified = False (ADR-0007).
+    """
+    return EvidenceCitation(
+        record_id=ref_id,
+        title=title or note,
+        doi=None,
+        pmid=None,
+        verified=False,
+        source_kind=ProvenanceKind.ATHLETE_DATA,
+        frozen_at=frozen_at,
+    )
+
+
+def overload_guardrail(recent_tsb: Optional[float], hrv_drop: Optional[bool],
+                       sleep_drop: Optional[bool],
+                       perf_drop: Optional[bool]) -> Optional[str]:
+    """Segnala sovraccarico non-funzionale quando TSB molto negativo + ≥1 crash bio.
+
+    Soglie hard-coded (documentate come config-ready — future KB_* var):
+    - TSB ≤ −25.0  (soglia ribaltabile)
+    - ≥ 1 fra hrv_drop, sleep_drop, perf_drop = True
+    Restituisce una stringa di guardrail o None se tutto ok.
+    """
+    very_negative = recent_tsb is not None and recent_tsb <= -25.0
+    crashes = sum(1 for x in (hrv_drop, sleep_drop, perf_drop) if x)
+    if very_negative and crashes >= 1:
+        return "sovraccarico non-funzionale: declassare il carico del microciclo entrante"
+    return None
+
+
+_MEDICAL_MARKERS = (
+    "dolore", "male", "infortun", "sintom", "febbre", "malatt", "red-s", "reds", "amenorrea"
+)
+
+
+def medical_boundary_flag(signals: List[str]) -> Optional[str]:
+    """Restituisce un disclaimer medico strutturale se i segnali contengono marcatori clinici.
+
+    Il CoachAgent non diagnostica né prescrive (ADR-0007, PRD 15).
+    """
+    joined = " ".join(s.lower() for s in signals)
+    if any(m in joined for m in _MEDICAL_MARKERS):
+        return (
+            "segnale a confine medico: il coach non diagnostica né prescrive; "
+            "consulta un professionista sanitario"
+        )
+    return None
