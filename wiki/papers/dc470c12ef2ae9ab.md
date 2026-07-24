@@ -10,19 +10,19 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **narrative review or expert synthesis**
-- Qualità: **low** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **moderate**
+- Tipo di studio: **Revisione narrativa fisiologica**
+- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **moderate**
   - sample: low
   - control: low
   - randomization: low
   - duration: low
   - measures: moderate
   - transferability: moderate
-  - _Non è uno studio sperimentale primario e non presenta una metodologia di revisione sistematica._
-  - _La selezione delle evidenze e il rischio di bias delle fonti non sono descritti._
-  - _Integra risultati provenienti da discipline ed eventi differenti, tra cui il ciclismo su pista._
-  - _Le stime di miglioramento derivano da interventi brevi e non consentono di stabilire la superiorità a lungo termine di una distribuzione specifica._
-  - _Utile come razionale fisiologico, ma debole per prescrizioni causali rivolte a ciclisti competitivi._
+  - _Non è presentata una ricerca sistematica, una selezione riproducibile degli studi o una valutazione del rischio di bias._
+  - _Le affermazioni combinano evidenze provenienti da più sport e discipline con richieste energetiche differenti._
+  - _La stima di un miglioramento del 2–4% con HIIT può essere utile, ma dal testo non sono ricostruibili numerosità, precisione o qualità degli studi sottostanti._
+  - _Il modello polarizzato è formulato come proposta generale, non dimostrato mediante un confronto controllato specifico nei ciclisti competitivi._
+  - _Utile soprattutto come quadro fisiologico e per generare ipotesi._
 
 ## Dati estratti (fonte: abstract, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
@@ -31,12 +31,12 @@
 - **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
 - **Numerosità campione**: _non disponibile_
-- **Protocollo** (`abstract`): High-intensity interval training consisting of six to eight sessions of repeated exercise bouts performed close to or well above maximal oxygen uptake intensity, interspersed with low-intensity exercise or complete rest; a polarized approach with approximately 75% of total training volume at low intensities and 10–15% at very high intensities is also discussed
+- **Protocollo** (`abstract`): A short-term period of six to eight high-intensity interval-training sessions over 2–4 weeks, consisting of repeated exercise bouts close to or well above maximal oxygen uptake intensity, interspersed with low-intensity exercise or complete rest. A polarized approach with approximately 75% of total training volume at low intensities and 10–15% at very high intensities is also discussed.
 - **Comparatore** (`abstract`): High-volume training
-- **Durata** (`abstract`): 2–4 weeks for the high-intensity interval training period
-- **Outcome** (`abstract`): Intense exercise performance and metabolic adaptations
-- **Risultati** (`abstract`): A short-term period of high-intensity interval training can elicit 2–4% increases in intense exercise performance in well-trained athletes. High-volume training also induces important metabolic adaptations. Adaptations show considerable overlap, although the molecular signaling events may differ. A polarized approach has been suggested as optimal for elite athletes performing intense exercise events.
-- **Effect size** (`abstract`): Intense exercise performance increase of 2–4% after high-intensity interval training
+- **Durata** (`abstract`): 2–4 weeks for the described high-intensity interval-training period
+- **Outcome** (`abstract`): ['Intense exercise performance', 'Aerobic metabolic capacity', 'Metabolic adaptations']
+- **Risultati** (`abstract`): High-intensity interval training can elicit increases of 2–4% in intense exercise performance in well-trained athletes. High-volume and high-intensity training produce considerably overlapping metabolic adaptations, although their molecular signaling events may differ. A polarized approach has been suggested as optimal for elite athletes performing intense exercise events.
+- **Effect size** (`abstract`): Intense exercise performance increase: 2–4% after six to eight high-intensity interval-training sessions
 - **Limiti**: _non disponibile_
 - **Conflitti di interesse**: _non disponibile_
 

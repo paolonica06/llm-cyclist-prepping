@@ -9,17 +9,20 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
-- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **high**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: unclear
+- Tipo di studio: **studio sperimentale di allenamento su ciclisti competitivi**
+- Qualità: **moderate** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **high**
+  - sample: low
+  - control: low
+  - randomization: low
+  - duration: low
+  - measures: high
   - transferability: high
-  - _Numerosità del campione non riportata nel testo disponibile._
+  - _La popolazione è esattamente quella di interesse._
+  - _La prova a cronometro di 40 km è un esito prestativo ecologicamente valido per il ciclismo competitivo._
+  - _Dal solo titolo non è possibile verificare campione, comparatore, randomizzazione, durata, familiarizzazione, standardizzazione dell'allenamento o significatività clinica._
+  - _La trasferibilità è alta, ma la qualità complessiva non può essere classificata come alta senza informazioni sul controllo dei bias._
 
-## Dati estratti (fonte: not_available, metodo: heuristic)
+## Dati estratti (fonte: not_available, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
 - **Partecipanti**: _non disponibile_
 - **Livello di allenamento**: _non disponibile_
