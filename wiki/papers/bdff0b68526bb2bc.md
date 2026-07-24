@@ -13,30 +13,33 @@
   - ⚠ [PubMed] Primo autore discordante: 'thomas' vs 'stoggl'
 
 ## Qualità metodologica
-- Tipo di studio: **randomized controlled trial**
-- Qualità: **moderate** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **low**
-  - sample: unknown
-  - control: present
-  - randomization: present
-  - duration: unknown
-  - measures: unclear
-  - transferability: low
-  - _Numerosità del campione non riportata nel testo disponibile._
+- Tipo di studio: **revisione della letteratura su studi retrospettivi e prospettici della distribuzione dell'intensità di allenamento**
+- Qualità: **moderate** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **moderate**
+  - sample: moderate
+  - control: moderate
+  - randomization: moderate
+  - duration: moderate
+  - measures: moderate
+  - transferability: moderate
+  - _Integra osservazioni su atleti ben allenati ed élite con risultati di studi prospettici randomizzati._
+  - _Dal testo non risultano strategia di ricerca, criteri di inclusione, valutazione del rischio di bias o metanalisi._
+  - _Le discipline di endurance e i livelli prestativi sono eterogenei; parte delle prove sperimentali deriva da soggetti ricreativi._
+  - _Rilevante per il ciclismo competitivo, ma non consente di stabilire una distribuzione universalmente ottimale né una causalità forte dai dati retrospettivi._
 
-## Dati estratti (fonte: abstract, metodo: heuristic)
-- **Disegno dello studio** (`abstract`): randomized controlled trial
-- **Partecipanti** (`abstract`): Researchers have retrospectively analyzed the training intensity distribution (TID) of nationally and internationally competitive athletes in different endurance disciplines to determine the optimal volume and intensity for maximal adaptation.
-- **Livello di allenamento** (`abstract`): trained
+## Dati estratti (fonte: abstract, metodo: llm)
+- **Disegno dello studio** (`abstract`): Review of retrospective and prospective studies
+- **Partecipanti** (`abstract`): Nationally and internationally competitive athletes in different endurance disciplines; well-trained and recreational individuals in prospective randomized controlled studies
+- **Livello di allenamento** (`abstract`): Recreational, well-trained, nationally competitive, internationally competitive, and world-class
 - **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
 - **Numerosità campione**: _non disponibile_
-- **Protocollo** (`abstract`): Some world-class athletes appear to adopt a so-called "polarized" TID (i.e., significant % of HVLIT and high-intensity training) during certain phases of the season.
-- **Comparatore** (`abstract`): However, emerging prospective randomized controlled studies have demonstrated superior responses of variables related to endurance when applying a polarized TID in well-trained and recreational individuals when compared with a TID that emphasizes HVLIT or threshold training.
+- **Protocollo** (`abstract`): Review of training intensity distributions during preparation, pre-competition, and competition phases across endurance disciplines and performance levels, including retrospective analyses and prospective randomized controlled studies.
+- **Comparatore** (`abstract`): Polarized training intensity distribution versus distributions emphasizing high-volume, low-intensity training or threshold training
 - **Durata**: _non disponibile_
-- **Outcome** (`abstract`): However, emerging prospective randomized controlled studies have demonstrated superior responses of variables related to endurance when applying a polarized TID in well-trained and recreational individuals when compared with a TID that emphasizes HVLIT or threshold training.
-- **Risultati** (`abstract`): Some world-class athletes appear to adopt a so-called "polarized" TID (i.e., significant % of HVLIT and high-intensity training) during certain phases of the season.
+- **Outcome** (`abstract`): Training intensity distribution and variables related to endurance
+- **Risultati** (`abstract`): Most retrospective studies reported a pyramidal training intensity distribution with a high proportion of high-volume, low-intensity training. Some world-class athletes appeared to use a polarized distribution during certain phases of the season. Emerging prospective randomized controlled studies demonstrated superior responses in endurance-related variables with a polarized distribution compared with distributions emphasizing high-volume, low-intensity or threshold training.
 - **Effect size**: _non disponibile_
-- **Limiti**: _non disponibile_
+- **Limiti** (`abstract`): Research gaps are noted, but specific limitations are not reported in the abstract.
 - **Conflitti di interesse**: _non disponibile_
 
 ## Abstract
