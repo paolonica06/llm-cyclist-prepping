@@ -10,7 +10,7 @@
 > «cosa manca / qual è il prossimo passo», «apri il piano per <fase>».
 > Legenda: `- [x]` fatto · `- [~]` in corso · `- [ ]` da fare.
 
-Ultimo aggiornamento: 2026-07-24 · Test: **84 verdi** · Stato: **Fase B live ok** · **Fase A** corpus 18 temi + arricchimento LLM notturno · **Fase C retriever IMPLEMENTATO** (deterministico, validato live).
+Ultimo aggiornamento: 2026-07-24 · Test: **89 verdi** · Stato: **Fase B live ok** · **Fase A** corpus 18 temi + arricchimento LLM notturno + comando **`reassess`** (ri-arricchisce senza rifare search/verify) · **Fase C retriever IMPLEMENTATO** (deterministico, validato live).
 
 ---
 
@@ -47,6 +47,8 @@ Ultimo aggiornamento: 2026-07-24 · Test: **84 verdi** · Stato: **Fase B live o
     **wiring della curva di potenza** e alcuni campi wellness non mappati (readiness/rampRate/vo2max).
 - [~] **Fase A — Corpus wiki** — 18 temi costruiti (euristica, 360 studi verificati); **arricchimento LLM
   notturno** in corso (Action `enrich-corpus`, backend Claude Code + Codex, batching, registro `enriched.txt`).
+  Comando **`research reassess <id>`**: ri-esegue *solo* gli step LLM (screening→extract→quality→synthesize)
+  sui record già verificati, **senza** rifare search/verify (niente rate-limiting bibliografico; sblocca Codex locale).
 - [~] **Fase C — Retrieval/RAG** — requisiti (`grill-me`) + PRD (`to-spec`) fatti:
   [PRD](specs/fase-c-retrieval-rag.md). **Prossimo:** `domain-modeling` → `writing-plans` → implementazione.
   Retriever deterministico offline: in-tema-prima, qualità, personalizzato, **conflict-aware**, solo verificati,
@@ -59,6 +61,8 @@ Ultimo aggiornamento: 2026-07-24 · Test: **84 verdi** · Stato: **Fase B live o
 - [~] **Fase A — Corpus wiki** — 18 temi (2 batch) → 360 studi verificati; arricchimento LLM notturno a blocchi
   - [x] Backend LLM Claude Code (`claude -p`, Sonnet) + Codex (`codex exec`) con **batching** (N record/chiamata)
   - [x] Action `enrich-corpus` notturna con registro `enriched.txt` (avanza sui temi non fatti)
+  - [x] Comando **`reassess`**: ri-arricchimento LLM sui record verificati senza search/verify (estrazione scopata
+    al pool → niente fetch OA né token sprecati sui needs_review); 5 test; verificato live sul corpus reale
 - [~] **Fase B — Modello dati atleta longitudinale** → dettaglio in [PRD](specs/fase-b-atleta-longitudinale.md) · [report](specs/fase-b-report-autonomo.md)
   - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → dominio (`domain-modeling`) → piano (`writing-plans`)
   - [x] Schema serie storiche + piano versionato/congelato + memoria trasferibilità

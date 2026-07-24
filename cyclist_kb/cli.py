@@ -113,6 +113,16 @@ def synthesize(research_id: str):
 
 
 @app.command()
+def reassess(research_id: str):
+    """Ri-arricchisce i record già verificati (screening→extract→quality→synthesize)
+    senza rifare search/verify: veloce, niente rate-limiting bibliografico."""
+    p = _pipeline()
+    research = _handle_missing(lambda: asyncio.run(p.reassess(research_id)))
+    _print_stats(research)
+    typer.echo(f"Wiki: {get_settings().wiki_dir}")
+
+
+@app.command()
 def athlete(research_id: str,
             profile: Path = typer.Argument(..., help="Percorso del profilo atleta (YAML/JSON).")):
     """Contestualizza le evidenze su un profilo atleta (ipotesi, non prescrizioni)."""

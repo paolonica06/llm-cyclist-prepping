@@ -47,6 +47,7 @@ pytest tests/test_verification.py::test_title_mismatch_flags_needs_review   # un
 research run "interval training and VO2max in trained competitive cyclists" --profile profiles/example_athlete.yaml
 research create "<topic>" ; research search <id> ; research screen <id> ; research verify <id>
 research extract <id> ; research quality <id> ; research synthesize <id> ; research athlete <id> <profile.yaml>
+research reassess <id>                # ri-arricchisce (screen→extract→quality→synth) i verificati SENZA search/verify
 research status <id>                  # conteggio record per stato
 python -m cyclist_kb.cli --help       # equivalente se il console script non è installato
 

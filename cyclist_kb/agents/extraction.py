@@ -30,11 +30,15 @@ class ExtractionAgent:
         self.settings = get_settings()
         self.llm = get_llm()
 
-    async def run(self, research: Research) -> Research:
+    async def run(self, research: Research,
+                  states: Optional[List[RecordState]] = None) -> Research:
         # Estraiamo dai record verificati; i NEEDS_REVIEW restano fuori dalla wiki
-        # ma possono comunque essere estratti per ispezione manuale.
+        # ma possono comunque essere estratti per ispezione manuale. `states`
+        # permette di restringere il perimetro (es. reassess: solo METADATA_VERIFIED,
+        # per non ri-estrarre i needs_review preesistenti — niente fetch/token inutili).
         records = self.db.list_records(
-            research.id, states=[RecordState.METADATA_VERIFIED, RecordState.NEEDS_REVIEW]
+            research.id,
+            states=states or [RecordState.METADATA_VERIFIED, RecordState.NEEDS_REVIEW],
         )
         full_text = abstract_only = 0
         # 1) preparazione sorgente per-record (async, rete) — non batchabile.
