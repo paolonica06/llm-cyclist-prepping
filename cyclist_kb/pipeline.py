@@ -76,6 +76,13 @@ class Pipeline:
         profile = load_profile(Path(profile_path))
         return AthleteContextAgent(self.db).run(self._get(research_id), profile)
 
+    # -- Fase B: ingestione atleta (separata dalla pipeline paper) ---------- #
+    async def sync_athlete(self, athlete_id: str, oldest: Optional[str] = None,
+                           newest: Optional[str] = None) -> dict:
+        """Morning sync da intervals.icu (no-op pulito se key assente/offline)."""
+        from .agents.athlete_sync import AthleteSyncAgent
+        return await AthleteSyncAgent(self.db).run(athlete_id, oldest=oldest, newest=newest)
+
     # -- Pipeline completa -------------------------------------------------- #
     async def run(self, topic: str, profile_path: Optional[Path] = None) -> Research:
         research = self.create(topic)

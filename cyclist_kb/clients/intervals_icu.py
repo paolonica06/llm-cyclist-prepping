@@ -1,0 +1,140 @@
+"""Client intervals.icu — ingestione dei dati atleta (Fase B).
+
+A differenza dei client bibliografici, **non** restituisce `PaperRecord`: produce
+modelli-atleta (serie storiche, attività). Riusa `HttpFetcher` (retry/backoff) e
+**degrada a liste vuote** quando manca la key o si è offline — mai un'eccezione.
+
+Auth: HTTP Basic con username `API_KEY` e password = `KB_INTERVALS_ICU_API_KEY`.
+
+NB (verifica live): i nomi dei campi dell'endpoint `/wellness` e `/activities`
+(`ctl`, `atl`, `form`, `restingHR`, `hrv`, `weight`, `sleepSecs`,
+`icu_training_load`, `icu_intensity`, `start_date_local`) seguono l'API pubblica
+di intervals.icu e vanno confermati con una chiamata reale (serve la key).
+"""
+
+from __future__ import annotations
+
+import base64
+from typing import Any, Dict, List, Optional
+
+from ..athlete_models import (ActivitySummary, MetricType, TimeseriesPoint,
+                              make_activity_id)
+from ..config import get_settings
+from .base import HttpFetcher
+
+BASE = "https://intervals.icu/api/v1"
+
+# Campo dell'endpoint wellness → nostra grandezza (MetricType).
+_WELLNESS_FIELDS = {
+    "sleepSecs": MetricType.SLEEP,
+    "hrv": MetricType.HRV,
+    "weight": MetricType.WEIGHT,
+    "restingHR": MetricType.RESTING_HR,
+}
+_FITNESS_FIELDS = {
+    "ctl": MetricType.CTL,
+    "atl": MetricType.ATL,
+    "form": MetricType.TSB,          # intervals.icu chiama la TSB "form"
+}
+
+
+class IntervalsClient:
+    source = "intervals_icu"
+
+    def __init__(self, fetcher: Optional[HttpFetcher] = None) -> None:
+        self._fetcher = fetcher
+        self._api_key = get_settings().intervals_icu_api_key
+
+    @property
+    def available(self) -> bool:
+        return bool(self._api_key) and not get_settings().force_offline
+
+    def _auth_headers(self) -> Dict[str, str]:
+        token = base64.b64encode(f"API_KEY:{self._api_key}".encode("utf-8")).decode("ascii")
+        return {"Authorization": f"Basic {token}"}
+
+    async def _get(self, path: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
+        if not self.available:
+            return None
+        own = self._fetcher is None
+        fetcher = self._fetcher or HttpFetcher()
+        if own:
+            await fetcher.__aenter__()
+        try:
+            return await fetcher.get_json(f"{BASE}{path}", params=params,
+                                          headers=self._auth_headers())
+        finally:
+            if own:
+                await fetcher.__aexit__()
+
+    async def fetch_daily(self, athlete_id: str, oldest: Optional[str] = None,
+                          newest: Optional[str] = None) -> List[TimeseriesPoint]:
+        """Serie giornaliere wellness + fitness (CTL/ATL/TSB) dall'endpoint /wellness."""
+        params: Dict[str, Any] = {}
+        if oldest:
+            params["oldest"] = oldest
+        if newest:
+            params["newest"] = newest
+        data = await self._get(f"/athlete/{athlete_id}/wellness", params or None)
+        return _parse_daily(athlete_id, data)
+
+    async def fetch_activities(self, athlete_id: str, oldest: Optional[str] = None,
+                               newest: Optional[str] = None) -> List[ActivitySummary]:
+        """Riassunti delle attività (no stream grezzi)."""
+        params: Dict[str, Any] = {}
+        if oldest:
+            params["oldest"] = oldest
+        if newest:
+            params["newest"] = newest
+        data = await self._get(f"/athlete/{athlete_id}/activities", params or None)
+        return _parse_activities(athlete_id, data)
+
+
+def _date_of(rec: dict) -> Optional[str]:
+    d = rec.get("id") or rec.get("date")          # nel wellness il campo 'id' è la data
+    return str(d)[:10] if d else None
+
+
+def _parse_daily(athlete_id: str, data: Any) -> List[TimeseriesPoint]:
+    if not data:
+        return []
+    points: List[TimeseriesPoint] = []
+    fields = {**_WELLNESS_FIELDS, **_FITNESS_FIELDS}
+    for rec in data:
+        date = _date_of(rec)
+        if not date:
+            continue
+        for field, metric in fields.items():
+            val = rec.get(field)
+            if val is None:
+                continue
+            try:
+                fval = float(val)
+            except (TypeError, ValueError):
+                continue
+            points.append(TimeseriesPoint(athlete_id=athlete_id, metric_type=metric,
+                                          date=date, value=fval, source="intervals_icu"))
+    return points
+
+
+def _parse_activities(athlete_id: str, data: Any) -> List[ActivitySummary]:
+    if not data:
+        return []
+    acts: List[ActivitySummary] = []
+    for rec in data:
+        ext = rec.get("id")
+        start = rec.get("start_date_local") or rec.get("start_date")
+        date = str(start)[:10] if start else ""
+        acts.append(ActivitySummary(
+            id=make_activity_id(athlete_id, ext),
+            athlete_id=athlete_id,
+            date=date,
+            type=rec.get("type"),
+            name=rec.get("name"),
+            moving_time_s=rec.get("moving_time"),
+            load=rec.get("icu_training_load"),
+            intensity=rec.get("icu_intensity"),
+            distance_m=rec.get("distance"),
+            external_id=str(ext) if ext is not None else None,
+        ))
+    return acts

@@ -97,6 +97,10 @@ def make_assessment_id(athlete_id: str, protocol: str, date: Optional[str]) -> s
     return _hid("assess", athlete_id, protocol, date)
 
 
+def make_activity_id(athlete_id: str, external_id: Any) -> str:
+    return _hid("act", athlete_id, external_id)
+
+
 def make_plan_id(athlete_id: str, version: int) -> str:
     return _hid("plan", athlete_id, version)
 
@@ -170,6 +174,22 @@ class Assessment(BaseModel):
     unit: Optional[str] = None
     block_id: Optional[str] = None               # blocco che la precede/giustifica
     notes: Optional[str] = None
+
+
+class ActivitySummary(BaseModel):
+    """Riassunto di una singola Attività eseguita (ingerita, no stream grezzi)."""
+
+    id: str
+    athlete_id: str
+    date: str                                    # data di inizio (YYYY-MM-DD)
+    type: Optional[str] = None                   # es. "Ride"
+    name: Optional[str] = None
+    moving_time_s: Optional[int] = None
+    load: Optional[float] = None                 # TSS (icu_training_load)
+    intensity: Optional[float] = None            # IF (icu_intensity)
+    distance_m: Optional[float] = None
+    external_id: Optional[str] = None            # id sulla Piattaforma esterna
+    source: str = "intervals_icu"
 
 
 # --------------------------------------------------------------------------- #

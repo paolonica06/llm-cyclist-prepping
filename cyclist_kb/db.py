@@ -14,9 +14,9 @@ from typing import List, Optional
 
 from .config import get_settings
 from .models import PaperRecord, Research, RecordState
-from .athlete_models import (Assessment, Athlete, Race, TimeseriesPoint,
-                             TrainingPlan, TransferabilityMemo, PlanStatus,
-                             make_timeseries_id)
+from .athlete_models import (ActivitySummary, Assessment, Athlete, Race,
+                             TimeseriesPoint, TrainingPlan, TransferabilityMemo,
+                             PlanStatus, make_timeseries_id)
 
 
 def _now() -> str:
@@ -72,6 +72,15 @@ CREATE TABLE IF NOT EXISTS athlete_timeseries (
     data        TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_ts_athlete ON athlete_timeseries(athlete_id, metric_type, date);
+
+CREATE TABLE IF NOT EXISTS activities (
+    id          TEXT PRIMARY KEY,
+    athlete_id  TEXT NOT NULL,
+    date        TEXT,
+    created_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_activities_athlete ON activities(athlete_id, date);
 
 CREATE TABLE IF NOT EXISTS races (
     id          TEXT PRIMARY KEY,
@@ -280,6 +289,34 @@ class Database:
             tuple(params),
         ).fetchall()
         return [TimeseriesPoint.model_validate_json(r["data"]) for r in rows]
+
+    # -- Fase B: Attività --------------------------------------------------- #
+    def save_activity(self, activity: ActivitySummary) -> ActivitySummary:
+        """Upsert idempotente su id: ri-sincronizzare non duplica le attività."""
+        now = _now()
+        self.conn.execute(
+            "INSERT INTO activities (id, athlete_id, date, created_at, data) "
+            "VALUES (?, ?, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET date=excluded.date, data=excluded.data",
+            (activity.id, activity.athlete_id, activity.date, now, activity.model_dump_json()),
+        )
+        self.conn.commit()
+        return activity
+
+    def list_activities(
+        self, athlete_id: str, since: Optional[str] = None
+    ) -> List[ActivitySummary]:
+        if since:
+            rows = self.conn.execute(
+                "SELECT data FROM activities WHERE athlete_id=? AND date>=? ORDER BY date ASC",
+                (athlete_id, since),
+            ).fetchall()
+        else:
+            rows = self.conn.execute(
+                "SELECT data FROM activities WHERE athlete_id=? ORDER BY date ASC",
+                (athlete_id,),
+            ).fetchall()
+        return [ActivitySummary.model_validate_json(r["data"]) for r in rows]
 
     # -- Fase B: Gare ------------------------------------------------------- #
     def save_race(self, race: Race) -> Race:

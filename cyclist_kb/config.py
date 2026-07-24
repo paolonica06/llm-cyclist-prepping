@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     llm_max_tokens: int = 2000
     force_offline: bool = False                      # KB_FORCE_OFFLINE=1 → euristiche anche con chiave
 
+    # --- Ingestione atleta (Fase B) --------------------------------------- #
+    intervals_icu_api_key: Optional[str] = None      # KB_INTERVALS_ICU_API_KEY (auth Basic su intervals.icu)
+
     # --- Recupero ---------------------------------------------------------- #
     ncbi_api_key: Optional[str] = None               # aumenta il rate limit di E-utilities
     results_per_source: int = 25

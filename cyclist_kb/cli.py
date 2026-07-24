@@ -145,6 +145,23 @@ def run(topic: str = typer.Argument(..., help="Argomento di ricerca."),
     typer.echo(f"Wiki: {get_settings().wiki_dir}")
 
 
+@app.command(name="athlete-sync")
+def athlete_sync(
+    athlete_id: str = typer.Argument(..., help="Id atleta su intervals.icu."),
+    oldest: Optional[str] = typer.Option(None, help="Data minima ISO (YYYY-MM-DD)."),
+    newest: Optional[str] = typer.Option(None, help="Data massima ISO (YYYY-MM-DD)."),
+):
+    """Morning sync: ingesta wellness/fitness/attività da intervals.icu (Fase B)."""
+    summary = asyncio.run(_pipeline().sync_athlete(athlete_id, oldest, newest))
+    if not summary["available"]:
+        typer.secho(
+            "intervals.icu non configurato (KB_INTERVALS_ICU_API_KEY assente) o offline: "
+            "nessun dato sincronizzato.",
+            fg=typer.colors.YELLOW,
+        )
+    typer.echo(f"Serie storiche: {summary['timeseries_points']}  Attività: {summary['activities']}")
+
+
 @app.command(name="list")
 def list_researches():
     """Elenca tutte le ricerche."""

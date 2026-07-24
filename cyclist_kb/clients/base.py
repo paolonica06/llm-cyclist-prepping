@@ -64,8 +64,9 @@ class HttpFetcher:
                     return None
         return None
 
-    async def get_json(self, url: str, params: Optional[Dict[str, Any]] = None) -> Optional[Any]:
-        return await self._request(url, params, as_json=True)
+    async def get_json(self, url: str, params: Optional[Dict[str, Any]] = None,
+                       headers: Optional[Dict[str, str]] = None) -> Optional[Any]:
+        return await self._request(url, params, as_json=True, headers=headers)
 
     async def get_text(self, url: str, params: Optional[Dict[str, Any]] = None,
                        headers: Optional[Dict[str, str]] = None) -> Optional[str]:
