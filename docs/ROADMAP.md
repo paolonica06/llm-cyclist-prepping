@@ -10,7 +10,7 @@
 > «cosa manca / qual è il prossimo passo», «apri il piano per <fase>».
 > Legenda: `- [x]` fatto · `- [~]` in corso · `- [ ]` da fare.
 
-Ultimo aggiornamento: 2026-07-24 · Test: **77 verdi** · Stato: **Fase B live ok** · **Fase A** corpus 18 temi + arricchimento LLM notturno attivo · **Fase C** requisiti+PRD fatti.
+Ultimo aggiornamento: 2026-07-24 · Test: **84 verdi** · Stato: **Fase B live ok** · **Fase A** corpus 18 temi + arricchimento LLM notturno · **Fase C retriever IMPLEMENTATO** (deterministico, validato live).
 
 ---
 
@@ -66,9 +66,10 @@ Ultimo aggiornamento: 2026-07-24 · Test: **77 verdi** · Stato: **Fase B live o
   - [x] Metriche derivate (compliance, delta-test) + test (**67 verdi**)
   - [x] Verifica live con API key (sync reale ok; fix TSB=CTL−ATL)
   - [ ] *(opzionale)* wiring curva di potenza + campi wellness extra
-- [~] **Fase C — Retrieval/RAG sulla wiki** → [PRD](specs/fase-c-retrieval-rag.md)
-  - [x] Requisiti (`grill-me`) → PRD (`to-spec`) · [ ] dominio → piano → implementazione
-  - retriever deterministico offline · in-tema-prima + qualità + personalizzazione + conflict-aware · solo verificati · pozzo unico
+- [~] **Fase C — Retrieval/RAG sulla wiki** → [PRD](specs/fase-c-retrieval-rag.md) · [piano](superpowers/plans/fase-c-retrieval-rag.md)
+  - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → dominio (`domain-modeling`, ADR-0005) → piano (`writing-plans`)
+  - [x] **`retrieval.py` implementato**: pozzo unico verificato, pertinenza BM25-lite in-tema-prima, qualità+personalizzazione, conflict-aware; CLI `research retrieve`. 7 test; **84 verdi**; validato live sul corpus reale
+  - [ ] *(dopo)* tier LLM/embedding-rerank opzionale + endpoint API
 - [ ] **Fase D — CoachAgent + feedback loop** (analisi stato → piano/aggiustamenti citati; log esecuzione→esito)
 - [ ] **Fase E — Interfaccia conversazionale** ("chiedi al preparatore") su CLI/API/GUI
 

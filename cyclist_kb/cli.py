@@ -162,6 +162,30 @@ def athlete_sync(
     typer.echo(f"Serie storiche: {summary['timeseries_points']}  Attività: {summary['activities']}")
 
 
+@app.command()
+def retrieve(
+    query: str = typer.Argument(..., help="Interrogazione (libera o derivata dallo stato atleta)."),
+    athlete: Optional[str] = typer.Option(None, "--athlete", help="Id atleta per la personalizzazione."),
+    k: int = typer.Option(8, "--k", help="Numero di studi da restituire."),
+):
+    """Interroga il pozzo di evidenza verificata (Fase C): studi pertinenti, pesati, conflict-aware."""
+    from .retrieval import retrieve as _retrieve
+
+    db = Database()
+    ath = db.get_athlete(athlete) if athlete else None
+    results = _retrieve(db, query, athlete=ath, k=k)
+    if not results:
+        typer.secho("Nessuno studio verificato pertinente.", fg=typer.colors.YELLOW)
+        return
+    typer.echo(f"Top {len(results)} studi verificati per «{query}»:")
+    for i, r in enumerate(results, 1):
+        rec = r.record
+        who = f"{rec.authors[0] if rec.authors else '?'} {rec.year or ''}".strip()
+        typer.echo(f"{i}. [{r.direction}] {who} — {rec.title or rec.doi}")
+        typer.echo(f"     pertinenza={r.relevance} qualità={r.quality} fit={r.fit} "
+                   f"score={r.score} · pop={r.signals.get('population')}")
+
+
 @app.command(name="list")
 def list_researches():
     """Elenca tutte le ricerche."""
