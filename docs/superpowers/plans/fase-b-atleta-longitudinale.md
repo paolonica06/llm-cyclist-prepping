@@ -69,7 +69,9 @@
 ---
 
 ## Checkpoint / stato
-- Ambiente pronto (PRD, glossario, ADR committati). Prossimo passo non verificato: **A1**.
+- **Milestone A, B, C, D: FATTE e verificate offline** (66 test verdi, pyflakes pulito, code review
+  applicata). Unico passo aperto: **verifica live intervals.icu** (serve `KB_INTERVALS_ICU_API_KEY`)
+  + wiring della curva di potenza. Vedi `docs/specs/fase-b-report-autonomo.md`.
 - Decisioni autonome su open item (default, ribaltabili — dettaglio nel report D3):
   soglia compliance = 80% del carico/durata pianificati; dato readiness mancante = si usa l'ultimo
   disponibile con flag `stale`; protocolli test iniziali = {ftp, ramp, vo2max}; termine canonico
