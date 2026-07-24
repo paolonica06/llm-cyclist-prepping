@@ -89,9 +89,12 @@ _Avoid_: miglioramento (generico), risultato
 ### Piano
 
 **Piano**:
-La periodizzazione verso una gara-A, articolata in Macrociclo → Blocco → Microciclo →
-Seduta → Intervallo. Il sistema ne è la fonte di verità e lo rispecchia sulla piattaforma
-esterna per l'esecuzione.
+La periodizzazione verso un **obiettivo metrico datato** (target su FTP, VO₂max o altra
+`MetricType`, con valore di partenza e data-obiettivo), articolata in Macrociclo → Blocco →
+Microciclo → Seduta → Intervallo. La gara-A è opzionale e corroborante: se presente, può
+allineare il taper, ma non sostituisce il target metrico come trigger della periodizzazione.
+La periodizzazione è costruita **a ritroso dalla data-obiettivo** (taper → sviluppo → base).
+Il sistema ne è la fonte di verità e lo rispecchia sulla piattaforma esterna per l'esecuzione.
 _Avoid_: programma, scheda
 
 **Macrociclo**:
@@ -125,8 +128,17 @@ _Avoid_: periodo, blocco
 
 **Prescrizione**:
 Ciò che il Piano prescrive (una Seduta o un Intervallo) con il target al watt, marcata
-**supportata** o **non supportata** a seconda che un'Evidenza verificata la sostenga.
+**supportata** o **non supportata** a seconda che un'Evidenza verificata sostenga la
+*strategia*. La *quantificazione* numerica (watt, durata) è sempre adattamento individuale,
+mai citabile direttamente come evidenza di studio (regola del range, ADR-0007).
 _Avoid_: workout, target
+
+**Provenienza**:
+La fonte di una decisione di coaching: `studio` (Evidenza peer-reviewed verificata),
+`dati_atleta` (dati reali dell'atleta, citazione N=1) o `euristica` (parametro/formula
+con default espliciti). Ogni Blocco e ogni Prescrizione portano la propria Provenienza;
+l'euristica è etichettata e non può essere presentata come studio. Vedi ADR-0007.
+_Avoid_: fonte (da solo, ambiguo con le sorgenti bibliografiche), supporto (solo booleano)
 
 **Pianificato / Eseguito**:
 Il *pianificato* è ciò che il Piano prevede; l'*eseguito* è ciò che è realmente avvenuto,
@@ -136,6 +148,14 @@ _Avoid_: previsto/effettivo, planned/actual
 **Compliance**:
 Il grado di aderenza fra pianificato ed eseguito, per Seduta o per Blocco.
 _Avoid_: aderenza (informale), adherence
+
+**Piano proposto**:
+Un Piano in stato `PROPOSED`: generato dal CoachAgent ma non ancora attivo; richiede
+approvazione esplicita (`coach-accept`) per diventare `ACTIVE`. Per ogni atleta esiste
+**al più un** Piano proposto in qualsiasi istante (i precedenti PROPOSED vengono marcati
+`SUPERSEDED` al momento della nuova generazione). Un Piano PROPOSED non è visibile come
+piano corrente e non orienta le Sedute finché non è accettato. Vedi ADR-0008.
+_Avoid_: bozza (non è editabile), draft
 
 **Congelamento**:
 Lo stato immutabile di un Blocco una volta eseguito: i suoi contenuti (target, tempi,
