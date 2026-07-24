@@ -1,6 +1,7 @@
 import pytest
 from cyclist_kb.athlete_models import (
-    Athlete, TrainingPlan, PlanStatus, make_plan_id, make_athlete_id,
+    Athlete, TrainingBlock, TrainingPlan, PlanStatus, make_block_id,
+    make_plan_id, make_athlete_id,
     Assessment, AssessmentProtocol, MetricGoal, MetricType, make_assessment_id,
 )
 from cyclist_kb.pipeline import Pipeline, PlanNotFound, PlanStateError
@@ -95,3 +96,31 @@ def test_pipeline_coach_accept_non_proposed_raises_planstateerror(tmp_path, monk
     db.save_plan(active)
     with pytest.raises(PlanStateError):
         Pipeline(db).coach_accept(active.id)
+
+
+# ---------------------------------------------------------------------------
+# FIX B — coach_assess robusto: piano/blocco inesistente → PlanNotFound
+# (mai StopIteration/AttributeError grezzo).
+# ---------------------------------------------------------------------------
+
+def test_pipeline_coach_assess_missing_plan_raises(tmp_path, monkeypatch):
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete_with_assessment(db)
+    with pytest.raises(PlanNotFound):
+        Pipeline(db).coach_assess(ath, "plan-inesistente", "blk-qualsiasi")
+
+
+def test_pipeline_coach_assess_missing_block_raises(tmp_path, monkeypatch):
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete_with_assessment(db)
+    plan_id = make_plan_id(ath, 1)
+    plan = TrainingPlan(
+        id=plan_id, athlete_id=ath, version=1, status=PlanStatus.ACTIVE,
+        blocks=[TrainingBlock(
+            id=make_block_id(plan_id, 0), plan_id=plan_id, goal="vo2max", order=0,
+        )],
+    )
+    db.save_plan(plan)
+    # plan valido ma block_id inesistente → PlanNotFound (non StopIteration).
+    with pytest.raises(PlanNotFound):
+        Pipeline(db).coach_assess(ath, plan_id, "blk-inesistente")

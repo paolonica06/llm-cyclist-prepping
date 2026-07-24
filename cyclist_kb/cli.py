@@ -283,7 +283,7 @@ def coach_adapt(
     """Loop veloce: adatta il microciclo entrante e propone una nuova versione PROPOSED."""
     try:
         plan = _pipeline().coach_adapt(athlete_id)
-    except AthleteNotFound as exc:
+    except (AthleteNotFound, PlanStateError) as exc:
         typer.secho(str(exc), fg=typer.colors.RED, err=True)
         raise typer.Exit(1)
     _print_plan(plan)

@@ -8,8 +8,9 @@ approva); la transizione ad ACTIVE avviene solo via `accept` → `promote_plan`.
 
 from __future__ import annotations
 
+import datetime
 import json
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from ..athlete_metrics import (DEFAULT_COMPLIANCE_THRESHOLD, assessment_delta,
                               attribution_verdict, block_planned_load, compliance,
@@ -84,7 +85,17 @@ class CoachAgent:
         recent_tsb, hrv_drop, sleep_drop = self._recent_readiness(athlete_id)
         caveat = overload_guardrail(recent_tsb, hrv_drop, sleep_drop, None)
 
-        new = plan.next_version(status=PlanStatus.PROPOSED)
+        # Versione LIBERA fra TUTTI i piani (inclusi i PROPOSED pendenti): id/versione
+        # DISTINTI, così un'eventuale proposta strategica aperta non collide né viene
+        # persa (append-only).
+        v = self._next_free_version(athlete_id)
+        new = plan.model_copy(deep=True)
+        new.version = v
+        new.id = make_plan_id(athlete_id, v)
+        new.status = PlanStatus.PROPOSED
+        new.valid_from = None
+        new.valid_to = None
+        new.created_at = None
         if caveat:
             self._downscale_entering_microcycle(new, factor=0.85)
 
@@ -96,8 +107,9 @@ class CoachAgent:
                        "entrante confermato (proponi-poi-approva).")
             new.notes = (new.notes + "\n" + neutral) if new.notes else neutral
 
-        new.status = PlanStatus.PROPOSED
         new.supersedes_id = plan.id
+        # Marca SUPERSEDED i PROPOSED pendenti sotto i LORO id (ora distinti da `new`):
+        # preservati append-only, non sovrascritti. Poi salva la nuova proposta.
         self._supersede_open_proposals(athlete_id)       # al più un PROPOSED
         self.db.save_plan(new)
         return new
@@ -149,7 +161,11 @@ class CoachAgent:
         caveat esplicito). L'evidenza a supporto è N=1 (`athlete_data`), mai studio.
         """
         plan = self.db.get_plan(plan_id)
-        block = next(b for b in plan.blocks if b.id == block_id)
+        if plan is None:
+            raise ValueError(f"Piano {plan_id} inesistente.")
+        block = next((b for b in plan.blocks if b.id == block_id), None)
+        if block is None:
+            raise ValueError(f"Blocco {block_id} inesistente nel piano {plan_id}.")
         activities = self.db.list_activities(athlete_id)
         exec_ = derive_executed_block(block, activities)
         planned = block_planned_load(block)          # durata pianificata (s)
@@ -220,11 +236,34 @@ class CoachAgent:
         vals = [a.value for a in assessments if a.value is not None]
         return vals[-1] if vals else None
 
-    def _next_proposed_version(self, athlete_id: str) -> int:
-        non_proposed = [p for p in self.db.list_plans(athlete_id)
-                        if p.status is not PlanStatus.PROPOSED]
-        base = max((p.version for p in non_proposed), default=0)
-        return base + 1
+    def _next_free_version(self, athlete_id: str) -> int:
+        """Prossima versione LIBERA fra TUTTI i piani (inclusi i PROPOSED pendenti):
+        garantisce id/versione DISTINTI e monotoni (append-only), senza collisioni con
+        una proposta ancora aperta."""
+        return max((p.version for p in self.db.list_plans(athlete_id)), default=0) + 1
+
+    def _periodize_dates(self, target_date, n_blocks: int,
+                         weeks_per_block: int = 4) -> List[Tuple[Optional[str], Optional[str]]]:
+        """Periodizzazione datata a ritroso (deterministica dall'input): `n_blocks`
+        finestre CONSECUTIVE di `weeks_per_block` settimane, con l'ULTIMO blocco che
+        termina esattamente a `target_date`. NON usa `date.today()`/`now()`.
+
+        Degrada (non solleva) a `[(None, None)] * n_blocks` se `target_date` è None o
+        non parseabile."""
+        if not target_date or n_blocks <= 0:
+            return [(None, None)] * max(n_blocks, 0)
+        try:
+            end = datetime.date.fromisoformat(str(target_date))
+        except (ValueError, TypeError):
+            return [(None, None)] * n_blocks
+        span = datetime.timedelta(weeks=weeks_per_block)
+        windows: List[Tuple[Optional[str], Optional[str]]] = []
+        for _ in range(n_blocks):
+            start = end - span
+            windows.append((start.isoformat(), end.isoformat()))
+            end = start                                  # blocco precedente adiacente
+        windows.reverse()                                # ordine cronologico dei blocchi
+        return windows
 
     def _supersede_open_proposals(self, athlete_id: str) -> None:
         for p in self.db.list_plans(athlete_id, status=PlanStatus.PROPOSED.value):
@@ -241,7 +280,7 @@ class CoachAgent:
                       else plan.notes + "\n" + "\n".join(notes))
 
     def _heuristic_generate_plan(self, athlete_id, goal, start, prev_active) -> TrainingPlan:
-        version = self._next_proposed_version(athlete_id)
+        version = self._next_free_version(athlete_id)
         plan = TrainingPlan(
             id=make_plan_id(athlete_id, version), athlete_id=athlete_id, version=version,
             status=PlanStatus.PROPOSED, target_metric_type=goal.metric_type,
@@ -249,15 +288,31 @@ class CoachAgent:
             target_metric_date=goal.target_date,
         )
         # Periodizzazione a ritroso deterministica: 3 blocchi (base→sviluppo→taper).
-        goals = ["base", "sviluppo", "taper"]
+        blocks_spec = self._strategic_choices(goal)
+        # Conflict-aware anche offline: interroga il Retriever (output deterministico)
+        # per ogni scelta strategica, riusando lo stesso helper del ramo LLM.
+        choices = self._retrieve_for_choices(athlete_id, goal, blocks_spec)
+        windows = self._periodize_dates(goal.target_date, len(blocks_spec))
         blocks: List[TrainingBlock] = []
-        for i, g in enumerate(goals):
+        for i, (spec, choice) in enumerate(zip(blocks_spec, choices)):
+            g = spec["goal"]
             bid = make_block_id(plan.id, i)
+            # start=None onesto: mai 0.0 travestito da target.
+            target_watts = (start * (0.9 + 0.05 * i)) if start is not None else None
             pres = [Prescription(
-                description=f"Seduta {g}", target_watts=(start or 0.0) * (0.9 + 0.05 * i),
+                description=f"Seduta {g}", target_watts=target_watts,
                 duration_s=3600, provenance=ProvenanceKind.HEURISTIC)]
-            blocks.append(TrainingBlock(id=bid, plan_id=plan.id, goal=g, order=i,
-                                        prescriptions=pres, provenance=ProvenanceKind.HEURISTIC))
+            # Citazioni SOLO da evidenza verificata positiva → provenance STUDY del
+            # blocco; i NUMERI restano HEURISTIC (regola del range invariata).
+            citations = self._freeze_positives(choice["positives"])
+            block_prov = ProvenanceKind.STUDY if citations else ProvenanceKind.HEURISTIC
+            conflicts = self._conflicts_as_text(choice["conflicts"])
+            start_iso, end_iso = windows[i]
+            blocks.append(TrainingBlock(
+                id=bid, plan_id=plan.id, goal=g, order=i, prescriptions=pres,
+                provenance=block_prov, citations=citations, conflicts=conflicts,
+                planned_start=start_iso, planned_end=end_iso,
+            ))
         plan.blocks = blocks
         return plan
 
@@ -351,7 +406,7 @@ class CoachAgent:
             return str(profile)
 
     def _build_plan_from_llm(self, data, athlete_id, goal, start) -> TrainingPlan:
-        version = self._next_proposed_version(athlete_id)
+        version = self._next_free_version(athlete_id)
         plan = TrainingPlan(
             id=make_plan_id(athlete_id, version), athlete_id=athlete_id, version=version,
             status=PlanStatus.PROPOSED, target_metric_type=goal.metric_type,
@@ -360,6 +415,7 @@ class CoachAgent:
         )
         athlete = self.db.get_athlete(athlete_id)
         blocks_spec = data.get("blocks") or []
+        windows = self._periodize_dates(goal.target_date, len(blocks_spec))
         blocks: List[TrainingBlock] = []
         for i, spec in enumerate(blocks_spec):
             bid = make_block_id(plan.id, i)
@@ -381,10 +437,12 @@ class CoachAgent:
             conflicts = self._conflicts_as_text(conflicting)
 
             prescriptions = self._build_prescriptions(spec.get("prescriptions") or [], citations)
+            start_iso, end_iso = windows[i]
             blocks.append(TrainingBlock(
                 id=bid, plan_id=plan.id, goal=str(spec.get("goal") or f"blocco-{i}"),
                 order=i, prescriptions=prescriptions, provenance=block_prov,
                 citations=citations, conflicts=conflicts,
+                planned_start=start_iso, planned_end=end_iso,
             ))
         plan.blocks = blocks
         return plan

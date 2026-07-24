@@ -98,3 +98,46 @@ def test_adapt_microcycle_reduces_entering_load_and_freezes_frozen(tmp_path, mon
 
     # Disclaimer strutturale sempre presente.
     assert new.notes and "ipotesi" in new.notes.lower()
+
+
+# --------------------------------------------------------------------------- #
+# FIX A — versioning unico e append-only: adapt_microcycle NON collide con un
+# PROPOSED strategico pendente e non lo perde.
+# --------------------------------------------------------------------------- #
+def test_adapt_microcycle_does_not_collide_with_pending_proposed(tmp_path, monkeypatch):
+    db = _db(tmp_path, monkeypatch)
+    ath, active = _seed_overloaded(db)
+
+    # Semina una proposta strategica PROPOSED v2 (costruita a mano), come se un
+    # `run()` precedente avesse proposto una nuova strategia ancora non accettata.
+    strat_id = make_plan_id(ath, 2)
+    strategic = TrainingPlan(
+        id=strat_id, athlete_id=ath, version=2, status=PlanStatus.PROPOSED,
+        blocks=[TrainingBlock(
+            id=make_block_id(strat_id, 0), plan_id=strat_id, goal="sviluppo", order=0,
+            state=BlockState.PLANNED,
+            prescriptions=[Prescription(description="Seduta strategica",
+                                        target_watts=310.0, duration_s=_ENTER_DURATION)],
+        )],
+    )
+    db.save_plan(strategic)
+
+    new = CoachAgent(db).adapt_microcycle(ath)
+
+    # id/versione DISTINTI dalla strategica v2 (nessuna collisione).
+    assert new.id != strat_id
+    assert new.version != strategic.version
+    assert new.version > strategic.version           # monotono, append-only
+
+    # La strategica v2 resta nel DB come SUPERSEDED (non persa).
+    reloaded = db.get_plan(strat_id)
+    assert reloaded is not None
+    assert reloaded.status == PlanStatus.SUPERSEDED
+    # I suoi blocchi non vanno persi.
+    assert reloaded.blocks and reloaded.blocks[0].goal == "sviluppo"
+
+    # I blocchi della nuova proposta non vanno persi (copiati dall'ACTIVE).
+    assert [b.goal for b in new.blocks] == [b.goal for b in active.blocks]
+    # La nuova proposta è l'unico PROPOSED aperto.
+    proposed = [p for p in db.list_plans(ath) if p.status == PlanStatus.PROPOSED]
+    assert len(proposed) == 1 and proposed[0].id == new.id

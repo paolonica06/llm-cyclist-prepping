@@ -144,3 +144,72 @@ def test_conflict_aware_preserved(tmp_path, monkeypatch):
         and any(c.record_id and "neg" in (c.record_id or "") for c in block.citations)
     )
     assert block.conflicts or covers_both_directions
+
+
+# --------------------------------------------------------------------------- #
+# FIX D — periodizzazione datata: i blocchi hanno planned_start/planned_end
+# consecutivi, con l'ultimo che termina a goal.target_date.
+# --------------------------------------------------------------------------- #
+def test_heuristic_blocks_have_consecutive_planned_dates(tmp_path, monkeypatch):
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete(db)
+    goal = MetricGoal(metric_type=MetricType.FTP, target=340.0, target_date="2026-09-30")
+    plan = CoachAgent(db).run(ath, goal)
+
+    assert plan.blocks
+    # Ogni blocco ha entrambe le date valorizzate.
+    for b in plan.blocks:
+        assert b.planned_start is not None
+        assert b.planned_end is not None
+        assert b.planned_start < b.planned_end
+    # Finestre CONSECUTIVE: la fine di un blocco == l'inizio del successivo.
+    for prev, nxt in zip(plan.blocks, plan.blocks[1:]):
+        assert prev.planned_end == nxt.planned_start
+    # L'ULTIMO blocco termina esattamente a goal.target_date.
+    assert plan.blocks[-1].planned_end == "2026-09-30"
+
+
+# --------------------------------------------------------------------------- #
+# FIX E — conflict-aware anche offline (senza fake LLM): un blocco euristico
+# ha conflicts NON vuoto quando il Pozzo contiene direzioni discordi sullo
+# stesso tema. Invariante: con Pozzo VUOTO i blocchi restano HEURISTIC senza
+# citazioni (coperto anche da test_coach_invariants).
+# --------------------------------------------------------------------------- #
+def test_heuristic_branch_is_conflict_aware_offline(tmp_path, monkeypatch):
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete(db)
+    # Pozzo con evidenze verificate discordi sullo stesso tema (pattern di
+    # test_conflict_aware_preserved): una positiva e una negativa. La query
+    # strategica euristica per "sviluppo" contiene "interval training".
+    db.create_research(Research(id="r1", topic="interval training vo2max"))
+    db.upsert_record(_verified_rec(
+        "Intervals boost FTP in cyclists",
+        "interval training ftp cyclists",
+        doi="10.1/pos", results="FTP increased significantly and performance improved"))
+    db.upsert_record(_verified_rec(
+        "Intervals impair FTP in cyclists",
+        "interval training ftp cyclists",
+        doi="10.1/neg", results="FTP decreased and performance worse, impaired adaptation"))
+
+    # NESSUN fake LLM installato → ramo euristico offline.
+    goal = MetricGoal(metric_type=MetricType.FTP, target=340.0, target_date="2026-09-30")
+    plan = CoachAgent(db).run(ath, goal)
+
+    # Almeno un blocco euristico è conflict-aware (conflicts non vuoto).
+    assert any(b.conflicts for b in plan.blocks), "conflict-aware offline atteso"
+    # Regola del range invariata: i NUMERI restano HEURISTIC anche se il blocco è STUDY.
+    for b in plan.blocks:
+        for p in b.prescriptions:
+            assert p.provenance != ProvenanceKind.STUDY
+
+
+def test_heuristic_branch_empty_pozzo_stays_heuristic(tmp_path, monkeypatch):
+    # Invariante: Pozzo VUOTO → blocchi HEURISTIC, nessuna citazione, nessun conflitto.
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete(db)
+    goal = MetricGoal(metric_type=MetricType.FTP, target=340.0, target_date="2026-09-30")
+    plan = CoachAgent(db).run(ath, goal)
+    for b in plan.blocks:
+        assert b.provenance == ProvenanceKind.HEURISTIC
+        assert b.citations == []
+        assert b.conflicts == []

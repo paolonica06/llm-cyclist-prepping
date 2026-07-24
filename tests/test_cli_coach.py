@@ -83,3 +83,19 @@ def test_cli_coach_accept_missing(tmp_path, monkeypatch):
     result = CliRunner().invoke(cli.app, ["coach-accept", "id-inesistente"])
 
     assert result.exit_code == 1
+
+
+def test_cli_coach_adapt_no_active_plan_errors_cleanly(tmp_path, monkeypatch):
+    # FIX C: coach-adapt su atleta ESISTENTE ma SENZA piano ACTIVE → Exit(1) con
+    # messaggio d'errore (rosso), nessun traceback grezzo.
+    db = _make_db(tmp_path)                     # semina l'atleta, ma nessun piano
+    ath = make_athlete_id("Paolo")
+    monkeypatch.setattr(cli, "_pipeline", lambda: Pipeline(db=db))
+
+    result = CliRunner(mix_stderr=True).invoke(cli.app, ["coach-adapt", ath])
+
+    assert result.exit_code == 1, f"exit={result.exit_code}\n{result.output}"
+    # Output d'errore non vuoto e senza traceback (nessuna eccezione non gestita).
+    assert result.output.strip(), "atteso un messaggio d'errore"
+    assert result.exception is None or isinstance(result.exception, SystemExit)
+    assert "Traceback" not in result.output

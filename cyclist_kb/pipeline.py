@@ -167,11 +167,21 @@ class Pipeline:
 
     def coach_adapt(self, athlete_id: str):
         from .agents.coach import CoachAgent
-        return CoachAgent(self.db).adapt_microcycle(athlete_id)
+        if self.db.get_athlete(athlete_id) is None:
+            raise AthleteNotFound(f"Atleta '{athlete_id}' inesistente.")
+        try:
+            return CoachAgent(self.db).adapt_microcycle(athlete_id)
+        except ValueError as exc:
+            raise PlanStateError(str(exc)) from exc
 
     def coach_assess(self, athlete_id: str, plan_id: str, block_id: str):
         from .agents.coach import CoachAgent
-        return CoachAgent(self.db).assess_block(athlete_id, plan_id, block_id)
+        if self.db.get_plan(plan_id) is None:
+            raise PlanNotFound(f"Piano '{plan_id}' inesistente.")
+        try:
+            return CoachAgent(self.db).assess_block(athlete_id, plan_id, block_id)
+        except ValueError as exc:
+            raise PlanNotFound(str(exc)) from exc
 
     # -- Pipeline completa -------------------------------------------------- #
     async def run(self, topic: str, profile_path: Optional[Path] = None) -> Research:
