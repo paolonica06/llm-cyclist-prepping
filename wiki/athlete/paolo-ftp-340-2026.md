@@ -1,155 +1,231 @@
-# Piano allenamento — Paolo · FTP 329 → 340 W · 28 lug → 30 set 2026
+# Piano allenamento — Paolo · U23 full-time · forma-gara + FTP 340 · 27 lug → 30 set 2026
 
-> **Piano-ipotesi generato automaticamente, non una prescrizione medica.** Ogni scelta *strategica* è collegata all'Evidenza verificata del corpus (con confidenza e caveat di trasferibilità); i *numeri* (watt, durate, TSS) sono **euristica personalizzata** sui tuoi dati, **non** studi. Vedi §Provenienza e §Onestà.
+> **Piano-ipotesi generato automaticamente, non una prescrizione medica.** Ogni scelta *strategica* è collegata all'Evidenza verificata del corpus (con confidenza e caveat); i *numeri* (watt, ore, TSS, ramp) sono **euristica personalizzata** sui tuoi dati, **non** studi. Vedi §Provenienza e §Onestà.
 
-## 1. Quadro dell'atleta (dati reali)
+## 1. Quadro dell'atleta (dati reali dal DB)
 
-| Grandezza | Valore | Fonte |
+| Grandezza | Valore | Note |
 |---|---|---|
-| FTP (test PRE) | **329 W** | `dati_atleta` — Assessment 2026-07-28 |
-| Peso | 73.8 kg → **4.46 W/kg** | `dati_atleta` — 2026-04-21 |
-| CTL (fitness cronico) | **61.5** | `dati_atleta` — 2026-07-24 |
-| ATL / TSB | 52.1 / **+9.5** (fresco) | `dati_atleta` |
-| HRV recente | 53 | `dati_atleta` |
-| Volume | ~5–6 uscite/sett | `dati_atleta` (762 attività 2024–26) |
-| **Obiettivo** | **FTP 340 W (4.61 W/kg) entro 2026-09-30** | target metrico datato |
+| FTP (test PRE 28-lug) | **329 W** · 4.46 W/kg | baseline |
+| Peso | 73.8 kg | |
+| **CTL attuale** | **62** (24-lug) | a **metà** del picco → grande margine |
+| **CTL picco storico** | **121** (apr 2025) | sei già stato in forma piena |
+| TSB | +9.5 (fresco) | pronto a caricare |
+| **Volume storico nei carichi** | **20–22 h/sett · 900–1000 TSS · ~8–9 uscite** | full-time confermato |
+| **Obiettivo** | **forma da gara U23 (3–5 h) + FTP 340 W** entro 30-set | gara = performance target, FTP = marker |
 
-**Distanza dall'obiettivo:** +11 W (+3.3%). Realistico ma **non garantito** con un blocco strutturato di ~10 settimane, partendo fresco (TSB +9.5) e con margine di carico (CTL 61 è moderato per un U23).
+**Lettura:** non parti da zero, **rientri**. Sei detrained relativo (CTL 62 vs 121 abituale). In ~9–10 settimane l'obiettivo realistico è **ricostruire CTL verso ~100–110**, riportare la **durabilità** su 3–5 h e alzare l'FTP a 340. Il collo di bottiglia non è la capacità di lavoro (ce l'hai) ma **ricostruire in sicurezza** senza sovraccarico.
 
-## 2. Zone di potenza (da FTP 329 W)
+## 2. Zone di potenza (FTP 329 W)
 
-| Zona | % FTP | Watt | W/kg | Uso |
-|---|---|---|---|---|
-| Z1 Recupero | <55% | <181 | <2.45 | rigenerazione |
-| **Z2 Endurance** | 56–75% | **184–247** | 2.49–3.35 | volume base (80%) |
-| Z3 Tempo | 76–90% | 250–296 | 3.39–4.01 | raccordo |
-| **Sweet Spot** | 88–94% | **290–309** | 3.93–4.19 | soglia-componente |
-| **Z4 Soglia** | 91–105% | **299–345** | 4.05–4.68 | soglia |
-| **Z5 VO2max** | 106–120% | **349–395** | 4.73–5.35 | tetto aerobico |
-| Z6 Anaerobico | 121–150% | 398–494 | 5.39–6.69 | richiami/apertura |
+| Zona | %FTP | Watt | Uso |
+|---|---|---|---|
+| Z1 Recupero | <55% | <181 | rigenerazione |
+| **Z2 Endurance** | 56–75% | **184–247** | il motore del volume (~70–80%) |
+| Z3 Tempo | 76–90% | 250–296 | raccordo, durabilità |
+| **Sweet Spot** | 88–94% | **290–309** | soglia-componente |
+| **Z4 Soglia** | 91–105% | **299–345** | il "watt da top-5" |
+| **Z5 VO2max** | 106–120% | **349–395** | tetto aerobico |
+| Z6 Anaerobico | 121–150% | 398–494 | attacchi/surge |
+| **1000 kJ** (test durabilità) | — | **~2.5–3 h a 220–240 W** | riferimento per allenare in fatica |
 
-> ⚠️ **Caveat evidence:** l'FTP ha ampi limiti di concordanza con la soglia fisiologica individuale (±45–51 W — *Jeffries 2021*; TEE 4.7–6.4% — *Klitzke 2019*, entrambi high). Ricalibra le zone dopo il **test intermedio** (25 ago) e ascolta le sensazioni, non solo i watt.
+## 3. Strategia gara-oriented (vincolata dall'Evidenza) — `studi`
 
-## 3. Strategia (vincolata dall'Evidenza) — `studi`
-
-1. **Modello polarizzato** (~80% volume in Z1–Z2, ~20% in alta intensità, poco lavoro a soglia): per atleti allenati e orizzonti <12 settimane la polarizzazione supera il threshold-heavy sui marcatori di soglia e potenza. — *Silva 2024* (high), *Neal 2013* (high, +9% vs +2% threshold power), *Eric 2025* (high: POL > PYR > THR).
-2. **HIIT/VO2max 2–3×/sett** come stimolo del 20% alto: piccolo ma reale vantaggio su VO2max assoluto e potenza aerobica di picco. — *Norte 2024* (moderate, SMD 0.28–0.38). Intervalli **lunghi (3–4 min)** o **variabili fast-start** (110–115% → 95–100% FTP) per massimizzare il tempo a VO2max. — *Cabuk 2025* (moderate).
-3. **Sweet spot / soglia = componente, non dominante:** utile e specifico (soglia lattacida + capillarizzazione spiegano >92% della varianza di endurance — *Edward 1988* high), ma **non** deve prendere la maggioranza del volume.
-4. **Forza concorrente 2×/sett** (funzionale: squat, leg press, monopodalico): piccolo beneficio su performance senza interferire col VO2 se il volume endurance è mantenuto. — *Gäbler 2018* (moderate, SMD 0.41), *Birat 2024* (moderate, nessuna interferenza).
-5. **Volume Z2 lungo** come driver primario di durabilità ed efficienza mitocondriale. — *Nøst 2024*, *Stephan 2021* (moderate). Durabilità indipendente da VO2max/FTP freschi. — *Artur 2025* (moderate).
-6. **Taper individualizzato e monitorato**, non protocollo fisso: gestisci carico/recupero via TSS·CTL·TSB + HRV·RPE nelle ultime settimane. — *Iñigo 2016*, *Neil 2011* (moderate). CHO alto pre-test per il glicogeno (ma effetto prestativo su test brevi incerto). — *Schytz 2023* (high).
+1. **Ricostruzione piramidale → polarizzata:** nella rampa di CTL la maggioranza dei TSS aggiuntivi viene da **Z1–Z2** (limita lo stress sistemico), poi si sposta verso il polarizzato in Blocco 2. — *Thomas 2015* (moderate), *Silva 2024* (high, POL vantaggioso <12 sett in trained).
+2. **Durabilità come qualità a sé** (indipendente da FTP/VO2max fresco): allenata con blocchi di qualità **in stato di fatica** nelle ultime 40–60′ di uscite >3 h (es. 3×10′ o 2×20′). — *Artur 2025*, *Nicki 2023* (moderate).
+3. **Forza pesante ≥80% 1RM, 2×/sett** (economia +, senza toccare VO2max): periodizzata **bilaterale 4–6 sett** (economia) → **unilaterale alternata 3–4 sett** (sprint/finale). — *Cristian 2025* (**high**, ES 0.35–0.56), *Ji 2021* (moderate).
+4. **VO2max 2×/sett in Blocco 2:** piccolo ma reale guadagno su potenza aerobica; intervalli 3–4′ o variabili fast-start. — *Norte 2024*, *Cabuk 2025* (moderate).
+5. **Lavoro a soglia (Z4) come marker da gara:** i top-5 accumulano più volume in Z4 di tutti (unica zona significativa, p=0.017). — *Sánchez-Jiménez 2026* (moderate).
+6. **Race-sim con sforzi ripetuti + recuperi ≥10–20′:** recuperi troppo brevi (<6′) compromettono la potenza nelle serie successive. — *Christensen 2015* (**high**). Gli sforzi massimali si concentrano nel **finale** di gara → conserva riserva. — *Peiffer 2018* (moderate).
+7. **Fueling da gara lunga:** 70–100 g/h CHO pianificati per ottenerne 60–90 reali (gap ~17%), gel ogni 20′, **train-the-gut** in allenamento, idratazione (la disidratazione taglia l'ossidazione dei CHO). — *James 2026*, *Lanpir 2025*, *Macrae 2026*, *Christensen*.
 
 ## 4. Struttura periodizzata (a ritroso da 30 set)
 
 ```
- Sett  Date            Fase                          Focus                    TSS   CTL~
- ────────────────────────────────────────────────────────────────────────────────────
-  0    28 lug          ● TEST PRE (FTP → 329)        baseline                  —    61
-  1    29 lug–3 ago    Blocco 1 · Costruzione        Z2 + 2 HIIT + forza      420   63
-  2    4–10 ago         (polarizzata)                carico ↑                 470   66
-  3    11–17 ago                                     carico ↑↑                520   69
-  4    18–24 ago       Scarico                       -40% volume              300   66
+ Sett  Date            Fase                       Focus                       Ore   TSS   CTL~
+ ───────────────────────────────────────────────────────────────────────────────────────────
+  0    28 lug          ● TEST PRE (FTP → 329)     baseline                     —     —    62
+  1    27 lug–2 ago    B1 · Ricostruzione base    Z2 massiccio + forza bil.   ~16   700   70
+  2    3–9 ago          (piramidale)              volume ↑ + soglia           ~19   800   78
+  3    10–16 ago                                  volume ↑↑ + durabilità      ~21   900   85
+  4    17–23 ago       Scarico                    assorbimento −35%           ~13   500   82
        25 ago          ● TEST INTERMEDIO (ricalibra zone)
-  5    25–31 ago       Blocco 2 · Sviluppo           VO2max 2× + soglia 1×    480   70
-  6    1–7 set          (VO2max/soglia)              picco carico             530   74
-  7    8–14 set                                      picco carico             560   77
-  8    15–21 set       Blocco 3 · Affinamento        richiami, volume ↓       460   77
-  9    22–27 set       Taper                         intensità viva, vol ↓↓   320   74
-       28–30 set       ● TEST POST (FTP → obiettivo 340)
+  5    24–30 ago       B2 · Sviluppo+durabilità   VO2max + soglia + lunghe 5h ~19   880   90
+  6    31 ago–6 set     (polarizzato)             picco + race-sim            ~21   960   98
+  7    7–13 set                                   PICCO carico + durabilità   ~22  1000  105
+  8    14–20 set       B3 · Affinamento gara      race-sim, richiami, vol −20%~18   760  104
+  9    21–27 set       Taper                      intensità viva, vol −45%    ~11   420   96
+       28–30 set       ● TEST POST (FTP → 340) + forma gara
 ```
 
-**Rampa CTL sostenibile** (+3–4/sett, scarico ogni 4ª): evita di portare il **TSB sotto −20/−25** senza scarico programmato (*Dajo 2017* high). 3 settimane carico + 1 recupero.
+**Forza:** Blocco 1–inizio B2 = **bilaterale pesante** (squat, leg press, hip hinge, 4×5 @ 80–85% 1RM); da metà B2 = **unilaterale alternata** (affondi, single-leg press) + esplosivo leggero. Sempre nei **giorni a basso volume aerobico**, mai prima delle sedute chiave, mai a cedimento.
 
-## 5. Settimane-tipo dettagliate
+## 5. Calendario giorno-per-giorno
 
-> Watt = target sui tuoi 329 W. Adatta ±5% alle sensazioni. "Z2" = 184–247 W. Riscaldamento 15–20′ e defaticamento 10′ inclusi in tutte le sedute chiave.
+> Watt riferiti a FTP 329 (ricalibra dopo il test 25-ago). Ris. 15–20′ + def. 10′ inclusi. 🟢 Z2 · 🟠 soglia · 🔴 VO2/sopra-soglia · 🏋️ forza · ⭐ durabilità/race-sim.
 
-### Blocco 1 — Costruzione aerobica polarizzata (sett 1–3)
+### 🔧 BLOCCO 1 — Ricostruzione base (piramidale)
 
-| Giorno | Seduta | Dettaglio | TSS~ |
+**Sett 1 · 27 lug–2 ago · ~16 h · TSS ~700 · CTL→70** *(rientro morbido)*
+| G | Data | Seduta | Dettaglio | h |
+|---|---|---|---|---|
+| Lun | 27/7 | Riposo | off o 45′ Z1 | 0.75 |
+| **Mar** | 28/7 | 🎯 TEST PRE | 15′ ris + **20′ all-out → 329** + 45′ Z2 | 1.5 |
+| Mer | 29/7 | 🟢 Z2 | 3 h @ 200–235 W | 3 |
+| Gio | 30/7 | 🏋️+🟢 | Forza bilaterale 3×5 + 2 h Z2 @ 195–225 W | 2 |
+| Ven | 31/7 | 🟢 Z2 | 2.5 h @ 195–230 W | 2.5 |
+| Sab | 1/8 | 🟢 Lunga | **4 h @ 200–235 W** · CHO 60 g/h | 4 |
+| Dom | 2/8 | 🟢 Z2 | 2.5 h @ 190–225 W | 2.5 |
+
+**Sett 2 · 3–9 ago · ~19 h · TSS ~800 · CTL→78**
+| G | Data | Seduta | Dettaglio | h |
+|---|---|---|---|---|
+| Lun | 3/8 | Recupero | 1 h Z1 <181 W | 1 |
+| **Mar** | 4/8 | 🟠 Soglia | **3×15′ @ 295–310 W** rec 6′ (in 2 h) | 2 |
+| Mer | 5/8 | 🟢 Z2 | 3.5 h @ 200–235 W | 3.5 |
+| Gio | 6/8 | 🏋️+🟢 | Forza bilaterale 4×5 + 2 h Z2 | 2 |
+| Ven | 7/8 | 🟢 Z2 | 3 h @ 195–230 W | 3 |
+| Sab | 8/8 | 🟢⭐ Lunga | **4.5 h @ 200–235 W**, ultimi 40′ **2×15′ @ 290–305 W** in fatica · CHO 70 g/h | 4.5 |
+| Dom | 9/8 | 🟢 Z2 | 3 h @ 190–225 W | 3 |
+
+**Sett 3 · 10–16 ago · ~21 h · TSS ~900 · CTL→85** *(picco Blocco 1)*
+| G | Data | Seduta | Dettaglio | h |
+|---|---|---|---|---|
+| Lun | 10/8 | Recupero | 1 h Z1 | 1 |
+| **Mar** | 11/8 | 🟠 Soglia | **2×20′ @ 300–312 W** rec 8′ (in 2.5 h) | 2.5 |
+| Mer | 12/8 | 🟢 Z2 | 3.5 h @ 200–235 W | 3.5 |
+| Gio | 13/8 | 🏋️+🟢 | Forza bilaterale 4×5 (ultima pesante) + 2 h Z2 | 2 |
+| Ven | 14/8 | 🟢 Z2 | 3 h @ 195–230 W | 3 |
+| Sab | 15/8 | 🟢⭐ Lunga | **5 h @ 200–235 W**, ultimi 60′ **3×12′ @ 295–310 W** · CHO 80 g/h (train-the-gut) | 5 |
+| Dom | 16/8 | 🟢 Z2 | 4 h @ 190–225 W | 4 |
+
+### 😌 SCARICO
+
+**Sett 4 · 17–23 ago · ~13 h · TSS ~500 · CTL→82**
+| G | Data | Seduta | Dettaglio | h |
+|---|---|---|---|---|
+| Lun | 17/8 | Riposo | off | 0 |
+| Mar | 18/8 | 🟢 Z2 | 1.5 h @ 195–225 W | 1.5 |
+| Mer | 19/8 | 🔴 Apertura | **3×3′ @ 350 W** rec 3′ (in 1.5 h) | 1.5 |
+| Gio | 20/8 | 🟢 Z2 | 2 h @ 190–220 W | 2 |
+| Ven | 21/8 | Recupero | 1 h Z1 | 1 |
+| Sab | 22/8 | 🟢 Z2 | 3 h @ 195–230 W | 3 |
+| Dom | 23/8 | 🟢 Z2 | 2 h @ 190–220 W | 2 |
+
+### 🚀 BLOCCO 2 — Sviluppo + durabilità (polarizzato)
+
+**Sett 5 · 24–30 ago · ~19 h · TSS ~880 · CTL→90** *(test intermedio + avvio B2)*
+| G | Data | Seduta | Dettaglio | h |
+|---|---|---|---|---|
+| Lun | 24/8 | Recupero | 1 h Z1, gambe fresche | 1 |
+| **Mar** | 25/8 | 🎯 TEST INTERMEDIO | 15′ ris + **20′ all-out → nuovo FTP** · **ricalibra zone** + 45′ Z2 | 1.5 |
+| Mer | 26/8 | 🟢 Z2 | 3.5 h @ 200–235 W | 3.5 |
+| Gio | 27/8 | 🔴 VO2max | **5×4′ @ 360–380 W** rec 4′ (in 2 h) | 2 |
+| Ven | 28/8 | 🏋️+🟢 | Forza **unilaterale** 3×6/gamba + 2.5 h Z2 | 2.5 |
+| Sab | 29/8 | 🟢⭐ Lunga | **5 h @ 200–235 W**, ultimi 60′ **2×20′ @ 300–312 W** · CHO 80–90 g/h | 5 |
+| Dom | 30/8 | 🟢 Z2 | 3.5 h @ 190–225 W | 3.5 |
+
+**Sett 6 · 31 ago–6 set · ~21 h · TSS ~960 · CTL→98**
+| G | Data | Seduta | Dettaglio | h |
+|---|---|---|---|---|
+| Lun | 31/8 | Recupero | 1 h Z1 | 1 |
+| **Mar** | 1/9 | 🔴 VO2max | **6×4′ @ 360–380 W** rec 4′ (in 2 h) | 2 |
+| Mer | 2/9 | 🟢 Z2 | 3.5 h @ 200–235 W | 3.5 |
+| Gio | 3/9 | 🟠+🏋️ | **2×20′ @ 302–315 W** + forza unilaterale (in 3 h) | 3 |
+| Ven | 4/9 | 🟢 Z2 | 3 h @ 195–230 W | 3 |
+| Sab | 5/9 | ⭐ Race-sim | **5 h**: dopo 3 h Z2, **6×3′ @ 365 W** (rec 12–15′ Z2, mai <10′) + 5 surge da 15″ @ 550 W | 5 |
+| Dom | 6/9 | 🟢 Z2 | 3.5 h @ 190–225 W | 3.5 |
+
+**Sett 7 · 7–13 set · ~22 h · TSS ~1000 · CTL→105** *(picco massimo)*
+| G | Data | Seduta | Dettaglio | h |
+|---|---|---|---|---|
+| Lun | 7/9 | Recupero | 1 h Z1 | 1 |
+| **Mar** | 8/9 | 🔴 VO2 variabile | **5×4′ fast-start**: 45″ @ 385–395 → 350–360 W, rec 4′ (in 2 h) | 2 |
+| Mer | 9/9 | 🟢 Z2 | 4 h @ 200–235 W | 4 |
+| Gio | 10/9 | 🟠 Soglia | **3×15′ @ 305–315 W** rec 6′ (in 2.5 h) | 2.5 |
+| Ven | 11/9 | 🏋️+🟢 | Forza unilaterale (mantenimento) + 3 h Z2 | 3 |
+| Sab | 12/9 | 🟢⭐ Lunga | **5.5 h @ 200–235 W**, ultimi 75′ **3×15′ @ 300–312 W** · CHO 90 g/h | 5.5 |
+| Dom | 13/9 | 🟢 Z2 | 4 h @ 190–225 W | 4 |
+
+### 🎯 BLOCCO 3 — Affinamento gara + Taper
+
+**Sett 8 · 14–20 set · ~18 h · TSS ~760 · CTL→104** *(affinamento, −20%)*
+| G | Data | Seduta | Dettaglio | h |
+|---|---|---|---|---|
+| Lun | 14/9 | Recupero | 1 h Z1 | 1 |
+| **Mar** | 15/9 | 🔴 VO2max | **4×4′ @ 370 W** rec 4′ (qualità, in 1.75 h) | 1.75 |
+| Mer | 16/9 | 🟢 Z2 | 3 h @ 200–230 W | 3 |
+| Gio | 17/9 | ⭐ Race-sim | **3 h**: 4×4′ @ 365 W (rec 12′) + surge finali; simula un finale di gara | 3 |
+| Ven | 18/9 | 🏋️+🟢 | Forza leggera esplosiva + 2.5 h Z2 | 2.5 |
+| Sab | 19/9 | 🟢⭐ Lunga | **4 h @ 200–230 W**, ultimi 40′ 2×15′ @ 305 W | 4 |
+| Dom | 20/9 | 🟢 Z2 | 2.75 h @ 190–220 W | 2.75 |
+
+**Sett 9 · 21–27 set · ~11 h · TSS ~420 · CTL→96** *(taper: volume −45%, intensità viva)*
+| G | Data | Seduta | Dettaglio | h |
+|---|---|---|---|---|
+| Lun | 21/9 | Riposo | off | 0 |
+| Mar | 22/9 | 🔴 VO2 breve | **4×3′ @ 360 W** rec 4′ (in 1.5 h) | 1.5 |
+| Mer | 23/9 | 🟢 Z2 | 2 h @ 195–225 W | 2 |
+| Gio | 24/9 | 🟠 Soglia breve | **3×8′ @ 300–310 W** rec 5′ (in 1.5 h) | 1.5 |
+| Ven | 25/9 | ⭐ Apertura | 3×2′ @ 350 W + 2 surge da 15″ (in 1.5 h) | 1.5 |
+| Sab | 26/9 | 🟢 Sblocco | 2 h Z2 + 3×1′ @ 340 W · **carico CHO alto** | 2 |
+| Dom | 27/9 | Riposo | off, gambe fresche | 0 |
+
+**Sett 10 · 28–30 set · TEST POST 🎯**
+| G | Data | Seduta | Dettaglio |
 |---|---|---|---|
-| **Lun** | Riposo / recupero | off o 30–45′ Z1 (<181 W) | 0–25 |
-| **Mar** | 🔴 VO2max | 15′ ris. → **5×4′ @ 355–375 W** (Z5), rec. 4′ @ 150 W → def. | 75 |
-| **Mer** | Z2 endurance | 1h30–2h @ 200–235 W · cadenza libera | 90 |
-| **Gio** | 🟠 Soglia (componente) | **3×12′ @ 300–312 W** (SS/Z4 basso), rec. 5′ | 80 |
-| **Ven** | Forza + Z1 | Palestra: squat/leg press/monopodalico 4×6 @ carico medio + 45′ Z1 | 40 |
-| **Sab** | 🟢 Lunga Z2 | **3h @ 195–235 W** · CHO ~60–80 g/h · finale 20′ a 250–270 W (Z3) | 150 |
-| **Dom** | Z2 facile o forza | 1h15 Z2 @ 190–220 W *(oppure 2ª forza se salti Ven)* | 65 |
+| Lun | 28/9 | Riposo attivo | 45′ Z1 sciolto |
+| Mar | 29/9 | Pre-attivazione | 1 h Z1 + **2×1′ @ 340 W** |
+| **Mer** | 30/9 | 🎯 TEST POST | 15′ ris + **20′ all-out → obiettivo 340 W** · stesse condizioni del PRE |
 
-**Progressione:** S1 tieni il basso della forbice (TSS ~420); S2 allunga la lunga a 3h15 e porta il VO2max a 5×4′30″ (TSS ~470); S3 aggiungi una 4ª rep alla soglia e 3h30 di lunga (TSS ~520). **Forza 2×/sett** (Ven + una fra Lun/Dom), esercizi funzionali, **mai a cedimento** e lontano dalle sedute VO2max.
+## 6. Forza in palestra (periodizzata) — `studi` (Cristian 2025 high)
 
-### Sett 4 — Scarico + Test intermedio
+- **Fase 1 (S1–S5, bilaterale-pesante, 2×/sett):** squat / leg press / hip hinge (stacco rumeno) — **4×5 @ 80–85% 1RM**, 3′ recupero, tecnica pulita, **mai a cedimento**. Obiettivo: **economia di pedalata**.
+- **Fase 2 (S6–S8, unilaterale + esplosivo, 1–2×/sett):** affondi camminati, single-leg press, step-up — 3×6/gamba; + salti/box jump 3×5 leggeri. Obiettivo: **capacità di scatto/finale**.
+- **Regole:** palestra nei giorni a basso volume (Gio/Ven), **dopo** l'eventuale seduta bici, **mai** il giorno prima di VO2max. In taper: solo 1× leggera mantenimento.
 
-- Lun–Dom: volume **−40%**, elimina un HIIT, mantieni **una** apertura breve (Mer: 3×3′ @ 350 W) per non "spegnere le gambe".
-- **Mar 25 ago — TEST FTP intermedio** (protocollo §6). Ricalibra le zone sul nuovo FTP.
+## 7. Fueling (allenamento + gara) — `studi`
 
-### Blocco 2 — Sviluppo VO2max / soglia (sett 5–7)
+- **Uscite >2 h:** 60 g/h CHO; **lunghe >3 h e race-sim:** 80–90 g/h (glucosio:fruttosio 2:1), **gel/borraccia ogni 20′**. Pianifica **+15–20%** rispetto al target reale (gap compliance ~17% — *Lanpir 2025*).
+- **Train-the-gut:** usa le lunghe di S3, S5, S7 per abituare lo stomaco a 80–90 g/h.
+- **Idratazione:** non arrivare disidratato — la disidratazione **riduce l'ossidazione dei CHO** (*Macrae 2026* high), critico col caldo di fine estate.
+- **Pre-test/gara:** carico CHO nelle 24–48 h; il *tipo* (indice glicemico) conta meno della *quantità* se ti alimenti bene durante (*Burke 1998*).
 
-| Giorno | Seduta | Dettaglio | TSS~ |
-|---|---|---|---|
-| **Lun** | Recupero | off o 40′ Z1 | 0–25 |
-| **Mar** | 🔴 VO2max (chiave) | **5–6×4′ @ 360–380 W**, rec. 4′ — *oppure* variabile fast-start: 5×4′ con primi 45″ @ 385–395 W poi 350–360 W | 85 |
-| **Mer** | Z2 endurance | 2h @ 200–235 W | 95 |
-| **Gio** | 🟠 Soglia/SS | **2×20′ @ 300–315 W** (Z4 basso), rec. 8′ | 90 |
-| **Ven** | Forza + Z1 | Palestra funzionale 3×5 (carico ↑, volume ↓) + 40′ Z1 | 35 |
-| **Sab** | 🟢 Lunga + VO2 | 3h Z2 con **2ª parte 4×3′ @ 365 W** in affaticamento (durabilità) | 155 |
-| **Dom** | Z2 / recupero | 1h30 Z2 @ 190–220 W | 70 |
+## 8. Test — `dati_atleta`
 
-**Progressione:** picco di carico in S6–S7 (TSS 530→560); è la fase più dura → **massima attenzione ai guardrail** (§7). CTL sale verso 77.
+| # | Data | Scopo |
+|---|---|---|
+| PRE | 28-lug ✅ | FTP 329 (baseline) |
+| Intermedio | 25-ago | ricalibra zone, verifica traiettoria (~334–338 W a metà) |
+| **POST** | 30-set | **FTP obiettivo 340 W** |
+| *Durabilità (opz.)* | in una lunga di S6–S7 | 5′ e 20′ **dopo 1000 kJ** (~2.5–3 h): misura il decremento vs freschi (media ~10%) e traccialo |
 
-### Blocco 3 — Affinamento (sett 8) + Taper (sett 9)
+Protocollo FTP: 20′ all-out → FTP = 95%; stesse condizioni (ora, riscaldamento, alimentazione, calibrazione) in tutti e tre; rumore di misura ~1.6–2.2% (*Elske 1998*), il +3.3% obiettivo lo supera.
 
-- **Sett 8 (affinamento):** mantieni l'intensità, **taglia il volume ~15%**. Mar VO2 4×4′ @ 370 W; Gio soglia 2×15′ @ 305–315 W; Sab lunga ridotta 2h30 con 3×3′ apertura. TSS ~460.
-- **Sett 9 (taper, individualizzato):** volume **−40/−50%**, **intensità viva ma breve** — Mar 4×3′ @ 360 W; Gio 3×8′ @ 300 W; Ven–Sab: 2–3 aperture da 3×2′ @ 350 W dentro 60–75′ Z1–Z2. **Monitora TSB/HRV/RPE** e togli carico se il TSB non risale verso 0/+ e la HRV non stabilizza. CHO alto nelle 48h pre-test.
+## 9. Guardrail, ramp & confine medico
 
-## 6. Test (pre · intermedio · post) — `dati_atleta`
+**Ramp CTL (+~7–8/sett all'inizio, poi +5):** ⚠️ **euristica, non evidenza** — il corpus **non** valida un ramp-rate numerico. È aggressivo ma è **ritorno** a un livello già raggiunto (CTL 121), non territorio nuovo. **Monitora e adatta.**
 
-**Protocollo FTP standardizzato** (ripetibile, per rendere confrontabili i tre test):
-- Stesso setup (rulli/strada nota), stessa ora, riscaldamento identico (15′ progressivi + 3×1′ apertura), stesso stato di riposo (TSB > +5, giorno dopo scarico).
-- **Test 20′ all-out** → FTP = 95% della potenza media dei 20′. *(alternativa: rampa fino a esaurimento se preferisci.)*
-- Standardizza alimentazione e calibrazione del misuratore.
+**Declassa il carico (−15/20% la settimana dopo) se 2+ segnali insieme** (*Amy 2018*, *Uusitalo 1998*): HRV giù ≥5–10% per 3+ giorni · peso −>1 kg/sett non voluto · RPE↑ a pari watt · sonno/umore peggiori. **Nessun singolo marker basta** (HRV isolata è inaffidabile — *Uusitalo 1998*).
 
-| # | Data | Scopo | Atteso |
-|---|---|---|---|
-| PRE | 28 lug ✅ | baseline | 329 W (fatto) |
-| Intermedio | 25 ago | ricalibra zone, verifica traiettoria (~333–336 W a metà) | — |
-| **POST** | 28–30 set | **obiettivo 340 W** | — |
+**Disponibilità energetica:** con CTL in salita **aumenta le calorie** proporzionalmente; peso stabile ±0.5 kg (*Amy 2018*, *Juliane 2017*). Il rischio n°1 di questa rampa rapida è **sotto-alimentare** il carico.
 
-> ⚠️ **Rumore di misura:** un test ha variabilità ~1.6–2.2% (*Elske 1998* high). Il +3.3% obiettivo la supera, ma un +1–2% marginale potrebbe non distinguersi dal rumore → standardizza le condizioni.
+**Confine medico:** dolore persistente, sintomi (febbre/malessere), sospetto RED-S → **fermati e consulta un professionista**. Non è consulenza medica.
 
-## 7. Guardrail di sicurezza & confine medico
+## 10. Conflitti conservati & Onestà
 
-**Sovraccarico non-funzionale — declassare il carico se 2+ segnali insieme** (*Uusitalo 1998*, *Amy 2018* high):
-- TSB protratto sotto −20/−25 fuori dalle fasi previste;
-- HRV giù ≥5–10% dalla tua baseline per più giorni;
-- calo di potenza a pari RPE / RPE ↑ a pari watt;
-- perdita di peso involontaria, sonno/umore peggiorati.
-→ **Azione:** blocco di recupero 3–5 giorni a −40/−50% volume; poi rientra dal punto in cui eri.
+- **Durabilità:** parzialmente indipendente da FTP/VO2max (*Artur 2025*) ma l'indipendenza totale **non è dimostrata**; il decremento individuale varia enormemente (<1%→32%) → misura il **tuo**.
+- **Ramp rapido:** nessuno studio del corpus quantifica una soglia sicura di incremento carico post-detraining → i numeri di CTL sopra sono **stime prudenti da monitorare**, non promesse.
+- **Distribuzione:** POL vantaggioso sul VO2peak (*Silva 2024* high) ma **equivalente** ad altri modelli su time-trial/soglia; in rebuild la letteratura favorisce il **piramidale** (*Thomas 2015*) — perciò il piano è piramidale→polarizzato, non dogmatico.
+- **Forza:** *Cristian 2025* è high ma su popolazioni miste; l'effetto è su **economia**, non VO2max.
+- **+11 W non garantiti:** partendo detrained il margine di recupero-forma è ampio, ma la risposta individuale varia. Il **test del 25-ago comanda**: se sei ~+5–9 W a metà sei in traiettoria; se piatto, si rivede volume/recupero/alimentazione. È il **loop lento** che impara te.
 
-**Disponibilità energetica:** nelle settimane con CTL in salita (>3–4/sett) **aumenta l'apporto calorico**, peso stabile ±0.5 kg (*Amy 2018*, *Juliane 2017* moderate). CHO ~60–90 g/h oltre i 90′ (*James 2026* moderate).
+## 11. Provenienza a tre fonti
 
-**Confine medico:** questo piano **non** è consulenza medica. Dolore articolare/muscolare persistente, sintomi (febbre, malessere), sospetto sotto-alimentazione/RED-S → **fermati e consulta un professionista sanitario**. Nel periodo di carico/taper aumenta il rischio di malattia: cura sonno e igiene (*Neil 2011* moderate).
-
-## 8. Conflitti conservati (conflict-aware, non riconciliati)
-
-- **Polarizzato ≠ garanzia su FTP:** *Silva 2024* (high) trova vantaggio POL sul **VO2peak** ma **equivalenza** tra modelli su time-trial e potenza a VT2/LT2. In untrained la distribuzione conta meno del volume (*Carl 2015* high). → la polarizzazione è la scommessa migliore, non una certezza.
-- **VO2max relativo:** effetto **triviale** in meta-analisi (*Norte 2024*, SMD 0.10) vs aumenti in singoli studi (*Hebisz 2020*). Per te a 4.46 W/kg, aspettati guadagni FTP più da **soglia/economia** che da VO2max relativo.
-- **Sweet spot:** il corpus **non** contiene studi che quantifichino guadagni FTP da protocolli SS specifici (dose/durata/frequenza) → i numeri SS del piano sono **euristica**, non evidenza.
-- **Taper:** i review dedicati (Anon 2009, McNeely 2007, Oliver 2019) sono nel database **senza dati estraibili** → durata/riduzione del taper qui sono euristica prudente, non protocollo validato.
-- **Forza concorrente:** nessuno studio del corpus è su ciclisti su strada adulti trained a 4+ W/kg → beneficio **estrapolato**; interferenza documentata solo ad alte velocità angolari (*Gary 1985* low) → evita esplosivo puro nelle prime settimane.
-
-## 9. Provenienza a tre fonti (onestà epistemica)
-
-- **`studi`** — la *strategia*: polarizzato, HIIT 2–3×, soglia-componente, forza 2×, Z2 driver, taper monitorato (§3, citati).
-- **`dati_atleta`** (N=1) — baseline FTP 329, CTL 61, TSB +9.5, 73.8 kg, 5–6 uscite/sett: calibrano zone, rampa di carico e volume.
-- **`euristica`** — tutti i *numeri* concreti: watt-target degli intervalli, durate/ripetizioni, TSS settimanali, rampa CTL, durata del taper. **Sono giudizio da preparatore, non evidenza.** Un numero scelto dentro un range di uno studio resta euristica, mai "studio".
-
-## 10. Onestà su cosa aspettarsi
-
-- Il target **+11 W (+3.3%) è plausibile** partendo fresco e con margine di CTL, **ma non promesso**: il corpus non quantifica il guadagno atteso per un atleta come te in 10 settimane, e la risposta individuale varia molto (*Edward 1988*).
-- Il **test intermedio (25 ago)** è il vero controllo: se a metà sei ~+4–7 W sei in traiettoria; se piatto, si rivede la distribuzione (più volume Z2? più recupero? stress extra-sportivo?) — è il **loop lento** del sistema che "impara te".
-- La compliance conta: se esegui <~80% del carico pianificato di un blocco, l'esito **non è attribuibile** alla strategia (potrebbe essere aderenza, non il metodo).
+- **`studi`** — la *strategia*: piramidale→polarizzato, durabilità in fatica, forza pesante periodizzata, VO2max, soglia-da-top5, race-sim con recuperi lunghi, fueling gara (§3, citati).
+- **`dati_atleta`** (N=1) — CTL 62/picco 121, 20–22 h storiche, FTP 329, 73.8 kg: calibrano volume, rampa, zone.
+- **`euristica`** — tutti i *numeri*: watt-target, ore/settimana, TSS, ramp CTL, durate/ripetizioni, durata del taper. **Giudizio da preparatore, non evidenza.**
 
 ---
 
-*Piano fondato sul corpus di evidenza verificata (18 temi, 318 studi, 100% LLM) e sui dati longitudinali reali dell'atleta. Generato dal CoachAgent (Fase D) + espansione operativa evidence-grounded. Le citazioni rimandano ai paper in `../topics/` e `../papers/`.*
+*Piano fondato sul corpus di evidenza verificata (18 temi, 318 studi, 100% LLM) e sui dati longitudinali reali dell'atleta. CoachAgent (Fase D) + espansione operativa evidence-grounded. Citazioni → `../topics/` e `../papers/`.*
