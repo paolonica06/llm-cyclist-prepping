@@ -40,6 +40,7 @@ class MetricType(str, Enum):
     TSB = "tsb"
     FTP = "ftp"                  # storico della soglia
     POWER_CURVE = "power_curve"  # curva di potenza (payload strutturato in `extra`)
+    VO2MAX = "vo2max"
 
 
 class RacePriority(str, Enum):
@@ -61,6 +62,7 @@ class BlockState(str, Enum):
 
 
 class PlanStatus(str, Enum):
+    PROPOSED = "proposed"
     ACTIVE = "active"
     SUPERSEDED = "superseded"
 
@@ -69,6 +71,14 @@ class TransferabilityVerdict(str, Enum):
     TRANSFERRED = "transferred"
     NOT_TRANSFERRED = "not_transferred"
     INCONCLUSIVE = "inconclusive"
+
+
+class ProvenanceKind(str, Enum):
+    """Provenienza a 3 fonti di una decisione di coaching (ADR-0007)."""
+
+    STUDY = "study"
+    ATHLETE_DATA = "athlete_data"
+    HEURISTIC = "heuristic"
 
 
 # --------------------------------------------------------------------------- #
