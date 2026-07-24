@@ -20,4 +20,4 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [block vs traditional periodization for competitive cyclists](topics/block-vs-traditional-periodization-for-competitive-cyclists.md) — 17 studi sintetizzati (aggiornato 2026-07-24)
 - [polarized vs threshold training intensity distribution in endurance cyclists](topics/polarized-vs-threshold-training-intensity-distribution-in-endurance-cyclists.md) — 10 studi sintetizzati (aggiornato 2026-07-24)
 - [threshold and sweet-spot training for FTP development in trained cyclists](topics/threshold-and-sweet-spot-training-for-ftp-development-in-trained-cyclists.md) — 24 studi sintetizzati (aggiornato 2026-07-24)
-- [interval training and VO2max in trained competitive cyclists](topics/interval-training-and-vo2max-in-trained-competitive-cyclists.md) — 9 studi sintetizzati (aggiornato 2026-07-24)
+- [interval training and VO2max in trained competitive cyclists](topics/interval-training-and-vo2max-in-trained-competitive-cyclists.md) — 17 studi sintetizzati (aggiornato 2026-07-24)

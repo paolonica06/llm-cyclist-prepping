@@ -9,18 +9,17 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **training-protocol optimization study; design details unavailable**
-- Qualità: **moderate** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **high**
-  - sample: moderate
-  - control: unknown
-  - randomization: unknown
-  - duration: unknown
-  - measures: moderate
-  - transferability: high
-  - _Well-trained cyclists are directly relevant to competitive cycling._
-  - _Prescription at power associated with peak oxygen uptake is sport-specific and potentially actionable._
-  - _Optimization claims require credible comparison groups, adequate exposure, and performance outcomes; these details were not provided._
-  - _The overall rating is provisional and is not based on citation count._
+- Tipo di studio: **training intervention study; design details not reported**
+- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **moderate**
+  - sample: Well-trained cyclists are indicated, but sample size and participant characteristics are unavailable.
+  - control: Not reported.
+  - randomization: Not reported.
+  - duration: Not reported.
+  - measures: Power at peak oxygen uptake is cycling-specific and physiologically relevant, but performance endpoints and measurement reliability are unknown.
+  - transferability: Likely useful for interval prescription in trained cyclists, but the protocol's feasibility and competitive relevance cannot be verified.
+  - _The title suggests a highly specific interval-prescription question._
+  - _No conclusions about superiority or optimality can be accepted without comparator, allocation, and outcome details._
+  - _Quality is rated conservatively due to missing evidence._
 
 ## Dati estratti (fonte: not_available, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
