@@ -91,7 +91,12 @@ def _verified_rec(title, abstract, *, doi, results,
     return r
 
 
-def test_llm_branch_builds_plan_with_3way_provenance(tmp_path, monkeypatch):
+def test_llm_range_rule_numbers_never_study(tmp_path, monkeypatch):
+    # FIX #16: rinominato da test_llm_branch_builds_plan_with_3way_provenance.
+    # Verifica la REGOLA DEL RANGE: i numeri (watt, durate) nei blocchi LLM
+    # non hanno mai provenance STUDY, anche se l'LLM lo suggerisce.
+    # La branch STUDY positiva (block.provenance==STUDY + citations) è coperta
+    # da test_conflict_aware_preserved, che asserisce esplicitamente su quel ramo.
     db = _db(tmp_path, monkeypatch)
     ath = _seed_athlete(db)
     def _fake(prompt, system=None, max_tokens=None):
@@ -117,6 +122,9 @@ def test_conflict_aware_preserved(tmp_path, monkeypatch):
     # Serve una Research per far vedere i record al Pozzo (verified_pool → list_researches).
     db.create_research(Research(id="r1", topic="interval training vo2max"))
     # Due record verificati DISCORDI sullo stesso tema: uno positivo, uno negativo.
+    # Calcoliamo i loro id stabili con make_record_id (SHA1 hex), NON 'pos'/'neg'.
+    pos_id = make_record_id("r1", doi="10.1/pos")
+    neg_id = make_record_id("r1", doi="10.1/neg")
     db.upsert_record(_verified_rec(
         "Intervals boost VO2max in cyclists",
         "interval training vo2max cyclists",
@@ -137,13 +145,21 @@ def test_conflict_aware_preserved(tmp_path, monkeypatch):
     plan = CoachAgent(db).run(ath, goal)
 
     block = plan.blocks[0]
-    # conflict-aware conservato: o conflitti testuali, o citazioni che coprono
-    # entrambe le direzioni (positiva + non-positiva).
-    covers_both_directions = (
-        any(c.record_id and "pos" in (c.record_id or "") for c in block.citations)
-        and any(c.record_id and "neg" in (c.record_id or "") for c in block.citations)
-    )
-    assert block.conflicts or covers_both_directions
+    # Il blocco ancorato all'evidenza positiva ha provenance STUDY e citazioni (branch STUDY positiva).
+    assert block.provenance == ProvenanceKind.STUDY, \
+        "il blocco dovrebbe essere STUDY: ha evidenza verificata positiva"
+    assert block.citations, "il blocco STUDY deve avere citazioni"
+    # Il record positivo compare nelle citazioni (source_kind STUDY).
+    citation_ids = [c.record_id for c in block.citations]
+    assert pos_id in citation_ids, \
+        f"id del record positivo {pos_id!r} atteso nelle citazioni; trovati: {citation_ids}"
+    # Il record negativo compare nei conflitti testuali (conflict-aware conservato).
+    assert block.conflicts, "conflict-aware: il record negativo deve generare almeno un conflitto"
+    # Il conflitto fa riferimento al titolo o all'id del record negativo.
+    conflicts_text = " ".join(block.conflicts)
+    neg_title_fragment = "Intervals impair"
+    assert neg_title_fragment in conflicts_text or neg_id in conflicts_text, \
+        f"atteso riferimento al record negativo nei conflitti; trovati: {block.conflicts}"
 
 
 # --------------------------------------------------------------------------- #
@@ -213,3 +229,68 @@ def test_heuristic_branch_empty_pozzo_stays_heuristic(tmp_path, monkeypatch):
         assert b.provenance == ProvenanceKind.HEURISTIC
         assert b.citations == []
         assert b.conflicts == []
+
+
+# --------------------------------------------------------------------------- #
+# FIX #23 — run() senza alcuna Assessment
+# --------------------------------------------------------------------------- #
+def test_run_without_assessment_does_not_raise(tmp_path, monkeypatch):
+    """FIX #23: atleta senza Assessment + goal senza start → run() offline non solleva,
+    produce PROPOSED con target_metric_start=None, blocks non vuoto e disclaimer
+    strutturale nelle notes."""
+    db = _db(tmp_path, monkeypatch)
+    # Semina solo l'Athlete, nessuna Assessment.
+    ath = make_athlete_id("AtletaSenzaFTP")
+    db.save_athlete(Athlete(id=ath, name="AtletaSenzaFTP", category="U23", discipline="road"))
+    # goal senza start (start=None → dedotto dall'ultimo Assessment → None)
+    goal = MetricGoal(metric_type=MetricType.FTP, target=320.0, target_date="2026-12-31")
+    plan = CoachAgent(db).run(ath, goal)
+    assert plan.status == PlanStatus.PROPOSED
+    assert plan.target_metric_start is None, \
+        "senza Assessment, target_metric_start deve essere None"
+    assert plan.blocks, "run() deve periodizzare anche senza Assessment"
+    # disclaimer strutturale sempre presente
+    assert plan.notes and "ipotesi" in plan.notes.lower(), \
+        "il disclaimer 'ipotesi' deve sempre comparire nelle notes"
+    # con start=None i target_watts euristici sono None (mai 0.0 travestito)
+    for b in plan.blocks:
+        for p in b.prescriptions:
+            assert p.target_watts is None, \
+                f"senza Assessment, target_watts deve essere None; trovato {p.target_watts}"
+
+
+# --------------------------------------------------------------------------- #
+# FIX #17 — integrazione confine medico (medical_boundary_flag in plan.notes)
+# --------------------------------------------------------------------------- #
+from cyclist_kb.models import AthleteProfile
+
+
+def test_medical_boundary_flag_appears_in_notes_with_clinical_constraint(tmp_path, monkeypatch):
+    """FIX #17 (caso clinico): constraints con marcatore medico → disclaimer medico in notes."""
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete(db)
+    goal = MetricGoal(metric_type=MetricType.FTP, target=340.0, target_date="2026-09-30")
+    profile = AthleteProfile(name="Paolo", constraints=["dolore al ginocchio"])
+    plan = CoachAgent(db).run(ath, goal, profile=profile)
+    assert plan.notes, "notes non deve essere vuota"
+    assert "confine medico" in plan.notes.lower(), \
+        f"atteso disclaimer medico in notes; trovato: {plan.notes!r}"
+    # il disclaimer strutturale 'ipotesi' deve sempre essere presente
+    assert "ipotesi" in plan.notes.lower(), \
+        "il disclaimer strutturale 'ipotesi' deve sempre comparire"
+
+
+def test_medical_boundary_flag_absent_with_benign_constraint(tmp_path, monkeypatch):
+    """FIX #17 (caso controllo): constraints benigni → NESSUN disclaimer medico (ma
+    il disclaimer strutturale 'ipotesi' resta sempre)."""
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete(db)
+    goal = MetricGoal(metric_type=MetricType.FTP, target=340.0, target_date="2026-09-30")
+    profile = AthleteProfile(name="Paolo", constraints=["preferisce uscite mattutine"])
+    plan = CoachAgent(db).run(ath, goal, profile=profile)
+    assert plan.notes, "notes non deve essere vuota"
+    assert "confine medico" not in plan.notes.lower(), \
+        f"non atteso disclaimer medico per constraints benigni; trovato: {plan.notes!r}"
+    # il disclaimer strutturale 'ipotesi' rimane sempre
+    assert "ipotesi" in plan.notes.lower(), \
+        "il disclaimer strutturale 'ipotesi' deve sempre comparire"

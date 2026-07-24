@@ -85,6 +85,14 @@ def test_assess_block_below_threshold_is_inconclusive(tmp_path, monkeypatch):
     assert memo.verdict == TransferabilityVerdict.INCONCLUSIVE
     assert memo.compliance_ratio is not None and memo.compliance_ratio < 0.80
     assert "compliance < soglia" in memo.caveats
+    # FIX #22: round-trip DB — il memo deve essere persistito con i valori corretti.
+    persisted = db.list_memos(ath, block_id=block_id)
+    assert len(persisted) == 1, \
+        f"atteso 1 memo persistito; trovati {len(persisted)}"
+    assert persisted[0].verdict == memo.verdict, \
+        f"verdict persistito {persisted[0].verdict!r} ≠ {memo.verdict!r}"
+    assert persisted[0].compliance_ratio == memo.compliance_ratio, \
+        f"compliance_ratio persistito {persisted[0].compliance_ratio} ≠ {memo.compliance_ratio}"
 
 
 def test_assess_block_above_threshold_transfers(tmp_path, monkeypatch):
@@ -97,6 +105,14 @@ def test_assess_block_above_threshold_transfers(tmp_path, monkeypatch):
     assert memo.verdict == TransferabilityVerdict.TRANSFERRED
     assert memo.metric_deltas == {"ftp": 10.0}
     assert memo.compliance_ratio is not None and memo.compliance_ratio >= 0.80
+    # FIX #22: round-trip DB — il memo deve essere persistito con i valori corretti.
+    persisted = db.list_memos(ath, block_id=block_id)
+    assert len(persisted) == 1, \
+        f"atteso 1 memo persistito; trovati {len(persisted)}"
+    assert persisted[0].verdict == memo.verdict, \
+        f"verdict persistito {persisted[0].verdict!r} ≠ {memo.verdict!r}"
+    assert persisted[0].compliance_ratio == memo.compliance_ratio, \
+        f"compliance_ratio persistito {persisted[0].compliance_ratio} ≠ {memo.compliance_ratio}"
 
 
 def test_assess_block_no_planned_duration_is_inconclusive(tmp_path, monkeypatch):
@@ -109,3 +125,55 @@ def test_assess_block_no_planned_duration_is_inconclusive(tmp_path, monkeypatch)
     assert memo.verdict == TransferabilityVerdict.INCONCLUSIVE
     assert memo.compliance_ratio is None
     assert "durata pianificata non derivabile" in memo.caveats
+
+
+# --------------------------------------------------------------------------- #
+# FIX #18 — delta=None: UNA SOLA Assessment (pre, senza post) → INCONCLUSIVE
+# --------------------------------------------------------------------------- #
+def test_assess_block_single_assessment_is_inconclusive(tmp_path, monkeypatch):
+    """FIX #18: compliance sopra soglia MA solo la valutazione pre-blocco è disponibile
+    (nessun post-blocco) → assessment_delta restituisce None → verdict INCONCLUSIVE
+    con metric_deltas == {} (US 9: delta non attribuibile)."""
+    db = _db(tmp_path, monkeypatch)
+    ath = make_athlete_id("Paolo")
+    db.save_athlete(Athlete(id=ath, name="Paolo", category="U23", discipline="road"))
+
+    plan_id = make_plan_id(ath, 1)
+    block_id = make_block_id(plan_id, 0)
+    # Prescrizione con duration_s → planned = 3600.0 s.
+    prescriptions = [Prescription(description="5x4", target_watts=300, duration_s=3600)]
+    block = TrainingBlock(
+        id=block_id, plan_id=plan_id, goal="vo2max", order=0,
+        planned_start="2026-07-01", planned_end="2026-07-28",
+        state=BlockState.FROZEN,
+        prescriptions=prescriptions,
+    )
+    plan = TrainingPlan(
+        id=plan_id, athlete_id=ath, version=1, status=PlanStatus.ACTIVE,
+        target_metric_type=MetricType.FTP, target_metric_start=329.0,
+        target_metric_value=340.0, target_metric_date="2026-09-30",
+        blocks=[block],
+    )
+    db.save_plan(plan)
+
+    # Attività con compliance >= 0.80 (moving_time_s=3240 / 3600 = 0.9).
+    db.save_activity(ActivitySummary(
+        id=make_activity_id(ath, "act-single"), athlete_id=ath,
+        date="2026-07-14", type="Ride", moving_time_s=3240))
+
+    # UNA SOLA Assessment (pre-blocco), nessun post.
+    db.save_assessment(Assessment(
+        id=make_assessment_id(ath, "ftp", "2026-07-01"), athlete_id=ath,
+        protocol=AssessmentProtocol.FTP, executed_date="2026-07-01",
+        value=325.0, unit="W"))
+
+    memo = CoachAgent(db).assess_block(ath, plan_id, block_id)
+
+    # compliance sopra soglia → ratio >= 0.80
+    assert memo.compliance_ratio is not None and memo.compliance_ratio >= 0.80, \
+        f"attesa compliance >= 0.80; trovata: {memo.compliance_ratio}"
+    # ma senza valutazione post, il delta è None → INCONCLUSIVE (US 9)
+    assert memo.verdict == TransferabilityVerdict.INCONCLUSIVE, \
+        f"atteso INCONCLUSIVE per delta=None; trovato: {memo.verdict}"
+    assert memo.metric_deltas == {}, \
+        f"metric_deltas deve essere vuoto quando delta=None; trovato: {memo.metric_deltas}"

@@ -34,9 +34,19 @@ def test_proposed_not_active_until_accepted(tmp_path, monkeypatch):
 
 def test_at_most_one_proposed_per_athlete(tmp_path, monkeypatch):
     # (c) rigenerando due volte, l'atleta ha al più un PROPOSED.
+    # FIX #21: verifica anche l'invariante append-only (ADR-0008): il vecchio PROPOSED
+    # resta in DB come SUPERSEDED (non cancellato), e l'id è ancora recuperabile.
     db = _db(tmp_path, monkeypatch)
     ath = _seed_athlete(db)
-    CoachAgent(db).run(ath, _goal())
+    first = CoachAgent(db).run(ath, _goal())
+    first_id = first.id
     CoachAgent(db).run(ath, _goal())
     proposed = [p for p in db.list_plans(ath) if p.status == PlanStatus.PROPOSED]
-    assert len(proposed) == 1
+    assert len(proposed) == 1, \
+        f"atteso esattamente un PROPOSED; trovati {len(proposed)}"
+    # Il vecchio piano non deve essere cancellato: deve esistere come SUPERSEDED (ADR-0008).
+    old = db.get_plan(first_id)
+    assert old is not None, \
+        f"il piano precedente {first_id!r} non deve essere eliminato (append-only)"
+    assert old.status == PlanStatus.SUPERSEDED, \
+        f"il vecchio PROPOSED deve diventare SUPERSEDED; trovato: {old.status}"
