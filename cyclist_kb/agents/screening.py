@@ -73,13 +73,16 @@ class ScreeningAgent:
                 '{"relevance_score": 0-1, "population_type": '
                 '"cycling|endurance_other|untrained|mixed|unclear", "is_cycling": bool, '
                 '"decision": "include|exclude", "reason": "..."}. '
-                "Includi se pertinente e riferito (anche parzialmente) a ciclisti; "
-                "registra sempre il motivo. NON escludere uno studio solo perché l'abstract "
-                "è assente: in tal caso giudica dal titolo e, se plausibilmente su ciclisti "
-                "(o endurance con probabile coorte ciclistica) e pertinente al topic, includilo "
-                "in via cautelativa (relevance moderata). Escludi comunque ciò che chiaramente "
-                "non è uno studio (didascalie di figure/tabelle, frammenti) o riguarda una "
-                "popolazione palesemente non ciclistica."
+                "Sii PERMISSIVO nell'inclusione: includi per default se lo studio riguarda "
+                "esercizio/allenamento di endurance con un intervento o un esito pertinenti al "
+                "topic, ANCHE se la popolazione non è esplicitamente ciclistica (atleti endurance "
+                "allenati, coorti miste) — la trasferibilità ai ciclisti competitivi è valutata a "
+                "valle nella qualità, NON è compito dello screening escluderla. Non escludere per "
+                "abstract assente: giudica dal titolo e nel dubbio includi. Escludi SOLO: (a) ciò "
+                "che non è uno studio (didascalie di figure/tabelle, frammenti, titoli-stub "
+                "generici); (b) un dominio palesemente estraneo alla fisiologia/allenamento "
+                "sportivo; (c) una popolazione clinica/sedentaria senza alcuna rilevanza per atleti "
+                "di endurance. Nel dubbio, INCLUDI. Registra sempre il motivo."
             )
         )
         if not data:
