@@ -45,8 +45,9 @@ Ultimo aggiornamento: 2026-07-24 · Test: **132 verdi** · Stato: **Fase B live 
   - **Verifica live FATTA** (athlete i215294: 1216 serie storiche + 148 attività; mappatura confermata
     campo-per-campo; bug TSB trovato e corretto — derivata come identità CTL−ATL). Resta opzionale il
     **wiring della curva di potenza** e alcuni campi wellness non mappati (readiness/rampRate/vo2max).
-- [~] **Fase A — Corpus wiki** — 18 temi costruiti (euristica, 360 studi verificati); **arricchimento LLM
-  notturno** in corso (Action `enrich-corpus`, backend Claude Code + Codex, batching, registro `enriched.txt`).
+- [x] **Fase A — Corpus wiki** — 18 temi; **ri-arricchimento LLM uniforme** completato (prompt loose, backend
+  Codex `gpt-5.6-sol` reasoning `low`, batch 11): **318 record synthesized, 100% LLM** (screening/extraction/quality,
+  0 fallback euristici residui — verificato via `assessed_by`/`extracted_by`).
   Comando **`research reassess <id>`**: ri-esegue *solo* gli step LLM (screening→extract→quality→synthesize)
   sui record già verificati, **senza** rifare search/verify (niente rate-limiting bibliografico; sblocca Codex locale).
 - [~] **Fase C — Retrieval/RAG** — requisiti (`grill-me`) + PRD (`to-spec`) fatti:
