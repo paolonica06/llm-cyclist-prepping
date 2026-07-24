@@ -15,18 +15,26 @@ def test_offline_or_no_key_returns_empty():
     assert asyncio.run(client.fetch_activities("i1")) == []
 
 
-def test_parse_daily_maps_wellness_and_fitness():
-    sample = [{"id": "2026-07-20", "ctl": 80.0, "atl": 90.0, "form": -10.0,
+def test_parse_daily_maps_wellness_and_derives_tsb():
+    # Payload reale: NESSUN campo 'form'; la TSB si deriva dall'identità CTL - ATL.
+    sample = [{"id": "2026-07-20", "ctl": 80.0, "atl": 90.0,
                "hrv": 62, "restingHR": 45, "weight": 70.5, "sleepSecs": 27000}]
     points = _parse_daily("ath1", sample)
     by_metric = {p.metric_type: p.value for p in points}
     assert by_metric[MetricType.CTL] == 80.0
     assert by_metric[MetricType.ATL] == 90.0
-    assert by_metric[MetricType.TSB] == -10.0        # 'form' → TSB
+    assert by_metric[MetricType.TSB] == -10.0        # derivata: 80 - 90
     assert by_metric[MetricType.HRV] == 62.0
     assert by_metric[MetricType.RESTING_HR] == 45.0
     assert by_metric[MetricType.WEIGHT] == 70.5
     assert all(p.date == "2026-07-20" for p in points)
+
+
+def test_tsb_requires_both_ctl_and_atl():
+    points = _parse_daily("ath1", [{"id": "2026-07-21", "ctl": 81.0}])   # manca ATL
+    metrics = {p.metric_type for p in points}
+    assert MetricType.CTL in metrics
+    assert MetricType.TSB not in metrics
 
 
 def test_parse_daily_skips_missing_fields_and_bad_dates():

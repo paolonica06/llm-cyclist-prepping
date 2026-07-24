@@ -10,7 +10,7 @@
 > «cosa manca / qual è il prossimo passo», «apri il piano per <fase>».
 > Legenda: `- [x]` fatto · `- [~]` in corso · `- [ ]` da fare.
 
-Ultimo aggiornamento: 2026-07-24 · Test: **66 verdi** · Stato: **Fase B implementata** (offline verde); verifica live intervals.icu pendente (serve API key).
+Ultimo aggiornamento: 2026-07-24 · Test: **67 verdi** · Stato: **Fase B implementata e verificata live** (sync reale intervals.icu ok); resta opzionale il wiring della curva di potenza.
 
 ---
 
@@ -42,8 +42,9 @@ Ultimo aggiornamento: 2026-07-24 · Test: **66 verdi** · Stato: **Fase B implem
   - Consegnato: modello dati (`athlete_models.py`) + 7 tabelle SQLite + ingestione intervals.icu
     (morning sync idempotente, separato dalla pipeline paper) + metriche derivate + invarianti
     (gate citabilità solo-verificati, congelamento immutabile). **66 test verdi**, pyflakes pulito.
-  - **Manca solo (input utente):** `KB_INTERVALS_ICU_API_KEY` per la verifica live + wiring della
-    curva di potenza. Dettagli nel report.
+  - **Verifica live FATTA** (athlete i215294: 1216 serie storiche + 148 attività; mappatura confermata
+    campo-per-campo; bug TSB trovato e corretto — derivata come identità CTL−ATL). Resta opzionale il
+    **wiring della curva di potenza** e alcuni campi wellness non mappati (readiness/rampRate/vo2max).
 
 ---
 
@@ -55,8 +56,9 @@ Ultimo aggiornamento: 2026-07-24 · Test: **66 verdi** · Stato: **Fase B implem
   - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → dominio (`domain-modeling`) → piano (`writing-plans`)
   - [x] Schema serie storiche + piano versionato/congelato + memoria trasferibilità
   - [x] Ingestione da **API intervals.icu** (morning sync) — *offline-tested; verifica live pendente*
-  - [x] Metriche derivate (compliance, delta-test) + test (**66 verdi**)
-  - [ ] Verifica live con API key + wiring curva di potenza (**input utente**)
+  - [x] Metriche derivate (compliance, delta-test) + test (**67 verdi**)
+  - [x] Verifica live con API key (sync reale ok; fix TSB=CTL−ATL)
+  - [ ] *(opzionale)* wiring curva di potenza + campi wellness extra
 - [ ] **Fase C — Retrieval/RAG sulla wiki** (grounding delle raccomandazioni, pesato per qualità/trasferibilità)
 - [ ] **Fase D — CoachAgent + feedback loop** (analisi stato → piano/aggiustamenti citati; log esecuzione→esito)
 - [ ] **Fase E — Interfaccia conversazionale** ("chiedi al preparatore") su CLI/API/GUI

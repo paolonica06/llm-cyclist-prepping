@@ -1,8 +1,8 @@
 # Fase B — Report del lavoro autonomo
 
 > Prodotto durante la sessione autonoma autorizzata (implementazione notturna).
-> Data: 2026-07-24. Stato: **implementazione completa e verificata offline** (66 test verdi);
-> resta la **verifica live** di intervals.icu, che richiede la tua API key.
+> Data: 2026-07-24. Stato: **implementazione completa, verificata offline (67 test verdi) E live**
+> (sync reale su intervals.icu: 1216 serie storiche + 148 attività). Vedi §6.
 
 ## 1. Cosa serve SPECIFICAMENTE da te
 
@@ -72,7 +72,22 @@
 ## 5. Come verificare tu
 
 ```bash
-.venv/bin/python -m pytest -q          # atteso: 66 passed
+.venv/bin/python -m pytest -q          # atteso: 67 passed
 # con la key nel .env:
 research athlete-sync <athlete_id> --oldest 2026-01-01
 ```
+
+## 6. Verifica live (eseguita 2026-07-24, athlete i215294)
+
+- **Sync reale riuscito**: `available=True`, **1216 serie storiche + 148 attività** (1 gen → 24 lug).
+  Idempotenza confermata sul DB reale (ri-lancio non duplica).
+- **Mappatura confermata**: CTL, ATL, HRV, resting HR, sleep, weight, e i campi attività
+  (load/IF/durata/distanza/id) combaciano col payload reale.
+- **Bug trovato e corretto**: l'endpoint `/wellness` **non** espone la TSB (nessun campo `form`,
+  contrariamente all'assunzione iniziale). Fix: la TSB è derivata come identità **CTL − ATL**
+  (come fa intervals.icu per la "Form") — non è un ricalcolo con costanti di tempo, quindi
+  rispetta il ramo mirror. Verificato: TSB = CTL − ATL al centesimo.
+- **Campi disponibili non mappati** (opzionali, per te attualmente *null* quindi ignorati):
+  `readiness`, `rampRate`, `vo2max`, `ctlLoad`/`atlLoad`. Si aggiungono in 5 minuti se li vuoi.
+- **Tipi di attività**: attualmente ingerite **tutte** (anche non-ciclistiche, es. Hike) perché il
+  carico è cross-modale in intervals.icu. Da confermare se preferisci filtrare ai soli `Ride`.

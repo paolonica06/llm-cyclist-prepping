@@ -34,8 +34,11 @@ _WELLNESS_FIELDS = {
 _FITNESS_FIELDS = {
     "ctl": MetricType.CTL,
     "atl": MetricType.ATL,
-    "form": MetricType.TSB,          # intervals.icu chiama la TSB "form"
 }
+# NB: l'endpoint /wellness NON espone la TSB ("form" non esiste nel payload).
+# La TSB è l'identità aritmetica CTL - ATL (così la calcola intervals.icu per la
+# "Form") — derivarla NON viola il ramo mirror: non è un ricalcolo con costanti
+# di tempo, è la definizione applicata ai valori già ingeriti. Vedi _parse_daily.
 
 
 class IntervalsClient:
@@ -114,6 +117,15 @@ def _parse_daily(athlete_id: str, data: Any) -> List[TimeseriesPoint]:
                 continue
             points.append(TimeseriesPoint(athlete_id=athlete_id, metric_type=metric,
                                           date=date, value=fval, source="intervals_icu"))
+        # TSB = CTL - ATL (identità: l'API non espone la "form"). Solo se entrambi presenti.
+        ctl, atl = rec.get("ctl"), rec.get("atl")
+        if ctl is not None and atl is not None:
+            try:
+                points.append(TimeseriesPoint(
+                    athlete_id=athlete_id, metric_type=MetricType.TSB, date=date,
+                    value=float(ctl) - float(atl), source="intervals_icu"))
+            except (TypeError, ValueError):
+                pass
     return points
 
 
