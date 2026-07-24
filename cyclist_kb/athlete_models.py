@@ -20,7 +20,7 @@ import re
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from .models import QualityLevel
 
@@ -213,6 +213,13 @@ class Prescription(BaseModel):
     duration_s: Optional[int] = None
     reps: Optional[int] = None
     supported: bool = False                      # sostenuta da Evidenza verificata?
+    provenance: ProvenanceKind = ProvenanceKind.HEURISTIC
+    citation_ids: List[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _sync_supported(self) -> "Prescription":
+        self.supported = (self.provenance == ProvenanceKind.STUDY)
+        return self
 
 
 class EvidenceCitation(BaseModel):
@@ -226,6 +233,7 @@ class EvidenceCitation(BaseModel):
     quality: Optional[str] = None                # QualityLevel.value (metodologica)
     transferability: Optional[str] = None        # trasferibilità DELLO studio
     frozen_at: Optional[str] = None
+    source_kind: ProvenanceKind = ProvenanceKind.STUDY
 
 
 class TrainingBlock(BaseModel):
@@ -245,6 +253,8 @@ class TrainingBlock(BaseModel):
     executed_end: Optional[str] = None
     ftp_at_time: Optional[float] = None
     frozen_at: Optional[str] = None
+    provenance: ProvenanceKind = ProvenanceKind.HEURISTIC
+    conflicts: List[str] = Field(default_factory=list)
 
     def freeze(
         self,
@@ -281,8 +291,16 @@ class TrainingPlan(BaseModel):
     blocks: List[TrainingBlock] = Field(default_factory=list)
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
+    # Estensioni Task 2 (CP2)
+    target_metric_type: Optional[MetricType] = None
+    target_metric_start: Optional[float] = None
+    target_metric_value: Optional[float] = None
+    target_metric_date: Optional[str] = None
+    supersedes_id: Optional[str] = None
+    notes: Optional[str] = None
 
-    def next_version(self, *, valid_from: Optional[str] = None) -> "TrainingPlan":
+    def next_version(self, *, valid_from: Optional[str] = None,
+                     status: PlanStatus = PlanStatus.ACTIVE) -> "TrainingPlan":
         """Restituisce la versione successiva (copia profonda pura): **non muta** `self`.
 
         La transizione atomica — marcare questa versione SUPERSEDED e persistere la
@@ -292,7 +310,7 @@ class TrainingPlan(BaseModel):
         nxt = self.model_copy(deep=True)
         nxt.version = self.version + 1
         nxt.id = make_plan_id(self.athlete_id, nxt.version)
-        nxt.status = PlanStatus.ACTIVE
+        nxt.status = status
         nxt.valid_from = valid_from
         nxt.valid_to = None
         nxt.created_at = None
@@ -310,3 +328,14 @@ class TransferabilityMemo(BaseModel):
     metric_deltas: Dict[str, float] = Field(default_factory=dict)  # es. {"ftp": 12.0, "vo2max": 1.5}
     caveats: List[str] = Field(default_factory=list)               # confounder
     assessed_at: Optional[str] = None
+    compliance_ratio: Optional[float] = None
+    citations: List[EvidenceCitation] = Field(default_factory=list)
+
+
+class MetricGoal(BaseModel):
+    """Obiettivo metrico datato del Piano (ADR-0006)."""
+
+    metric_type: MetricType
+    target: float
+    target_date: str                          # ISO YYYY-MM-DD
+    start: Optional[float] = None             # se None, dedotto dall'ultimo Assessment
