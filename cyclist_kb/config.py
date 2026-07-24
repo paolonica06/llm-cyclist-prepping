@@ -61,6 +61,10 @@ class Settings(BaseSettings):
     codex_bin: str = "codex"
     codex_model: Optional[str] = None            # None = default del CLI codex
     codex_timeout: float = 180.0
+    # Reasoning effort del modello Codex (`low|medium|high`). None = usa la config globale
+    # di codex (spesso "high", costosissima per il batch: ~70k token e timeout sulla quality).
+    # "low"/"medium" tagliano drasticamente i reasoning-token e il rischio di timeout.
+    codex_reasoning_effort: Optional[str] = None  # KB_CODEX_REASONING_EFFORT
     # File dove i backend CLI appendono i token usati per-chiamata (per misurare il consumo).
     llm_usage_log: Optional[str] = None
 

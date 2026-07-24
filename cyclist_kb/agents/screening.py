@@ -73,8 +73,13 @@ class ScreeningAgent:
                 '{"relevance_score": 0-1, "population_type": '
                 '"cycling|endurance_other|untrained|mixed|unclear", "is_cycling": bool, '
                 '"decision": "include|exclude", "reason": "..."}. '
-                "Includi solo se pertinente e riferito (anche parzialmente) a ciclisti; "
-                "registra sempre il motivo."
+                "Includi se pertinente e riferito (anche parzialmente) a ciclisti; "
+                "registra sempre il motivo. NON escludere uno studio solo perché l'abstract "
+                "è assente: in tal caso giudica dal titolo e, se plausibilmente su ciclisti "
+                "(o endurance con probabile coorte ciclistica) e pertinente al topic, includilo "
+                "in via cautelativa (relevance moderata). Escludi comunque ciò che chiaramente "
+                "non è uno studio (didascalie di figure/tabelle, frammenti) o riguarda una "
+                "popolazione palesemente non ciclistica."
             )
         )
         if not data:

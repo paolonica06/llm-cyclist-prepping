@@ -76,6 +76,7 @@ def _codex_client() -> LLMClient:
     c._codex_model = None
     c._codex_timeout = 5
     c._usage_log = None
+    c._codex_reasoning_effort = None
     c._available = True
     return c
 
@@ -99,3 +100,30 @@ def test_codex_degrades_on_failure(monkeypatch):
     monkeypatch.setattr(subprocess, "run",
                         lambda cmd, **kw: types.SimpleNamespace(returncode=1, stderr=""))
     assert c.complete_json("p") is None
+
+
+def _codex_capture(monkeypatch, captured):
+    def fake_run(cmd, **kw):
+        captured["cmd"] = cmd
+        with open(cmd[cmd.index("-o") + 1], "w", encoding="utf-8") as fh:
+            fh.write('{"ok": true}')
+        return types.SimpleNamespace(returncode=0, stderr="")
+    monkeypatch.setattr(subprocess, "run", fake_run)
+
+
+def test_codex_passes_reasoning_effort_override(monkeypatch):
+    c = _codex_client()
+    c._codex_reasoning_effort = "low"                         # override per-chiamata
+    captured = {}
+    _codex_capture(monkeypatch, captured)
+    assert c.complete_json("prompt") == {"ok": True}
+    cmd = captured["cmd"]
+    assert "-c" in cmd and "model_reasoning_effort=low" in cmd
+
+
+def test_codex_omits_reasoning_effort_when_unset(monkeypatch):
+    c = _codex_client()                                       # _codex_reasoning_effort=None
+    captured = {}
+    _codex_capture(monkeypatch, captured)
+    c.complete_json("p")
+    assert "model_reasoning_effort" not in " ".join(captured["cmd"])

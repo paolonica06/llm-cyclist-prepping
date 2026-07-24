@@ -120,7 +120,9 @@ class ExtractionAgent:
                 f"{len(chunk)} oggetti nello STESSO ORDINE. Ogni oggetto con chiavi: study_design, "
                 "participants, training_level, sex, age, sample_size, protocol, comparator, "
                 "duration, outcomes, results, effect_size, limitations, conflicts_of_interest. "
-                "null se il dato non è presente nel testo."
+                "null se il dato non è presente nel testo. Mantieni i valori nella lingua del "
+                "testo sorgente (di norma inglese): NON tradurre. Non inferire dal solo titolo "
+                "quando il testo è assente."
             )
         )
         if not data:

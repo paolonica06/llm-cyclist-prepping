@@ -36,6 +36,7 @@ class LLMClient:
         self._codex_bin: Optional[str] = None
         self._codex_model = s.codex_model
         self._codex_timeout = s.codex_timeout
+        self._codex_reasoning_effort = s.codex_reasoning_effort
         self._usage_log = s.llm_usage_log
         self._available = False
 
@@ -164,6 +165,10 @@ class LLMClient:
                "--skip-git-repo-check", "-C", neutral, "--sandbox", "read-only"]
         if self._codex_model:
             cmd += ["-m", self._codex_model]
+        # Abbassa il reasoning effort per-chiamata (override della config globale codex):
+        # taglia i reasoning-token e il rischio di timeout sui batch (es. quality).
+        if self._codex_reasoning_effort:
+            cmd += ["-c", f"model_reasoning_effort={self._codex_reasoning_effort}"]
         try:
             proc = subprocess.run(
                 cmd, capture_output=True, text=True, timeout=self._codex_timeout
