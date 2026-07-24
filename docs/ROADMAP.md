@@ -26,9 +26,9 @@ Ultimo aggiornamento: 2026-07-24 · Test: **34 verdi** · Stato: MVP completo, i
 - [x] **Revisione multi-agente + fix**: 26 problemi confermati corretti (dedup, gate di verifica, crash autori, sintesi cumulativa, ecc.)
 - [x] **Setup skill + guardrail**: 18 skill (livello repo), protezione Git attiva, routing autonomo delle skill, `docs/AGENT_WORKFLOW.md`
 
-> ✅ **Committato** come base dell'audit-log (commit locali sul branch `main`).
-> Push autonomo **autorizzato**; manca ancora un **remote** (nessun `origin`
-> configurato) → il push sarà effettivo appena aggiungi un repository remoto.
+> ✅ **Committato e pushato** su `origin`
+> (github.com/paolonica06/llm-cyclist-prepping), branch `main`. Push autonomo
+> attivo: da qui in poi committo e pusho a ogni fase chiusa.
 
 ---
 
