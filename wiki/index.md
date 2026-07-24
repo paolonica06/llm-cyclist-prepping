@@ -12,7 +12,7 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [pacing strategy and power output distribution in prolonged cycling over variable terrain](topics/pacing-strategy-and-power-output-distribution-in-prolonged-cycling-over-variable.md) — 24 studi sintetizzati (aggiornato 2026-07-24)
 - [carbohydrate intake and race fueling strategies for prolonged endurance cycling performance](topics/carbohydrate-intake-and-race-fueling-strategies-for-prolonged-endurance-cycling-.md) — 20 studi sintetizzati (aggiornato 2026-07-24)
 - [training load monitoring and overtraining in endurance cyclists](topics/training-load-monitoring-and-overtraining-in-endurance-cyclists.md) — 20 studi sintetizzati (aggiornato 2026-07-24)
-- [heart rate variability guided training in endurance athletes](topics/heart-rate-variability-guided-training-in-endurance-athletes.md) — 9 studi sintetizzati (aggiornato 2026-07-24)
+- [heart rate variability guided training in endurance athletes](topics/heart-rate-variability-guided-training-in-endurance-athletes.md) — 15 studi sintetizzati (aggiornato 2026-07-24)
 - [sleep, recovery and endurance performance in athletes](topics/sleep-recovery-and-endurance-performance-in-athletes.md) — 12 studi sintetizzati (aggiornato 2026-07-24)
 - [heat acclimatization and endurance cycling performance](topics/heat-acclimatization-and-endurance-cycling-performance.md) — 5 studi sintetizzati (aggiornato 2026-07-24)
 - [concurrent strength training and endurance cycling performance](topics/concurrent-strength-training-and-endurance-cycling-performance.md) — 14 studi sintetizzati (aggiornato 2026-07-24)
