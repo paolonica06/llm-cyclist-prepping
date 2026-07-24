@@ -74,7 +74,12 @@ Ultimo aggiornamento: 2026-07-24 · Test: **89 verdi** · Stato: **Fase B live o
   - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → dominio (`domain-modeling`, ADR-0005) → piano (`writing-plans`)
   - [x] **`retrieval.py` implementato**: pozzo unico verificato, pertinenza BM25-lite in-tema-prima, qualità+personalizzazione, conflict-aware; CLI `research retrieve`. 7 test; **84 verdi**; validato live sul corpus reale
   - [ ] *(dopo)* tier LLM/embedding-rerank opzionale + endpoint API
-- [ ] **Fase D — CoachAgent + feedback loop** (analisi stato → piano/aggiustamenti citati; log esecuzione→esito)
+- [~] **Fase D — CoachAgent + feedback loop** → **[PRD](specs/fase-d-coachagent.md)** (`to-spec`, da grilling)
+  - [x] Requisiti (`grill-me`) → PRD (`to-spec`): piano vivo a target metrico, provenienza a 3 fonti
+    (studi/dati-atleta/euristica), due loop + gate di compliance, proponi-poi-approva, guardrail + confine medico, offline
+  - [ ] **Prossimo:** `writing-plans` → `executing-plans`/TDD (sessione nuova, seed = PRD). Estensioni schema:
+    `PlanStatus.PROPOSED`, obiettivo metrico nel Piano, provenienza a 3 vie (estende `Prescrizione.supportata`),
+    Citazione N=1. Valutare ADR-0006 (obiettivo metrico) + ADR provenienza a 3 fonti.
 - [ ] **Fase E — Interfaccia conversazionale** ("chiedi al preparatore") su CLI/API/GUI
 
 ---
