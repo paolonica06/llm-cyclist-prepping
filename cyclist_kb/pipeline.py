@@ -29,6 +29,18 @@ class ResearchNotFound(Exception):
     pass
 
 
+class PlanNotFound(Exception):
+    ...
+
+
+class PlanStateError(Exception):
+    ...
+
+
+class AthleteNotFound(Exception):
+    ...
+
+
 class Pipeline:
     def __init__(self, db: Optional[Database] = None) -> None:
         self.settings = get_settings()
@@ -135,6 +147,31 @@ class Pipeline:
         """Morning sync da intervals.icu (no-op pulito se key assente/offline)."""
         from .agents.athlete_sync import AthleteSyncAgent
         return await AthleteSyncAgent(self.db).run(athlete_id, oldest=oldest, newest=newest)
+
+    # -- Fase D: CoachAgent ------------------------------------------------- #
+    def coach(self, athlete_id: str, goal, profile_path: Optional[Path] = None):
+        from .agents.coach import CoachAgent
+        profile = load_profile(Path(profile_path)) if profile_path else None
+        if self.db.get_athlete(athlete_id) is None:
+            raise AthleteNotFound(f"Atleta '{athlete_id}' inesistente.")
+        return CoachAgent(self.db).run(athlete_id, goal, profile)
+
+    def coach_accept(self, plan_id: str):
+        from .agents.coach import CoachAgent
+        if self.db.get_plan(plan_id) is None:
+            raise PlanNotFound(f"Piano '{plan_id}' inesistente.")
+        try:
+            return CoachAgent(self.db).accept(plan_id)
+        except ValueError as exc:
+            raise PlanStateError(str(exc)) from exc
+
+    def coach_adapt(self, athlete_id: str):
+        from .agents.coach import CoachAgent
+        return CoachAgent(self.db).adapt_microcycle(athlete_id)
+
+    def coach_assess(self, athlete_id: str, plan_id: str, block_id: str):
+        from .agents.coach import CoachAgent
+        return CoachAgent(self.db).assess_block(athlete_id, plan_id, block_id)
 
     # -- Pipeline completa -------------------------------------------------- #
     async def run(self, topic: str, profile_path: Optional[Path] = None) -> Research:
