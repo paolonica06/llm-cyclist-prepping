@@ -175,6 +175,38 @@ può spiegare un cambiamento nelle Valutazioni e va esplicitato come caveat nell
 Trasferibilità personalizzata.
 _Avoid_: variabile confondente (usare "confounder"), rumore
 
+### Retrieval (interrogazione del corpus)
+
+**Retriever**:
+Il "bibliotecario": data un'interrogazione e l'Atleta, restituisce i migliori studi
+dell'Evidenza verificata, ordinati per Pertinenza, qualità e adattamento all'atleta. È
+deterministico e **non scrive** la risposta (quella è generazione, a valle).
+_Avoid_: ricerca (la "ricerca"/`Research` è l'interrogazione delle banche dati esterne, un'altra cosa), search engine
+
+**Pozzo**:
+L'insieme **unico** di tutte le Evidenze verificate attraverso *tutti* i temi, deduplicato
+per identità di paper. Il Retriever cerca qui, non dentro le singole pagine-tema (che
+restano artefatti sfogliabili).
+_Avoid_: indice, database (è una vista logica, non una struttura di memorizzazione)
+
+**Pertinenza**:
+Quanto uno studio combacia lessicalmente con l'interrogazione (con espansione dei sinonimi
+di dominio). È il criterio **primario**: uno studio fuori tema non emerge, per quanto di
+qualità ("in-tema-prima").
+_Avoid_: rilevanza (usare "pertinenza"), match
+
+**Direzione dell'evidenza**:
+Il verso del risultato di uno studio rispetto a un esito: *a favore*, *nullo*, *contrario*
+o *misto*. Già classificata in sintesi.
+_Avoid_: esito (è la grandezza), effetto
+
+**Conflict-aware**:
+Proprietà dell'output del Retriever: rappresenta **entrambe le Direzioni** dell'evidenza
+(la più forte a favore *e* la più forte contro/nulla), non solo gli studi col punteggio più
+alto — così i conflitti restano visibili e non si fa cherry-picking. È l'applicazione al
+retrieval del principio "conflitti conservati, non riconciliati".
+_Avoid_: bilanciato (non è simmetria forzata), imparziale
+
 ### Ingestione
 
 **Morning sync**:
