@@ -12,30 +12,35 @@
   - ⚠ [PubMed] Rivista discordante: «PubMed» vs «Journal of athletic training»
 
 ## Qualità metodologica
-- Tipo di studio: **review**
-- Qualità: **moderate** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **low**
-  - sample: very_small
-  - control: present
-  - randomization: absent_or_unclear
-  - duration: adequate
-  - measures: unclear
+- Tipo di studio: **studio osservazionale prospettico di coorte non randomizzato**
+- Qualità: **low** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **low**
+  - sample: low
+  - control: low
+  - randomization: low
+  - duration: moderate
+  - measures: low
   - transferability: low
-  - _Campione molto ridotto (n=4): potenza statistica limitata._
+  - _La popolazione è composta da giocatori universitari di football, con richieste fisiche e profilo d'infortunio molto diversi dal ciclismo competitivo._
+  - _Il titolo suggerisce il confronto tra utilizzatori e non utilizzatori di creatina, verosimilmente senza assegnazione randomizzata né placebo._
+  - _L'autoselezione dell'integrazione può introdurre confondimento dovuto a comportamento, ruolo, esposizione, preparazione atletica e assistenza sanitaria._
+  - _Crampi e infortuni possono dipendere da autosegnalazione e da diversa esposizione all'allenamento o alle partite._
+  - _Il frammento fornito non riporta metodi e risultati completi, limitando la valutazione di campione, aggiustamenti, aderenza e precisione._
+  - _Lo studio può generare ipotesi sulla sicurezza della creatina, ma non dimostra causalmente una riduzione di crampi o infortuni nei ciclisti._
 
-## Dati estratti (fonte: full_text, metodo: heuristic)
-- **Disegno dello studio** (`full_text`): review
-- **Partecipanti** (`full_text`): Design and Setting: In an open-label manner, subjects who volunteered to take creatine ingested 0.3 g·kg −1 ·d −1 of creatine for 5 days followed by an average of 0.03 g·kg· −1 d −1 after workouts, practices, and games.
-- **Livello di allenamento** (`full_text`): trained
-- **Sesso** (`full_text`): mixed
-- **Età** (`full_text`): 19.7 ± 1.0
-- **Numerosità campione** (`full_text`): 4
-- **Protocollo** (`full_text`): Keywords: exercise, nutrition, ergogenic aids, safety, sport injuries Creatine supplementation has been reported to increase strength, 1 enhance work performed during repetitive sets of muscle contractions, 2 improve repetitive sprint performance, 1 and increase body mass/fat-free mass.
-- **Comparatore** (`full_text`): Conclusions: The incidence of cramping or injury in Division IA football players was significantly lower or proportional for creatine users compared with nonusers.
-- **Durata** (`full_text`): 5 day
-- **Outcome** (`full_text`): Keywords: exercise, nutrition, ergogenic aids, safety, sport injuries Creatine supplementation has been reported to increase strength, 1 enhance work performed during repetitive sets of muscle contractions, 2 improve repetitive sprint performance, 1 and increase body mass/fat-free mass.
-- **Risultati** (`full_text`): Results: Creatine users had significantly less cramping (χ 2 1 = 5.35 P = .021); heat illness or dehydration (χ 2 1 = 4.09, P = .043); muscle tightness (χ 2 1 = 5.39, P = .020); muscle strains (χ 2 1 = 5.36, P = .021); and total injuries (χ 2 1 = 17.80, P .001) than nonusers.
+## Dati estratti (fonte: full_text, metodo: llm)
+- **Disegno dello studio**: _non disponibile_
+- **Partecipanti**: _non disponibile_
+- **Livello di allenamento**: _non disponibile_
+- **Sesso**: _non disponibile_
+- **Età**: _non disponibile_
+- **Numerosità campione**: _non disponibile_
+- **Protocollo**: _non disponibile_
+- **Comparatore**: _non disponibile_
+- **Durata**: _non disponibile_
+- **Outcome**: _non disponibile_
+- **Risultati**: _non disponibile_
 - **Effect size**: _non disponibile_
-- **Limiti** (`full_text`): These injuries were considered significant injuries because they required medical attention during or after training sessions, practices, or games, and they involved limitation from participation in the sport.
+- **Limiti**: _non disponibile_
 - **Conflitti di interesse**: _non disponibile_
 
 ## Abstract

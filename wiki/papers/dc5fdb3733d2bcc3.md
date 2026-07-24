@@ -9,17 +9,19 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
+- Tipo di studio: **studio prospettico osservazionale in ambito militare**
 - Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **low**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: unclear
-  - transferability: low
-  - _Numerosità del campione non riportata nel testo disponibile._
+  - sample: personale militare sottoposto ad addestramento arduo, con caratteristiche e numerosità non fornite
+  - control: gruppo di confronto e controllo di stress, sonno, deficit energetico ed esposizioni collettive non descritti
+  - randomization: presumibilmente assente
+  - duration: programma di addestramento di durata non specificata
+  - measures: funzione immunitaria e incidenza respiratoria pertinenti, ma definizioni e metodi diagnostici ignoti
+  - transferability: bassa a causa di stressori militari multipli non rappresentativi del ciclismo competitivo
+  - _Sonno ridotto, stress psicologico, vita comunitaria e deficit energetico possono dominare gli effetti osservati._
+  - _Può informare solo scenari ciclistici estremi di sovraccarico._
+  - _Valutazione provvisoria basata esclusivamente sul titolo._
 
-## Dati estratti (fonte: not_available, metodo: heuristic)
+## Dati estratti (fonte: not_available, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
 - **Partecipanti**: _non disponibile_
 - **Livello di allenamento**: _non disponibile_

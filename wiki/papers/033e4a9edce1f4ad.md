@@ -13,32 +13,30 @@
   - ⚠ [PubMed] Rivista discordante: «PubMed» vs «Exercise immunology review»
 
 ## Qualità metodologica
-- Tipo di studio: **coorte osservazionale prospettica**
+- Tipo di studio: **studio osservazionale prospettico di coorte**
 - Qualità: **moderate** · Confidenza: **high** · Trasferibilità ciclisti competitivi: **moderate**
-  - sample: high
-  - control: moderate
-  - randomization: low
-  - duration: high
-  - measures: high
-  - transferability: moderate
-  - _Campione ampio di 210 atleti di endurance, ma sbilanciato per sesso e non specifico per il ciclismo._
-  - _Follow-up di 16 settimane con raccolte salivari ripetute e registrazione prospettica dell'allenamento e dei sintomi._
-  - _Questionari validati e misure immunologiche oggettive rafforzano l'affidabilità._
-  - _Disegno osservazionale senza randomizzazione; possibili confondenti legati a disciplina, esposizione, ormoni e comportamenti sanitari._
-  - _Applicabilità discreta ai ciclisti competitivi, ma inferiore a quella di uno studio esclusivamente ciclistico._
+  - sample: ampio campione di 210 atleti di endurance, ma composizione sbilanciata per sesso e quota di ciclisti non specificata
+  - control: confronto osservazionale tra uomini e donne; assenza di gruppo non atleta e controllo limitato dei confondenti
+  - randomization: nessuna randomizzazione, appropriata solo in parte per l'obiettivo osservazionale
+  - duration: 16 settimane con rilevazioni salivari ripetute, adeguate a studiare variazioni stagionali e sintomi
+  - measures: biomarcatori oggettivi ripetuti e diari validati, ma sintomi autoriferiti senza conferma eziologica delle infezioni
+  - transferability: popolazione endurance con carico elevato, indirettamente pertinente ma non specificamente ciclistica
+  - _Buona numerosità e disegno longitudinale._
+  - _Il sesso non è assegnabile casualmente, ma confondenti come dieta, sonno, ciclo mestruale e ambiente potrebbero influenzare i risultati._
+  - _Applicabilità moderata ai ciclisti competitivi, soprattutto per salute respiratoria durante periodi di allenamento invernale._
 
 ## Dati estratti (fonte: abstract, metodo: llm)
-- **Disegno dello studio** (`abstract`): 16-week observational study during a winter training period
+- **Disegno dello studio** (`abstract`): Prospective observational study during a 16-week winter training period
 - **Partecipanti** (`abstract`): Endurance athletes
 - **Livello di allenamento** (`abstract`): Endurance athletes averaging 11 h/week of moderate-vigorous physical activity
 - **Sesso** (`abstract`): 147 men and 63 women
 - **Età**: _non disponibile_
 - **Numerosità campione** (`abstract`): 210
-- **Protocollo** (`abstract`): Blood was collected at the start and end of the study for differential leukocyte counts. Timed collections of unstimulated saliva were obtained at baseline and at 4-week intervals and analysed for salivary antimicrobial peptides and proteins. Weekly training and daily illness logs were kept using validated questionnaires.
-- **Comparatore** (`abstract`): Males versus females
+- **Protocollo** (`abstract`): Blood was collected at the start and end of the study for differential leukocyte counts. Timed unstimulated saliva collections were obtained at baseline and at 4-week intervals and analysed for salivary antimicrobial peptides and proteins. Weekly training and daily illness logs were recorded using validated questionnaires.
+- **Comparatore** (`abstract`): Male versus female endurance athletes
 - **Durata** (`abstract`): 16 weeks
-- **Outcome** (`abstract`): ['Salivary concentrations and secretion rates of lysozyme, lactoferrin, salivary immunoglobulin A and amylase', 'Saliva flow rate', 'Total blood leukocyte, monocyte, lymphocyte and neutrophil counts', 'Incidence, number of days and duration of upper respiratory symptoms episodes', 'Training load']
-- **Risultati** (`abstract`): Training loads were not different between males and females. Salivary lysozyme and lactoferrin concentrations were higher in males than females (both P < 0.04), whereas SIgA and amylase concentrations were not. Saliva flow rates were higher in males (P < 0.03), as were secretion rates of lysozyme, lactoferrin and amylase (all P < 0.01); SIgA secretion rate was not significantly different (P = 0.097). Total leukocyte, monocyte and lymphocyte counts did not differ, but females had higher circulating neutrophil counts (P = 0.040). The average number of URS episodes was 0.6 +/- 0.8 in males and 0.8 +/- 1.0 in females (P = 0.103). URS days were higher in females (4.7 vs 6.8 days, P < 0.02), and URS episode duration was longer in females (11.6 vs 15.5 days, P < 0.03).
+- **Outcome** (`abstract`): Salivary concentrations and secretion rates of lysozyme, lactoferrin, SIgA and amylase; saliva flow rate; differential blood leukocyte counts; incidence, number of days, severity and duration of upper respiratory symptoms episodes; training load
+- **Risultati** (`abstract`): Training loads were not different between males and females. Salivary lysozyme and lactoferrin concentrations were higher in males (both P < 0.04), whereas SIgA and amylase concentrations were not. Saliva flow rates were higher in males (P < 0.03), as were secretion rates of lysozyme, lactoferrin and amylase (all P < 0.01); SIgA secretion rate was not significantly different (P = 0.097). Total leukocyte, monocyte and lymphocyte counts did not differ, but females had more circulating neutrophils (P = 0.040). Mean URS episodes were 0.6 +/- 0.8 in males and 0.8 +/- 1.0 in females (P = 0.103). Females had more URS days (6.8 versus 4.7 days, P < 0.02) and longer episodes (15.5 versus 11.6 days, P < 0.03).
 - **Effect size**: _non disponibile_
 - **Limiti**: _non disponibile_
 - **Conflitti di interesse**: _non disponibile_

@@ -10,29 +10,32 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
-- Qualità: **moderate** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **high**
-  - sample: adequate
-  - control: present
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: unclear
-  - transferability: high
+- Tipo di studio: **studio pilota trasversale multi-omico**
+- Qualità: **low** · Confidenza: **high** · Trasferibilità ciclisti competitivi: **moderate**
+  - sample: 33 ciclisti professionisti e amatori, campione piccolo e probabilmente vulnerabile a selezione e instabilità delle stime
+  - control: confronto professionisti-amatori senza gruppo sedentario; dieta e altri forti confondenti non risultano adeguatamente controllati
+  - randomization: nessuna randomizzazione
+  - duration: campionamento essenzialmente trasversale, insufficiente per causalità o adattamenti longitudinali
+  - measures: metagenomica e metatrascrittomica avanzate, ma molteplici confronti, dati autoriferiti sull'esercizio e assenza di esiti prestativi diretti limitano l'inferenza
+  - transferability: campione direttamente ciclistico, ma risultati esplorativi e non immediatamente applicabili alla pratica
+  - _Approccio biologico approfondito ma dichiaratamente pilota._
+  - _Le associazioni tra microbioma, volume di esercizio e livello professionistico non dimostrano causalità o beneficio prestativo._
+  - _Sono necessarie coorti più grandi, misure dietetiche rigorose e validazione indipendente._
 
-## Dati estratti (fonte: abstract, metodo: heuristic)
-- **Disegno dello studio**: _non disponibile_
-- **Partecipanti** (`abstract`): BACKGROUND: Changes in diet and exercise can alter the gut microbiome of humans and mice; however, few studies to date have assessed the microbiomes of highly fit athletes.
-- **Livello di allenamento** (`abstract`): competitive
+## Dati estratti (fonte: abstract, metodo: llm)
+- **Disegno dello studio** (`abstract`): Pilot cross-sectional metagenomic and metatranscriptomic study
+- **Partecipanti** (`abstract`): Professional and amateur competitive cyclists
+- **Livello di allenamento** (`abstract`): Professional and amateur level competitive cyclists
 - **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
 - **Numerosità campione** (`abstract`): 33
-- **Protocollo**: _non disponibile_
-- **Comparatore** (`abstract`): Further analysis of the metatranscriptome revealed significant taxonomic differences when compared to the metagenome.
+- **Protocollo** (`abstract`): Gut microbiomes were assessed using metagenomic whole genome shotgun sequencing and metatranscriptomic RNA-Seq to identify organisms present and active and compare professional with amateur cyclists. Reported weekly exercise time was examined in relation to microbial abundance.
+- **Comparatore** (`abstract`): Professional versus amateur competitive cyclists; taxonomic clusters and reported weekly exercise time
 - **Durata**: _non disponibile_
-- **Outcome**: _non disponibile_
-- **Risultati** (`abstract`): In this pilot study, we used metagenomic whole genome shotgun (mWGS) and metatranscriptomic (RNA-Seq) sequencing to show what organisms are both present and active in the gut microbiomes of both professional and amateur level competitive cyclists and to determine if any significant differences exist between these two groups.
+- **Outcome** (`abstract`): Gut microbiome taxonomic clusters; microbial abundance; associations with weekly exercise time; amino acid, carbohydrate, methane and energy metabolism pathways; metagenomic versus metatranscriptomic taxonomic profiles
+- **Risultati** (`abstract`): The microbiomes separated into three taxonomic clusters characterized by high Prevotella, high Bacteroides, or a mixture of genera including Bacteroides, Prevotella, Eubacterium, Ruminococcus and Akkermansia. Taxonomic cluster was not significantly associated with professional or amateur status. Prevotella abundance >=2.5% was significantly correlated with reported weekly exercise time and with amino acid and carbohydrate metabolism pathways, including branched chain amino acid metabolism. Metatranscriptomic profiles differed significantly from metagenomic profiles. Methanobrevibacter smithii transcripts were more abundant in a number of professional cyclists, with upregulation of methane-production genes. Upregulated methane metabolism coincided with upregulation of energy and carbohydrate metabolism pathways.
 - **Effect size**: _non disponibile_
-- **Limiti**: _non disponibile_
+- **Limiti** (`abstract`): Pilot study
 - **Conflitti di interesse**: _non disponibile_
 
 ## Abstract
