@@ -10,28 +10,30 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
-- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **low**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: unclear
-  - transferability: low
-  - _Numerosità del campione non riportata nel testo disponibile._
+- Tipo di studio: **consensus statement**
+- Qualità: **high** · Confidenza: **high** · Trasferibilità ciclisti competitivi: **moderate**
+  - sample: moderate
+  - control: low
+  - randomization: low
+  - duration: moderate
+  - measures: moderate
+  - transferability: moderate
+  - _Sintesi multidisciplinare orientata agli atleti di alto livello, non studio sperimentale primario._
+  - _Raccomandazioni fondate su un ampio corpo di evidenze e attente a sicurezza, variabilità individuale e antidoping._
+  - _L'evidenza sui nitrati è applicabile al ciclismo, ma il testo non fornisce stime specifiche per ciclisti competitivi._
 
-## Dati estratti (fonte: abstract, metodo: heuristic)
-- **Disegno dello studio**: _non disponibile_
-- **Partecipanti** (`abstract`): Nutrition usually makes a small but potentially valuable contribution to successful performance in elite athletes, and dietary supplements can make a minor contribution to this nutrition program.
-- **Livello di allenamento** (`abstract`): elite
-- **Sesso** (`abstract`): male
+## Dati estratti (fonte: abstract, metodo: llm)
+- **Disegno dello studio** (`abstract`): Consensus statement
+- **Partecipanti** (`abstract`): Elite athletes and athletes at all levels of sport
+- **Livello di allenamento** (`abstract`): Elite and all levels
+- **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
 - **Numerosità campione**: _non disponibile_
-- **Protocollo**: _non disponibile_
+- **Protocollo** (`abstract`): Complete nutritional assessment before supplement use; performance-enhancing supplements should be thoroughly trialed in training or simulated competition before competition use.
 - **Comparatore**: _non disponibile_
 - **Durata**: _non disponibile_
-- **Outcome** (`abstract`): Nutrition usually makes a small but potentially valuable contribution to successful performance in elite athletes, and dietary supplements can make a minor contribution to this nutrition program.
-- **Risultati**: _non disponibile_
+- **Outcome** (`abstract`): Health, athletic performance, ability to support intense training regimens, and risk of anti-doping rule violations
+- **Risultati** (`abstract`): Only a few supplements, including caffeine, creatine, specific buffering agents, and nitrate, have good evidence of performance benefits. Responses vary according to the use scenario and individual factors. Some supplements may harm health, performance, livelihood, or reputation.
 - **Effect size**: _non disponibile_
 - **Limiti**: _non disponibile_
 - **Conflitti di interesse**: _non disponibile_

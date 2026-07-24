@@ -20,25 +20,24 @@
   - duration: moderate
   - measures: moderate
   - transferability: moderate
-  - _Ricerca effettuata in tre banche dati, ma sintesi dichiaratamente narrativa._
-  - _Non sono descritti criteri completi di selezione, valutazione del rischio di bias o meta-analisi._
-  - _Identifica una minore efficacia nei soggetti molto allenati, elemento direttamente rilevante per ciclisti competitivi._
-  - _La finestra di maggiore efficacia indicata per prove di 10–17 minuti limita la generalizzazione ad altre discipline ciclistiche._
+  - _Ricerca dichiarata in tre banche dati, ma mancano nel testo criteri dettagliati, conteggio degli studi e valutazione del rischio di bias._
+  - _Identifica dose, tempistica e durata dell'esercizio associate alla maggiore probabilità di beneficio._
+  - _Segnala effetti più evidenti nei soggetti meno allenati, riducendo la trasferibilità ai ciclisti competitivi con elevato VO2max._
 
 ## Dati estratti (fonte: abstract, metodo: llm)
 - **Disegno dello studio** (`abstract`): Narrative review
 - **Partecipanti** (`abstract`): Humans
-- **Livello di allenamento** (`abstract`): Ergogenic effects were reported primarily in less trained individuals with VO2max < 65 mL/kg/min.
+- **Livello di allenamento** (`abstract`): Benefits were primarily reported in less trained individuals with VO2max < 65 mL/kg/min
 - **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
 - **Numerosità campione**: _non disponibile_
-- **Protocollo** (`abstract`): PubMed, Scopus, and Web of Science were searched for articles on the effects of nitrate supplementation in humans.
+- **Protocollo** (`abstract`): PubMed, Scopus, and Web of Science were searched for articles on nitrate supplementation in humans. Nitrate was taken acutely or chronically at approximately 5–16.8 mmol (approximately 300–1041 mg), 2–3 h before exercise.
 - **Comparatore**: _non disponibile_
-- **Durata** (`abstract`): Acute or chronic supplementation; approximately 5–16.8 mmol (approximately 300–1041 mg) taken 2–3 h before exercise; effects primarily during exercise lasting approximately 10–17 min.
-- **Outcome** (`abstract`): Human exercise performance, recommendations for nitrate supplementation, potential health complications, and dietary strategies for meeting nitrate needs.
-- **Risultati** (`abstract`): Nitrates are an effective ergogenic aid when taken acutely or chronically at approximately 5–16.8 mmol (approximately 300–1041 mg) 2–3 h before exercise, primarily for exercise lasting approximately 10–17 min in less trained individuals. Nitrate needs are most likely met by approximately 250–500 g of leafy and root vegetables per day. Athletes should refrain from mouthwash use when nitrate supplementation benefits are desired.
+- **Durata** (`abstract`): Acute or chronic supplementation; exercise duration approximately 10–17 min
+- **Outcome** (`abstract`): Human exercise performance, health complications, and dietary strategies for nitrate intake
+- **Risultati** (`abstract`): Nitrates are an effective ergogenic aid when taken at approximately 5–16.8 mmol 2–3 h before exercise, primarily for exercise lasting approximately 10–17 min in less trained individuals. Approximately 250–500 g of leafy and root vegetables per day may meet nitrate needs. Athletes should refrain from mouthwash use when seeking supplementation benefits.
 - **Effect size**: _non disponibile_
-- **Limiti** (`abstract`): Future research should examine brain function, possible negative effects of chronic supplementation from different nitrate sources, and effectiveness for strength and high-intensity intermittent exercise.
+- **Limiti** (`abstract`): Further research is needed on brain function, possible negative effects of chronic supplementation from different nitrate sources, and effects on strength and high-intensity intermittent exercise.
 - **Conflitti di interesse**: _non disponibile_
 
 ## Abstract
