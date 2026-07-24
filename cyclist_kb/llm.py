@@ -163,6 +163,14 @@ def _extract_json(text: str) -> Optional[Dict[str, Any]]:
         return None
 
 
+def chunked(seq, size: int):
+    """Divide una sequenza in blocchi di al più `size` elementi (per il batching LLM)."""
+    items = list(seq)
+    step = max(1, size)
+    for i in range(0, len(items), step):
+        yield items[i : i + step]
+
+
 _llm: Optional[LLMClient] = None
 
 

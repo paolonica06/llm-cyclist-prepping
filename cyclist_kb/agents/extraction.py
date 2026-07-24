@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 from ..clients.base import HttpFetcher
 from ..config import get_settings
 from ..domain import TRAINED_MARKERS, UNTRAINED_MARKERS, best_design
-from ..llm import get_llm
+from ..llm import chunked, get_llm
 from ..models import (DataSource, Extraction, ExtractedField, PaperRecord,
                       RecordState, Research, ResearchStatus)
 
@@ -37,6 +37,8 @@ class ExtractionAgent:
             research.id, states=[RecordState.METADATA_VERIFIED, RecordState.NEEDS_REVIEW]
         )
         full_text = abstract_only = 0
+        # 1) preparazione sorgente per-record (async, rete) — non batchabile.
+        prepared = []
         for rec in records:
             based_on = await self._prepare_source(rec)
             # Cattura la distinzione degli stati full_text_available / abstract_only.
@@ -46,12 +48,21 @@ class ExtractionAgent:
             else:
                 abstract_only += 1
                 rec.content_availability = RecordState.ABSTRACT_ONLY.value
-            rec.extraction = self._extract(rec, based_on)
-            # I record verificati con estrazione completata passano a EXTRACTED;
-            # quelli da rivedere restano NEEDS_REVIEW (fuori dalla sintesi).
-            if rec.state == RecordState.METADATA_VERIFIED:
-                rec.state = RecordState.EXTRACTED
-            self.db.upsert_record(rec)
+            prepared.append((rec, based_on))
+
+        # 2) estrazione LLM in batch (N record per chiamata), fallback euristico.
+        batch_size = max(1, self.settings.llm_batch_size)
+        for chunk in chunked(prepared, batch_size):
+            batch = self._llm_extract_batch(chunk) if self.llm.available else None
+            for i, (rec, based_on) in enumerate(chunk):
+                ex = (batch[i] if batch and i < len(batch) and batch[i] is not None
+                      else self._heuristic_extract(rec, based_on))
+                rec.extraction = ex
+                # I record verificati con estrazione completata passano a EXTRACTED;
+                # quelli da rivedere restano NEEDS_REVIEW (fuori dalla sintesi).
+                if rec.state == RecordState.METADATA_VERIFIED:
+                    rec.state = RecordState.EXTRACTED
+                self.db.upsert_record(rec)
 
         research.status = ResearchStatus.EXTRACTED
         research.stats.update({"extracted_full_text": full_text,
@@ -86,13 +97,35 @@ class ExtractionAgent:
             logger.debug("Full text non recuperato per %s: %s", rec.id, exc)
         return DataSource.ABSTRACT if rec.abstract else DataSource.NOT_AVAILABLE
 
-    # -- Estrazione --------------------------------------------------------- #
-    def _extract(self, rec: PaperRecord, based_on: DataSource) -> Extraction:
-        if self.llm.available:
-            ex = self._llm_extract(rec, based_on)
-            if ex is not None:
-                return ex
-        return self._heuristic_extract(rec, based_on)
+    # -- Estrazione (LLM in batch, con fallback euristico) ----------------- #
+    def _llm_extract_batch(self, chunk):
+        """Estrae N record in UNA chiamata. Lista allineata a `chunk` (Extraction o
+        None per elemento), o None se la chiamata fallisce."""
+        items = []
+        for i, (rec, based_on) in enumerate(chunk):
+            src = "full text" if based_on == DataSource.FULL_TEXT else "solo abstract"
+            items.append(
+                f"[{i + 1}] (FONTE: {src}) Titolo: {rec.title}\n"
+                f"Testo: {self._text_for(rec, based_on)[:2000]}"
+            )
+        data = self.llm.complete_json(
+            prompt=(
+                f"Estrai i dati da CIASCUNO di questi {len(chunk)} studi. NON inventare: usa null "
+                "per i campi assenti.\n\n" + "\n\n".join(items) +
+                '\n\nRestituisci SOLO JSON {"results": [...]}: array di ESATTAMENTE '
+                f"{len(chunk)} oggetti nello STESSO ORDINE. Ogni oggetto con chiavi: study_design, "
+                "participants, training_level, sex, age, sample_size, protocol, comparator, "
+                "duration, outcomes, results, effect_size, limitations, conflicts_of_interest. "
+                "null se il dato non è presente nel testo."
+            )
+        )
+        if not data:
+            return None
+        arr = data.get("results")
+        if not isinstance(arr, list):
+            return None
+        return [self._build_extraction(chunk[i][0], chunk[i][1], arr[i]) if i < len(arr) else None
+                for i in range(len(chunk))]
 
     def _text_for(self, rec: PaperRecord, based_on: DataSource) -> str:
         if based_on == DataSource.FULL_TEXT and rec.full_text:
@@ -146,19 +179,9 @@ class ExtractionAgent:
             note="Assente se non nel full text.")
         return ex
 
-    def _llm_extract(self, rec: PaperRecord, based_on: DataSource) -> Optional[Extraction]:
-        text = self._text_for(rec, based_on)
-        data = self.llm.complete_json(
-            prompt=(
-                "Estrai i dati da questo studio. NON inventare: usa null per i campi assenti.\n"
-                f"FONTE: {'full text' if based_on == DataSource.FULL_TEXT else 'solo abstract'}\n"
-                f"Titolo: {rec.title}\nTesto: {text[:6000]}\n\n"
-                "Restituisci JSON con chiavi: study_design, participants, training_level, sex, "
-                "age, sample_size, protocol, comparator, duration, outcomes, results, effect_size, "
-                "limitations, conflicts_of_interest. Valore null se il dato non è presente nel testo."
-            )
-        )
-        if not data:
+    def _build_extraction(self, rec: PaperRecord, based_on: DataSource, data) -> Optional[Extraction]:
+        """Costruisce un'Extraction da un oggetto JSON (un elemento del batch)."""
+        if not isinstance(data, dict):
             return None
         ex = Extraction(based_on=based_on, extracted_by="llm")
         ex.title = self._bib_field(rec.title, based_on)

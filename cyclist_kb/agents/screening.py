@@ -11,7 +11,7 @@ from typing import List
 from ..config import get_settings
 from ..domain import (CYCLING_MARKERS, ENDURANCE_OTHER_MARKERS, EXERCISE_CONTEXT_MARKERS,
                       TRAINED_MARKERS, UNTRAINED_MARKERS)
-from ..llm import get_llm
+from ..llm import chunked, get_llm
 from ..models import (PaperRecord, PopulationType, RecordState, Research,
                       ResearchStatus, ScreeningResult)
 from ..textutil import tokens
@@ -32,18 +32,22 @@ class ScreeningAgent:
             research.id, states=[RecordState.PENDING_SCREENING, RecordState.DISCOVERED]
         )
         included = excluded = 0
-        for rec in records:
-            result = self._screen(rec, research.topic)
-            rec.screening = result
-            if result.decision == "include":
-                rec.state = RecordState.INCLUDED
-                rec.exclusion_reason = None
-                included += 1
-            else:
-                rec.state = RecordState.EXCLUDED
-                rec.exclusion_reason = result.reason
-                excluded += 1
-            self.db.upsert_record(rec)
+        batch_size = max(1, self.settings.llm_batch_size)
+        for chunk in chunked(records, batch_size):
+            batch = self._llm_screen_batch(chunk, research.topic) if self.llm.available else None
+            for i, rec in enumerate(chunk):
+                result = (batch[i] if batch and i < len(batch) and batch[i] is not None
+                          else self._heuristic_screen(rec, research.topic))
+                rec.screening = result
+                if result.decision == "include":
+                    rec.state = RecordState.INCLUDED
+                    rec.exclusion_reason = None
+                    included += 1
+                else:
+                    rec.state = RecordState.EXCLUDED
+                    rec.exclusion_reason = result.reason
+                    excluded += 1
+                self.db.upsert_record(rec)
 
         research.status = ResearchStatus.SCREENED
         research.stats.update({"screened_included": included, "screened_excluded": excluded})
@@ -51,27 +55,37 @@ class ScreeningAgent:
         logger.info("Screening %s: %d inclusi, %d esclusi", research.id, included, excluded)
         return research
 
-    def _screen(self, rec: PaperRecord, topic: str) -> ScreeningResult:
-        if self.llm.available:
-            r = self._llm_screen(rec, topic)
-            if r is not None:
-                return r
-        return self._heuristic_screen(rec, topic)
-
-    # -- LLM ---------------------------------------------------------------- #
-    def _llm_screen(self, rec: PaperRecord, topic: str):
-        text = f"Titolo: {rec.title or ''}\nAbstract: {rec.abstract or '(assente)'}"
+    # -- LLM (in batch: N record per singola chiamata) --------------------- #
+    def _llm_screen_batch(self, chunk, topic: str):
+        """Valuta N record in UNA chiamata. Ritorna una lista allineata a `chunk`
+        (ScreeningResult o None per elemento), o None se l'intera chiamata fallisce.
+        Gli elementi None ricadono sull'euristica (in run())."""
+        items = "\n\n".join(
+            f"[{i + 1}] Titolo: {r.title or ''}\nAbstract: {(r.abstract or '(assente)')[:1500]}"
+            for i, r in enumerate(chunk)
+        )
         data = self.llm.complete_json(
             prompt=(
-                f"Valuta la pertinenza di questo studio rispetto al topic «{topic}».\n{text}\n\n"
-                "Restituisci JSON: {\"relevance_score\": 0-1, "
-                "\"population_type\": \"cycling|endurance_other|untrained|mixed|unclear\", "
-                "\"is_cycling\": bool, \"decision\": \"include|exclude\", \"reason\": \"...\"}.\n"
-                "Includi solo se pertinente e riferito (anche parzialmente) a ciclisti. "
-                "Registra sempre il motivo."
+                f"Valuta la pertinenza di CIASCUNO di questi {len(chunk)} studi rispetto al "
+                f"topic «{topic}».\n\n{items}\n\n"
+                'Restituisci SOLO JSON {"results": [...]} dove "results" è un array con ESATTAMENTE '
+                f'{len(chunk)} oggetti, uno per studio NELLO STESSO ORDINE. Ogni oggetto: '
+                '{"relevance_score": 0-1, "population_type": '
+                '"cycling|endurance_other|untrained|mixed|unclear", "is_cycling": bool, '
+                '"decision": "include|exclude", "reason": "..."}. '
+                "Includi solo se pertinente e riferito (anche parzialmente) a ciclisti; "
+                "registra sempre il motivo."
             )
         )
         if not data:
+            return None
+        arr = data.get("results")
+        if not isinstance(arr, list):
+            return None
+        return [self._parse_screen(arr[i]) if i < len(arr) else None for i in range(len(chunk))]
+
+    def _parse_screen(self, data):
+        if not isinstance(data, dict):
             return None
         try:
             return ScreeningResult(

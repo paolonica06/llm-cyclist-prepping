@@ -52,6 +52,10 @@ class Settings(BaseSettings):
     # Modello del backend Claude Code. NB: senza questo, `claude -p` userebbe il
     # default (spesso Opus) — costosissimo per il batch. Sonnet: qualità/quota bilanciate.
     claude_code_model: str = "claude-sonnet-4-6"
+    # Batching: quanti record valutare in UNA singola chiamata LLM (screening/
+    # estrazione/qualità). Riduce ~N× il numero di chiamate → molto più veloce e
+    # leggero sull'uso. 1 = comportamento non-batch.
+    llm_batch_size: int = 10
 
     # --- Ingestione atleta (Fase B) --------------------------------------- #
     intervals_icu_api_key: Optional[str] = None      # KB_INTERVALS_ICU_API_KEY (auth Basic su intervals.icu)

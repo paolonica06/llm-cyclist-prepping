@@ -13,7 +13,7 @@ from typing import Optional
 
 from ..config import get_settings
 from ..domain import CONTROL_MARKERS, DESIGN_RANK, RANDOMIZATION_MARKERS, best_design
-from ..llm import get_llm
+from ..llm import chunked, get_llm
 from ..models import (PaperRecord, PopulationType, QualityAssessment, QualityLevel,
                       RecordState, Research)
 
@@ -29,21 +29,47 @@ class QualityAgent:
     def run(self, research: Research) -> Research:
         records = self.db.list_records(research.id, states=[RecordState.EXTRACTED])
         assessed = 0
-        for rec in records:
-            rec.quality = self._assess(rec)
-            self.db.upsert_record(rec)
-            assessed += 1
+        batch_size = max(1, self.settings.llm_batch_size)
+        for chunk in chunked(records, batch_size):
+            batch = self._llm_assess_batch(chunk) if self.llm.available else None
+            for i, rec in enumerate(chunk):
+                rec.quality = (batch[i] if batch and i < len(batch) and batch[i] is not None
+                               else self._heuristic_assess(rec))
+                self.db.upsert_record(rec)
+                assessed += 1
         research.stats.update({"quality_assessed": assessed})
         self.db.save_research(research)
         logger.info("Qualità %s: %d record valutati", research.id, assessed)
         return research
 
-    def _assess(self, rec: PaperRecord) -> QualityAssessment:
-        if self.llm.available:
-            q = self._llm_assess(rec)
-            if q is not None:
-                return q
-        return self._heuristic_assess(rec)
+    # -- LLM (in batch, con fallback euristico) ---------------------------- #
+    def _llm_assess_batch(self, chunk):
+        """Valuta N record in UNA chiamata. Lista allineata a `chunk` (QualityAssessment
+        o None per elemento), o None se la chiamata fallisce."""
+        items = []
+        for i, rec in enumerate(chunk):
+            text = (rec.full_text or rec.abstract or "")[:2000]
+            items.append(f"[{i + 1}] Titolo: {rec.title}\nTesto: {text}")
+        data = self.llm.complete_json(
+            prompt=(
+                f"Valuta la qualità metodologica di CIASCUNO di questi {len(chunk)} studi per "
+                "l'applicazione a ciclisti competitivi. NON usare il numero di citazioni.\n\n"
+                + "\n\n".join(items) +
+                '\n\nRestituisci SOLO JSON {"results": [...]}: array di ESATTAMENTE '
+                f'{len(chunk)} oggetti nello STESSO ORDINE. Ogni oggetto: '
+                '{"study_type": str, "methodological_quality": "low|moderate|high", '
+                '"confidence_level": "low|moderate|high", '
+                '"transferability_to_competitive_cyclists": "low|moderate|high", '
+                '"dimensions": {"sample":..,"control":..,"randomization":..,"duration":..,'
+                '"measures":..,"transferability":..}, "notes": [..]}.'
+            )
+        )
+        if not data:
+            return None
+        arr = data.get("results")
+        if not isinstance(arr, list):
+            return None
+        return [self._parse_quality(arr[i]) if i < len(arr) else None for i in range(len(chunk))]
 
     def _heuristic_assess(self, rec: PaperRecord) -> QualityAssessment:
         text = (rec.full_text or rec.abstract or "")
@@ -150,22 +176,9 @@ class QualityAgent:
             return QualityLevel.MODERATE
         return QualityLevel.LOW
 
-    def _llm_assess(self, rec: PaperRecord) -> Optional[QualityAssessment]:
-        text = (rec.full_text or rec.abstract or "")[:6000]
-        data = self.llm.complete_json(
-            prompt=(
-                "Valuta la qualità metodologica di questo studio per l'applicazione a ciclisti "
-                "competitivi. NON usare il numero di citazioni.\n"
-                f"Titolo: {rec.title}\nTesto: {text}\n\n"
-                "Restituisci JSON: {\"study_type\": str, "
-                "\"methodological_quality\": \"low|moderate|high\", "
-                "\"confidence_level\": \"low|moderate|high\", "
-                "\"transferability_to_competitive_cyclists\": \"low|moderate|high\", "
-                "\"dimensions\": {\"sample\":..,\"control\":..,\"randomization\":..,"
-                "\"duration\":..,\"measures\":..,\"transferability\":..}, \"notes\": [..]}."
-            )
-        )
-        if not data:
+    def _parse_quality(self, data):
+        """Costruisce un QualityAssessment da un oggetto JSON (un elemento del batch)."""
+        if not isinstance(data, dict):
             return None
         try:
             return QualityAssessment(
