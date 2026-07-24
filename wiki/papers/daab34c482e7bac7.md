@@ -10,36 +10,33 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
-- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **high**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: objective
-  - transferability: high
-  - _Numerosità del campione non riportata nel testo disponibile._
+- Tipo di studio: **studio sperimentale crossover non randomizzato o con ordine non specificato**
+- Qualità: **moderate** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **moderate**
+  - sample: 20 ciclisti amatori ben allenati; campione piccolo e sesso non riportato
+  - control: confronto intraindividuale tra condizione fresca e affaticata
+  - randomization: ordine delle condizioni e randomizzazione non riportati
+  - duration: due sessioni domestiche; nessun intervento longitudinale
+  - measures: test all-out di 5 e 20 minuti dopo lavoro standardizzato di 1000 kJ; VO2max e FTP, ma affidabilità della strumentazione domestica non descritta
+  - transferability: buona per amatori allenati, più limitata per élite e per richieste tattiche di gara
+  - _Il confronto entro soggetto riduce la variabilità interindividuale._
+  - _Il protocollo di 1000 kJ è pratico ma non equivale a un carico relativo uniforme tra atleti._
+  - _Assenza di correlazione in 20 soggetti non dimostra indipendenza statistica o fisiologica._
+  - _Ordine fisso, familiarizzazione, alimentazione e controllo ambientale potrebbero influenzare i risultati._
 
-## Dati estratti (fonte: abstract, metodo: heuristic)
+## Dati estratti (fonte: abstract, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
-- **Partecipanti** (`abstract`): Protocols of the few existing studies are only suitable for professional male cyclists while most coaches work primarily with amateur athletes.
-- **Livello di allenamento** (`abstract`): trained
-- **Sesso** (`abstract`): male
+- **Partecipanti** (`abstract`): Well-trained amateur road cyclists
+- **Livello di allenamento** (`abstract`): Well-trained amateur
+- **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
-- **Numerosità campione**: _non disponibile_
-- **Protocollo** (`abstract`): Protocols of the few existing studies are only suitable for professional male cyclists while most coaches work primarily with amateur athletes.
-- **Comparatore**: _non disponibile_
-- **Durata**: _non disponibile_
-- **Outcome** (`abstract`): Abstract
-          
-            Background
-            Recent advances in sport physiology have shown, that higher fatigue resistance predicts outstanding performance in endurance sport.
-- **Risultati** (`abstract`): Abstract
-          
-            Background
-            Recent advances in sport physiology have shown, that higher fatigue resistance predicts outstanding performance in endurance sport.
-- **Effect size**: _non disponibile_
-- **Limiti**: _non disponibile_
+- **Numerosità campione** (`abstract`): 20
+- **Protocollo** (`abstract`): Home-based testing on two occasions. The fresh-condition test comprised a standardized warm-up followed by 5-minute and 20-minute cycling tests. The fatigued-condition test comprised a warm-up, cycling at 80% of initial fresh 20-minute power until 1000 kJ of work was completed, followed by 5-minute and 20-minute all-out tests.
+- **Comparatore** (`abstract`): Fresh state vs. fatigue state
+- **Durata** (`abstract`): Two testing occasions; fatigue protocol continued until 1000 kJ of work was completed
+- **Outcome** (`abstract`): 5-minute cycling performance; 20-minute cycling performance; durability; VO2max; relative functional threshold power (FTP)
+- **Risultati** (`abstract`): Performance significantly decreased in the fatigue state compared with the fresh state. No significant correlations were found between better durability and VO2max or relative FTP. The authors concluded that durability is independent of traditional physiological measures of cycling performance.
+- **Effect size** (`abstract`): 20-minute performance decrease: 10.1 ± 6.5%; 5-minute performance decrease: 10.8 ± 7.8%
+- **Limiti** (`abstract`): The abstract states that protocols from previous studies were suitable only for professional male cyclists, whereas most coaches primarily work with amateur athletes; no limitations of the present study were explicitly reported.
 - **Conflitti di interesse**: _non disponibile_
 
 ## Abstract

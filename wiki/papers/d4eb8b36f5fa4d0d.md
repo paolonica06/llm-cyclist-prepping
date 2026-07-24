@@ -12,28 +12,32 @@
   - ⚠ [PubMed] Primo autore discordante: 'mateo‐march' vs 'mateo-march'
 
 ## Qualità metodologica
-- Tipo di studio: **review**
-- Qualità: **moderate** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **high**
-  - sample: small
-  - control: present
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: objective
-  - transferability: high
+- Tipo di studio: **studio osservazionale retrospettivo di analisi della prestazione**
+- Qualità: **moderate** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **high**
+  - sample: probabili corridori classificati top-30 nelle classiche Monumento; numerosità e criteri non disponibili nel testo
+  - control: confronto osservazionale top-5 versus posizioni 6-30
+  - randomization: assente e non pertinente
+  - duration: non riportata; verosimilmente una o più edizioni di gara
+  - measures: variabili di prestazione non riportate nell'estratto disponibile
+  - transferability: potenzialmente molto alta per ciclismo professionistico maschile su strada, ma ristretta alle Monumento
+  - _La popolazione e il contesto di gara sono direttamente pertinenti alla prestazione competitiva d'élite._
+  - _Il confronto per piazzamento è associativo e non consente inferenze causali._
+  - _Risultati influenzabili da tattica, ruolo di squadra, percorso, meteo, incidenti e selezione dei dati._
+  - _L'estratto non contiene abstract, metodi o risultati, quindi la valutazione è necessariamente incerta._
 
-## Dati estratti (fonte: full_text, metodo: heuristic)
-- **Disegno dello studio** (`full_text`): review
-- **Partecipanti** (`full_text`): Copy URL Share a link Share on Email Facebook x LinkedIn Reddit Wechat Bluesky QR Code ABSTRACT This study aimed to examine the key performance metrics and durability differences between cyclists finishing in the top-5 and those ranked between 6th and 30th in the Five Monuments of Cycling (Milan-San Remo, Tour of Flanders, Paris-Roubaix, Liège-Bastogne-Liège, and Il Lombardia).
-- **Livello di allenamento** (`full_text`): elite
-- **Sesso** (`full_text`): mixed
+## Dati estratti (fonte: full_text, metodo: llm)
+- **Disegno dello studio** (`full_text`): Original article
+- **Partecipanti**: _non disponibile_
+- **Livello di allenamento**: _non disponibile_
+- **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
-- **Numerosità campione** (`full_text`): 14
+- **Numerosità campione**: _non disponibile_
 - **Protocollo**: _non disponibile_
-- **Comparatore** (`full_text`): Decoding Victory in Cycling apos;s Grand Monuments: A Performance Analysis of Top‐5 Versus Top‐6–30 Finishers - Mateo‐March - 2025 - Scandinavian Journal of Medicine Science in Sports - Wiley Online Library Skip to Article Content Skip to Article Information This material is only for use by healthcare professionals.
+- **Comparatore** (`full_text`): Top-5 versus top-6–30 finishers
 - **Durata**: _non disponibile_
-- **Outcome** (`full_text`): Decoding Victory in Cycling apos;s Grand Monuments: A Performance Analysis of Top‐5 Versus Top‐6–30 Finishers - Mateo‐March - 2025 - Scandinavian Journal of Medicine Science in Sports - Wiley Online Library Skip to Article Content Skip to Article Information This material is only for use by healthcare professionals.
-- **Risultati** (`full_text`): Top-5 finishers exhibited significantly higher MMP for 5-min ( d = 0.7; p = 0.02), 10-min ( d = 0.8; p = 0.01), and 20-min efforts ( d = 1.0; p = 0.01) compared to top-6–30 finishers.
-- **Effect size** (`full_text`): d = 0.7
+- **Outcome**: _non disponibile_
+- **Risultati**: _non disponibile_
+- **Effect size**: _non disponibile_
 - **Limiti**: _non disponibile_
 - **Conflitti di interesse**: _non disponibile_
 
