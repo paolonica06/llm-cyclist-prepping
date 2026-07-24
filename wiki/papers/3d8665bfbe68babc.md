@@ -9,17 +9,19 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
+- Tipo di studio: **undetermined due to missing abstract**
 - Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **low**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: unclear
+  - sample: low
+  - control: low
+  - randomization: low
+  - duration: low
+  - measures: low
   - transferability: low
-  - _Numerosità del campione non riportata nel testo disponibile._
+  - _È disponibile soltanto il titolo; non è possibile valutare campione, disegno, comparatore, durata o analisi._
+  - _La popolazione calcistica e gli esiti indicati dal titolo non sono direttamente specifici per il ciclismo._
+  - _La classificazione bassa riflette soprattutto insufficienza delle informazioni disponibili, non una dimostrazione di difetti dello studio completo._
 
-## Dati estratti (fonte: not_available, metodo: heuristic)
+## Dati estratti (fonte: not_available, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
 - **Partecipanti**: _non disponibile_
 - **Livello di allenamento**: _non disponibile_
