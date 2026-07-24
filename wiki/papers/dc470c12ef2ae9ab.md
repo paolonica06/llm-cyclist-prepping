@@ -10,30 +10,33 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
-- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **moderate**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
-  - duration: short
-  - measures: objective
+- Tipo di studio: **narrative review or expert synthesis**
+- Qualità: **low** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **moderate**
+  - sample: low
+  - control: low
+  - randomization: low
+  - duration: low
+  - measures: moderate
   - transferability: moderate
-  - _Numerosità del campione non riportata nel testo disponibile._
-  - _Durata dell'intervento breve (~4 settimane)._
+  - _Non è uno studio sperimentale primario e non presenta una metodologia di revisione sistematica._
+  - _La selezione delle evidenze e il rischio di bias delle fonti non sono descritti._
+  - _Integra risultati provenienti da discipline ed eventi differenti, tra cui il ciclismo su pista._
+  - _Le stime di miglioramento derivano da interventi brevi e non consentono di stabilire la superiorità a lungo termine di una distribuzione specifica._
+  - _Utile come razionale fisiologico, ma debole per prescrizioni causali rivolte a ciclisti competitivi._
 
-## Dati estratti (fonte: abstract, metodo: heuristic)
+## Dati estratti (fonte: abstract, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
-- **Partecipanti** (`abstract`): A short-term period (six to eight sessions over 2-4 weeks) of high-intensity interval training (consisting of repeated exercise bouts performed close to or well above the maximal oxygen uptake intensity, interspersed with low-intensity exercise or complete rest) can elicit increases in intense exercise performance of 2-4% in well-trained athletes.
-- **Livello di allenamento** (`abstract`): trained
-- **Sesso** (`abstract`): male
+- **Partecipanti** (`abstract`): Well-trained athletes participating in intense exercise events such as Olympic rowing, swimming, kayak, track running, and track cycling
+- **Livello di allenamento** (`abstract`): Well-trained and elite athletes
+- **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
 - **Numerosità campione**: _non disponibile_
-- **Protocollo** (`abstract`): A short-term period (six to eight sessions over 2-4 weeks) of high-intensity interval training (consisting of repeated exercise bouts performed close to or well above the maximal oxygen uptake intensity, interspersed with low-intensity exercise or complete rest) can elicit increases in intense exercise performance of 2-4% in well-trained athletes.
-- **Comparatore**: _non disponibile_
-- **Durata** (`abstract`): 4 week
-- **Outcome** (`abstract`): Performance in intense exercise events, such as Olympic rowing, swimming, kayak, track running and track cycling events, involves energy contribution from aerobic and anaerobic sources.
-- **Risultati**: _non disponibile_
-- **Effect size**: _non disponibile_
+- **Protocollo** (`abstract`): High-intensity interval training consisting of six to eight sessions of repeated exercise bouts performed close to or well above maximal oxygen uptake intensity, interspersed with low-intensity exercise or complete rest; a polarized approach with approximately 75% of total training volume at low intensities and 10–15% at very high intensities is also discussed
+- **Comparatore** (`abstract`): High-volume training
+- **Durata** (`abstract`): 2–4 weeks for the high-intensity interval training period
+- **Outcome** (`abstract`): Intense exercise performance and metabolic adaptations
+- **Risultati** (`abstract`): A short-term period of high-intensity interval training can elicit 2–4% increases in intense exercise performance in well-trained athletes. High-volume training also induces important metabolic adaptations. Adaptations show considerable overlap, although the molecular signaling events may differ. A polarized approach has been suggested as optimal for elite athletes performing intense exercise events.
+- **Effect size** (`abstract`): Intense exercise performance increase of 2–4% after high-intensity interval training
 - **Limiti**: _non disponibile_
 - **Conflitti di interesse**: _non disponibile_
 
