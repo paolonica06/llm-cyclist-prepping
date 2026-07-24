@@ -10,7 +10,7 @@
 > «cosa manca / qual è il prossimo passo», «apri il piano per <fase>».
 > Legenda: `- [x]` fatto · `- [~]` in corso · `- [ ]` da fare.
 
-Ultimo aggiornamento: 2026-07-24 · Test: **34 verdi** · Stato: MVP completo, in attesa di iniziare la Fase B.
+Ultimo aggiornamento: 2026-07-24 · Test: **34 verdi** · Stato: **Fase B avviata** — requisiti (`grill-me`) e PRD (`to-spec`) fatti; prossimo `domain-modeling`.
 
 ---
 
@@ -34,7 +34,15 @@ Ultimo aggiornamento: 2026-07-24 · Test: **34 verdi** · Stato: MVP completo, i
 
 ## 🔨 In corso
 
-_Nessun task attivo._ Prossimo candidato: **Fase B**.
+- [~] **Fase B — Modello dati atleta longitudinale**
+  - PRD: [`docs/specs/fase-b-atleta-longitudinale.md`](specs/fase-b-atleta-longitudinale.md) ✅
+  - Stato: requisiti inchiodati (grilling) + PRD scritto. **Prossimo:** `domain-modeling`
+    (glossario `CONTEXT.md` + ADR per gli invarianti I1–I5), poi `writing-plans`.
+  - Decisioni chiave fissate: **un solo connettore intervals.icu** (ramo *mirror*: CTL/ATL/TSB
+    e curva di potenza ingerite, non ricalcolate) · sync **mattutino** · piano **versionato**
+    con blocchi **eseguiti congelati** e **pianificato-vs-eseguito** · evidenza legata al **blocco**
+    con **citazione congelata** · memoria di trasferibilità **persistita** con confidenza ·
+    solo paper **verificati** citabili · **mono-atleta** · resta su **SQLite**.
 
 ---
 
@@ -42,11 +50,11 @@ _Nessun task attivo._ Prossimo candidato: **Fase B**.
 
 - [ ] **Fase A — Ampliare il corpus wiki** (esecuzione ricorrente, a bassa priorità)
   - [ ] Lanciare `research run` su più temi (periodizzazione, tapering, forza, nutrizione, recupero, caldo/altitudine…)
-- [ ] **Fase B — Modello dati atleta longitudinale** ⭐ *prossimo*
-  - [ ] Requisiti (grill-me) → PRD (to-spec) → dominio (domain-modeling)
-  - [ ] Schema serie storiche (carico/CTL-ATL-TSB, curva di potenza, distribuzione intensità, gare, sonno/peso/HRV)
-  - [ ] Ingestione da `.fit`/CSV / API (intervals.icu, Strava, Garmin)
-  - [ ] Metriche derivate + test
+- [~] **Fase B — Modello dati atleta longitudinale** → dettaglio in [PRD](specs/fase-b-atleta-longitudinale.md)
+  - [x] Requisiti (`grill-me`) → PRD (`to-spec`) · [ ] dominio (`domain-modeling`)
+  - [ ] Schema serie storiche (carico/CTL-ATL-TSB, curva di potenza, gare A/B/C, test, sonno/peso/HRV) + piano versionato/congelato + memoria trasferibilità
+  - [ ] Ingestione da **API intervals.icu** (morning sync) — *ristretto a intervals.icu*, che è a monte di Strava/Garmin/`.fit`
+  - [ ] Metriche derivate (compliance, delta-test) + test
 - [ ] **Fase C — Retrieval/RAG sulla wiki** (grounding delle raccomandazioni, pesato per qualità/trasferibilità)
 - [ ] **Fase D — CoachAgent + feedback loop** (analisi stato → piano/aggiustamenti citati; log esecuzione→esito)
 - [ ] **Fase E — Interfaccia conversazionale** ("chiedi al preparatore") su CLI/API/GUI
