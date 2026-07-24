@@ -14,6 +14,9 @@ from typing import List, Optional
 
 from .config import get_settings
 from .models import PaperRecord, Research, RecordState
+from .athlete_models import (Assessment, Athlete, Race, TimeseriesPoint,
+                             TrainingPlan, TransferabilityMemo, PlanStatus,
+                             make_timeseries_id)
 
 
 def _now() -> str:
@@ -47,6 +50,71 @@ CREATE INDEX IF NOT EXISTS idx_records_research ON records(research_id);
 CREATE INDEX IF NOT EXISTS idx_records_state    ON records(research_id, state);
 CREATE INDEX IF NOT EXISTS idx_records_doi      ON records(doi);
 CREATE INDEX IF NOT EXISTS idx_records_pmid     ON records(pmid);
+
+-- ----------------------------------------------------------------------- --
+-- Fase B: modello atleta longitudinale (stesso pattern blob-JSON + indici) --
+-- ----------------------------------------------------------------------- --
+CREATE TABLE IF NOT EXISTS athletes (
+    id          TEXT PRIMARY KEY,
+    name        TEXT NOT NULL,
+    discipline  TEXT,
+    created_at  TEXT NOT NULL,
+    updated_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS athlete_timeseries (
+    id          TEXT PRIMARY KEY,
+    athlete_id  TEXT NOT NULL,
+    metric_type TEXT NOT NULL,
+    date        TEXT NOT NULL,
+    created_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_ts_athlete ON athlete_timeseries(athlete_id, metric_type, date);
+
+CREATE TABLE IF NOT EXISTS races (
+    id          TEXT PRIMARY KEY,
+    athlete_id  TEXT NOT NULL,
+    date        TEXT,
+    priority    TEXT,
+    created_at  TEXT NOT NULL,
+    updated_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_races_athlete ON races(athlete_id, date);
+
+CREATE TABLE IF NOT EXISTS assessments (
+    id          TEXT PRIMARY KEY,
+    athlete_id  TEXT NOT NULL,
+    protocol    TEXT,
+    created_at  TEXT NOT NULL,
+    updated_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_assess_athlete ON assessments(athlete_id, protocol);
+
+CREATE TABLE IF NOT EXISTS plans (
+    id          TEXT PRIMARY KEY,
+    athlete_id  TEXT NOT NULL,
+    version     INTEGER NOT NULL,
+    status      TEXT NOT NULL,
+    created_at  TEXT NOT NULL,
+    updated_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_plans_athlete ON plans(athlete_id, version);
+CREATE INDEX IF NOT EXISTS idx_plans_status  ON plans(athlete_id, status);
+
+CREATE TABLE IF NOT EXISTS transferability_memos (
+    id          TEXT PRIMARY KEY,
+    athlete_id  TEXT NOT NULL,
+    block_id    TEXT,
+    created_at  TEXT NOT NULL,
+    updated_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_memos_athlete ON transferability_memos(athlete_id, block_id);
 """
 
 
@@ -145,6 +213,196 @@ class Database:
             (research_id,),
         ).fetchall()
         return {r["state"]: r["n"] for r in rows}
+
+    # -- Fase B: Atleta ----------------------------------------------------- #
+    def save_athlete(self, athlete: Athlete) -> Athlete:
+        """Upsert dell'atleta (identità + contesto qualitativo)."""
+        now = _now()
+        athlete.created_at = athlete.created_at or now
+        athlete.updated_at = now
+        self.conn.execute(
+            "INSERT INTO athletes (id, name, discipline, created_at, updated_at, data) "
+            "VALUES (?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET name=excluded.name, discipline=excluded.discipline, "
+            "updated_at=excluded.updated_at, data=excluded.data",
+            (athlete.id, athlete.name, athlete.discipline, athlete.created_at,
+             athlete.updated_at, athlete.model_dump_json()),
+        )
+        self.conn.commit()
+        return athlete
+
+    # Alias esplicito per la creazione (stesso upsert idempotente).
+    create_athlete = save_athlete
+
+    def get_athlete(self, athlete_id: str) -> Optional[Athlete]:
+        row = self.conn.execute(
+            "SELECT data FROM athletes WHERE id=?", (athlete_id,)
+        ).fetchone()
+        return Athlete.model_validate_json(row["data"]) if row else None
+
+    def list_athletes(self) -> List[Athlete]:
+        rows = self.conn.execute(
+            "SELECT data FROM athletes ORDER BY created_at ASC"
+        ).fetchall()
+        return [Athlete.model_validate_json(r["data"]) for r in rows]
+
+    # -- Fase B: Serie storiche --------------------------------------------- #
+    def add_timeseries_point(self, point: TimeseriesPoint) -> TimeseriesPoint:
+        """Upsert idempotente su (atleta, grandezza, data): ri-sincronizzare non duplica."""
+        tid = make_timeseries_id(point.athlete_id, point.metric_type.value, point.date)
+        now = _now()
+        self.conn.execute(
+            "INSERT INTO athlete_timeseries (id, athlete_id, metric_type, date, created_at, data) "
+            "VALUES (?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET data=excluded.data",
+            (tid, point.athlete_id, point.metric_type.value, point.date,
+             now, point.model_dump_json()),
+        )
+        self.conn.commit()
+        return point
+
+    def list_timeseries(
+        self,
+        athlete_id: str,
+        metric_type: Optional[str] = None,
+        since: Optional[str] = None,
+    ) -> List[TimeseriesPoint]:
+        clauses = ["athlete_id=?"]
+        params: List[str] = [athlete_id]
+        if metric_type:
+            clauses.append("metric_type=?")
+            params.append(metric_type)
+        if since:
+            clauses.append("date>=?")
+            params.append(since)
+        rows = self.conn.execute(
+            f"SELECT data FROM athlete_timeseries WHERE {' AND '.join(clauses)} ORDER BY date ASC",
+            tuple(params),
+        ).fetchall()
+        return [TimeseriesPoint.model_validate_json(r["data"]) for r in rows]
+
+    # -- Fase B: Gare ------------------------------------------------------- #
+    def save_race(self, race: Race) -> Race:
+        now = _now()
+        self.conn.execute(
+            "INSERT INTO races (id, athlete_id, date, priority, created_at, updated_at, data) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET date=excluded.date, priority=excluded.priority, "
+            "updated_at=excluded.updated_at, data=excluded.data",
+            (race.id, race.athlete_id, race.date, race.priority.value, now, now,
+             race.model_dump_json()),
+        )
+        self.conn.commit()
+        return race
+
+    def list_races(self, athlete_id: str) -> List[Race]:
+        rows = self.conn.execute(
+            "SELECT data FROM races WHERE athlete_id=? ORDER BY date ASC", (athlete_id,)
+        ).fetchall()
+        return [Race.model_validate_json(r["data"]) for r in rows]
+
+    # -- Fase B: Valutazioni ------------------------------------------------ #
+    def save_assessment(self, assessment: Assessment) -> Assessment:
+        now = _now()
+        self.conn.execute(
+            "INSERT INTO assessments (id, athlete_id, protocol, created_at, updated_at, data) "
+            "VALUES (?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET protocol=excluded.protocol, "
+            "updated_at=excluded.updated_at, data=excluded.data",
+            (assessment.id, assessment.athlete_id, assessment.protocol.value, now, now,
+             assessment.model_dump_json()),
+        )
+        self.conn.commit()
+        return assessment
+
+    def list_assessments(
+        self, athlete_id: str, protocol: Optional[str] = None
+    ) -> List[Assessment]:
+        if protocol:
+            rows = self.conn.execute(
+                "SELECT data FROM assessments WHERE athlete_id=? AND protocol=? "
+                "ORDER BY COALESCE(json_extract(data,'$.executed_date'), "
+                "json_extract(data,'$.planned_date')) ASC",
+                (athlete_id, protocol),
+            ).fetchall()
+        else:
+            rows = self.conn.execute(
+                "SELECT data FROM assessments WHERE athlete_id=? "
+                "ORDER BY COALESCE(json_extract(data,'$.executed_date'), "
+                "json_extract(data,'$.planned_date')) ASC",
+                (athlete_id,),
+            ).fetchall()
+        return [Assessment.model_validate_json(r["data"]) for r in rows]
+
+    # -- Fase B: Piani ------------------------------------------------------ #
+    def save_plan(self, plan: TrainingPlan) -> TrainingPlan:
+        now = _now()
+        plan.created_at = plan.created_at or now
+        plan.updated_at = now
+        self.conn.execute(
+            "INSERT INTO plans (id, athlete_id, version, status, created_at, updated_at, data) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET status=excluded.status, "
+            "updated_at=excluded.updated_at, data=excluded.data",
+            (plan.id, plan.athlete_id, plan.version, plan.status.value,
+             plan.created_at, plan.updated_at, plan.model_dump_json()),
+        )
+        self.conn.commit()
+        return plan
+
+    def get_plan(self, plan_id: str) -> Optional[TrainingPlan]:
+        row = self.conn.execute(
+            "SELECT data FROM plans WHERE id=?", (plan_id,)
+        ).fetchone()
+        return TrainingPlan.model_validate_json(row["data"]) if row else None
+
+    def list_plans(
+        self, athlete_id: str, status: Optional[str] = None
+    ) -> List[TrainingPlan]:
+        if status:
+            rows = self.conn.execute(
+                "SELECT data FROM plans WHERE athlete_id=? AND status=? ORDER BY version ASC",
+                (athlete_id, status),
+            ).fetchall()
+        else:
+            rows = self.conn.execute(
+                "SELECT data FROM plans WHERE athlete_id=? ORDER BY version ASC",
+                (athlete_id,),
+            ).fetchall()
+        return [TrainingPlan.model_validate_json(r["data"]) for r in rows]
+
+    def active_plan(self, athlete_id: str) -> Optional[TrainingPlan]:
+        plans = self.list_plans(athlete_id, status=PlanStatus.ACTIVE.value)
+        return plans[-1] if plans else None
+
+    # -- Fase B: Memoria di trasferibilità ---------------------------------- #
+    def save_memo(self, memo: TransferabilityMemo) -> TransferabilityMemo:
+        now = _now()
+        self.conn.execute(
+            "INSERT INTO transferability_memos (id, athlete_id, block_id, created_at, updated_at, data) "
+            "VALUES (?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET block_id=excluded.block_id, "
+            "updated_at=excluded.updated_at, data=excluded.data",
+            (memo.id, memo.athlete_id, memo.block_id, now, now, memo.model_dump_json()),
+        )
+        self.conn.commit()
+        return memo
+
+    def list_memos(
+        self, athlete_id: str, block_id: Optional[str] = None
+    ) -> List[TransferabilityMemo]:
+        if block_id:
+            rows = self.conn.execute(
+                "SELECT data FROM transferability_memos WHERE athlete_id=? AND block_id=? "
+                "ORDER BY created_at ASC",
+                (athlete_id, block_id),
+            ).fetchall()
+        else:
+            rows = self.conn.execute(
+                "SELECT data FROM transferability_memos WHERE athlete_id=? ORDER BY created_at ASC",
+                (athlete_id,),
+            ).fetchall()
+        return [TransferabilityMemo.model_validate_json(r["data"]) for r in rows]
 
     def close(self) -> None:
         self.conn.close()
