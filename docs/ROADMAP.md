@@ -10,7 +10,7 @@
 > «cosa manca / qual è il prossimo passo», «apri il piano per <fase>».
 > Legenda: `- [x]` fatto · `- [~]` in corso · `- [ ]` da fare.
 
-Ultimo aggiornamento: 2026-07-24 · Test: **67 verdi** · Stato: **Fase B implementata e verificata live** (sync reale intervals.icu ok); resta opzionale il wiring della curva di potenza.
+Ultimo aggiornamento: 2026-07-24 · Test: **77 verdi** · Stato: **Fase B live ok** · **Fase A** corpus 18 temi + arricchimento LLM notturno attivo · **Fase C** requisiti+PRD fatti.
 
 ---
 
@@ -45,13 +45,20 @@ Ultimo aggiornamento: 2026-07-24 · Test: **67 verdi** · Stato: **Fase B implem
   - **Verifica live FATTA** (athlete i215294: 1216 serie storiche + 148 attività; mappatura confermata
     campo-per-campo; bug TSB trovato e corretto — derivata come identità CTL−ATL). Resta opzionale il
     **wiring della curva di potenza** e alcuni campi wellness non mappati (readiness/rampRate/vo2max).
+- [~] **Fase A — Corpus wiki** — 18 temi costruiti (euristica, 360 studi verificati); **arricchimento LLM
+  notturno** in corso (Action `enrich-corpus`, backend Claude Code + Codex, batching, registro `enriched.txt`).
+- [~] **Fase C — Retrieval/RAG** — requisiti (`grill-me`) + PRD (`to-spec`) fatti:
+  [PRD](specs/fase-c-retrieval-rag.md). **Prossimo:** `domain-modeling` → `writing-plans` → implementazione.
+  Retriever deterministico offline: in-tema-prima, qualità, personalizzato, **conflict-aware**, solo verificati,
+  **pozzo unico cross-tema**; generazione = operatore/Claude Code/Fase D (non è il deliverable).
 
 ---
 
 ## ⏳ Prossimi passi (backlog)
 
-- [ ] **Fase A — Ampliare il corpus wiki** (esecuzione ricorrente, a bassa priorità)
-  - [ ] Lanciare `research run` su più temi (periodizzazione, tapering, forza, nutrizione, recupero, caldo/altitudine…)
+- [~] **Fase A — Corpus wiki** — 18 temi (2 batch) → 360 studi verificati; arricchimento LLM notturno a blocchi
+  - [x] Backend LLM Claude Code (`claude -p`, Sonnet) + Codex (`codex exec`) con **batching** (N record/chiamata)
+  - [x] Action `enrich-corpus` notturna con registro `enriched.txt` (avanza sui temi non fatti)
 - [~] **Fase B — Modello dati atleta longitudinale** → dettaglio in [PRD](specs/fase-b-atleta-longitudinale.md) · [report](specs/fase-b-report-autonomo.md)
   - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → dominio (`domain-modeling`) → piano (`writing-plans`)
   - [x] Schema serie storiche + piano versionato/congelato + memoria trasferibilità
@@ -59,7 +66,9 @@ Ultimo aggiornamento: 2026-07-24 · Test: **67 verdi** · Stato: **Fase B implem
   - [x] Metriche derivate (compliance, delta-test) + test (**67 verdi**)
   - [x] Verifica live con API key (sync reale ok; fix TSB=CTL−ATL)
   - [ ] *(opzionale)* wiring curva di potenza + campi wellness extra
-- [ ] **Fase C — Retrieval/RAG sulla wiki** (grounding delle raccomandazioni, pesato per qualità/trasferibilità)
+- [~] **Fase C — Retrieval/RAG sulla wiki** → [PRD](specs/fase-c-retrieval-rag.md)
+  - [x] Requisiti (`grill-me`) → PRD (`to-spec`) · [ ] dominio → piano → implementazione
+  - retriever deterministico offline · in-tema-prima + qualità + personalizzazione + conflict-aware · solo verificati · pozzo unico
 - [ ] **Fase D — CoachAgent + feedback loop** (analisi stato → piano/aggiustamenti citati; log esecuzione→esito)
 - [ ] **Fase E — Interfaccia conversazionale** ("chiedi al preparatore") su CLI/API/GUI
 
