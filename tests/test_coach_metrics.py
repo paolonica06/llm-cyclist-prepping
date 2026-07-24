@@ -1,4 +1,8 @@
-from cyclist_kb.athlete_models import ProvenanceKind, PlanStatus, MetricType
+from cyclist_kb.athlete_models import (
+    ProvenanceKind, PlanStatus, MetricType, Prescription, EvidenceCitation,
+    TrainingBlock, TrainingPlan, TransferabilityMemo, MetricGoal, make_plan_id,
+    TransferabilityVerdict,
+)
 
 
 def test_provenance_kind_values():
@@ -20,11 +24,6 @@ def test_metric_type_vo2max_added():
 # ---------------------------------------------------------------------------
 # Task 2 (CP2): estensioni dei modelli
 # ---------------------------------------------------------------------------
-from cyclist_kb.athlete_models import (
-    Prescription, EvidenceCitation, TrainingBlock, TrainingPlan,
-    TransferabilityMemo, MetricGoal, ProvenanceKind, PlanStatus, MetricType,
-    make_plan_id,
-)
 
 
 def test_prescription_provenance_syncs_supported():
@@ -73,9 +72,6 @@ from cyclist_kb.athlete_metrics import (
     attribution_verdict, block_compliance_verdict, assessment_gap_to_goal,
     goal_reached, block_planned_load, freeze_athlete_data_citation,
     overload_guardrail, medical_boundary_flag,
-)
-from cyclist_kb.athlete_models import (
-    TransferabilityVerdict, ProvenanceKind, TrainingBlock, Prescription,
 )
 
 

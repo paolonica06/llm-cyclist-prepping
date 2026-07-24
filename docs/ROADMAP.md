@@ -10,7 +10,7 @@
 > «cosa manca / qual è il prossimo passo», «apri il piano per <fase>».
 > Legenda: `- [x]` fatto · `- [~]` in corso · `- [ ]` da fare.
 
-Ultimo aggiornamento: 2026-07-24 · Test: **89 verdi** · Stato: **Fase B live ok** · **Fase A** corpus 18 temi + arricchimento LLM notturno + comando **`reassess`** (ri-arricchisce senza rifare search/verify) · **Fase C retriever IMPLEMENTATO** (deterministico, validato live).
+Ultimo aggiornamento: 2026-07-24 · Test: **132 verdi** · Stato: **Fase B live ok** · **Fase A** corpus 18 temi + ri-arricchimento LLM uniforme (prompt loose, Codex) via **`reassess`** · **Fase C retriever IMPLEMENTATO** (deterministico, validato live) · **Fase D CoachAgent IMPLEMENTATO** (TDD, offline verde; piano vivo a target metrico, provenienza 3-fonti, doppio loop, proponi-poi-approva).
 
 ---
 
@@ -74,12 +74,14 @@ Ultimo aggiornamento: 2026-07-24 · Test: **89 verdi** · Stato: **Fase B live o
   - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → dominio (`domain-modeling`, ADR-0005) → piano (`writing-plans`)
   - [x] **`retrieval.py` implementato**: pozzo unico verificato, pertinenza BM25-lite in-tema-prima, qualità+personalizzazione, conflict-aware; CLI `research retrieve`. 7 test; **84 verdi**; validato live sul corpus reale
   - [ ] *(dopo)* tier LLM/embedding-rerank opzionale + endpoint API
-- [~] **Fase D — CoachAgent + feedback loop** → **[PRD](specs/fase-d-coachagent.md)** (`to-spec`, da grilling)
-  - [x] Requisiti (`grill-me`) → PRD (`to-spec`): piano vivo a target metrico, provenienza a 3 fonti
-    (studi/dati-atleta/euristica), due loop + gate di compliance, proponi-poi-approva, guardrail + confine medico, offline
-  - [ ] **Prossimo:** `writing-plans` → `executing-plans`/TDD (sessione nuova, seed = PRD). Estensioni schema:
-    `PlanStatus.PROPOSED`, obiettivo metrico nel Piano, provenienza a 3 vie (estende `Prescrizione.supportata`),
-    Citazione N=1. Valutare ADR-0006 (obiettivo metrico) + ADR provenienza a 3 fonti.
+- [x] **Fase D — CoachAgent + feedback loop** → **[PRD](specs/fase-d-coachagent.md)** · **[piano](superpowers/plans/fase-d-coachagent.md)** · ADR [0006](adr/0006-obiettivo-piano-target-metrico-datato.md)/[0007](adr/0007-provenienza-tre-fonti-coaching.md)/[0008](adr/0008-stato-proposed-transizione-atomica.md)
+  - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → piano TDD (`writing-plans`) → implementazione (`subagent-driven`, CP0→CP11)
+  - [x] Schema: `ProvenanceKind` (studi/dati_atleta/euristica), `PlanStatus.PROPOSED`, obiettivo metrico datato nel Piano,
+    `EvidenceCitation.source_kind` (citazione N=1), validator `supported == provenance==study`
+  - [x] Funzioni pure attribuzione/compliance/guardrail + `Database.promote_plan` atomico (PROPOSED→ACTIVE)
+  - [x] `CoachAgent` (`run`/`accept`/`assess_block`/`adapt_microcycle`, ramo LLM+euristico, mai-eccezione) + Retriever conflict-aware
+  - [x] Wiring `Pipeline` + CLI (`coach`/`coach-accept`/`coach-adapt`/`coach-assess`). **132 test verdi**, pyflakes pulito
+  - [ ] *(dopo)* verifica live con atleta seminato + endpoint API + narrativa coach ricca (Fase E)
 - [ ] **Fase E — Interfaccia conversazionale** ("chiedi al preparatore") su CLI/API/GUI
 
 ---

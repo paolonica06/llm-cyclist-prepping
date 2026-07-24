@@ -1,6 +1,6 @@
 import pytest
 from cyclist_kb.athlete_models import (
-    Athlete, TrainingPlan, TrainingBlock, PlanStatus, make_plan_id, make_athlete_id,
+    Athlete, TrainingPlan, PlanStatus, make_plan_id, make_athlete_id,
     Assessment, AssessmentProtocol, MetricGoal, MetricType, make_assessment_id,
 )
 from cyclist_kb.pipeline import Pipeline, PlanNotFound, PlanStateError
