@@ -32,6 +32,7 @@ class LLMClient:
         self._claude_bin: Optional[str] = None
         self._oauth_token: Optional[str] = None
         self._cc_timeout = s.claude_code_timeout
+        self._cc_model = s.claude_code_model
         self._available = False
 
         if s.force_offline:
@@ -116,6 +117,7 @@ class LLMClient:
             self._claude_bin, "-p", prompt,
             "--output-format", "json",
             "--system-prompt", system,
+            "--model", self._cc_model,          # esplicito: evita il default (Opus) costoso
         ]
         env = os.environ.copy()
         if self._oauth_token:

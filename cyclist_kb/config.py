@@ -49,6 +49,9 @@ class Settings(BaseSettings):
     claude_code_oauth_token: Optional[str] = None
     claude_code_bin: str = "claude"                  # nome/percorso del CLI Claude Code
     claude_code_timeout: float = 180.0               # secondi per chiamata `claude -p`
+    # Modello del backend Claude Code. NB: senza questo, `claude -p` userebbe il
+    # default (spesso Opus) — costosissimo per il batch. Sonnet: qualità/quota bilanciate.
+    claude_code_model: str = "claude-sonnet-4-6"
 
     # --- Ingestione atleta (Fase B) --------------------------------------- #
     intervals_icu_api_key: Optional[str] = None      # KB_INTERVALS_ICU_API_KEY (auth Basic su intervals.icu)

@@ -15,6 +15,7 @@ def _cc_client() -> LLMClient:
     c._oauth_token = "tok"
     c._available = True
     c._cc_timeout = 5
+    c._cc_model = "claude-sonnet-4-6"
     return c
 
 
@@ -30,6 +31,7 @@ def test_claude_code_parses_result_envelope(monkeypatch):
 
     def fake_run(cmd, **kw):
         assert "-p" in cmd and "--output-format" in cmd and "json" in cmd
+        assert "--model" in cmd and "claude-sonnet-4-6" in cmd                # modello fissato
         assert (kw.get("env") or {}).get("CLAUDE_CODE_OAUTH_TOKEN") == "tok"  # token propagato
         return types.SimpleNamespace(
             returncode=0, stdout=json.dumps({"result": '{"decision":"include","score":0.9}'}))
