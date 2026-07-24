@@ -41,6 +41,14 @@ class Settings(BaseSettings):
     llm_model: str = "claude-opus-4-8"
     llm_max_tokens: int = 2000
     force_offline: bool = False                      # KB_FORCE_OFFLINE=1 → euristiche anche con chiave
+    # Backend LLM: "auto" (API se c'è la key, altrimenti Claude Code se c'è il token),
+    # oppure forzato: "anthropic" | "claude_code" | "off".
+    llm_backend: str = "auto"
+    # Token OAuth dell'abbonamento per il backend Claude Code (headless `claude -p`).
+    # KB_CLAUDE_CODE_OAUTH_TOKEN oppure la variabile standard CLAUDE_CODE_OAUTH_TOKEN.
+    claude_code_oauth_token: Optional[str] = None
+    claude_code_bin: str = "claude"                  # nome/percorso del CLI Claude Code
+    claude_code_timeout: float = 180.0               # secondi per chiamata `claude -p`
 
     # --- Ingestione atleta (Fase B) --------------------------------------- #
     intervals_icu_api_key: Optional[str] = None      # KB_INTERVALS_ICU_API_KEY (auth Basic su intervals.icu)
@@ -78,6 +86,8 @@ def get_settings() -> Settings:
         # Consente sia KB_ANTHROPIC_API_KEY sia la variabile standard ANTHROPIC_API_KEY.
         if not s.anthropic_api_key:
             s.anthropic_api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not s.claude_code_oauth_token:
+            s.claude_code_oauth_token = os.environ.get("CLAUDE_CODE_OAUTH_TOKEN")
         if os.environ.get("KB_CONTACT_EMAIL"):
             s.contact_email = os.environ["KB_CONTACT_EMAIL"]
         s.ensure_dirs()

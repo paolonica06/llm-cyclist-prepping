@@ -1,9 +1,14 @@
-"""Wrapper minimale sull'API LLM (Anthropic).
+"""Wrapper multi-backend sull'LLM, con *graceful degradation*.
 
-Progettato per il *graceful degradation*: se non è configurata alcuna chiave
-(oppure `KB_FORCE_OFFLINE=1`), `available` è False e ogni agente ricade sulle
-proprie euristiche deterministiche. Questo rende la demo eseguibile offline e i
-test riproducibili, senza mai bloccare la pipeline.
+Backend, in ordine di preferenza quando `KB_LLM_BACKEND=auto`:
+  1. **anthropic**   — raw Messages API (richiede `ANTHROPIC_API_KEY`).
+  2. **claude_code** — shell-out al CLI `claude -p` (usa `CLAUDE_CODE_OAUTH_TOKEN`,
+     cioè l'abbonamento Claude: nessun costo API pay-as-you-go). Pattern
+     sanzionato per Claude Code in headless/CI.
+Se `KB_FORCE_OFFLINE=1` o nessun backend è disponibile, `available` è False e ogni
+agente ricade sulle proprie euristiche deterministiche. **I test girano sempre
+offline** (`conftest` imposta `KB_FORCE_OFFLINE=1`): nessun backend, tutto
+riproducibile, nessuna chiamata a rete/CLI.
 """
 
 from __future__ import annotations
@@ -14,6 +19,8 @@ from typing import Any, Dict, Optional
 
 from .config import get_settings
 
+_DEFAULT_SYSTEM = "Sei un assistente scientifico rigoroso. Rispondi SOLO con JSON valido."
+
 
 class LLMClient:
     def __init__(self) -> None:
@@ -21,32 +28,69 @@ class LLMClient:
         self.model = s.llm_model
         self.max_tokens = s.llm_max_tokens
         self._client = None
+        self._backend: Optional[str] = None
+        self._claude_bin: Optional[str] = None
+        self._oauth_token: Optional[str] = None
+        self._cc_timeout = s.claude_code_timeout
         self._available = False
-        if s.anthropic_api_key and not s.force_offline:
+
+        if s.force_offline:
+            return
+        pref = (s.llm_backend or "auto").lower()
+
+        # 1) API Anthropic (chiave pay-as-you-go)
+        if pref in ("auto", "anthropic") and s.anthropic_api_key:
             try:
                 import anthropic
 
                 self._client = anthropic.Anthropic(api_key=s.anthropic_api_key)
-                self._available = True
+                self._backend = "anthropic"
             except Exception:
-                self._available = False
+                self._client = None
+
+        # 2) Claude Code CLI (OAuth abbonamento)
+        if self._backend is None and pref in ("auto", "claude_code") and s.claude_code_oauth_token:
+            import shutil
+
+            binp = shutil.which(s.claude_code_bin)
+            if binp:
+                self._backend = "claude_code"
+                self._claude_bin = binp
+                self._oauth_token = s.claude_code_oauth_token
+
+        self._available = self._backend is not None
 
     @property
     def available(self) -> bool:
         return self._available
 
+    @property
+    def backend(self) -> Optional[str]:
+        return self._backend
+
     def complete_json(
         self,
         prompt: str,
-        system: str = "Sei un assistente scientifico rigoroso. Rispondi SOLO con JSON valido.",
+        system: str = _DEFAULT_SYSTEM,
         max_tokens: Optional[int] = None,
     ) -> Optional[Dict[str, Any]]:
         """Restituisce un dict JSON dalla risposta del modello, o None in caso di errore.
 
-        Non solleva mai: un fallimento LLM deve degradare all'euristica, non
+        Non solleva mai: un fallimento deve degradare all'euristica, non
         interrompere la pipeline.
         """
-        if not self._available or self._client is None:
+        if not self._available:
+            return None
+        if self._backend == "anthropic":
+            return self._complete_anthropic(prompt, system, max_tokens)
+        if self._backend == "claude_code":
+            return self._complete_claude_code(prompt, system, max_tokens)
+        return None
+
+    # -- Backend: raw Messages API ----------------------------------------- #
+    def _complete_anthropic(self, prompt: str, system: str,
+                            max_tokens: Optional[int]) -> Optional[Dict[str, Any]]:
+        if self._client is None:
             return None
         try:
             resp = self._client.messages.create(
@@ -59,6 +103,31 @@ class LLMClient:
                 block.text for block in resp.content if getattr(block, "type", None) == "text"
             )
             return _extract_json(text)
+        except Exception:
+            return None
+
+    # -- Backend: Claude Code CLI (`claude -p`) ---------------------------- #
+    def _complete_claude_code(self, prompt: str, system: str,
+                              max_tokens: Optional[int]) -> Optional[Dict[str, Any]]:
+        import os
+        import subprocess
+
+        cmd = [
+            self._claude_bin, "-p", prompt,
+            "--output-format", "json",
+            "--system-prompt", system,
+        ]
+        env = os.environ.copy()
+        if self._oauth_token:
+            env["CLAUDE_CODE_OAUTH_TOKEN"] = self._oauth_token
+        try:
+            proc = subprocess.run(
+                cmd, capture_output=True, text=True, timeout=self._cc_timeout, env=env
+            )
+            if proc.returncode != 0 or not proc.stdout:
+                return None
+            envelope = json.loads(proc.stdout)          # {"result": "...", ...}
+            return _extract_json(envelope.get("result") or "")
         except Exception:
             return None
 
