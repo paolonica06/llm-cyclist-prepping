@@ -85,6 +85,7 @@ def derive_executed_block(block: TrainingBlock,
         "executed_start": dates[0] if dates else None,
         "executed_end": dates[-1] if dates else None,
         "executed_load": sum((a.load or 0.0) for a in in_range),
+        "executed_moving_time_s": sum((a.moving_time_s or 0) for a in in_range),
         "activity_count": len(in_range),
     }
 
@@ -175,15 +176,11 @@ def goal_reached(current: Optional[float], goal: Optional[float],
 
 
 def block_planned_load(block: TrainingBlock) -> float:
-    """Somma il carico pianificato derivandolo dalle Prescription; 0.0 se non derivabile.
-
-    Proxy grezzo: ore × reps (TSS non disponibile senza FTP e zone).
+    """Durata pianificata totale in secondi (reps incluse); 0.0 se nessuna
+    prescrizione ha `duration_s`.
     """
-    total = 0.0
-    for p in block.prescriptions:
-        if p.duration_s and p.target_watts:
-            total += (p.duration_s / 3600.0) * (p.reps or 1)
-    return total
+    return sum(p.duration_s * (p.reps or 1)
+               for p in block.prescriptions if p.duration_s)
 
 
 def freeze_athlete_data_citation(ref_id: str, title: Optional[str] = None,

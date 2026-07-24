@@ -19,8 +19,8 @@ from ..athlete_metrics import (DEFAULT_COMPLIANCE_THRESHOLD, assessment_delta,
 from ..athlete_models import (BlockState, EvidenceCitation, MetricGoal,
                              MetricType, PlanStatus, Prescription,
                              ProvenanceKind, TrainingBlock, TrainingPlan,
-                             TransferabilityMemo, make_block_id, make_memo_id,
-                             make_plan_id)
+                             TransferabilityMemo, TransferabilityVerdict,
+                             make_block_id, make_memo_id, make_plan_id)
 from ..config import get_settings
 from ..db import Database
 from ..llm import get_llm
@@ -152,30 +152,41 @@ class CoachAgent:
         block = next(b for b in plan.blocks if b.id == block_id)
         activities = self.db.list_activities(athlete_id)
         exec_ = derive_executed_block(block, activities)
-        planned = block_planned_load(block)
-        ratio = compliance(planned, exec_["executed_load"])
+        planned = block_planned_load(block)          # durata pianificata (s)
+        executed_s = exec_["executed_moving_time_s"]  # durata eseguita (s)
 
         assessments = self.db.list_assessments(athlete_id)
         before, after = self._pre_post_assessments(assessments, block)
         delta = assessment_delta(
             before.value if before else None, after.value if after else None
         )
-        verdict = attribution_verdict(ratio, delta)
+        metric_key = (plan.target_metric_type.value
+                      if plan.target_metric_type is not None else "metric")
 
         caveats: List[str] = []
-        if ratio < DEFAULT_COMPLIANCE_THRESHOLD:
-            caveats.append("compliance < soglia")
+        if planned <= 0:
+            # Senza durata pianificata non si può attribuire nulla: la compliance
+            # è indefinita (None), non un fallimento sotto soglia.
+            compliance_ratio: Optional[float] = None
+            verdict = TransferabilityVerdict.INCONCLUSIVE
+            metric_deltas: Dict[str, float] = {}
+            caveats.append("durata pianificata non derivabile")
+        else:
+            ratio = compliance(planned, executed_s)
+            verdict = attribution_verdict(ratio, delta)
+            if ratio < DEFAULT_COMPLIANCE_THRESHOLD:
+                caveats.append("compliance < soglia")
+            compliance_ratio = ratio
+            metric_deltas = {} if delta is None else {metric_key: delta}
+
         citations = [
             freeze_athlete_data_citation(a.id, note="valutazione di blocco")
             for a in (before, after) if a
         ]
-        metric_key = (plan.target_metric_type.value
-                      if plan.target_metric_type is not None else "metric")
         memo = TransferabilityMemo(
             id=make_memo_id(block_id), athlete_id=athlete_id, block_id=block_id,
-            verdict=verdict,
-            metric_deltas=({} if delta is None else {metric_key: delta}),
-            compliance_ratio=ratio, caveats=caveats, citations=citations,
+            verdict=verdict, metric_deltas=metric_deltas,
+            compliance_ratio=compliance_ratio, caveats=caveats, citations=citations,
         )
         self.db.save_memo(memo)
         return memo

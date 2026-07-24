@@ -101,11 +101,31 @@ def test_assessment_gap_and_goal_reached():
     assert goal_reached(338.0, 340.0) is False
 
 
-def test_block_planned_load_sums_prescriptions_or_zero():
+def test_block_planned_load_is_total_planned_duration_seconds():
+    # Una prescrizione con duration_s=3600 → 3600.0 s (reps=1 implicito).
     b = TrainingBlock(id="b", plan_id="p", goal="vo2max", prescriptions=[
         Prescription(description="x", duration_s=3600, target_watts=300),
     ])
-    assert block_planned_load(b) >= 0.0            # degrada a 0.0 se non derivabile
+    assert block_planned_load(b) == 3600.0
+
+    # reps=2 → 3600 * 2 = 7200.0 s.
+    b2 = TrainingBlock(id="b2", plan_id="p", goal="vo2max", prescriptions=[
+        Prescription(description="x", duration_s=3600, reps=2),
+    ])
+    assert block_planned_load(b2) == 7200.0
+
+    # Una prescrizione SENZA duration_s contribuisce 0.0 (nessuna guardia su watt).
+    b3 = TrainingBlock(id="b3", plan_id="p", goal="vo2max", prescriptions=[
+        Prescription(description="x", duration_s=3600),
+        Prescription(description="y", target_watts=300),   # niente duration → 0.0
+    ])
+    assert block_planned_load(b3) == 3600.0
+
+    # Nessuna prescrizione datata → 0.0.
+    b4 = TrainingBlock(id="b4", plan_id="p", goal="vo2max", prescriptions=[
+        Prescription(description="z", target_watts=300),
+    ])
+    assert block_planned_load(b4) == 0.0
 
 
 def test_freeze_athlete_data_citation_is_n1():
