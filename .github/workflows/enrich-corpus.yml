@@ -11,9 +11,10 @@ on:
         description: "Quanti temi arricchire (parti da 1 come pilota; max 18)"
         required: false
         default: "1"
-  # Notturno: decommenta SOLO quando sei sicuro della quota. 03:00 UTC.
-  # schedule:
-  #   - cron: "0 3 * * *"
+  schedule:
+    # Notturno ~05:00 CEST (03:00 UTC): arricchisce i prossimi temi NON ancora fatti
+    # (registro enriched.txt), qualche tema a notte, quando non usi la chat.
+    - cron: "0 3 * * *"
 
 permissions:
   contents: write
@@ -50,25 +51,34 @@ jobs:
           KB_CONTACT_EMAIL: ${{ secrets.KB_CONTACT_EMAIL }}
           KB_GIT_AUTOCOMMIT: "0"
         run: |
-          set -euo pipefail
-          N="${{ github.event.inputs.max_topics }}"
-          N="${N:-1}"
-          echo "Arricchisco i primi $N temi con qualità LLM…"
-          head -n "$N" research_topics.txt | while IFS= read -r topic; do
+          set -uo pipefail
+          N="${{ github.event.inputs.max_topics }}"; N="${N:-4}"   # default 4/notte per lo schedule
+          touch enriched.txt
+          done=0
+          while IFS= read -r topic || [ -n "$topic" ]; do
             [ -z "$topic" ] && continue
+            if grep -Fxq "$topic" enriched.txt; then continue; fi   # già arricchito → salta
             echo "::group::Enrich: $topic"
-            python -m cyclist_kb.cli --quiet run "$topic" || echo "FALLITO: $topic"
+            if python -m cyclist_kb.cli --quiet run "$topic"; then
+              echo "$topic" >> enriched.txt                          # segna come fatto
+              done=$((done+1))
+            else
+              echo "FALLITO (riprovabile al prossimo run): $topic"
+            fi
             echo "::endgroup::"
-          done
+            [ "$done" -ge "$N" ] && break
+          done < research_topics.txt
+          echo "Temi arricchiti in questo run: $done"
 
       - name: Commit della wiki arricchita
         run: |
           git config user.name "corpus-enrich-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add wiki/
+          git add wiki/ enriched.txt
           if git diff --cached --quiet; then
-            echo "Nessuna modifica alla wiki."
+            echo "Nessuna modifica."
           else
             git commit -m "chore(corpus): arricchimento LLM (Claude Code) via Action"
+            git pull --rebase origin main
             git push
           fi
