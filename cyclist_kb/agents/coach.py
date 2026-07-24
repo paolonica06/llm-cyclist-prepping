@@ -16,10 +16,11 @@ from ..athlete_metrics import (DEFAULT_COMPLIANCE_THRESHOLD, assessment_delta,
                               derive_executed_block, freeze_athlete_data_citation,
                               freeze_citation, medical_boundary_flag,
                               overload_guardrail)
-from ..athlete_models import (EvidenceCitation, MetricGoal, PlanStatus,
-                             Prescription, ProvenanceKind, TrainingBlock,
-                             TrainingPlan, TransferabilityMemo, make_block_id,
-                             make_memo_id, make_plan_id)
+from ..athlete_models import (BlockState, EvidenceCitation, MetricGoal,
+                             MetricType, PlanStatus, Prescription,
+                             ProvenanceKind, TrainingBlock, TrainingPlan,
+                             TransferabilityMemo, make_block_id, make_memo_id,
+                             make_plan_id)
 from ..config import get_settings
 from ..db import Database
 from ..llm import get_llm
@@ -61,6 +62,81 @@ class CoachAgent:
 
     def accept(self, plan_id: str) -> TrainingPlan:
         return self.db.promote_plan(plan_id)
+
+    # -- loop veloce (Task 8) --------------------------------------------- #
+    def adapt_microcycle(self, athlete_id: str) -> TrainingPlan:
+        """Loop veloce: dallo stato di prontezza recente propone una nuova
+        versione PROPOSED che, in caso di sovraccarico non-funzionale, declassa
+        il carico del microciclo entrante.
+
+        Invarianti: la strategia (goal/provenance/citazioni dei blocchi) resta
+        invariata; i blocchi FROZEN non vengono mai toccati (ADR-0002);
+        l'evidenza N=1 non viene aggiornata qui. Nessuna auto-attivazione:
+        proponi-poi-approva (la promozione ad ACTIVE resta in `accept`).
+        """
+        plan = self.db.active_plan(athlete_id)
+        if plan is None:
+            raise ValueError(
+                f"Nessun piano ACTIVE per l'atleta {athlete_id}: "
+                "genera prima un piano con run()."
+            )
+
+        recent_tsb, hrv_drop, sleep_drop = self._recent_readiness(athlete_id)
+        caveat = overload_guardrail(recent_tsb, hrv_drop, sleep_drop, None)
+
+        new = plan.next_version(status=PlanStatus.PROPOSED)
+        if caveat:
+            self._downscale_entering_microcycle(new, factor=0.85)
+
+        self._apply_guardrails_and_disclaimer(new, None)
+        if caveat:
+            new.notes = (new.notes + "\n" + caveat) if new.notes else caveat
+        else:
+            neutral = ("Nessun sovraccarico rilevato: carico del microciclo "
+                       "entrante confermato (proponi-poi-approva).")
+            new.notes = (new.notes + "\n" + neutral) if new.notes else neutral
+
+        new.status = PlanStatus.PROPOSED
+        new.supersedes_id = plan.id
+        self._supersede_open_proposals(athlete_id)       # al più un PROPOSED
+        self.db.save_plan(new)
+        return new
+
+    def _recent_readiness(self, athlete_id):
+        """Deriva lo stato recente dalle serie storiche: TSB dell'ultimo punto,
+        e cali (ultimo < media dei precedenti) per HRV e sonno.
+        Un calo non calcolabile (<2 punti) è None (nessun crash segnalato)."""
+        recent_tsb = self._last_value(athlete_id, MetricType.TSB)
+        hrv_drop = self._is_dropping(athlete_id, MetricType.HRV)
+        sleep_drop = self._is_dropping(athlete_id, MetricType.SLEEP)
+        return recent_tsb, hrv_drop, sleep_drop
+
+    def _last_value(self, athlete_id, metric_type):
+        points = self.db.list_timeseries(athlete_id, metric_type=metric_type.value)
+        vals = [p.value for p in points if p.value is not None]
+        return vals[-1] if vals else None
+
+    def _is_dropping(self, athlete_id, metric_type):
+        points = self.db.list_timeseries(athlete_id, metric_type=metric_type.value)
+        vals = [p.value for p in points if p.value is not None]
+        if len(vals) < 2:
+            return None
+        previous = vals[:-1]
+        avg_previous = sum(previous) / len(previous)
+        return vals[-1] < avg_previous
+
+    def _downscale_entering_microcycle(self, plan: TrainingPlan, factor: float) -> None:
+        """Riduce il carico delle Prescription dei SOLI blocchi non-FROZEN (il
+        microciclo entrante). I blocchi FROZEN restano intatti (ADR-0002); la
+        strategia (goal/provenance/citazioni) non viene toccata."""
+        for block in plan.blocks:
+            if block.state == BlockState.FROZEN:
+                continue
+            for pres in block.prescriptions:
+                if pres.target_watts is not None:
+                    pres.target_watts = pres.target_watts * factor
+                if pres.duration_s is not None:
+                    pres.duration_s = int(round(pres.duration_s * factor))
 
     # -- loop lento (Task 7) ---------------------------------------------- #
     def assess_block(self, athlete_id: str, plan_id: str,
