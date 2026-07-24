@@ -11,13 +11,15 @@ from __future__ import annotations
 import json
 from typing import Any, Dict, List, Optional
 
-from ..athlete_metrics import (assessment_gap_to_goal, freeze_athlete_data_citation,
+from ..athlete_metrics import (DEFAULT_COMPLIANCE_THRESHOLD, assessment_delta,
+                              attribution_verdict, block_planned_load, compliance,
+                              derive_executed_block, freeze_athlete_data_citation,
                               freeze_citation, medical_boundary_flag,
                               overload_guardrail)
-from ..athlete_models import (Assessment, Athlete, EvidenceCitation, MetricGoal,
-                             PlanStatus, Prescription, ProvenanceKind,
-                             TrainingBlock, TrainingPlan, make_block_id,
-                             make_plan_id)
+from ..athlete_models import (EvidenceCitation, MetricGoal, PlanStatus,
+                             Prescription, ProvenanceKind, TrainingBlock,
+                             TrainingPlan, TransferabilityMemo, make_block_id,
+                             make_memo_id, make_plan_id)
 from ..config import get_settings
 from ..db import Database
 from ..llm import get_llm
@@ -60,6 +62,72 @@ class CoachAgent:
     def accept(self, plan_id: str) -> TrainingPlan:
         return self.db.promote_plan(plan_id)
 
+    # -- loop lento (Task 7) ---------------------------------------------- #
+    def assess_block(self, athlete_id: str, plan_id: str,
+                     block_id: str) -> TransferabilityMemo:
+        """Valuta la trasferibilità di un Blocco eseguito → TransferabilityMemo.
+
+        Gate di compliance (US 9): il carico eseguito è ricavato dalle Attività
+        reali nel range pianificato; se il rapporto eseguito/pianificato è sotto
+        soglia, non si attribuisce il delta di metrica (verdict INCONCLUSIVE,
+        caveat esplicito). L'evidenza a supporto è N=1 (`athlete_data`), mai studio.
+        """
+        plan = self.db.get_plan(plan_id)
+        block = next(b for b in plan.blocks if b.id == block_id)
+        activities = self.db.list_activities(athlete_id)
+        exec_ = derive_executed_block(block, activities)
+        planned = block_planned_load(block)
+        ratio = compliance(planned, exec_["executed_load"])
+
+        assessments = self.db.list_assessments(athlete_id)
+        before, after = self._pre_post_assessments(assessments, block)
+        delta = assessment_delta(
+            before.value if before else None, after.value if after else None
+        )
+        verdict = attribution_verdict(ratio, delta)
+
+        caveats: List[str] = []
+        if ratio < DEFAULT_COMPLIANCE_THRESHOLD:
+            caveats.append("compliance < soglia")
+        citations = [
+            freeze_athlete_data_citation(a.id, note="valutazione di blocco")
+            for a in (before, after) if a
+        ]
+        metric_key = (plan.target_metric_type.value
+                      if plan.target_metric_type is not None else "metric")
+        memo = TransferabilityMemo(
+            id=make_memo_id(block_id), athlete_id=athlete_id, block_id=block_id,
+            verdict=verdict,
+            metric_deltas=({} if delta is None else {metric_key: delta}),
+            compliance_ratio=ratio, caveats=caveats, citations=citations,
+        )
+        self.db.save_memo(memo)
+        return memo
+
+    def _pre_post_assessments(self, assessments, block):
+        """Seleziona la valutazione pre (ultima con data <= planned_start) e post
+        (prima con data >= planned_end). Restituisce (before, after), con None se
+        una delle due non esiste."""
+        def _date(a):
+            return a.executed_date or a.planned_date
+
+        before = None
+        for a in assessments:
+            d = _date(a)
+            if d is None or block.planned_start is None:
+                continue
+            if d <= block.planned_start:
+                before = a                         # last-wins (assessments ordinate ASC)
+        after = None
+        for a in assessments:
+            d = _date(a)
+            if d is None or block.planned_end is None:
+                continue
+            if d >= block.planned_end:
+                after = a                          # first-wins
+                break
+        return before, after
+
     # -- interni ---------------------------------------------------------- #
     def _baseline_from_assessments(self, assessments, goal) -> Optional[float]:
         vals = [a.value for a in assessments if a.value is not None]
@@ -94,7 +162,6 @@ class CoachAgent:
             target_metric_date=goal.target_date,
         )
         # Periodizzazione a ritroso deterministica: 3 blocchi (base→sviluppo→taper).
-        gap = assessment_gap_to_goal(start, goal.target) or 0.0
         goals = ["base", "sviluppo", "taper"]
         blocks: List[TrainingBlock] = []
         for i, g in enumerate(goals):
@@ -148,7 +215,6 @@ class CoachAgent:
         return out
 
     def _build_prompt(self, athlete_id, goal, start, profile, choices) -> str:
-        athlete = self.db.get_athlete(athlete_id)
         memos = self.db.list_memos(athlete_id) if hasattr(self.db, "list_memos") else []
         retrieved = [
             {
