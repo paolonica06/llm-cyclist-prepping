@@ -444,6 +444,32 @@ class Database:
         self.conn.commit()
         return new_plan
 
+    def promote_plan(self, plan_id: str) -> TrainingPlan:
+        """Transizione atomica PROPOSED→ACTIVE: marca SUPERSEDED gli ACTIVE
+        correnti dell'atleta e promuove il PROPOSED, in un solo commit (ADR-0008).
+        Solleva ValueError se il piano non è PROPOSED."""
+        plan = self.get_plan(plan_id)
+        if plan is None:
+            raise ValueError(f"Piano {plan_id} inesistente.")
+        if plan.status is not PlanStatus.PROPOSED:
+            raise ValueError(f"Piano {plan_id} non è PROPOSED (è {plan.status.value}).")
+        now = _now()
+        for p in self.list_plans(plan.athlete_id, status=PlanStatus.ACTIVE.value):
+            p.status = PlanStatus.SUPERSEDED
+            p.updated_at = now
+            self.conn.execute(
+                "UPDATE plans SET status=?, updated_at=?, data=? WHERE id=?",
+                (p.status.value, now, p.model_dump_json(), p.id),
+            )
+        plan.status = PlanStatus.ACTIVE
+        plan.updated_at = now
+        self.conn.execute(
+            "UPDATE plans SET status=?, updated_at=?, data=? WHERE id=?",
+            (plan.status.value, now, plan.model_dump_json(), plan.id),
+        )
+        self.conn.commit()
+        return plan
+
     # -- Fase B: Memoria di trasferibilità ---------------------------------- #
     def save_memo(self, memo: TransferabilityMemo) -> TransferabilityMemo:
         now = _now()
