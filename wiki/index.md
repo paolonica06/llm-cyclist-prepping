@@ -4,7 +4,7 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 
 ## Argomenti
 - [training load, immune function and upper respiratory tract illness risk in competitive cyclists](topics/training-load-immune-function-and-upper-respiratory-tract-illness-risk-in-compet.md) — 20 studi sintetizzati (aggiornato 2026-07-24)
-- [body composition energy availability and resting metabolic rate across the cycling training season](topics/body-composition-energy-availability-and-resting-metabolic-rate-across-the-cycli.md) — 3 studi sintetizzati (aggiornato 2026-07-24)
+- [body composition energy availability and resting metabolic rate across the cycling training season](topics/body-composition-energy-availability-and-resting-metabolic-rate-across-the-cycli.md) — 9 studi sintetizzati (aggiornato 2026-07-24)
 - [repeated sprint ability and intermittent high-intensity performance in endurance cyclists](topics/repeated-sprint-ability-and-intermittent-high-intensity-performance-in-endurance.md) — 9 studi sintetizzati (aggiornato 2026-07-24)
 - [skeletal muscle buffering capacity and metabolic determinants of endurance cycling performance](topics/skeletal-muscle-buffering-capacity-and-metabolic-determinants-of-endurance-cycli.md) — 20 studi sintetizzati (aggiornato 2026-07-24)
 - [caffeine and dietary nitrate supplementation effects on cycling time trial and sprint performance](topics/caffeine-and-dietary-nitrate-supplementation-effects-on-cycling-time-trial-and-s.md) — 17 studi sintetizzati (aggiornato 2026-07-24)

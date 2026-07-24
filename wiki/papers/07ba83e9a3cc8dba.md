@@ -9,15 +9,17 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
-- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **moderate**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: unclear
-  - transferability: moderate
-  - _Numerosità del campione non riportata nel testo disponibile._
+- Tipo di studio: **trial randomizzato di allenamento a gruppi paralleli**
+- Qualità: **moderate** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **high**
+  - sample: Ventidue ciclisti veterani altamente allenati; campione specifico ma piccolo e limitato a circa 47 anni di età media.
+  - control: Comparatore attivo a cadenza liberamente scelta e volume moderato simile; scelta metodologicamente informativa.
+  - randomization: Partecipanti randomizzati in due gruppi, ma dettagli su generazione e occultamento non evidenti nell'abstract.
+  - duration: Dodici settimane, durata adeguata per valutare adattamenti cronici.
+  - measures: VO2max, soglia del lattato, prova di 30 minuti, potenza, efficienza, cadenza e forza sono misure ampie e specifiche.
+  - transferability: Molto elevata per ciclisti veterani ben allenati; più limitata per giovani élite, donne e discipline differenti.
+  - _Disegno specifico per il ciclismo, comparatore attivo e durata adeguata sono punti di forza._
+  - _La piccola numerosità può non rilevare effetti modesti ma rilevanti agonisticamente._
+  - _Il risultato non dimostra che ogni forma di allenamento a bassa cadenza sia inefficace: riguarda 40 rpm al 73-82% della frequenza cardiaca massima._
 
 ## Dati estratti (fonte: not_available, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
