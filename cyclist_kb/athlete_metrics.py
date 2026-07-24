@@ -10,6 +10,7 @@ Invarianti incarnati:
 
 from __future__ import annotations
 
+import re
 from typing import Any, Dict, List, Optional
 
 from .athlete_models import (
@@ -218,20 +219,49 @@ def overload_guardrail(recent_tsb: Optional[float], hrv_drop: Optional[bool],
     return None
 
 
-_MEDICAL_MARKERS = (
-    "dolore", "male", "infortun", "sintom", "febbre", "malatt", "red-s", "reds", "amenorrea"
+# Marcatori medici a match per PREFISSO (cattura flessioni):
+# un token è positivo se inizia con uno di questi prefissi.
+_MEDICAL_PREFIX_MARKERS = (
+    "dolor", "infortun", "sintom", "malat", "nausea", "cramp", "vertigin",
+    "amenorrea", "febbr",
 )
+
+# Marcatori medici a match ESATTO (il token deve coincidere interamente):
+_MEDICAL_EXACT_MARKERS = ("male", "reds")
 
 
 def medical_boundary_flag(signals: List[str]) -> Optional[str]:
     """Restituisce un disclaimer medico strutturale se i segnali contengono marcatori clinici.
 
     Il CoachAgent non diagnostica né prescrive (ADR-0007, PRD 15).
+
+    Il matching usa word-boundary per evitare falsi positivi su parole innocue
+    (es. "normale", "ottimale", "termale" non devono scattare):
+    - PREFISSI: un token è positivo se inizia con il marcatore (cattura flessioni).
+    - ESATTI: un token deve coincidere esattamente col marcatore.
+    - "red-s" (con trattino) è controllato separatamente sulla stringa unita.
     """
     joined = " ".join(s.lower() for s in signals)
-    if any(m in joined for m in _MEDICAL_MARKERS):
+    tokens = re.findall(r"[a-zàèéìòù]+", joined)
+
+    for token in tokens:
+        if any(token.startswith(prefix) for prefix in _MEDICAL_PREFIX_MARKERS):
+            return (
+                "segnale a confine medico: il coach non diagnostica né prescrive; "
+                "consulta un professionista sanitario"
+            )
+        if token in _MEDICAL_EXACT_MARKERS:
+            return (
+                "segnale a confine medico: il coach non diagnostica né prescrive; "
+                "consulta un professionista sanitario"
+            )
+
+    # "red-s" contiene un trattino che re.findall tokenizza come due token separati;
+    # lo controlliamo direttamente sulla stringa unita.
+    if "red-s" in joined:
         return (
             "segnale a confine medico: il coach non diagnostica né prescrive; "
             "consulta un professionista sanitario"
         )
+
     return None

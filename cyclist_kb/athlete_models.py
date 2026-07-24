@@ -20,7 +20,7 @@ import re
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .models import QualityLevel
 
@@ -208,6 +208,8 @@ class ActivitySummary(BaseModel):
 class Prescription(BaseModel):
     """Un Intervallo/Seduta prescritto con target al watt, con marcatura evidenza."""
 
+    model_config = ConfigDict(validate_assignment=True)
+
     description: str
     target_watts: Optional[float] = None
     duration_s: Optional[int] = None
@@ -218,7 +220,11 @@ class Prescription(BaseModel):
 
     @model_validator(mode="after")
     def _sync_supported(self) -> "Prescription":
-        self.supported = (self.provenance == ProvenanceKind.STUDY)
+        # Con validate_assignment=True, assegnare self.supported dentro il validator
+        # ri-triggera il validator su Python 3.9 (comportamento Pydantic v2 dipendente
+        # dalla versione). Usiamo object.__setattr__ per bypassare la validazione
+        # dell'assegnazione su questo singolo campo interno, evitando la ricorsione.
+        object.__setattr__(self, "supported", self.provenance == ProvenanceKind.STUDY)
         return self
 
 

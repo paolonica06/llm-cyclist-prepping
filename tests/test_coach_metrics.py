@@ -140,3 +140,54 @@ def test_overload_and_medical_guards():
     assert overload_guardrail(5.0, False, False, False) is None
     assert medical_boundary_flag(["dolore al ginocchio"]) is not None
     assert medical_boundary_flag([]) is None
+
+
+# ---------------------------------------------------------------------------
+# FIX 1 — medical_boundary_flag: regressioni negative e positive (review #13/#14)
+# ---------------------------------------------------------------------------
+
+def test_medical_boundary_flag_no_false_positives():
+    """Parole innocue che condividono sottostringa con i marcatori NON devono scattare."""
+    assert medical_boundary_flag(["normale"]) is None, "falso positivo su 'normale'"
+    assert medical_boundary_flag(["FTP ottimale"]) is None, "falso positivo su 'ottimale'"
+    assert medical_boundary_flag(["ambiente termale"]) is None, "falso positivo su 'termale'"
+    assert medical_boundary_flag(["maschile"]) is None, "falso positivo su 'maschile'"
+
+
+def test_medical_boundary_flag_positive_cases():
+    """Marcatori clinici italiani devono scattare."""
+    assert medical_boundary_flag(["dolore al ginocchio"]) is not None
+    assert medical_boundary_flag(["infortunio"]) is not None
+    assert medical_boundary_flag(["sono malato"]) is not None
+    assert medical_boundary_flag(["ho la nausea"]) is not None
+    assert medical_boundary_flag(["crampi muscolari"]) is not None
+    assert medical_boundary_flag(["RED-S sospetto"]) is not None
+    assert medical_boundary_flag(["amenorrea"]) is not None
+
+
+def test_medical_boundary_flag_exact_markers():
+    """'male' e 'reds' devono matchare solo come token esatti."""
+    assert medical_boundary_flag(["ho male"]) is not None, "'male' token esatto deve scattare"
+    assert medical_boundary_flag(["reds"]) is not None, "'reds' token esatto deve scattare"
+    # ma non come parte di parola più lunga (già coperto dai no_false_positives)
+    assert medical_boundary_flag(["normale"]) is None
+
+
+# ---------------------------------------------------------------------------
+# FIX 2 — Prescription validate_assignment: supported si aggiorna su assegnazione
+# (review #24)
+# ---------------------------------------------------------------------------
+
+def test_prescription_supported_updates_on_assignment():
+    """Assegnare provenance dopo la costruzione deve sincronizzare supported."""
+    # HEURISTIC → supported False
+    p = Prescription(description="x", provenance=ProvenanceKind.HEURISTIC)
+    assert p.supported is False
+
+    # Assegnazione STUDY → supported deve diventare True
+    p.provenance = ProvenanceKind.STUDY
+    assert p.supported is True, "supported deve essere True dopo p.provenance = STUDY"
+
+    # Assegnazione di ritorno HEURISTIC → supported deve tornare False
+    p.provenance = ProvenanceKind.HEURISTIC
+    assert p.supported is False, "supported deve tornare False dopo p.provenance = HEURISTIC"
