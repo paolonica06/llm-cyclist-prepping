@@ -9,17 +9,19 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
-- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **low**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: unclear
-  - transferability: low
-  - _Numerosità del campione non riportata nel testo disponibile._
+- Tipo di studio: **Revisione narrativa/metodologica sulla periodizzazione dell'allenamento**
+- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **moderate**
+  - sample: Non riportato
+  - control: Non applicabile o non riportato
+  - randomization: Non applicabile
+  - duration: Non riportata
+  - measures: Non riportate
+  - transferability: Il tema è direttamente pertinente all'allenamento, ma l'applicabilità specifica ai ciclisti non è verificabile dal solo titolo
+  - _Testo dello studio assente._
+  - _La qualità metodologica non può essere valutata in modo affidabile senza metodi, criteri di selezione delle fonti e risultati._
+  - _La classificazione bassa riflette l'insufficienza delle informazioni disponibili, non necessariamente la qualità effettiva dello studio._
 
-## Dati estratti (fonte: not_available, metodo: heuristic)
+## Dati estratti (fonte: not_available, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
 - **Partecipanti**: _non disponibile_
 - **Livello di allenamento**: _non disponibile_

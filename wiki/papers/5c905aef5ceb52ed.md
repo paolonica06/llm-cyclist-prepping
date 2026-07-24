@@ -12,29 +12,33 @@
   - ⚠ [PubMed] Primo autore discordante: 'laurie-anne' vs 'marquet'
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
-- Qualità: **moderate** · Confidenza: **moderate** · Trasferibilità ciclisti competitivi: **high**
-  - sample: unknown
-  - control: present
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: objective
-  - transferability: high
-  - _Numerosità del campione non riportata nel testo disponibile._
+- Tipo di studio: **small controlled parallel-group nutrition intervention**
+- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **moderate**
+  - sample: low
+  - control: moderate
+  - randomization: low
+  - duration: low
+  - measures: moderate
+  - transferability: moderate
+  - _Solo 11 ciclisti, suddivisi in due gruppi, con potenza statistica verosimilmente molto bassa._
+  - _Presenza di controllo con apporto totale di carboidrati comparabile, ma metodo di assegnazione non riportato._
+  - _Durata di una settimana: sensibile a variabilità giornaliera, familiarizzazione, recupero e cambiamenti di pacing._
+  - _La prova di 20 km è ciclisticamente pertinente, ma non sono riportati intervalli di confidenza né dettagli su cecità e controllo dietetico._
+  - _Il risultato è promettente ma non sufficiente per raccomandare stabilmente la strategia a ciclisti competitivi._
 
-## Dati estratti (fonte: abstract, metodo: heuristic)
-- **Disegno dello studio**: _non disponibile_
-- **Partecipanti** (`abstract`): Methods: Following training familiarization, 11 trained cyclists were divided into two groups for a one-week intervention—one group implemented three cycles of periodized CHO intake to achieve the sleep-low strategy over six training sessions (SL, CHO intake: 6 g·kg−1·day−1), whereas the control group consumed an even distribution of CHO over the day (CON).
-- **Livello di allenamento** (`abstract`): trained
-- **Sesso** (`abstract`): male
+## Dati estratti (fonte: abstract, metodo: llm)
+- **Disegno dello studio** (`abstract`): Two-group training intervention
+- **Partecipanti** (`abstract`): Trained cyclists
+- **Livello di allenamento** (`abstract`): Trained
+- **Sesso**: _non disponibile_
 - **Età**: _non disponibile_
-- **Numerosità campione**: _non disponibile_
-- **Protocollo** (`abstract`): Background: “Sleep-low” consists of a sequential periodization of carbohydrate (CHO) availability—low glycogen recovery after “train high” glycogen-depleting interval training, followed by an overnight-fast and light intensity training (“train low”) the following day.
-- **Comparatore** (`abstract`): Methods: Following training familiarization, 11 trained cyclists were divided into two groups for a one-week intervention—one group implemented three cycles of periodized CHO intake to achieve the sleep-low strategy over six training sessions (SL, CHO intake: 6 g·kg−1·day−1), whereas the control group consumed an even distribution of CHO over the day (CON).
-- **Durata**: _non disponibile_
-- **Outcome** (`abstract`): This strategy leads to an upregulation of several exercise-responsive signaling proteins, but the chronic effect on performance has received less attention.
-- **Risultati** (`abstract`): Results: SL improved their performance (mean: +3.2%; p &lt; 0.05) compared to CON.
-- **Effect size**: _non disponibile_
+- **Numerosità campione** (`abstract`): 11
+- **Protocollo** (`abstract`): Three cycles of periodized carbohydrate intake over six training sessions: low glycogen recovery after glycogen-depleting interval training, followed by an overnight fast and light-intensity training the next day; CHO intake 6 g·kg−1·day−1
+- **Comparatore** (`abstract`): Even distribution of carbohydrate intake over the day (CON)
+- **Durata** (`abstract`): 1 week
+- **Outcome** (`abstract`): Performance in a 2 h submaximal ride and 20 km time trial, pacing strategy, and substrate utilization
+- **Risultati** (`abstract`): SL improved performance by a mean of 3.2% compared with CON (p<0.05), associated with higher power output during the second part of the test. No change in substrate utilization occurred in either group.
+- **Effect size** (`abstract`): Mean performance improvement: +3.2%
 - **Limiti**: _non disponibile_
 - **Conflitti di interesse**: _non disponibile_
 
