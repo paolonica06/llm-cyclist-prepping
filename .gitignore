@@ -1,0 +1,12 @@
+# Ambiente
+.venv/
+__pycache__/
+*.pyc
+.env
+.pytest_cache/
+
+# Dati locali (DB + risultati grezzi): rigenerabili, non versionati.
+data/kb.sqlite3
+data/raw/
+
+# La wiki/ è INTENZIONALMENTE versionata: è l'output della knowledge base.

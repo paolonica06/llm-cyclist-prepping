@@ -1,0 +1,21 @@
+# Profilo atleta di esempio (letto dall'Athlete Context Agent).
+name: "Atleta Demo"
+age: 34
+sex: "male"
+category: "master"          # es. elite, U23, master, amatore cat. 2
+level: "competitivo"        # competitivo | ricreativo
+discipline: "strada"        # strada | MTB | pista | gravel
+weekly_hours: 12
+weekly_tss: 650
+ftp_w: 320
+ftp_w_kg: 4.4
+vo2max: 62
+goals:
+  - "Migliorare la VO2max in vista delle gran fondo di primavera"
+  - "Aumentare la potenza a soglia"
+history:
+  - "8 anni di attività agonistica amatoriale"
+  - "Storico di buona risposta al lavoro ad alta intensità"
+constraints:
+  - "Massimo 4 uscite settimanali per impegni lavorativi"
+notes: "Preferisce blocchi di allenamento strutturati e misurabili con power meter."
