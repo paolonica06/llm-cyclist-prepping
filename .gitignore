@@ -4,6 +4,9 @@ __pycache__/
 *.pyc
 .env
 .pytest_cache/
+# config locale di Obsidian (per-macchina) e settings locali di Claude
+.obsidian/
+.claude/settings.local.json
 
 # Dati locali (DB + risultati grezzi): rigenerabili, non versionati.
 data/kb.sqlite3

@@ -5,6 +5,7 @@ COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command')
 
 # NB: 'git push' normale è CONSENTITO (l'utente ha autorizzato il push autonomo).
 # Restano bloccate solo le operazioni irreversibili: force-push e distruzioni locali.
+# I pattern force-push catturano l'opzione ovunque compaia (anche dopo remote/branch).
 DANGEROUS_PATTERNS=(
   "git reset --hard"
   "git clean -fd"
@@ -12,7 +13,8 @@ DANGEROUS_PATTERNS=(
   "git branch -D"
   "git checkout \."
   "git restore \."
-  "push --force"
+  "git push.*--force"
+  "git push.* -f( |$)"
   "reset --hard"
 )
 
