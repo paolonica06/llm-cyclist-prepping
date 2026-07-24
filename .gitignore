@@ -11,5 +11,10 @@ __pycache__/
 # Dati locali (DB + risultati grezzi): rigenerabili, non versionati.
 data/kb.sqlite3
 data/raw/
+data/*.log
+
+# Profili personali (PII): non versionati. Solo l'esempio di riferimento resta tracciato.
+profiles/*.yaml
+!profiles/example_athlete.yaml
 
 # La wiki/ è INTENZIONALMENTE versionata: è l'output della knowledge base.
