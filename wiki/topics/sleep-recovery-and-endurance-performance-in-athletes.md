@@ -1,28 +1,24 @@
 # sleep, recovery and endurance performance in athletes
 
-> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-24 08:54 UTC** · Ricerca `sleep-recovery-and-endurance-per-cb1dd2` · Studi verificati inclusi: **14**.
+> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-24 17:07 UTC** · Ricerca `sleep-recovery-and-endurance-per-cb1dd2` · Studi verificati inclusi: **12**.
 
 Ogni affermazione è collegata ai paper che la sostengono. I record non verificati sono esclusi da questa sintesi.
 
 ## Evidenze
 
 ### Performance / potenza
-- There is novel evidence that suggests higher protein intakes (>3.0 g/kg/d) may have positive effects on body composition in resistance-trained individuals (i.e., promote loss of fat mass). — [Ralf 2017](../papers/f9267f72c9a66d93.md) *(disegno: review; confidenza: low; popolazione: unclear; fonte dato: abstract)*
-- RESULT: Significant reductions were observed in oxidative stress markers (urinary 8-hydroxy-2'-deoxyguanosine [8-OHdG]) and reaction times within the UFOV. — [Osato 2026](../papers/457eead160c33fac.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
-- Twelve connections differed significantly, including enhanced stress-confusion coupling (Δr = +0.39, p = 0.003). — [Yousfi 2026](../papers/15e22ac3716abe72.md) *(disegno: crossover; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
-- Research has investigated a number of external load quantifying and monitoring tools, such as power output measuring devices, time-motion analysis, as well as internal load unit measures, including perception of effort, heart rate, blood lactate, and training impulse. — [Shona 2014](../papers/93bbe9846dfb5fe6.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
-- Nutrition usually makes a small but potentially valuable contribution to successful performance in elite athletes, and dietary supplements can make a minor contribution to this nutrition program. — [Ronald 2018](../papers/47556713f08112ec.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
-- However, its impact on sleep quality and duration presents a significant challenge, as improper timing or excessive intake can impair recovery and performance. — [Weronika 2025](../papers/a0b0508809716013.md) *(disegno: meta-analysis; confidenza: high; popolazione: unclear; fonte dato: full_text)*
-- The COVID-19 pandemic has a significantly impacted athletes across various sports, genders, and age groups. — [A. 2025](../papers/4b64b87335b6a7c3.md) *(disegno: review; confidenza: low; popolazione: unclear; fonte dato: abstract)*
-- Compared with D4 of NS, RPE:HRTT was lower on D4 of SE (p = 0.008)—when TT performances were faster. — [Spencer 2021](../papers/be24364bd3536263.md) *(disegno: crossover; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
-- We live in a day and age where longevity and performance are the greatest aspirations of today's society. — [Andrea 2025](../papers/b982f6dd01d73604.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
-
-### Soglia / metabolismo
-- Research has investigated a number of external load quantifying and monitoring tools, such as power output measuring devices, time-motion analysis, as well as internal load unit measures, including perception of effort, heart rate, blood lactate, and training impulse. — [Shona 2014](../papers/93bbe9846dfb5fe6.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- Some supplements can benefit athletes, but others may harm health, performance, livelihood, or reputation. Only a few performance supplements, including caffeine, creatine, specific buffering agents, and nitrate, have good evidence of benefit. Responses vary with the use scenario and between… — [Ronald 2018](../papers/47556713f08112ec.md) *(disegno: IOC consensus statement based on evidence review and expert synthesis; confidenza: high; popolazione: mixed; fonte dato: abstract)*
+- Physical performance, recovery, and sleep quality — [Weronika 2025](../papers/a0b0508809716013.md) *(disegno: literature review; confidenza: low; popolazione: mixed; fonte dato: full_text)*
+- The review underscores a multifaceted impact of COVID-19 infection on adolescent athletes and identifies a need for tailored interventions, health protocols, and recovery strategies to support safe return to training and competition. — [A. 2025](../papers/4b64b87335b6a7c3.md) *(disegno: narrative or comprehensive literature review; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
+- Compared with D4 of normal sleep, RPE:HRTT was lower on D4 of sleep extension (p = 0.008), when time-trial performance was faster. Compared with D1 of sleep restriction, RPE:HRTT was higher on D3 and D4 of sleep restriction (p < 0.02). Percentage changes in W:HRTT correlated moderately with changes… — [Spencer 2021](../papers/be24364bd3536263.md) *(disegno: small repeated-measures crossover intervention study; confidenza: high; popolazione: endurance_other; fonte dato: abstract)*
+- The article proposes that earables could move beyond passive recovery scoring to actively improve sleep, nutrition and fueling, and autonomic balance. It outlines challenges and calls for research into this paradigm. — [Andrea 2025](../papers/b982f6dd01d73604.md) *(disegno: vision / perspective article; confidenza: high; popolazione: endurance_other; fonte dato: abstract)*
 
 ### Altri outcome
-- Only antioxidants showed significant variation in use across levels (P = .033). — [Li 2025](../papers/412a12943ac6646b.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
-- Research on the emotional responses of athletes to injury shows significant depression that may be profound and may last a month or more, paralleling the athlete's perceived recovery. — [Aynsley 1994](../papers/d7d053303ea4a80d.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- Resistance exercise and protein ingestion both stimulate muscle protein synthesis and are synergistic when protein is consumed before or after exercise. An overall daily protein intake of 1.4–2.0 g/kg/day is sufficient for most exercising individuals. Intakes >3.0 g/kg/day may promote fat-mass loss… — [Ralf 2017](../papers/f9267f72c9a66d93.md) *(disegno: position statement / expert consensus based on literature review; confidenza: high; popolazione: mixed; fonte dato: abstract)*
+- Significant reductions were observed in urinary 8-OHdG and UFOV reaction times. Concentration, vitality, fatigue, and sleep quality improved significantly. Participants with improved UFOV also showed reductions in urinary 8-OHdG. SF-12 general health perception (p < 0.01), vitality (p < 0.05), and… — [Osato 2026](../papers/457eead160c33fac.md) *(disegno: pilot interventional study with heterogeneous occupational and motorsport cohorts; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
+- Repeated-measures ANOVA detected no temporal effects on isolated variables (all F < 2.87, p > 0.05, partial eta squared < 0.21). New Moon and Full Moon networks differed in architecture (M = 0.31, adjusted p = 0.008) and connectivity (S = 8.42, adjusted p = 0.029). Centrality shifted from capacity… — [Yousfi 2026](../papers/15e22ac3716abe72.md) *(disegno: exploratory repeated-measures proof-of-concept network analysis; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
+- Very few monitoring markers have strong supporting scientific evidence, and no single definitive marker has been identified. Dissociation between external and internal load units may reveal athlete fatigue. Monitoring should be individualized, use scientific and statistical approaches to detect… — [Shona 2014](../papers/93bbe9846dfb5fe6.md) *(disegno: narrative review / practical framework; confidenza: high; popolazione: mixed; fonte dato: abstract)*
+- Among athletes, the predominant strategies were hydration (4.62 [0.60]), hot showers (4.32 [0.82]), and carbohydrate (4.17 [0.87]). Only antioxidant use varied significantly across competition levels (P = .033). Coaches favored warm-down/cooling (4.56 [0.62]), hydration (4.41 [0.80]), and extra… — [Li 2025](../papers/412a12943ac6646b.md) *(disegno: Indagine trasversale online su atleti e allenatori di sport di endurance; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
 
 ## Risultati contrastanti
 
@@ -32,35 +28,33 @@ Ogni affermazione è collegata ai paper che la sostengono. I record non verifica
 
 > Sintesi derivata dagli studi elencati in *Evidenze* e *Studi inclusi* (che riportano i collegamenti ai singoli paper).
 
-La base attuale include 14 studi verificati (1 ad alta confidenza). Su alcuni outcome (Performance / potenza) l'evidenza è eterogenea: le differenze possono dipendere da protocollo, livello degli atleti e durata. Molti dati provengono da soli abstract: le conclusioni vanno considerate provvisorie e riviste all'arrivo di full text e nuovi studi.
+Nel complesso, le evidenze indicano che la durata del sonno può influenzare la prontezza e la prestazione di endurance: in uno studio controllato, l’estensione del sonno si associava a una prova a cronometro più rapida e a rapporti tra sforzo percepito e frequenza cardiaca più favorevoli, mentre la restrizione produceva variazioni coerenti con un peggioramento della readiness. La generalizzabilità resta tuttavia limitata e nessun singolo indicatore identifica con certezza il recupero; appare più solido un monitoraggio individualizzato e longitudinale che integri carico esterno, risposta interna, percezioni soggettive e andamento prestativo. Le differenze di rete osservate tra fasi lunari, in assenza di variazioni temporali delle singole misure, sono esplorative e non dimostrano un effetto lunare causale o prestativamente rilevante. Nutrizione e recupero sono collegati, ma gran parte delle evidenze proteiche riguarda sintesi muscolare ed esercizio di resistenza più che endurance o sonno: un apporto proteico giornaliero adeguato e distribuito sostiene il rimodellamento muscolare, senza provare direttamente un miglioramento della prestazione endurance. Idratazione, carboidrati, sonno aggiuntivo e proteine sono strategie molto valorizzate da atleti e allenatori, ma tali preferenze non equivalgono a efficacia sperimentale. I risultati favorevoli del prodotto di papaya fermentata su fatica, sonno, cognizione e biomarcatori ossidativi sono preliminari, specifici per popolazione e intervento e non stabiliscono un beneficio generale sulla prestazione. Solo pochi supplementi hanno evidenze prestative robuste, con risposte individuali e rischi di contaminazione o sostanze proibite. Earable e sistemi di recupero attivo sono prospettive tecnologiche ancora ipotetiche. Le fonti prive di risultati riportati non consentono inferenze; anche le indicazioni sul recupero post-COVID negli adolescenti restano contestuali. Pertanto, l’interpretazione più prudente è che sonno sufficiente, nutrizione adeguata e monitoraggio multimodale siano componenti plausibilmente interdipendenti del recupero, ma entità degli effetti, causalità e protocolli ottimali rimangono incerti e dipendenti dall’individuo e dal contesto sportivo.
 
 ## Applicazione pratica
 
 > Indicazioni orientative, da adattare al singolo atleta (vedi Athlete Context Agent). Non costituiscono prescrizioni.
 
-- **Performance / potenza**: evidenza non conclusiva (2/9 positivi); evitare generalizzazioni. Studi: [Ralf 2017](../papers/f9267f72c9a66d93.md), [Osato 2026](../papers/457eead160c33fac.md), [Yousfi 2026](../papers/15e22ac3716abe72.md), [Shona 2014](../papers/93bbe9846dfb5fe6.md), [Ronald 2018](../papers/47556713f08112ec.md), [Weronika 2025](../papers/a0b0508809716013.md), [A. 2025](../papers/4b64b87335b6a7c3.md), [Spencer 2021](../papers/be24364bd3536263.md), [Andrea 2025](../papers/b982f6dd01d73604.md).
-- **Soglia / metabolismo**: evidenza non conclusiva (0/1 positivi); evitare generalizzazioni. Studi: [Shona 2014](../papers/93bbe9846dfb5fe6.md).
-- **Altri outcome**: evidenza non conclusiva (0/2 positivi); evitare generalizzazioni. Studi: [Li 2025](../papers/412a12943ac6646b.md), [Aynsley 1994](../papers/d7d053303ea4a80d.md).
+- **Performance / potenza**: evidenza non conclusiva (0/5 positivi); evitare generalizzazioni. Studi: [Ronald 2018](../papers/47556713f08112ec.md), [Weronika 2025](../papers/a0b0508809716013.md), [A. 2025](../papers/4b64b87335b6a7c3.md), [Spencer 2021](../papers/be24364bd3536263.md), [Andrea 2025](../papers/b982f6dd01d73604.md).
+- **Altri outcome**: evidenza non conclusiva (2/5 positivi); evitare generalizzazioni. Studi: [Ralf 2017](../papers/f9267f72c9a66d93.md), [Osato 2026](../papers/457eead160c33fac.md), [Yousfi 2026](../papers/15e22ac3716abe72.md), [Shona 2014](../papers/93bbe9846dfb5fe6.md), [Li 2025](../papers/412a12943ac6646b.md).
 
 ## Studi inclusi
 
 | Studio | Anno | Disegno | Qualità | Confidenza | Trasferibilità | Fonte dato |
 |---|---|---|---|---|---|---|
-| [Osato 2026](../papers/457eead160c33fac.md) | 2026 | unknown | low | low | low | abstract |
-| [Yousfi 2026](../papers/15e22ac3716abe72.md) | 2026 | crossover | low | moderate | low | abstract |
-| [Havlik 2026](../papers/54187173f766926e.md) | 2026 | review | low | low | low | not_available |
-| [Weronika 2025](../papers/a0b0508809716013.md) | 2025 | meta-analysis | high | high | low | full_text |
-| [A. 2025](../papers/4b64b87335b6a7c3.md) | 2025 | review | low | low | low | abstract |
-| [Andrea 2025](../papers/b982f6dd01d73604.md) | 2025 | unknown | low | low | low | abstract |
-| [Li 2025](../papers/412a12943ac6646b.md) | 2025 | unknown | low | low | low | abstract |
-| [Willmer 2022](../papers/a76df80aa90e3f74.md) | 2022 | unknown | low | low | low | not_available |
-| [Spencer 2021](../papers/be24364bd3536263.md) | 2021 | crossover | moderate | moderate | moderate | abstract |
-| [Ronald 2018](../papers/47556713f08112ec.md) | 2018 | unknown | low | low | low | abstract |
-| [Ralf 2017](../papers/f9267f72c9a66d93.md) | 2017 | review | low | low | low | abstract |
-| [Shona 2014](../papers/93bbe9846dfb5fe6.md) | 2014 | unknown | low | low | low | abstract |
-| [Vellapandian 2014](../papers/78680dcda9160db8.md) | 2014 | unknown | low | low | low | abstract |
-| [Aynsley 1994](../papers/d7d053303ea4a80d.md) | 1994 | unknown | low | low | low | abstract |
+| [Osato 2026](../papers/457eead160c33fac.md) | 2026 | pilot interventional study with heterogeneous occupational and motorsport cohorts | low | moderate | low | abstract |
+| [Yousfi 2026](../papers/15e22ac3716abe72.md) | 2026 | exploratory repeated-measures proof-of-concept network analysis | low | moderate | low | abstract |
+| [Havlik 2026](../papers/54187173f766926e.md) | 2026 | narrative literature review | low | low | moderate | not_available |
+| [Weronika 2025](../papers/a0b0508809716013.md) | 2025 | literature review | low | low | moderate | full_text |
+| [A. 2025](../papers/4b64b87335b6a7c3.md) | 2025 | narrative or comprehensive literature review | low | moderate | low | abstract |
+| [Andrea 2025](../papers/b982f6dd01d73604.md) | 2025 | vision / perspective article | low | high | low | abstract |
+| [Li 2025](../papers/412a12943ac6646b.md) | 2025 | Indagine trasversale online su atleti e allenatori di sport di endurance | low | moderate | moderate | abstract |
+| [Willmer 2022](../papers/a76df80aa90e3f74.md) | 2022 | unknown primary intervention study, likely nap versus control | low | low | moderate | not_available |
+| [Spencer 2021](../papers/be24364bd3536263.md) | 2021 | small repeated-measures crossover intervention study | moderate | high | high | abstract |
+| [Ronald 2018](../papers/47556713f08112ec.md) | 2018 | IOC consensus statement based on evidence review and expert synthesis | high | high | high | abstract |
+| [Ralf 2017](../papers/f9267f72c9a66d93.md) | 2017 | position statement / expert consensus based on literature review | high | high | moderate | abstract |
+| [Shona 2014](../papers/93bbe9846dfb5fe6.md) | 2014 | narrative review / practical framework | moderate | high | high | abstract |
 
 ## Cronologia aggiornamenti
 
+- **2026-07-24 17:07 UTC** — ricerca `sleep-recovery-and-endurance-per-cb1dd2`: 12 studi verificati sintetizzati (query: 4, grezzi: 326).
 - **2026-07-24 08:54 UTC** — ricerca `sleep-recovery-and-endurance-per-cb1dd2`: 14 studi verificati sintetizzati (query: 4, grezzi: 326).
