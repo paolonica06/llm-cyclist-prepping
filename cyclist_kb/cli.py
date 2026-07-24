@@ -18,7 +18,8 @@ import typer
 from .config import get_settings
 from .db import Database
 from .models import RecordState
-from .pipeline import Pipeline, ResearchNotFound
+from .athlete_models import MetricGoal, MetricType
+from .pipeline import Pipeline, ResearchNotFound, PlanNotFound, PlanStateError, AthleteNotFound
 
 app = typer.Typer(add_completion=False, help="Knowledge base ciclistica auto-mantenuta (MVP).")
 
@@ -218,6 +219,97 @@ def status(research_id: str):
 
 def _raise(rid: str):
     raise ResearchNotFound(f"Ricerca '{rid}' inesistente.")
+
+
+# --------------------------------------------------------------------------- #
+# Fase D: CoachAgent CLI commands
+# --------------------------------------------------------------------------- #
+
+def _print_plan(plan) -> None:
+    """Stampa id, status, obiettivo e numero di blocchi del piano."""
+    typer.echo(f"Piano: {plan.id}")
+    typer.echo(f"  Status: {plan.status.value}")
+    if plan.target_metric_type:
+        typer.echo(
+            f"  Obiettivo: {plan.target_metric_type.value} → {plan.target_metric_value}"
+            f" entro {plan.target_metric_date}"
+        )
+    typer.echo(f"  Blocchi: {len(plan.blocks)}")
+
+
+@app.command()
+def coach(
+    athlete_id: str = typer.Argument(..., help="Id atleta."),
+    metric: str = typer.Option("ftp", "--metric", help="Grandezza obiettivo (ftp/vo2max/...)."),
+    to: float = typer.Option(..., "--to", help="Valore-target."),
+    by: str = typer.Option(..., "--by", help="Data-obiettivo ISO YYYY-MM-DD."),
+    start: Optional[float] = typer.Option(None, "--from", help="Valore di partenza (opz.)."),
+    profile: Optional[Path] = typer.Option(None, "--profile", help="Profilo atleta YAML (opz.)."),
+):
+    """Genera un piano di allenamento PROPOSED verso un obiettivo metrico datato."""
+    goal = MetricGoal(metric_type=MetricType(metric), target=to, target_date=by, start=start)
+    try:
+        plan = _pipeline().coach(athlete_id, goal, profile)
+    except AthleteNotFound as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(1)
+    _print_plan(plan)
+    typer.secho(
+        f"Piano proposto {plan.id} (status={plan.status.value}).",
+        fg=typer.colors.GREEN,
+    )
+
+
+@app.command(name="coach-accept")
+def coach_accept(
+    plan_id: str = typer.Argument(..., help="Id del piano PROPOSED da attivare."),
+):
+    """Promuove un piano PROPOSED → ACTIVE (proponi-poi-approva)."""
+    try:
+        plan = _pipeline().coach_accept(plan_id)
+    except (PlanNotFound, PlanStateError) as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(1)
+    typer.secho(
+        f"Piano {plan.id} attivato (status={plan.status.value}).",
+        fg=typer.colors.GREEN,
+    )
+
+
+@app.command(name="coach-adapt")
+def coach_adapt(
+    athlete_id: str = typer.Argument(..., help="Id atleta."),
+):
+    """Loop veloce: adatta il microciclo entrante e propone una nuova versione PROPOSED."""
+    try:
+        plan = _pipeline().coach_adapt(athlete_id)
+    except AthleteNotFound as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(1)
+    _print_plan(plan)
+    typer.secho(
+        f"Piano adattato proposto {plan.id} (status={plan.status.value}).",
+        fg=typer.colors.GREEN,
+    )
+
+
+@app.command(name="coach-assess")
+def coach_assess(
+    athlete_id: str = typer.Argument(..., help="Id atleta."),
+    plan_id: str = typer.Argument(..., help="Id del piano."),
+    block_id: str = typer.Argument(..., help="Id del blocco da valutare."),
+):
+    """Loop lento: valuta un blocco e produce un TransferabilityMemo."""
+    try:
+        memo = _pipeline().coach_assess(athlete_id, plan_id, block_id)
+    except (PlanNotFound, PlanStateError, AthleteNotFound) as exc:
+        typer.secho(str(exc), fg=typer.colors.RED, err=True)
+        raise typer.Exit(1)
+    typer.echo(f"Memo blocco: {memo.id}")
+    typer.echo(f"  Verdict: {memo.verdict if isinstance(memo.verdict, str) else memo.verdict.value}")
+    if memo.compliance_ratio is not None:
+        typer.echo(f"  Compliance: {memo.compliance_ratio:.2f}")
+    typer.secho("Valutazione blocco completata.", fg=typer.colors.GREEN)
 
 
 if __name__ == "__main__":
