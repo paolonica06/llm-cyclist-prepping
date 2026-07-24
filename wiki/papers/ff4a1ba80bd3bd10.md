@@ -9,17 +9,20 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
-- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **high**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
+- Tipo di studio: **training-protocol optimization study; design details unavailable**
+- Qualità: **moderate** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **high**
+  - sample: moderate
+  - control: unknown
+  - randomization: unknown
   - duration: unknown
-  - measures: objective
+  - measures: moderate
   - transferability: high
-  - _Numerosità del campione non riportata nel testo disponibile._
+  - _Well-trained cyclists are directly relevant to competitive cycling._
+  - _Prescription at power associated with peak oxygen uptake is sport-specific and potentially actionable._
+  - _Optimization claims require credible comparison groups, adequate exposure, and performance outcomes; these details were not provided._
+  - _The overall rating is provisional and is not based on citation count._
 
-## Dati estratti (fonte: not_available, metodo: heuristic)
+## Dati estratti (fonte: not_available, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
 - **Partecipanti**: _non disponibile_
 - **Livello di allenamento**: _non disponibile_
