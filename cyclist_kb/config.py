@@ -56,6 +56,13 @@ class Settings(BaseSettings):
     # estrazione/qualità). Riduce ~N× il numero di chiamate → molto più veloce e
     # leggero sull'uso. 1 = comportamento non-batch.
     llm_batch_size: int = 10
+    # Backend Codex (ChatGPT / abbonamento $20): `codex exec` headless (login via ChatGPT).
+    # Attivo solo con KB_LLM_BACKEND=codex (login separato da Claude → quota separata).
+    codex_bin: str = "codex"
+    codex_model: Optional[str] = None            # None = default del CLI codex
+    codex_timeout: float = 180.0
+    # File dove i backend CLI appendono i token usati per-chiamata (per misurare il consumo).
+    llm_usage_log: Optional[str] = None
 
     # --- Ingestione atleta (Fase B) --------------------------------------- #
     intervals_icu_api_key: Optional[str] = None      # KB_INTERVALS_ICU_API_KEY (auth Basic su intervals.icu)

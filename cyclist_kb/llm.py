@@ -33,6 +33,10 @@ class LLMClient:
         self._oauth_token: Optional[str] = None
         self._cc_timeout = s.claude_code_timeout
         self._cc_model = s.claude_code_model
+        self._codex_bin: Optional[str] = None
+        self._codex_model = s.codex_model
+        self._codex_timeout = s.codex_timeout
+        self._usage_log = s.llm_usage_log
         self._available = False
 
         if s.force_offline:
@@ -58,6 +62,15 @@ class LLMClient:
                 self._backend = "claude_code"
                 self._claude_bin = binp
                 self._oauth_token = s.claude_code_oauth_token
+
+        # 3) Codex CLI (ChatGPT) — solo se richiesto esplicitamente (login/quota separati)
+        if self._backend is None and pref == "codex":
+            import shutil
+
+            binp = shutil.which(s.codex_bin)
+            if binp:
+                self._backend = "codex"
+                self._codex_bin = binp
 
         self._available = self._backend is not None
 
@@ -86,6 +99,8 @@ class LLMClient:
             return self._complete_anthropic(prompt, system, max_tokens)
         if self._backend == "claude_code":
             return self._complete_claude_code(prompt, system, max_tokens)
+        if self._backend == "codex":
+            return self._complete_codex(prompt, system, max_tokens)
         return None
 
     # -- Backend: raw Messages API ----------------------------------------- #
@@ -132,6 +147,52 @@ class LLMClient:
             return _extract_json(envelope.get("result") or "")
         except Exception:
             return None
+
+    # -- Backend: Codex CLI (`codex exec`, abbonamento ChatGPT) ------------ #
+    def _complete_codex(self, prompt: str, system: str,
+                        max_tokens: Optional[int]) -> Optional[Dict[str, Any]]:
+        import os
+        import subprocess
+        import tempfile
+
+        neutral = tempfile.gettempdir()
+        fd, out_path = tempfile.mkstemp(suffix=".txt")
+        os.close(fd)
+        # Codex ha un system prompt proprio (agente di coding): anteponiamo il nostro.
+        full_prompt = f"{system}\n\n{prompt}"
+        cmd = [self._codex_bin, "exec", full_prompt, "-o", out_path,
+               "--skip-git-repo-check", "-C", neutral, "--sandbox", "read-only"]
+        if self._codex_model:
+            cmd += ["-m", self._codex_model]
+        try:
+            proc = subprocess.run(
+                cmd, capture_output=True, text=True, timeout=self._codex_timeout
+            )
+            self._log_usage(proc.stderr)                 # traccia i "tokens used"
+            if proc.returncode != 0:
+                return None
+            with open(out_path, "r", encoding="utf-8") as fh:
+                return _extract_json(fh.read())          # -o = solo il messaggio finale
+        except Exception:
+            return None
+        finally:
+            try:
+                os.unlink(out_path)
+            except OSError:
+                pass
+
+    def _log_usage(self, stderr: Optional[str]) -> None:
+        """Appende i token usati (riportati dal CLI) a `llm_usage_log`, per misurare il consumo."""
+        if not self._usage_log or not stderr:
+            return
+        m = re.search(r"tokens used[^0-9]*([\d.,]+)", stderr, re.IGNORECASE | re.DOTALL)
+        if not m:
+            return
+        try:
+            with open(self._usage_log, "a", encoding="utf-8") as fh:
+                fh.write(m.group(1).strip() + "\n")
+        except OSError:
+            pass
 
 
 def _extract_json(text: str) -> Optional[Dict[str, Any]]:

@@ -67,3 +67,35 @@ def test_claude_code_degrades_on_failure(monkeypatch):
 
     monkeypatch.setattr(subprocess, "run", boom)
     assert c.complete_json("p") is None                       # eccezione → None, mai propagata
+
+
+def _codex_client() -> LLMClient:
+    c = LLMClient()
+    c._backend = "codex"
+    c._codex_bin = "codex"
+    c._codex_model = None
+    c._codex_timeout = 5
+    c._usage_log = None
+    c._available = True
+    return c
+
+
+def test_codex_reads_last_message_file(monkeypatch):
+    c = _codex_client()
+
+    def fake_run(cmd, **kw):
+        assert "exec" in cmd and "-o" in cmd                  # modalità non-interattiva
+        path = cmd[cmd.index("-o") + 1]                       # scrive il JSON nel file -o
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write('Ecco:\n{"decision": "include", "score": 0.7}')
+        return types.SimpleNamespace(returncode=0, stderr="tokens used\n123")
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+    assert c.complete_json("prompt") == {"decision": "include", "score": 0.7}
+
+
+def test_codex_degrades_on_failure(monkeypatch):
+    c = _codex_client()
+    monkeypatch.setattr(subprocess, "run",
+                        lambda cmd, **kw: types.SimpleNamespace(returncode=1, stderr=""))
+    assert c.complete_json("p") is None
