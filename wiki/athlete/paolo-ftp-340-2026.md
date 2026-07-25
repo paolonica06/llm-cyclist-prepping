@@ -195,7 +195,7 @@ Uscite >2 h: 60 g/h; lunghe/gare/fuga-sim: **80–90 g/h** (glucosio:fruttosio 2
 
 ## 9. Composizione corporea & disponibilità energetica — `studi` + `dati_atleta`
 
-**Stato:** 177 cm · 72,2–73,8 kg (2026, stabile ±0,8 kg) · **BMI 23,6** · LBM stimata ~66 kg (a ~10 % FM, *non misurata*) · 4,46 W/kg al picco, 4,61 al target.
+**Stato (25 lug 2026):** 177 cm · **75,5 kg** (+1,7 kg vs 73,8 del 21 apr, dopo 3 mesi di carico ridotto) · **BMI 24,1** · LBM stimata ~66–67 kg (*non misurata*) · **4,36 W/kg al picco, 4,50 al target 340**.
 
 **Decisione: nessuna perdita di peso da qui al 30 set.** Motivi:
 
@@ -210,13 +210,13 @@ Uscite >2 h: 60 g/h; lunghe/gare/fuga-sim: **80–90 g/h** (glucosio:fruttosio 2
 | Qualità 2 h | ~1 500 kJ | **~4 500 kcal** | < 3 500 |
 | Recupero 1 h 30 | ~800 kJ | **~3 800 kcal** | < 2 800 |
 
-- **CHO** 8–10 g/kg (≈ 590–740 g) nei giorni pesanti, 6 g/kg nei leggeri. In bici come §8.
-- **Proteine 1,6–2,0 g/kg = 120–148 g/die**, in 4–5 dosi. Con **zero palestra** questa è l'unica leva che ti protegge la massa magra (*Ralf 2017*, position statement, confidenza high: 1,4–2,0 g/kg/die).
+- **CHO** 8–10 g/kg (≈ 600–755 g) nei giorni pesanti, 6 g/kg (≈ 450 g) nei leggeri. In bici come §8.
+- **Proteine 1,6–2,0 g/kg = 121–151 g/die**, in 4–5 dosi. Con **zero palestra** questa è l'unica leva che ti protegge la massa magra (*Ralf 2017*, position statement, confidenza high: 1,4–2,0 g/kg/die).
 - **Post-seduta lunga**: 1,2 g/kg CHO + 0,3 g/kg proteine entro 60′.
 
 **I due buchi nei tuoi dati** (dal wellness intervals.icu, 1 mag → 23 lug):
 
-- **Peso: 0 misure dal 21 aprile.** Riprendi la pesata mattutina a digiuno 3–4×/sett e guarda la **media a 7 giorni**, mai il dato singolo. Target: **stabile ±1 kg** per tutto il blocco. Calo > 1,5 kg in 2 settimane = stai sotto-alimentando, non "stai andando in forma".
+- **Peso: tracking ripreso il 25 lug (75,5 kg).** Prima misura dopo il 21 aprile. Continua con la pesata mattutina a digiuno 3–4×/sett e guarda la **media a 7 giorni**, mai il dato singolo. Target: **stabile ±1 kg** per tutto il blocco. Calo > 1,5 kg in 2 settimane = stai sotto-alimentando, non "stai andando in forma".
 - **Sonno: media 6,7 h, 49 notti su 79 sotto le 7 h.** Questo pesa più della composizione corporea. *Spencer 2021* (crossover, confidenza high): l'**estensione** del sonno ha migliorato la prova a cronometro e il rapporto RPE:FC; la restrizione li ha peggiorati. Portare la media a **≥ 7,5 h** è il singolo intervento con il miglior rapporto costo/beneficio che hai adesso.
 
 **Soglie d'allarme personali** (dai tuoi baseline reali: HRV 54,4 ± 9,7 · RHR 50,6 ± 2,3):
@@ -248,7 +248,7 @@ Uscite >2 h: 60 g/h; lunghe/gare/fuga-sim: **80–90 g/h** (glucosio:fruttosio 2
 ## 12. Provenienza a tre fonti
 
 - **`studi`** — la *strategia*: soglia-arma, piramidale→soglia, durabilità in fatica, VO2 per il tetto, polizza finali, fueling (§4, citati).
-- **`dati_atleta`** (N=1) — CTL 62/picco 121, 20–22 h, FTP 329, **177 cm / 73,8 kg (BMI 23,6)**, HRV 54,4 ± 9,7, RHR 50,6 ± 2,3, sonno 6,7 h, **profilo passista/cronoman + gare pianura**: calibrano volume, rampa, zone, soglie d'allarme, **specializzazione**.
+- **`dati_atleta`** (N=1) — CTL 62/picco 121, 20–22 h, FTP 329, **177 cm / 75,5 kg (BMI 24,1)**, HRV 54,4 ± 9,7, RHR 50,6 ± 2,3, sonno 6,7 h, **profilo passista/cronoman + gare pianura**: calibrano volume, rampa, zone, soglie d'allarme, **specializzazione**.
 - **`euristica`** — i *numeri* (watt, ore, TSS, ramp), l'**SFR**, il mix delle sedute qualità: giudizio da preparatore, non evidenza.
 
 ---
