@@ -183,7 +183,7 @@ La regola: **prima elimina il deficit che ti fa *perdere* la gara, poi affila l'
 |---|---|---|---|
 | Lun | 28/9 | 😴 Riposo attivo | 1 h Z1 |
 | Mar | 29/9 | 🟢 Pre-attivazione | 1 h Z1 + 2×2′ @ 330 W |
-| **Mer** | 30/9 | 🎯 TEST POST | **20′ all-out → obiettivo 340 W** · stesse condizioni del PRE |
+| **Mer** | 30/9 | 🎯 TEST POST | **CP 3′+12′ → obiettivo 340 W** · stesse condizioni del PRE |
 
 ## 7. Forza senza palestra — SFR — ⚠️ `euristica`
 
@@ -193,7 +193,41 @@ SFR (Salite Forza-Resistenza): salita moderata, **50–60 rpm**, **290–310 W**
 
 Uscite >2 h: 60 g/h; lunghe/gare/fuga-sim: **80–90 g/h** (glucosio:fruttosio 2:1), **gel ogni 20′**; pianifica **+15–20%** (gap ~17% — *Lanpir 2025*). Train-the-gut nelle lunghe. Idratazione (*Macrae 2026* high).
 
-## 9. Test — `dati_atleta`
+## 9. Composizione corporea & disponibilità energetica — `studi` + `dati_atleta`
+
+**Stato:** 177 cm · 72,2–73,8 kg (2026, stabile ±0,8 kg) · **BMI 23,6** · LBM stimata ~66 kg (a ~10 % FM, *non misurata*) · 4,46 W/kg al picco, 4,61 al target.
+
+**Decisione: nessuna perdita di peso da qui al 30 set.** Motivi:
+
+1. **Fisica del tuo terreno.** In pianura −2 kg valgono **~1 W** (solo rotolamento); la leva vera è **CdA** (−0,01 m² ≈ **~10 W a 45 km/h**) e i **watt assoluti**. Su una salita di 20′ −2 kg valgono ~30″. Sotto-alimentare una rampa CTL costa facilmente **10–20 W di FTP**: il conto non torna mai.
+2. **Il rischio è documentato nella tua stessa popolazione.** *Cook & Dobbin 2022* (n=36 ciclisti su strada **altamente allenati, 23,1 ± 3,9 anni, 16,4 h/sett, FTP 355 W** — confidenza high, trasferibilità high): **energy availability nei giorni di allenamento = 16 ± 18 kcal·kg LBM⁻¹** contro 44 nei giorni di riposo. La coorte più simile a te era in **deficit severo proprio nei giorni di carico**. Conclusione degli autori: apporto insufficiente a coprire la domanda. Confine: *Mountjoy 2014* (IOC, RED-S) — riguarda anche i maschi.
+
+**Numeri operativi** (soglie EA 30/45 kcal·kg LBM⁻¹ — ⚠️ `euristica` applicata ai tuoi kg):
+
+| Giornata | Lavoro | Fabbisogno stimato | Sotto questa soglia = LEA |
+|---|---|---|---|
+| Lunga 4 h endurance | ~2 800 kJ | **~5 800 kcal** | < 4 800 |
+| Qualità 2 h | ~1 500 kJ | **~4 500 kcal** | < 3 500 |
+| Recupero 1 h 30 | ~800 kJ | **~3 800 kcal** | < 2 800 |
+
+- **CHO** 8–10 g/kg (≈ 590–740 g) nei giorni pesanti, 6 g/kg nei leggeri. In bici come §8.
+- **Proteine 1,6–2,0 g/kg = 120–148 g/die**, in 4–5 dosi. Con **zero palestra** questa è l'unica leva che ti protegge la massa magra (*Ralf 2017*, position statement, confidenza high: 1,4–2,0 g/kg/die).
+- **Post-seduta lunga**: 1,2 g/kg CHO + 0,3 g/kg proteine entro 60′.
+
+**I due buchi nei tuoi dati** (dal wellness intervals.icu, 1 mag → 23 lug):
+
+- **Peso: 0 misure dal 21 aprile.** Riprendi la pesata mattutina a digiuno 3–4×/sett e guarda la **media a 7 giorni**, mai il dato singolo. Target: **stabile ±1 kg** per tutto il blocco. Calo > 1,5 kg in 2 settimane = stai sotto-alimentando, non "stai andando in forma".
+- **Sonno: media 6,7 h, 49 notti su 79 sotto le 7 h.** Questo pesa più della composizione corporea. *Spencer 2021* (crossover, confidenza high): l'**estensione** del sonno ha migliorato la prova a cronometro e il rapporto RPE:FC; la restrizione li ha peggiorati. Portare la media a **≥ 7,5 h** è il singolo intervento con il miglior rapporto costo/beneficio che hai adesso.
+
+**Soglie d'allarme personali** (dai tuoi baseline reali: HRV 54,4 ± 9,7 · RHR 50,6 ± 2,3):
+
+- **HRV < 45** o **RHR > 53** per 3 giorni consecutivi + peso in calo → declassa la settimana −20 % e alza l'apporto.
+- Potenza in calo a RPE invariato, sonno frammentato, umore/libido giù → stessi provvedimenti.
+- **Se persiste: fermati e consulta un professionista sanitario.** Sospetto RED-S non si gestisce con un piano di allenamento.
+
+> **Onestà sul corpus:** il tema *body composition / energy availability / RMR* nella wiki ha 9 studi verificati ma la sintesi è **non conclusiva** — nessuno misura RMR o EA longitudinale nel ciclista competitivo. Le uniche due fonti che reggono su questo punto sono *Cook 2022* e il consensus IOC. Le soglie 30/45 kcal·kg LBM⁻¹ e la stima della LBM sono **euristica**, non un dato tuo: non hai mai fatto una plicometria né una DEXA.
+
+## 10. Test — `dati_atleta`
 
 **Protocollo = test Critical Power 3′+12′** (non 20′×0.95): più coerente per un diesel con TTE 18′ (un 20′ all-out è oltre la sua tenuta → sottostima). Riscaldamento 25′ + aperture → **3′ all-out** → **30′ recupero pieno** → **12′ all-out** → def.
 - **CP = (4·P₁₂ − P₃)/3** ≈ FTP reale · **W′ = (P₃ − P₁₂)·240** J (capacità anaerobica).
@@ -205,16 +239,16 @@ Uscite >2 h: 60 g/h; lunghe/gare/fuga-sim: **80–90 g/h** (glucosio:fruttosio 2
 | **POST** | 30-set | CP 3′+12′ → **obiettivo FTP 340 W** |
 | *Durabilità* | lunga S6–S7 | 12′ **dopo 1000 kJ** (~2.5–3 h): decremento vs freschi — per un passista è **il** test che conta (tenuta della fuga) |
 
-## 10. Guardrail, ramp & onestà
+## 11. Guardrail, ramp & onestà
 
 **Ramp CTL (+~6–8/sett):** ⚠️ euristica, non evidenza; è **rientro** a un livello tuo (121) → monitora HRV/peso/RPE; prime 2 settimane con calma. **Declassa −15/20%** se 2+ segnali (HRV ↓, peso ↓, RPE↑, sonno/umore). **Mangia** proporzionalmente al carico (rischio n°1: sotto-alimentare). **Confine medico:** dolore/sintomi/RED-S → stop + professionista.
 
 **Onestà sul profilo:** ti ho profilato **solo dalla tua autovalutazione** (i dati di potenza su intervals sono incompleti). Se un giorno mi dai i tuoi **best power reali** (5s/1'/5'/20'), affino ancora meglio le zone e il mix. **+11 W non garantiti**; il test del 25-ago comanda. Per un passista, se a metà l'FTP sale ma la **tenuta della soglia dopo 3h** no, sposto peso sulla durabilità.
 
-## 11. Provenienza a tre fonti
+## 12. Provenienza a tre fonti
 
 - **`studi`** — la *strategia*: soglia-arma, piramidale→soglia, durabilità in fatica, VO2 per il tetto, polizza finali, fueling (§4, citati).
-- **`dati_atleta`** (N=1) — CTL 62/picco 121, 20–22 h, FTP 329, 73.8 kg, **profilo passista/cronoman + gare pianura**: calibrano volume, rampa, zone, **specializzazione**.
+- **`dati_atleta`** (N=1) — CTL 62/picco 121, 20–22 h, FTP 329, **177 cm / 73,8 kg (BMI 23,6)**, HRV 54,4 ± 9,7, RHR 50,6 ± 2,3, sonno 6,7 h, **profilo passista/cronoman + gare pianura**: calibrano volume, rampa, zone, soglie d'allarme, **specializzazione**.
 - **`euristica`** — i *numeri* (watt, ore, TSS, ramp), l'**SFR**, il mix delle sedute qualità: giudizio da preparatore, non evidenza.
 
 ---
