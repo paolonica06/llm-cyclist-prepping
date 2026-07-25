@@ -1,79 +1,81 @@
 # caffeine and dietary nitrate supplementation effects on cycling time trial and sprint performance
 
-> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-24 18:27 UTC** · Ricerca `caffeine-and-dietary-nitrate-sup-e9ae89` · Studi verificati inclusi: **17**.
+> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-25 08:49 UTC** · Ricerca `caffeine-and-dietary-nitrate-sup-9ed6df` · Studi verificati inclusi: **22**.
 
 Ogni affermazione è collegata ai paper che la sostengono. I record non verificati sono esclusi da questa sintesi.
 
 ## Evidenze
 
 ### VO₂max / capacità aerobica
-- Beetroot juice may improve cardiorespiratory endurance by increasing efficiency, improving performance at various distances and time to exhaustion at submaximal intensities, and possibly improving performance at anaerobic threshold intensities and VO2max. Findings were contradictory. Its… — [Raúl 2017](../papers/0ee814fcafc80969.md) *(disegno: systematic review; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
+- Purpose:To determine the effect of dietary nitrate (NO3 –) supplementation on physiology and performance in well-trained cyclists after 6–8 d of NO3 – supplementation.Methods:Eight competitive male cyclists (mean ± SD age 26 ± 8 y, body mass 76.7 ± 6.9 kg, VO2peak 63 ± 4 mL · kg–1 · min–1)… — [McQuillan 2017](../papers/b6481ab0017ee919.md) *(disegno: crossover; confidenza: high; popolazione: cycling; fonte dato: abstract)*
 
 ### Performance / potenza
-- Only a few supplements, including caffeine, creatine, specific buffering agents, and nitrate, have good evidence of performance benefits. Responses vary according to the use scenario and individual factors. Some supplements may harm health, performance, livelihood, or reputation. — [Ronald 2018](../papers/337ba02cce6feeab.md) *(disegno: consensus statement; confidenza: high; popolazione: mixed; fonte dato: abstract)*
-- Dietary nitrate supplementation can reduce the O2 cost of submaximal exercise and thereby improve endurance performance, and can enhance skeletal muscle contractile function and thereby improve muscle power and sprint performance. — [Andrew 2018](../papers/da84411227088a4f.md) *(disegno: narrative review; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
-- Beetroot juice may improve cardiorespiratory endurance by increasing efficiency, improving performance at various distances and time to exhaustion at submaximal intensities, and possibly improving performance at anaerobic threshold intensities and VO2max. Findings were contradictory. Its… — [Raúl 2017](../papers/0ee814fcafc80969.md) *(disegno: systematic review; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- Nitrates are an effective ergogenic aid when taken at approximately 5–16.8 mmol 2–3 h before exercise, primarily for exercise lasting approximately 10–17 min in less trained individuals. Approximately 250–500 g of leafy and root vegetables per day may meet nitrate needs. Athletes should refrain… — [Matjaž 2021](../papers/3e689aae52bef6ed.md) *(disegno: narrative review with structured literature search; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
-- Plasma nitrite was 237% greater with nitrate-rich beetroot juice. Mean power was significantly greater in the 24 × 6-s protocol (568 ± 136 vs. 539 ± 136 W; P < 0.05), but not in the 7 × 30-s protocol (558 ± 95 vs. 562 ± 94 W) or 6 × 60-s protocol (374 ± 57 vs. 375 ± 59 W; P > 0.05). The rise in… — [Lee 2015](../papers/7b993cec7b770b61.md) *(disegno: randomized placebo-controlled crossover trial; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
-- Carbohydrate and hydration recommendations have not changed drastically, whereas protein and fat have traditionally been underemphasized. Few supplements may benefit endurance activities, including nitrates, antioxidants, caffeine, and probiotics. The post-exercise nutritional recovery window… — [Kenneth 2019](../papers/abca5766303ab73a.md) *(disegno: narrative review with literature search; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- Two of four studies reported improvements in upper-body bench-press performance, including mean power, contraction velocity, or repetitions to failure. Another study reported increased repetitions to failure during back squats. — [Alejandro 2020](../papers/c5fb50f6a942ee87.md) *(disegno: systematic review; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
-- Caffeine reduced completion time (SMD = −0.32, 95% CI −0.49 to −0.16; I2 = 0%) and increased mean power output (SMD = 0.20, 95% CI 0.02 to 0.38; I2 = 0%). Completion time improved in short- and long-duration trials without a significant subgroup difference. Mean power increased significantly in… — [Wang 2026](../papers/ad4d9d1f80c87616.md) *(disegno: systematic review and meta-analysis of randomized double-blind placebo-controlled trials; confidenza: high; popolazione: cycling; fonte dato: abstract)*
-- Peak power was higher at the optimal torque factor and in 10-s sprints. Supplementation had no overall effect on peak power (P = .056), but a significant torque factor × sprint duration × supplement interaction was found (P = .036). Caffeine increased peak power when sprint duration was 10 s and… — [Glaister 2019](../papers/5bf4d9cb5944c114.md) *(disegno: randomized double-blind placebo-controlled counterbalanced crossover trial; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
-- ['Research has shown that a vitamin deficiency impairs physical performance.', 'If vitamin deficiency is corrected, performance usually improves.', 'In general, vitamin supplementation to an athlete on a well-balanced diet has not been shown to improve performance.'] — [Williams 1989](../papers/951c89e17032121a.md) *(disegno: revisione narrativa sull'integrazione vitaminica e la prestazione atletica; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
+- In beetroot trials, saliva nitrate and nitrite increased &gt;10-fold before exercise compared with preingestion (P≤0.002). — [Handzlik 2013](../papers/536e696743c4018d.md) *(disegno: randomized controlled trial; confidenza: high; popolazione: cycling; fonte dato: abstract)*
+- Results: No significant effect of condition was observed for EP (p = 0.401, ηp2 = 0.056), WEP (p = 0.580, ηp2 = 0.048), peak power (p = 0.642, ηp2 = 0.046), mean power (p = 0.212, ηp2 = 0.108), or total work (p = 0.217, ηp2 = 0.107). — [Hagele 2026](../papers/11c149bceb3547d2.md) *(disegno: randomized controlled trial; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- However, BRC treatment led to significant reductions in sprint performance during sprints 2 and 3 compared to sprint 1 (p &lt; 0.05). — [Vitti 2025](../papers/858c13b3fec238d7.md) *(disegno: unknown; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- 288 ± 12 W, p &lt; .05) improved after BEET compared with PLAC supplementation. — [Cermak 2012](../papers/e57f268673026c08.md) *(disegno: crossover; confidenza: high; popolazione: cycling; fonte dato: abstract)*
+- Purpose:To determine the effect of dietary nitrate (NO3 –) supplementation on physiology and performance in well-trained cyclists after 6–8 d of NO3 – supplementation.Methods:Eight competitive male cyclists (mean ± SD age 26 ± 8 y, body mass 76.7 ± 6.9 kg, VO2peak 63 ± 4 mL · kg–1 · min–1)… — [McQuillan 2017](../papers/b6481ab0017ee919.md) *(disegno: crossover; confidenza: high; popolazione: cycling; fonte dato: abstract)*
+- Plasma [NO2−] and [NO3−] demonstrated a dose-response effect, with greater amounts of ingested nitrate leading to substantially higher concentrations (DOUBLE &gt; SINGLE &gt; placebo). — [Hoon 2014](../papers/4f942cc52478afc4.md) *(disegno: crossover; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
+- Relative to placebo, effects following 3- and 4-days of NO3- supplementation were unclear for 4 (-0.8; 95% CL, ± 2.8%, p = .54) and likely harmful for 1km (-1.9; ± 2.5% CL, p = .17) time-trial mean power. — [McQuillan 2017](../papers/449ac25dcea1ae40.md) *(disegno: crossover; confidenza: high; popolazione: cycling; fonte dato: abstract)*
+- There was no difference in time to complete the 16.1 km TT between conditions (placebo: 1422 ± 104 s; NZBC extract: 1414 ± 93 s, p = 0.07). — [Montanari 2023](../papers/09c92ef8f86dbfd6.md) *(disegno: unknown; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- Results Sprint cyclists exhibited a higher PPO, optimal pedal torque, and anaerobic power reserve (APR) than endurance cyclists. — [MILDENHALL 2022](../papers/b383d353417a7614.md) *(disegno: randomized controlled trial; confidenza: high; popolazione: cycling; fonte dato: abstract)*
+- RESULTS: No significant condition effect was found for the mean power output attained during the time trial (365 ± 25, 369 ± 31, and 364 32 W for "fresh," caffeine, and placebo condition, respectively; p = .669). — [Sánchez-Redondo 2025](../papers/e20b2fa51f4d842e.md) *(disegno: randomized controlled trial; confidenza: high; popolazione: cycling; fonte dato: abstract)*
+- The main finding of this study was that the power output displayed a significantly higher start from the start until the halfway point of the TT (p < 0.05). — [Costa 2017](../papers/6017e4cf32bc85f9.md) *(disegno: unknown; confidenza: low; popolazione: cycling; fonte dato: abstract)*
+- Power variation was typically detrimental to performance; these effects were augmented as the amplitude of variation and severity of gradient increased. — [Wells 2016](../papers/f07fd982e57f976e.md) *(disegno: unknown; confidenza: low; popolazione: cycling; fonte dato: abstract)*
+- There were no significant differences in oxygen uptake, carbon dioxide production, or total sweat loss between the trials. — [Logan-Sprenger 2015](../papers/b3af2befdbdb013b.md) *(disegno: unknown; confidenza: low; popolazione: cycling; fonte dato: abstract)*
+- The aerodynamic drag of a cyclist in time trial (TT) position is strongly influenced by the torso angle. — [Fintelman 2014](../papers/b7aff431d0bb8953.md) *(disegno: unknown; confidenza: low; popolazione: cycling; fonte dato: abstract)*
 
 ### Soglia / metabolismo
-- Dietary nitrate supplementation can reduce the O2 cost of submaximal exercise and thereby improve endurance performance, and can enhance skeletal muscle contractile function and thereby improve muscle power and sprint performance. — [Andrew 2018](../papers/da84411227088a4f.md) *(disegno: narrative review; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
-- Beetroot juice may improve cardiorespiratory endurance by increasing efficiency, improving performance at various distances and time to exhaustion at submaximal intensities, and possibly improving performance at anaerobic threshold intensities and VO2max. Findings were contradictory. Its… — [Raúl 2017](../papers/0ee814fcafc80969.md) *(disegno: systematic review; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- Plasma nitrite was 237% greater with nitrate-rich beetroot juice. Mean power was significantly greater in the 24 × 6-s protocol (568 ± 136 vs. 539 ± 136 W; P < 0.05), but not in the 7 × 30-s protocol (558 ± 95 vs. 562 ± 94 W) or 6 × 60-s protocol (374 ± 57 vs. 375 ± 59 W; P > 0.05). The rise in… — [Lee 2015](../papers/7b993cec7b770b61.md) *(disegno: randomized placebo-controlled crossover trial; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
-- ['Caffeine resulted in improved repetitions to failure (t [17]=3.119, P=0.006).', 'Caffeine resulted in greater peak blood lactate (t [17]=5.080, P=0.0001).', 'Caffeine resulted in lower RPE (t [17]=-3.431, P=0.003).', 'Muscle pain perception was significantly lower in the caffeine condition… — [Michael 2012](../papers/d15127723d271ef7.md) *(disegno: studio sperimentale randomizzato, controbilanciato, in doppio cieco, crossover entro soggetto; confidenza: high; popolazione: unclear; fonte dato: abstract)*
-
-### Altri outcome
-- ['Symptoms are reported as thigh pain and loss of power that occur during high intensity efforts.', 'The mean time from symptom onset to diagnosis is 3 years.', 'Long-term outcomes following percutaneous procedures have followed a finite number of patients to date and are not recommended as a… — [Carcia 2026](../papers/c3850292116e2bb4.md) *(disegno: revisione narrativa clinica; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- Plasma [NO2−] and [NO3−] demonstrated a dose-response effect, with greater amounts of ingested nitrate leading to substantially higher concentrations (DOUBLE &gt; SINGLE &gt; placebo). — [Hoon 2014](../papers/4f942cc52478afc4.md) *(disegno: crossover; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
 
 ## Risultati contrastanti
 
 - **Performance / potenza**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
-- **Soglia / metabolismo**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
 
 ## Interpretazione
 
 > Sintesi derivata dagli studi elencati in *Evidenze* e *Studi inclusi* (che riportano i collegamenti ai singoli paper).
 
-Nel complesso, le evidenze sostengono un effetto ergogenico piccolo ma relativamente consistente della caffeina nelle prove ciclistiche a cronometro: una meta-analisi recente indica una riduzione del tempo di completamento e un aumento modesto della potenza media, con risultati robusti ma senza differenze certe tra prove brevi e lunghe. Nei sprint, l’effetto della caffeina appare più dipendente dal protocollo: può aumentare la potenza di picco negli sprint di circa 10 secondi quando la resistenza è ottimizzata individualmente e può ridurre percezione dello sforzo e dolore muscolare, ma non emerge un beneficio generale in tutte le condizioni. Il nitrato alimentare, spesso somministrato come succo di barbabietola, ha una plausibilità fisiologica legata alla riduzione del costo in ossigeno dell’esercizio submassimale e al possibile miglioramento della funzione contrattile. I benefici sembrano più probabili nelle prestazioni di circa 10–17 minuti e nei soggetti meno allenati, mentre la trasferibilità agli atleti altamente allenati e alle diverse durate di cronometro resta incerta. Per gli sprint ripetuti, il nitrato ha aumentato la potenza media in una prova composta da sprint molto brevi (24 × 6 secondi), ma non in protocolli con ripetizioni di 30 o 60 secondi, suggerendo una forte specificità rispetto alla durata e alla struttura dello sforzo. La combinazione caffeina–nitrato non può essere considerata con sicurezza additiva o sinergica: le revisioni riportano risultati contraddittori e la possibilità che la caffeina attenui gli effetti del nitrato, senza però prove sufficienti per una conclusione definitiva. Pertanto, l’interpretazione più prudente è che la caffeina abbia evidenze più solide per migliorare modestamente la prestazione a cronometro, mentre il nitrato possa favorire alcune condizioni di endurance e sprint breve, con maggiore variabilità individuale e metodologica. Gli studi su esercizi di forza, vitamine o patologie vascolari dei ciclisti, così come i riferimenti privi di risultati, non contribuiscono direttamente a stabilire gli effetti su cronometro e sprint. Queste conclusioni sono descrittive e non prescrittive: risposta individuale, livello di allenamento, protocollo, dosaggio, tollerabilità, sicurezza e rischio di prodotti contaminati limitano la generalizzabilità.
+La base attuale include 22 studi verificati (6 ad alta confidenza). Su alcuni outcome (Performance / potenza) l'evidenza è eterogenea: le differenze possono dipendere da protocollo, livello degli atleti e durata. Molti dati provengono da soli abstract: le conclusioni vanno considerate provvisorie e riviste all'arrivo di full text e nuovi studi.
 
 ## Applicazione pratica
 
 > Indicazioni orientative, da adattare al singolo atleta (vedi Athlete Context Agent). Non costituiscono prescrizioni.
 
-- **VO₂max / capacità aerobica**: la maggioranza degli studi (1/1) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Raúl 2017](../papers/0ee814fcafc80969.md).
-- **Performance / potenza**: evidenza non conclusiva (4/10 positivi); evitare generalizzazioni. Studi: [Ronald 2018](../papers/337ba02cce6feeab.md), [Andrew 2018](../papers/da84411227088a4f.md), [Raúl 2017](../papers/0ee814fcafc80969.md), [Matjaž 2021](../papers/3e689aae52bef6ed.md), [Lee 2015](../papers/7b993cec7b770b61.md), [Kenneth 2019](../papers/abca5766303ab73a.md), [Alejandro 2020](../papers/c5fb50f6a942ee87.md), [Wang 2026](../papers/ad4d9d1f80c87616.md), [Glaister 2019](../papers/5bf4d9cb5944c114.md), [Williams 1989](../papers/951c89e17032121a.md).
-- **Soglia / metabolismo**: la maggioranza degli studi (2/4) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Andrew 2018](../papers/da84411227088a4f.md), [Raúl 2017](../papers/0ee814fcafc80969.md), [Lee 2015](../papers/7b993cec7b770b61.md), [Michael 2012](../papers/d15127723d271ef7.md).
-- **Altri outcome**: evidenza non conclusiva (0/1 positivi); evitare generalizzazioni. Studi: [Carcia 2026](../papers/c3850292116e2bb4.md).
+- **VO₂max / capacità aerobica**: evidenza non conclusiva (0/1 positivi); evitare generalizzazioni. Studi: [McQuillan 2017](../papers/b6481ab0017ee919.md).
+- **Performance / potenza**: evidenza non conclusiva (5/14 positivi); evitare generalizzazioni. Studi: [Handzlik 2013](../papers/536e696743c4018d.md), [Hagele 2026](../papers/11c149bceb3547d2.md), [Vitti 2025](../papers/858c13b3fec238d7.md), [Cermak 2012](../papers/e57f268673026c08.md), [McQuillan 2017](../papers/b6481ab0017ee919.md), [Hoon 2014](../papers/4f942cc52478afc4.md), [McQuillan 2017](../papers/449ac25dcea1ae40.md), [Montanari 2023](../papers/09c92ef8f86dbfd6.md), [MILDENHALL 2022](../papers/b383d353417a7614.md), [Sánchez-Redondo 2025](../papers/e20b2fa51f4d842e.md), [Costa 2017](../papers/6017e4cf32bc85f9.md), [Wells 2016](../papers/f07fd982e57f976e.md), [Logan-Sprenger 2015](../papers/b3af2befdbdb013b.md), [Fintelman 2014](../papers/b7aff431d0bb8953.md).
+- **Soglia / metabolismo**: la maggioranza degli studi (1/1) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Hoon 2014](../papers/4f942cc52478afc4.md).
 
 ## Studi inclusi
 
 | Studio | Anno | Disegno | Qualità | Confidenza | Trasferibilità | Fonte dato |
 |---|---|---|---|---|---|---|
-| [Wang 2026](../papers/ad4d9d1f80c87616.md) | 2026 | systematic review and meta-analysis of randomized double-blind placebo-controlled trials | high | high | high | abstract |
-| [Carcia 2026](../papers/c3850292116e2bb4.md) | 2026 | revisione narrativa clinica | low | moderate | high | abstract |
-| [Matjaž 2021](../papers/3e689aae52bef6ed.md) | 2021 | narrative review with structured literature search | moderate | moderate | moderate | abstract |
-| [Alejandro 2020](../papers/c5fb50f6a942ee87.md) | 2020 | systematic review | moderate | moderate | low | abstract |
-| [Porter 2020](../papers/7e9a02b08ea4f0b0.md) | 2020 | studio sperimentale sull'integrazione di ossigeno durante sprint ripetuti; disegno non determinabile dal materiale fornito | low | low | moderate | not_available |
-| [Kenneth 2019](../papers/abca5766303ab73a.md) | 2019 | narrative review with literature search | moderate | moderate | moderate | abstract |
-| [Glaister 2019](../papers/5bf4d9cb5944c114.md) | 2019 | randomized double-blind placebo-controlled counterbalanced crossover trial | moderate | moderate | moderate | abstract |
-| [Ronald 2018](../papers/337ba02cce6feeab.md) | 2018 | consensus statement | high | high | moderate | abstract |
-| [Andrew 2018](../papers/da84411227088a4f.md) | 2018 | narrative review | moderate | moderate | moderate | abstract |
-| [Brown 2018](../papers/dc88a2701ba84ecd.md) | 2018 | controlled cycling supplementation trial | moderate | low | high | not_available |
-| [Raúl 2017](../papers/0ee814fcafc80969.md) | 2017 | systematic review | moderate | moderate | moderate | abstract |
-| [Lee 2015](../papers/7b993cec7b770b61.md) | 2015 | randomized placebo-controlled crossover trial | moderate | moderate | moderate | abstract |
-| [Blackhall 2013](../papers/6be7998ba29225d2.md) | 2013 | maximal cycling supplementation trial | moderate | low | moderate | not_available |
-| [Michael 2012](../papers/d15127723d271ef7.md) | 2012 | studio sperimentale randomizzato, controbilanciato, in doppio cieco, crossover entro soggetto | high | high | low | abstract |
-| [Michael 2003](../papers/7a458a32001c53cd.md) | 2003 | studio osservazionale prospettico di coorte su supplementazione di creatina, crampi e infortuni | low | low | low | full_text |
-| [Bentley 2001](../papers/c1360864c0a1ae64.md) | 2001 | studio osservazionale o correlazionale su indicatori fisiologici e prestazione a cronometro; disegno non determinabile con certezza | low | low | high | not_available |
-| [Williams 1989](../papers/951c89e17032121a.md) | 1989 | revisione narrativa sull'integrazione vitaminica e la prestazione atletica | low | moderate | moderate | abstract |
+| [Hagele 2026](../papers/11c149bceb3547d2.md) | 2026 | randomized controlled trial | moderate | moderate | moderate | abstract |
+| [Vitti 2025](../papers/858c13b3fec238d7.md) | 2025 | unknown | moderate | moderate | high | abstract |
+| [Sánchez-Redondo 2025](../papers/e20b2fa51f4d842e.md) | 2025 | randomized controlled trial | moderate | high | high | abstract |
+| [Montanari 2023](../papers/09c92ef8f86dbfd6.md) | 2023 | unknown | moderate | moderate | high | abstract |
+| [MILDENHALL 2022](../papers/b383d353417a7614.md) | 2022 | randomized controlled trial | moderate | high | high | abstract |
+| [Rokkedal-Lausch 2019](../papers/f01c73b40560b324.md) | 2019 | unknown | low | low | high | not_available |
+| [Rohde 2018](../papers/23f7f83c75298f63.md) | 2018 | unknown | low | low | moderate | not_available |
+| [McLaughlin 2017](../papers/fe04c4185a13e9fe.md) | 2017 | unknown | low | low | moderate | not_available |
+| [McQuillan 2017](../papers/b6481ab0017ee919.md) | 2017 | crossover | moderate | high | high | abstract |
+| [Lausch 2017](../papers/f0f1d2acefbb8fde.md) | 2017 | unknown | low | low | high | not_available |
+| [McQuillan 2017](../papers/449ac25dcea1ae40.md) | 2017 | crossover | moderate | high | high | abstract |
+| [Costa 2017](../papers/6017e4cf32bc85f9.md) | 2017 | unknown | low | low | high | abstract |
+| [Wells 2016](../papers/f07fd982e57f976e.md) | 2016 | unknown | moderate | low | moderate | abstract |
+| [Muggeridge 2015](../papers/920036dec5399f65.md) | 2015 | unknown | low | low | high | not_available |
+| [Logan-Sprenger 2015](../papers/b3af2befdbdb013b.md) | 2015 | unknown | low | low | moderate | abstract |
+| [Hoon 2014](../papers/4f942cc52478afc4.md) | 2014 | crossover | moderate | moderate | low | abstract |
+| [Fintelman 2014](../papers/b7aff431d0bb8953.md) | 2014 | unknown | moderate | low | moderate | abstract |
+| [Handzlik 2013](../papers/536e696743c4018d.md) | 2013 | randomized controlled trial | moderate | high | high | abstract |
+| [Cermak 2012](../papers/e57f268673026c08.md) | 2012 | crossover | moderate | high | high | abstract |
+| [Easton 2011](../papers/ae48a09390ac7742.md) | 2011 | unknown | low | low | high | not_available |
+| [Anon 2003](../papers/af0bae85e8dd8e86.md) | 2003 | unknown | low | low | high | not_available |
+| [Koziris 1992](../papers/c720ce160b853cf3.md) | 1992 | unknown | low | low | moderate | not_available |
 
 ## Cronologia aggiornamenti
 
+- **2026-07-25 08:49 UTC** — ricerca `caffeine-and-dietary-nitrate-sup-9ed6df`: 22 studi verificati sintetizzati (query: 8, grezzi: 375).
 - **2026-07-24 18:27 UTC** — ricerca `caffeine-and-dietary-nitrate-sup-e9ae89`: 17 studi verificati sintetizzati (query: 4, grezzi: 275).
 - **2026-07-24 16:28 UTC** — ricerca `caffeine-and-dietary-nitrate-sup-e9ae89`: 8 studi verificati sintetizzati (query: 4, grezzi: 275).
 - **2026-07-24 09:43 UTC** — ricerca `caffeine-and-dietary-nitrate-sup-e9ae89`: 19 studi verificati sintetizzati (query: 4, grezzi: 275).
