@@ -29,6 +29,9 @@ research = "cyclist_kb.cli:app"
 [tool.setuptools]
 packages = ["cyclist_kb", "cyclist_kb.clients", "cyclist_kb.agents"]
 
+[tool.setuptools.package-data]
+cyclist_kb = ["web/*.html"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"

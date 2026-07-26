@@ -322,6 +322,28 @@ def coach_adapt(
     )
 
 
+@app.command()
+def ask(
+    question: str = typer.Argument(..., help="Domanda in linguaggio naturale al preparatore."),
+    athlete: Optional[str] = typer.Option(None, "--athlete", help="Id atleta per ancorare ai suoi dati."),
+):
+    """«Chiedi al preparatore» (Fase E): risposta ancorata a dati atleta + piano + evidenza."""
+    ans = _pipeline().ask(question, athlete)
+    typer.secho(f"Domanda: {ans.question}", fg=typer.colors.CYAN)
+    typer.echo("")
+    typer.echo(ans.answer)
+    if ans.evidence:
+        typer.echo("")
+        typer.secho("Evidenza citata:", fg=typer.colors.GREEN)
+        for e in ans.evidence:
+            typer.echo(f"  [{e.direction}] {e.title or e.doi}")
+    typer.echo("")
+    typer.secho(
+        f"(fonte narrativa: {'LLM' if ans.used_llm else 'euristica deterministica'})",
+        fg=typer.colors.BRIGHT_BLACK,
+    )
+
+
 @app.command(name="coach-assess")
 def coach_assess(
     athlete_id: str = typer.Argument(..., help="Id atleta."),

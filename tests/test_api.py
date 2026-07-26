@@ -118,3 +118,23 @@ def test_coach_invalid_metric_is_422(client):
     ath = _seed_athlete(dbp)
     resp = tc.post(f"/coach/{ath}", json={"metric": "banana", "to": 1.0, "by": "2026-09-30"})
     assert resp.status_code == 422
+
+
+def test_ask_endpoint_answers(client):
+    tc, dbp = client
+    db = Database(path=dbp)
+    db.create_research(Research(id="r1", topic="t"))
+    db.upsert_record(_verified_rec(
+        "HRV guided recovery in cyclists", "hrv guided recovery rest cyclists", "10.1/rec"))
+    resp = tc.post("/ask", json={"question": "hrv guided recovery"})
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["answer"]
+    assert body["evidence"]
+
+
+def test_chat_ui_served(client):
+    tc, _ = client
+    resp = tc.get("/")
+    assert resp.status_code == 200
+    assert "Chiedi al preparatore" in resp.text

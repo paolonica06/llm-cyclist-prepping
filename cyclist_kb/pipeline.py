@@ -191,6 +191,18 @@ class Pipeline:
         except ValueError as exc:
             raise PlanNotFound(str(exc)) from exc
 
+    # -- Fase E: «chiedi al preparatore» ------------------------------------ #
+    def ask(self, question: str, athlete_id: Optional[str] = None,
+            as_of: Optional[str] = None):
+        """Interfaccia conversazionale: risposta ancorata a dati+piano+evidenza.
+
+        Non richiede un atleta esistente: senza `athlete_id` (o inesistente) la
+        risposta si fonda su sola evidenza + euristica, senza sollevare.
+        """
+        from .agents.conversation import CoachChatAgent
+        aid = athlete_id if (athlete_id and self.db.get_athlete(athlete_id)) else None
+        return CoachChatAgent(self.db).ask(question, aid, as_of=as_of)
+
     # -- Pipeline completa -------------------------------------------------- #
     async def run(self, topic: str, profile_path: Optional[Path] = None) -> Research:
         research = self.create(topic)

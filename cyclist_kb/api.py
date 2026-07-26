@@ -12,9 +12,11 @@ from typing import List, Optional
 
 import yaml
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, ValidationError
 
 from .agents.athlete import load_profile
+from .agents.conversation import ChatAnswer
 from .athlete_models import (MetricGoal, MetricType, TrainingPlan,
                             TransferabilityMemo)
 from .db import Database
@@ -22,6 +24,8 @@ from .models import PaperRecord, RecordState, Research
 from .pipeline import (AthleteNotFound, Pipeline, PlanNotFound, PlanStateError,
                       ResearchNotFound)
 from .retrieval import RetrievalResult, retrieve
+
+_CHAT_HTML = Path(__file__).parent / "web" / "chat.html"
 
 app = FastAPI(title="Cyclist KB", version="0.1.0",
               description="Knowledge base scientifica ciclistica auto-mantenuta (MVP).")
@@ -59,6 +63,11 @@ class CoachRequest(BaseModel):
     profile_path: Optional[str] = None
 
 
+class AskRequest(BaseModel):
+    question: str
+    athlete_id: Optional[str] = None
+
+
 def _research_or_404(research_id: str) -> Research:
     r = Database().get_research(research_id)
     if r is None:
@@ -69,6 +78,21 @@ def _research_or_404(research_id: str) -> Research:
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}
+
+
+@app.get("/", response_class=HTMLResponse)
+def chat_ui() -> str:
+    """GUI «chiedi al preparatore» (Fase E)."""
+    try:
+        return _CHAT_HTML.read_text(encoding="utf-8")
+    except OSError:
+        return "<h1>Cyclist KB</h1><p>GUI non disponibile.</p>"
+
+
+@app.post("/ask", response_model=ChatAnswer)
+def ask_endpoint(req: AskRequest) -> ChatAnswer:
+    """Interfaccia conversazionale: risposta ancorata a dati atleta + piano + evidenza."""
+    return pipeline().ask(req.question, req.athlete_id)
 
 
 @app.post("/research", response_model=Research)

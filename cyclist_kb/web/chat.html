@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chiedi al preparatore — Cyclist KB</title>
+<style>
+  :root {
+    --bg: #0f1417; --panel: #171e23; --panel-2: #1e272e; --line: #2b363e;
+    --fg: #e7edf1; --muted: #8ea0ac; --accent: #4cc4a8; --warn: #e0a458;
+    --pos: #4cc4a8; --neg: #e07a7a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 80px; }
+  header h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -.02em; }
+  header p { color: var(--muted); margin: 0 0 22px; font-size: 13.5px; }
+  .composer {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 14px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .row { display: flex; gap: 10px; align-items: center; }
+  label { color: var(--muted); font-size: 12.5px; min-width: 74px; }
+  input, textarea {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--line);
+    color: var(--fg); border-radius: 9px; padding: 10px 12px; font: inherit; resize: vertical;
+  }
+  textarea { min-height: 76px; }
+  input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+  button {
+    align-self: flex-end; background: var(--accent); color: #06231d; border: 0;
+    font-weight: 650; padding: 10px 20px; border-radius: 9px; cursor: pointer;
+  }
+  button:disabled { opacity: .5; cursor: default; }
+  .answer {
+    margin-top: 22px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px 20px; white-space: pre-wrap;
+  }
+  .answer.empty { color: var(--muted); text-align: center; white-space: normal; }
+  .meta { margin-top: 16px; display: grid; gap: 12px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .card h3 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .chip { display: inline-block; background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: 20px; padding: 3px 10px; margin: 3px 5px 3px 0; font-size: 12.5px; }
+  .ev { padding: 6px 0; border-top: 1px solid var(--line); font-size: 13.5px; }
+  .ev:first-child { border-top: 0; }
+  .tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 6px; margin-right: 8px; }
+  .tag.positive { background: rgba(76,196,168,.15); color: var(--pos); }
+  .tag.negative, .tag.mixed { background: rgba(224,122,122,.15); color: var(--neg); }
+  .tag.null, .tag.unclear { background: var(--panel-2); color: var(--muted); }
+  .src { margin-top: 14px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🚴 Chiedi al preparatore</h1>
+    <p>Risposta ancorata ai tuoi dati misurati, al piano attivo e all'evidenza verificata.
+       Sintesi automatica — non è una prescrizione medica.</p>
+  </header>
+
+  <div class="composer">
+    <div class="row">
+      <label for="athlete">Atleta</label>
+      <input id="athlete" value="i215294" placeholder="id atleta (opzionale)" />
+    </div>
+    <textarea id="question" placeholder="Es. «Reggo il carico previsto questa settimana o mi conviene scaricare?»"></textarea>
+    <button id="send">Chiedi</button>
+  </div>
+
+  <div id="answer" class="answer empty">La risposta comparirà qui.</div>
+  <div id="meta" class="meta"></div>
+  <div id="src" class="src"></div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+async function ask() {
+  const question = $("question").value.trim();
+  const athlete_id = $("athlete").value.trim() || null;
+  if (!question) return;
+  $("send").disabled = true;
+  $("answer").className = "answer empty";
+  $("answer").textContent = "Sto consultando dati ed evidenza…";
+  $("meta").innerHTML = ""; $("src").textContent = "";
+  try {
+    const resp = await fetch("/ask", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, athlete_id }),
+    });
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
+    render(await resp.json());
+  } catch (e) {
+    $("answer").className = "answer";
+    $("answer").textContent = "Errore: " + e.message;
+  } finally {
+    $("send").disabled = false;
+  }
+}
+
+function render(a) {
+  $("answer").className = "answer";
+  $("answer").textContent = a.answer;
+
+  let meta = "";
+  const snap = a.snapshot || {};
+  if (Object.keys(snap).length) {
+    let chips = "";
+    for (const [k, v] of Object.entries(snap)) {
+      const arrow = v.last > v.mean_recent ? "↑" : (v.last < v.mean_recent ? "↓" : "→");
+      chips += `<span class="chip">${k}: ${v.last} ${arrow}</span>`;
+    }
+    meta += `<div class="card"><h3>Dati misurati (dati_atleta)</h3>${chips}</div>`;
+  }
+  if (a.plan && a.plan.goal) {
+    meta += `<div class="card"><h3>Piano attivo</h3>${a.plan.goal} → ${a.plan.target ?? "?"}
+      entro ${a.plan.by ?? "?"} · ${(a.plan.blocks || []).length} blocchi</div>`;
+  }
+  const ev = a.evidence || [];
+  if (ev.length) {
+    let rows = "";
+    for (const e of ev) {
+      const d = (e.direction || "unclear");
+      rows += `<div class="ev"><span class="tag ${d}">${d}</span>${e.title || e.doi || "—"}</div>`;
+    }
+    meta += `<div class="card"><h3>Evidenza citata (studi)</h3>${rows}</div>`;
+  }
+  $("meta").innerHTML = meta;
+  $("src").textContent = "Fonte narrativa: " + (a.used_llm ? "LLM" : "euristica deterministica");
+}
+
+$("send").addEventListener("click", ask);
+$("question").addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "Enter") ask();
+});
+</script>
+</body>
+</html>
