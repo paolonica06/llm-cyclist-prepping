@@ -148,6 +148,14 @@ class Pipeline:
         from .agents.athlete_sync import AthleteSyncAgent
         return await AthleteSyncAgent(self.db).run(athlete_id, oldest=oldest, newest=newest)
 
+    async def backfill_activity_power_curves(
+        self, athlete_id: str, limit: Optional[int] = None, force: bool = False,
+    ) -> dict:
+        """Ingesta le curve di potenza per-attività (incrementale, Ride+VirtualRide)."""
+        from .agents.athlete_sync import AthleteSyncAgent
+        return await AthleteSyncAgent(self.db).backfill_activity_power_curves(
+            athlete_id, limit=limit, force=force)
+
     # -- Fase D: CoachAgent ------------------------------------------------- #
     def coach(self, athlete_id: str, goal, profile_path: Optional[Path] = None):
         from .agents.coach import CoachAgent

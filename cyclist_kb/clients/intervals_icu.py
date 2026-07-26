@@ -24,6 +24,11 @@ from .base import HttpFetcher
 
 BASE = "https://intervals.icu/api/v1"
 
+# Curva di potenza: periodi richiesti (recenti → assoluti) e tipi di attività.
+# `type` accetta un solo valore per chiamata, quindi outdoor+indoor = due chiamate.
+POWER_CURVE_WINDOWS = "42d,90d,365d,all"
+POWER_CURVE_TYPES = ("Ride", "VirtualRide")
+
 # Campo dell'endpoint wellness → nostra grandezza (MetricType).
 _WELLNESS_FIELDS = {
     "sleepSecs": MetricType.SLEEP,
@@ -92,23 +97,42 @@ class IntervalsClient:
         data = await self._get(f"/athlete/{athlete_id}/activities", params or None)
         return _parse_activities(athlete_id, data)
 
-    async def fetch_power_curve(self, athlete_id: str,
-                                activity_type: Optional[str] = "Ride",
-                                curves: Optional[str] = None) -> List[TimeseriesPoint]:
+    async def fetch_power_curve(
+        self, athlete_id: str,
+        windows: str = POWER_CURVE_WINDOWS,
+        sport: str = "Ride",
+    ) -> List[TimeseriesPoint]:
         """Curva di potenza mean-max **già calcolata** da intervals.icu (ramo mirror).
 
         Endpoint `/athlete/{id}/power-curves` → `{list: [curva...], activities: {...}}`.
         NON scarichiamo i watt grezzi né ricalcoliamo mean-max in casa (ADR-0001): la
-        curva è una metrica derivata che la piattaforma calcola a monte. Ogni curva del
-        payload diventa un `TimeseriesPoint(POWER_CURVE)` datato alla fine periodo.
+        curva è una metrica derivata che la piattaforma calcola a monte.
+
+        - **Periodi** (`windows`, es. "42d,90d,365d,all"): l'endpoint torna una curva per
+          spec, così distinguiamo i best **recenti** ("42 days") dagli **assoluti**
+          ("All time", che parte dal 1986).
+        - **Sport, non tipo**: verificato dal vivo che `type` raggruppa per *sport* —
+          `Ride`/`VirtualRide` restituiscono la **stessa** curva cycling, che **già
+          combina indoor + outdoor**. Non esiste una curva outdoor-only vs indoor-only,
+          quindi una sola chiamata (`sport="Ride"`) è sufficiente e completa.
+
+        Ritorna `[point]` (un solo punto POWER_CURVE, come lista per uniformità col
+        morning sync) oppure `[]` (offline/no-key/nessun dato).
         """
-        params: Dict[str, Any] = {}
-        if activity_type:
-            params["type"] = activity_type
-        if curves:
-            params["curves"] = curves
-        data = await self._get(f"/athlete/{athlete_id}/power-curves", params or None)
-        return _parse_power_curves(athlete_id, data)
+        data = await self._get(
+            f"/athlete/{athlete_id}/power-curves", {"type": sport, "curves": windows})
+        periods = _parse_power_curve_list(data)
+        point = _build_power_curve_point(athlete_id, periods)
+        return [point] if point else []
+
+    async def fetch_activity_power_curve(self, activity_external_id: str) -> Optional[Dict[str, Any]]:
+        """Curva mean-max della **singola** attività (già calcolata da intervals.icu).
+
+        Endpoint `/activity/{id}/power-curve` → `{secs, values, watts_per_kg, ...}`.
+        `None` se offline/no-key o se l'attività non ha potenza (nessun power meter).
+        """
+        data = await self._get(f"/activity/{activity_external_id}/power-curve")
+        return _parse_activity_power_curve(data)
 
 
 def _date_of(rec: dict) -> Optional[str]:
@@ -147,35 +171,28 @@ def _parse_daily(athlete_id: str, data: Any) -> List[TimeseriesPoint]:
     return points
 
 
-def _parse_power_curves(athlete_id: str, data: Any) -> List[TimeseriesPoint]:
-    """Normalizza il payload di /power-curves in punti-serie POWER_CURVE.
+def _parse_power_curve_list(data: Any) -> Dict[str, Dict[str, Any]]:
+    """Normalizza il payload di /power-curves in `{label_periodo: curva}`.
 
     Ogni curva porta `secs` (durate) e `values` (best watt per durata), più
-    `watts_per_kg`. Le impacchettiamo in `extra` (durata→watt come stringa, coerente
-    con l'esempio del modello `{"300": 320, ...}`), datando il punto alla fine periodo
-    (`end_date_local`), che è la sua natura "as-of". Curve senza data o senza dati utili
-    vengono scartate.
+    `watts_per_kg`. Le impacchettiamo per label di periodo ("42 days"… "All time"),
+    con `secs_watts` durata→watt (stringa, coerente con l'esempio del modello) e i
+    metadati del periodo. Curve senza dati utili vengono scartate.
     """
     lst = data.get("list") if isinstance(data, dict) else data
     if not lst:
-        return []
-    points: List[TimeseriesPoint] = []
+        return {}
+    curves: Dict[str, Dict[str, Any]] = {}
     for curve in lst:
         if not isinstance(curve, dict):
             continue
         secs = curve.get("secs") or []
         values = curve.get("values") or []
-        if not secs or not values:
-            continue
-        end = curve.get("end_date_local") or curve.get("start_date_local")
-        date = str(end)[:10] if end else ""
-        if not date:
-            continue
         secs_watts = {str(s): v for s, v in zip(secs, values) if v is not None}
         if not secs_watts:
             continue
-        extra: Dict[str, Any] = {
-            "label": curve.get("label"),
+        label = curve.get("label") or str(curve.get("days") or len(curves))
+        entry: Dict[str, Any] = {
             "start": curve.get("start_date_local"),
             "end": curve.get("end_date_local"),
             "days": curve.get("days"),
@@ -184,11 +201,52 @@ def _parse_power_curves(athlete_id: str, data: Any) -> List[TimeseriesPoint]:
         wkg = curve.get("watts_per_kg") or []
         wkg_map = {str(s): w for s, w in zip(secs, wkg) if w is not None}
         if wkg_map:
-            extra["watts_per_kg"] = wkg_map
-        points.append(TimeseriesPoint(
-            athlete_id=athlete_id, metric_type=MetricType.POWER_CURVE, date=date,
-            value=None, extra=extra, source="intervals_icu"))
-    return points
+            entry["watts_per_kg"] = wkg_map
+        curves[label] = entry
+    return curves
+
+
+def _build_power_curve_point(
+    athlete_id: str, periods: Dict[str, Dict[str, Any]]
+) -> Optional[TimeseriesPoint]:
+    """Impacchetta i periodi in **un unico** punto POWER_CURVE datato "as-of".
+
+    `periods` = `{label_periodo: curva}` (curva cycling combinata indoor+outdoor). Un
+    solo punto al giorno evita la collisione sulla chiave serie `(atleta, power_curve,
+    data)` quando più periodi finiscono lo stesso giorno. La data è la fine periodo più
+    recente vista.
+    """
+    if not periods:
+        return None
+    as_of = ""
+    for entry in periods.values():
+        end = str(entry.get("end") or "")[:10]
+        if end > as_of:
+            as_of = end
+    if not as_of:
+        return None
+    return TimeseriesPoint(
+        athlete_id=athlete_id, metric_type=MetricType.POWER_CURVE, date=as_of,
+        value=None, source="intervals_icu",
+        extra={"as_of": as_of, "periods": periods,
+               "note": "curva cycling combinata (Ride + VirtualRide indoor)"})
+
+
+def _parse_activity_power_curve(data: Any) -> Optional[Dict[str, Any]]:
+    """Curva mean-max di una singola attività → `{secs_watts, watts_per_kg}` o None."""
+    if not isinstance(data, dict):
+        return None
+    secs = data.get("secs") or []
+    values = data.get("values") or []
+    secs_watts = {str(s): v for s, v in zip(secs, values) if v is not None}
+    if not secs_watts:
+        return None
+    out: Dict[str, Any] = {"secs_watts": secs_watts}
+    wkg = data.get("watts_per_kg") or []
+    wkg_map = {str(s): w for s, w in zip(secs, wkg) if w is not None}
+    if wkg_map:
+        out["watts_per_kg"] = wkg_map
+    return out
 
 
 def _parse_activities(athlete_id: str, data: Any) -> List[ActivitySummary]:

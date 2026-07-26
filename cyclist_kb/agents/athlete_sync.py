@@ -8,9 +8,9 @@ non è disponibile (no key / offline) è un **no-op pulito**, senza eccezioni.
 from __future__ import annotations
 
 import logging
-from typing import Dict, Optional
+from typing import Dict, Optional, Sequence
 
-from ..clients.intervals_icu import IntervalsClient
+from ..clients.intervals_icu import POWER_CURVE_TYPES, IntervalsClient
 from ..db import Database
 
 logger = logging.getLogger("cyclist_kb.athlete_sync")
@@ -45,4 +45,44 @@ class AthleteSyncAgent:
             "power_curve_points": len(power_curve),
         }
         logger.info("Morning sync %s: %s", athlete_id, summary)
+        return summary
+
+    async def backfill_activity_power_curves(
+        self, athlete_id: str,
+        types: Sequence[str] = POWER_CURVE_TYPES,
+        limit: Optional[int] = None,
+        force: bool = False,
+    ) -> Dict[str, object]:
+        """Ingesta le curve mean-max **per-attività** (Ride + indoor VirtualRide).
+
+        Incrementale: salta le attività che hanno già una curva (a meno di `force`),
+        così il primo backfill fa il grosso e i successivi sono a costo ~zero. Le
+        attività senza potenza (nessun power meter) tornano None e non vengono salvate.
+        `limit` bound il numero di fetch per run (utile per non saturare il rate-limit).
+        """
+        wanted = set(types)
+        done = set() if force else self.db.activity_ids_with_power_curve(athlete_id)
+        eligible = [a for a in self.db.list_activities(athlete_id)
+                    if a.type in wanted and a.external_id]
+        candidates = [a for a in eligible if a.id not in done]
+        skipped = len(eligible) - len(candidates)
+        fetched = empty = 0
+        for activity in candidates:
+            if limit is not None and fetched >= limit:
+                break
+            curve = await self.intervals.fetch_activity_power_curve(activity.external_id)
+            if not curve:
+                empty += 1
+                continue
+            self.db.save_activity_power_curve(activity.id, athlete_id, curve, date=activity.date)
+            fetched += 1
+        summary: Dict[str, object] = {
+            "athlete_id": athlete_id,
+            "available": self.intervals.available,
+            "candidates": len(eligible),
+            "fetched": fetched,
+            "skipped": skipped,
+            "empty": empty,
+        }
+        logger.info("Backfill power curves %s: %s", athlete_id, summary)
         return summary

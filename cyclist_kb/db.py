@@ -82,6 +82,18 @@ CREATE TABLE IF NOT EXISTS activities (
 );
 CREATE INDEX IF NOT EXISTS idx_activities_athlete ON activities(athlete_id, date);
 
+-- Curve di potenza per-attività (mean-max già calcolata da intervals.icu). Tabella
+-- separata dalle activities: così la morning-sync (che riscrive le activities) non
+-- sovrascrive le curve ingerite dal backfill.
+CREATE TABLE IF NOT EXISTS activity_power_curves (
+    activity_id TEXT PRIMARY KEY,
+    athlete_id  TEXT NOT NULL,
+    date        TEXT,
+    created_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_apc_athlete ON activity_power_curves(athlete_id, date);
+
 CREATE TABLE IF NOT EXISTS races (
     id          TEXT PRIMARY KEY,
     athlete_id  TEXT NOT NULL,
@@ -320,6 +332,35 @@ class Database:
                 (athlete_id,),
             ).fetchall()
         return [ActivitySummary.model_validate_json(r["data"]) for r in rows]
+
+    # -- Fase B: Curve di potenza per-attività ------------------------------ #
+    def save_activity_power_curve(
+        self, activity_id: str, athlete_id: str, curve: dict,
+        date: Optional[str] = None,
+    ) -> None:
+        """Upsert idempotente della curva mean-max di una singola attività."""
+        import json
+        self.conn.execute(
+            "INSERT INTO activity_power_curves (activity_id, athlete_id, date, created_at, data) "
+            "VALUES (?, ?, ?, ?, ?) "
+            "ON CONFLICT(activity_id) DO UPDATE SET date=excluded.date, data=excluded.data",
+            (activity_id, athlete_id, date, _now(), json.dumps(curve)),
+        )
+        self.conn.commit()
+
+    def get_activity_power_curve(self, activity_id: str) -> Optional[dict]:
+        import json
+        row = self.conn.execute(
+            "SELECT data FROM activity_power_curves WHERE activity_id=?", (activity_id,)
+        ).fetchone()
+        return json.loads(row["data"]) if row else None
+
+    def activity_ids_with_power_curve(self, athlete_id: str) -> set:
+        """Id (interni) delle attività che hanno già una curva → skip incrementale."""
+        rows = self.conn.execute(
+            "SELECT activity_id FROM activity_power_curves WHERE athlete_id=?", (athlete_id,)
+        ).fetchall()
+        return {r["activity_id"] for r in rows}
 
     # -- Fase B: Gare ------------------------------------------------------- #
     def save_race(self, race: Race) -> Race:

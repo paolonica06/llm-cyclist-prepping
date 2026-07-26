@@ -74,8 +74,11 @@ def test_sync_ingests_power_curve(tmp_path):
 
     async def curve(aid, **kw):
         return [TimeseriesPoint(
-            athlete_id=aid, metric_type=MetricType.POWER_CURVE, date="2026-07-26",
-            value=None, extra={"label": "1 year", "secs_watts": {"300": 360}})]
+            athlete_id=aid, metric_type=MetricType.POWER_CURVE, date="2026-07-27",
+            value=None, extra={"as_of": "2026-07-27", "periods": {
+                "42 days": {"secs_watts": {"1200": 291}},
+                "All time": {"secs_watts": {"1200": 342}},
+            }})]
 
     agent.intervals.fetch_daily = daily
     agent.intervals.fetch_activities = acts
@@ -88,7 +91,37 @@ def test_sync_ingests_power_curve(tmp_path):
     pts = db.list_timeseries(a.id, MetricType.POWER_CURVE.value)
     assert len(pts) == 1
     assert pts[0].value is None
-    assert pts[0].extra["secs_watts"]["300"] == 360
+    assert pts[0].extra["periods"]["All time"]["secs_watts"]["1200"] == 342
+    assert pts[0].extra["periods"]["42 days"]["secs_watts"]["1200"] == 291
+
+
+def test_backfill_activity_power_curves(tmp_path):
+    db = _db(tmp_path)
+    a = _athlete(db)
+    # 1 Ride + 1 VirtualRide (candidati), 1 Run e 1 stub senza tipo (da ignorare).
+    db.save_activity(ActivitySummary(id=make_activity_id(a.id, "i1"), athlete_id=a.id,
+                                     date="2026-07-20", type="Ride", external_id="i1"))
+    db.save_activity(ActivitySummary(id=make_activity_id(a.id, "i2"), athlete_id=a.id,
+                                     date="2026-07-21", type="VirtualRide", external_id="i2"))
+    db.save_activity(ActivitySummary(id=make_activity_id(a.id, "i3"), athlete_id=a.id,
+                                     date="2026-07-22", type="Run", external_id="i3"))
+    db.save_activity(ActivitySummary(id=make_activity_id(a.id, "s9"), athlete_id=a.id,
+                                     date="2026-07-19", type=None, external_id="9001"))
+    agent = AthleteSyncAgent(db)
+
+    async def apc(external_id):
+        return {"secs_watts": {"300": 360}} if external_id in ("i1", "i2") else None
+
+    agent.intervals.fetch_activity_power_curve = apc
+
+    s = asyncio.run(agent.backfill_activity_power_curves(a.id))
+    assert s["candidates"] == 2                   # solo Ride + VirtualRide
+    assert s["fetched"] == 2
+    got = db.get_activity_power_curve(make_activity_id(a.id, "i1"))
+    assert got["secs_watts"]["300"] == 360
+
+    s2 = asyncio.run(agent.backfill_activity_power_curves(a.id))   # incrementale
+    assert s2["fetched"] == 0 and s2["skipped"] == 2
 
 
 def test_sync_second_run_adds_new_point_without_duplicating(tmp_path):

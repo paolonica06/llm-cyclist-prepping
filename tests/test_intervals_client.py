@@ -3,8 +3,12 @@
 import asyncio
 
 from cyclist_kb.athlete_models import MetricType
-from cyclist_kb.clients.intervals_icu import (IntervalsClient, _parse_activities,
-                                              _parse_daily, _parse_power_curves)
+from cyclist_kb.clients.intervals_icu import (IntervalsClient,
+                                              _build_power_curve_point,
+                                              _parse_activities,
+                                              _parse_activity_power_curve,
+                                              _parse_daily,
+                                              _parse_power_curve_list)
 
 
 def test_offline_or_no_key_returns_empty():
@@ -14,6 +18,7 @@ def test_offline_or_no_key_returns_empty():
     assert asyncio.run(client.fetch_daily("i1")) == []
     assert asyncio.run(client.fetch_activities("i1")) == []
     assert asyncio.run(client.fetch_power_curve("i1")) == []
+    assert asyncio.run(client.fetch_activity_power_curve("i1")) is None
 
 
 def test_parse_daily_maps_wellness_and_derives_tsb():
@@ -65,39 +70,63 @@ def test_parse_empty_payloads_are_empty():
     assert _parse_activities("a", []) == []
 
 
-def test_parse_power_curves_maps_secs_values():
-    # Payload reale di /athlete/{id}/power-curves: {list:[curva...], activities:{...}}.
+def test_parse_power_curve_list_maps_periods_and_wkg():
+    # Payload reale di /athlete/{id}/power-curves?curves=42d,all: {list:[curva...], ...}.
     sample = {
-        "list": [{
-            "label": "1 year",
-            "start_date_local": "2025-07-27T00:00:00",
-            "end_date_local": "2026-07-27T00:00:00",
-            "days": 365,
-            "secs": [1, 5, 60, 300, 1200],
-            "values": [1315, 1268, 640, 360, 300],
-            "watts_per_kg": [17.8, 17.1, 8.6, 4.86, 4.05],
-        }],
+        "list": [
+            {"label": "42 days", "start_date_local": "2026-06-15T00:00:00",
+             "end_date_local": "2026-07-27T00:00:00", "days": 43,
+             "secs": [1, 300, 1200], "values": [1200, 395, 318],
+             "watts_per_kg": [16.5, 5.35, 4.31]},
+            {"label": "All time", "start_date_local": "1986-01-01T00:00:00",
+             "end_date_local": "2026-07-27T00:00:00", "days": 859,
+             "secs": [1, 300, 1200], "values": [1315, 402, 323],
+             "watts_per_kg": [17.8, 5.48, 4.48]},
+        ],
         "activities": {"i1": {"name": "Bici"}},
     }
-    points = _parse_power_curves("ath1", sample)
-    assert len(points) == 1
-    p = points[0]
+    curves = _parse_power_curve_list(sample)
+    assert set(curves) == {"42 days", "All time"}
+    assert curves["All time"]["secs_watts"]["1200"] == 323    # PB assoluto 20min
+    assert curves["42 days"]["secs_watts"]["1200"] == 318     # 20min recente (< assoluto)
+    assert curves["All time"]["watts_per_kg"]["300"] == 5.48
+    assert curves["42 days"]["days"] == 43
+    assert curves["All time"]["end"] == "2026-07-27T00:00:00"
+
+
+def test_parse_power_curve_list_empty():
+    assert _parse_power_curve_list(None) == {}
+    assert _parse_power_curve_list({"list": []}) == {}
+    assert _parse_power_curve_list({"list": [{"label": "x"}]}) == {}   # no secs/values
+
+
+def test_build_power_curve_point_packs_periods_and_dates_as_of():
+    periods = {
+        "42 days": {"secs_watts": {"1200": 291}, "end": "2026-07-26T00:00:00"},
+        "All time": {"secs_watts": {"1200": 342}, "end": "2026-07-27T00:00:00"},
+    }
+    p = _build_power_curve_point("ath1", periods)
     assert p.metric_type == MetricType.POWER_CURVE
-    assert p.date == "2026-07-27"          # datata alla fine periodo (as-of)
-    assert p.value is None                 # il payload sta in extra, non in value
-    assert p.extra["label"] == "1 year"
-    assert p.extra["secs_watts"]["1"] == 1315     # sprint (best 1s)
-    assert p.extra["secs_watts"]["300"] == 360    # 5 min
-    assert p.extra["secs_watts"]["1200"] == 300   # 20 min
-    assert p.extra["watts_per_kg"]["1200"] == 4.05
-    assert p.extra["start"] == "2025-07-27T00:00:00"
+    assert p.date == "2026-07-27"          # as-of = fine periodo più recente
+    assert p.value is None
+    assert p.extra["periods"]["All time"]["secs_watts"]["1200"] == 342   # PB assoluto
+    assert p.extra["periods"]["42 days"]["secs_watts"]["1200"] == 291     # recente
 
 
-def test_parse_power_curves_skips_empty_and_dateless():
-    assert _parse_power_curves("a", None) == []
-    assert _parse_power_curves("a", {"list": []}) == []
-    # curva senza date → scartata (non sappiamo a quando riferirla)
-    assert _parse_power_curves("a", {"list": [{"secs": [1], "values": [100]}]}) == []
-    # curva senza secs/values → scartata (nessun dato utile)
-    assert _parse_power_curves(
-        "a", {"list": [{"end_date_local": "2026-01-01T00:00:00"}]}) == []
+def test_build_power_curve_point_empty_is_none():
+    assert _build_power_curve_point("a", {}) is None
+
+
+def test_parse_activity_power_curve():
+    data = {"secs": [1, 2, 300], "values": [586, 580, 360],
+            "watts_per_kg": [7.76, 7.68, 4.86]}
+    c = _parse_activity_power_curve(data)
+    assert c["secs_watts"]["1"] == 586
+    assert c["secs_watts"]["300"] == 360
+    assert c["watts_per_kg"]["2"] == 7.68
+
+
+def test_parse_activity_power_curve_empty_is_none():
+    assert _parse_activity_power_curve(None) is None
+    assert _parse_activity_power_curve({"secs": [], "values": []}) is None
+    assert _parse_activity_power_curve({"secs": [1, 2], "values": [None, None]}) is None

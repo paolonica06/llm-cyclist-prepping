@@ -176,6 +176,26 @@ def athlete_sync(
     )
 
 
+@app.command(name="activity-power-curves")
+def activity_power_curves(
+    athlete_id: str = typer.Argument(..., help="Id atleta su intervals.icu."),
+    limit: Optional[int] = typer.Option(None, help="Max fetch per run (rate-limit)."),
+    force: bool = typer.Option(False, "--force", help="Ri-scarica anche le curve già presenti."),
+):
+    """Backfill delle curve di potenza per-attività (Ride + indoor VirtualRide), incrementale."""
+    summary = asyncio.run(_pipeline().backfill_activity_power_curves(
+        athlete_id, limit=limit, force=force))
+    if not summary["available"]:
+        typer.secho(
+            "intervals.icu non configurato o offline: nessuna curva scaricata.",
+            fg=typer.colors.YELLOW,
+        )
+    typer.echo(
+        f"Candidate: {summary['candidates']}  Scaricate: {summary['fetched']}  "
+        f"Saltate (già presenti): {summary['skipped']}  Senza potenza: {summary['empty']}"
+    )
+
+
 @app.command()
 def retrieve(
     query: str = typer.Argument(..., help="Interrogazione (libera o derivata dallo stato atleta)."),
