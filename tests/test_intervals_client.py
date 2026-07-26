@@ -4,7 +4,7 @@ import asyncio
 
 from cyclist_kb.athlete_models import MetricType
 from cyclist_kb.clients.intervals_icu import (IntervalsClient, _parse_activities,
-                                              _parse_daily)
+                                              _parse_daily, _parse_power_curves)
 
 
 def test_offline_or_no_key_returns_empty():
@@ -13,6 +13,7 @@ def test_offline_or_no_key_returns_empty():
     assert client.available is False
     assert asyncio.run(client.fetch_daily("i1")) == []
     assert asyncio.run(client.fetch_activities("i1")) == []
+    assert asyncio.run(client.fetch_power_curve("i1")) == []
 
 
 def test_parse_daily_maps_wellness_and_derives_tsb():
@@ -62,3 +63,41 @@ def test_parse_activities_maps_fields():
 def test_parse_empty_payloads_are_empty():
     assert _parse_daily("a", None) == []
     assert _parse_activities("a", []) == []
+
+
+def test_parse_power_curves_maps_secs_values():
+    # Payload reale di /athlete/{id}/power-curves: {list:[curva...], activities:{...}}.
+    sample = {
+        "list": [{
+            "label": "1 year",
+            "start_date_local": "2025-07-27T00:00:00",
+            "end_date_local": "2026-07-27T00:00:00",
+            "days": 365,
+            "secs": [1, 5, 60, 300, 1200],
+            "values": [1315, 1268, 640, 360, 300],
+            "watts_per_kg": [17.8, 17.1, 8.6, 4.86, 4.05],
+        }],
+        "activities": {"i1": {"name": "Bici"}},
+    }
+    points = _parse_power_curves("ath1", sample)
+    assert len(points) == 1
+    p = points[0]
+    assert p.metric_type == MetricType.POWER_CURVE
+    assert p.date == "2026-07-27"          # datata alla fine periodo (as-of)
+    assert p.value is None                 # il payload sta in extra, non in value
+    assert p.extra["label"] == "1 year"
+    assert p.extra["secs_watts"]["1"] == 1315     # sprint (best 1s)
+    assert p.extra["secs_watts"]["300"] == 360    # 5 min
+    assert p.extra["secs_watts"]["1200"] == 300   # 20 min
+    assert p.extra["watts_per_kg"]["1200"] == 4.05
+    assert p.extra["start"] == "2025-07-27T00:00:00"
+
+
+def test_parse_power_curves_skips_empty_and_dateless():
+    assert _parse_power_curves("a", None) == []
+    assert _parse_power_curves("a", {"list": []}) == []
+    # curva senza date → scartata (non sappiamo a quando riferirla)
+    assert _parse_power_curves("a", {"list": [{"secs": [1], "values": [100]}]}) == []
+    # curva senza secs/values → scartata (nessun dato utile)
+    assert _parse_power_curves(
+        "a", {"list": [{"end_date_local": "2026-01-01T00:00:00"}]}) == []

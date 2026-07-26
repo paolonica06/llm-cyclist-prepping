@@ -170,7 +170,10 @@ def athlete_sync(
             "nessun dato sincronizzato.",
             fg=typer.colors.YELLOW,
         )
-    typer.echo(f"Serie storiche: {summary['timeseries_points']}  Attività: {summary['activities']}")
+    typer.echo(
+        f"Serie storiche: {summary['timeseries_points']}  Attività: {summary['activities']}  "
+        f"Curve di potenza: {summary['power_curve_points']}"
+    )
 
 
 @app.command()

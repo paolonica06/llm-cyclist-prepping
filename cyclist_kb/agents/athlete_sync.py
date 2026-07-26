@@ -31,11 +31,18 @@ class AthleteSyncAgent:
         for activity in activities:
             self.db.save_activity(activity)
 
+        # Curva di potenza mean-max, ingerita già calcolata (ramo mirror, ADR-0001).
+        # Stessa tabella serie: chiave (atleta, power_curve, data) → upsert idempotente.
+        power_curve = await self.intervals.fetch_power_curve(athlete_id)
+        for point in power_curve:
+            self.db.add_timeseries_point(point)
+
         summary: Dict[str, object] = {
             "athlete_id": athlete_id,
             "available": self.intervals.available,
             "timeseries_points": len(daily),
             "activities": len(activities),
+            "power_curve_points": len(power_curve),
         }
         logger.info("Morning sync %s: %s", athlete_id, summary)
         return summary
