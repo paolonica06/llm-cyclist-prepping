@@ -35,12 +35,14 @@ class MetricType(str, Enum):
     HRV = "hrv"
     WEIGHT = "weight"
     RESTING_HR = "resting_hr"
+    READINESS = "readiness"      # prontezza riportata (carry-forward possibile)
+    RAMP_RATE = "ramp_rate"      # velocità di rampa del CTL (Δ carico/settimana)
     CTL = "ctl"                  # fitness (ingerite, non ricalcolate)
     ATL = "atl"
     TSB = "tsb"
     FTP = "ftp"                  # storico della soglia
     POWER_CURVE = "power_curve"  # curva di potenza (payload strutturato in `extra`)
-    VO2MAX = "vo2max"
+    VO2MAX = "vo2max"            # stima VO₂max riportata dalla piattaforma
 
 
 class RacePriority(str, Enum):

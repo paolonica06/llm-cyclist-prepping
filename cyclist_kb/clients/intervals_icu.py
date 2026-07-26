@@ -38,11 +38,17 @@ _RACE_CATEGORY = {
 }
 
 # Campo dell'endpoint wellness → nostra grandezza (MetricType).
+# `readiness`/`rampRate`/`vo2max` sono esposti dal payload /wellness ma erano
+# dichiarati nel modello senza essere ingeriti: raccolti dal loop generico di
+# `_parse_daily` come le altre grandezze (nessun parsing dedicato necessario).
 _WELLNESS_FIELDS = {
     "sleepSecs": MetricType.SLEEP,
     "hrv": MetricType.HRV,
     "weight": MetricType.WEIGHT,
     "restingHR": MetricType.RESTING_HR,
+    "readiness": MetricType.READINESS,
+    "rampRate": MetricType.RAMP_RATE,
+    "vo2max": MetricType.VO2MAX,
 }
 _FITNESS_FIELDS = {
     "ctl": MetricType.CTL,

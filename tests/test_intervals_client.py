@@ -37,6 +37,17 @@ def test_parse_daily_maps_wellness_and_derives_tsb():
     assert all(p.date == "2026-07-20" for p in points)
 
 
+def test_parse_daily_maps_readiness_ramprate_vo2max():
+    # readiness/rampRate/vo2max: esposti dal payload /wellness, ora ingeriti dal
+    # loop generico (prima dichiarati nel modello ma non mappati).
+    sample = [{"id": "2026-07-26", "readiness": 78, "rampRate": 5.4, "vo2max": 61.2}]
+    points = _parse_daily("ath1", sample)
+    by_metric = {p.metric_type: p.value for p in points}
+    assert by_metric[MetricType.READINESS] == 78.0
+    assert by_metric[MetricType.RAMP_RATE] == 5.4
+    assert by_metric[MetricType.VO2MAX] == 61.2
+
+
 def test_tsb_requires_both_ctl_and_atl():
     points = _parse_daily("ath1", [{"id": "2026-07-21", "ctl": 81.0}])   # manca ATL
     metrics = {p.metric_type for p in points}
