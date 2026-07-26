@@ -2,12 +2,12 @@
 
 import asyncio
 
-from cyclist_kb.athlete_models import MetricType
+from cyclist_kb.athlete_models import MetricType, RacePriority
 from cyclist_kb.clients.intervals_icu import (IntervalsClient,
                                               _build_power_curve_point,
                                               _parse_activities,
                                               _parse_activity_power_curve,
-                                              _parse_daily,
+                                              _parse_daily, _parse_events,
                                               _parse_power_curve_list)
 
 
@@ -19,6 +19,7 @@ def test_offline_or_no_key_returns_empty():
     assert asyncio.run(client.fetch_activities("i1")) == []
     assert asyncio.run(client.fetch_power_curve("i1")) == []
     assert asyncio.run(client.fetch_activity_power_curve("i1")) is None
+    assert asyncio.run(client.fetch_events("i1")) == ([], [])
 
 
 def test_parse_daily_maps_wellness_and_derives_tsb():
@@ -130,3 +131,36 @@ def test_parse_activity_power_curve_empty_is_none():
     assert _parse_activity_power_curve(None) is None
     assert _parse_activity_power_curve({"secs": [], "values": []}) is None
     assert _parse_activity_power_curve({"secs": [1, 2], "values": [None, None]}) is None
+
+
+def test_parse_events_splits_races_and_workouts():
+    data = [
+        {"id": 1, "start_date_local": "2026-08-01T00:00:00", "category": "RACE_B",
+         "type": "Ride", "name": "Zanè Monte Cengio", "description": "gara-allenamento"},
+        {"id": 2, "start_date_local": "2026-07-28T00:00:00", "category": "WORKOUT",
+         "type": "Ride", "name": "TEST CP 3+12", "load_target": 82, "moving_time": 5340,
+         "description": "- 3m 380-430W"},
+        {"id": 3, "start_date_local": "2026-07-27T00:00:00", "category": "NOTE",
+         "name": "nota, ignorata"},
+        {"id": 4, "category": "WORKOUT", "name": "senza data → scartato"},
+    ]
+    races, planned = _parse_events("i1", data)
+    assert len(races) == 1
+    assert races[0].priority == RacePriority.B
+    assert races[0].name == "Zanè Monte Cengio"
+    assert races[0].date == "2026-08-01"
+    assert len(planned) == 1                       # NOTE ignorata, senza-data scartato
+    assert planned[0]["external_id"] == "2"
+    assert planned[0]["load_target"] == 82
+    assert planned[0]["date"] == "2026-07-28"
+
+
+def test_parse_events_priority_mapping_and_empty():
+    assert _parse_events("a", None) == ([], [])
+    assert _parse_events("a", []) == ([], [])
+    data = [{"id": i, "start_date_local": "2026-01-01T00:00:00", "category": c, "name": c}
+            for i, c in enumerate(["RACE_A", "RACE_C"])]
+    races, _ = _parse_events("a", data)
+    prio = {r.name: r.priority for r in races}
+    assert prio["RACE_A"] == RacePriority.A
+    assert prio["RACE_C"] == RacePriority.C

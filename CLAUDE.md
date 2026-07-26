@@ -15,8 +15,11 @@ fonda la risposta su tutto:
    **trend ultimi ~14 giorni**, non l'ultimo punto. Confronta con le baseline recenti
    (HRV 54,4 ± 9,7 · RHR 50,6 ± 2,3 · alert SWC HRV < 48 · sonno target ≥ 7,5 h) —
    ma **verifica i valori nel DB, non citarli a memoria** (possono cambiare).
-2. **Pianificato vs fatto** — `activities` (`load`=TSS, `moving_time_s`, `intensity`=IF%):
-   cosa era previsto vs cosa ha *davvero* fatto. Non assumere che il piano sia stato eseguito.
+2. **Pianificato vs fatto** — il *pianificato* è il **calendario intervals.icu**, ingerito
+   in `planned_workouts` (workout con target watt/carico) e `races` (gare `RACE_*` con
+   priorità) via `athlete-sync` (`fetch_events`). NON è il piano interno generico. Confronta
+   con `activities` (`load`=TSS, `moving_time_s`, `intensity`=IF% su 0-100): cosa era previsto
+   vs cosa ha *davvero* fatto. Non assumere che il piano sia stato eseguito.
 3. **Evidenza verificata** — `wiki/topics/*.md` pertinenti (HRV-guided, sleep-recovery,
    training-load/overtraining, tapering, ecc.), citando **confidenza e caveat**; niente
    affermazioni non ancorate.
@@ -32,6 +35,18 @@ la scelta migliore»**. (b) Marca la provenienza come fa il piano: `studi` (evid
 `dati_atleta` (N=1) / `euristica` (giudizio). (c) Se una tua affermazione precedente è
 contraddetta dai dati, **correggila esplicitamente**. (d) Confine medico: sintomi/RED-S
 sospetto → stop + professionista, non un aggiustamento di piano.
+
+**Quando costruisci o modifichi un piano/microciclo — REGOLA VINCOLANTE (errori già commessi).**
+1. **Leggi PRIMA il calendario intervals.icu** (`planned_workouts` + `races`, o `fetch_events`):
+   gare *e* pianificato vivono lì, non nel nostro DB di default. Esiste già un piano dettagliato
+   sul calendario — **NON pianificare né pushare alla cieca sopra**. Su intervals.icu si fa
+   pull, non push cieco (ramo mirror).
+2. **Non sottostimare il volume.** Verifica le ore/TSS settimanali reali nel DB: i carichi veri di
+   Paolo sono **~14-16 h/sett** (le 18 h lo rompono). Non prescrivere ~10 h "di recupero" se i
+   dati mostrano che regge di più.
+3. **Chiedi le gare** (data, tipo, priorità A/B/C, percorso) se non sono nel calendario/DB: una
+   gara cambia struttura e taper. Non trasformare un giorno-gara in "lunga endurance".
+Dettaglio in memory `paolo-volume-and-race-calendar`.
 
 ## Routing autonomo delle skill (selezione proattiva)
 

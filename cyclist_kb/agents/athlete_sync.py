@@ -37,12 +37,22 @@ class AthleteSyncAgent:
         for point in power_curve:
             self.db.add_timeseries_point(point)
 
+        # Calendario: gare (RACE_*) + workout pianificati. Senza questo il sistema
+        # pianifica alla cieca — gare e piano vivono qui, non in /activities.
+        races, planned = await self.intervals.fetch_events(athlete_id, oldest=oldest, newest=newest)
+        for race in races:
+            self.db.save_race(race)
+        for workout in planned:
+            self.db.save_planned_workout(athlete_id, workout)
+
         summary: Dict[str, object] = {
             "athlete_id": athlete_id,
             "available": self.intervals.available,
             "timeseries_points": len(daily),
             "activities": len(activities),
             "power_curve_points": len(power_curve),
+            "races": len(races),
+            "planned_workouts": len(planned),
         }
         logger.info("Morning sync %s: %s", athlete_id, summary)
         return summary

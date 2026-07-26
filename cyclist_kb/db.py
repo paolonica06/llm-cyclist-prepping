@@ -94,6 +94,18 @@ CREATE TABLE IF NOT EXISTS activity_power_curves (
 );
 CREATE INDEX IF NOT EXISTS idx_apc_athlete ON activity_power_curves(athlete_id, date);
 
+-- Workout PIANIFICATI, ingeriti dal calendario intervals.icu (/events, category
+-- WORKOUT). Mirror del "pianificato": senza questo il confronto pianificato-vs-fatto
+-- del protocollo coaching userebbe il piano generico interno invece del calendario reale.
+CREATE TABLE IF NOT EXISTS planned_workouts (
+    id          TEXT PRIMARY KEY,          -- id evento intervals.icu
+    athlete_id  TEXT NOT NULL,
+    date        TEXT,
+    created_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_planned_athlete ON planned_workouts(athlete_id, date);
+
 CREATE TABLE IF NOT EXISTS races (
     id          TEXT PRIMARY KEY,
     athlete_id  TEXT NOT NULL,
@@ -381,6 +393,34 @@ class Database:
             "SELECT data FROM races WHERE athlete_id=? ORDER BY date ASC", (athlete_id,)
         ).fetchall()
         return [Race.model_validate_json(r["data"]) for r in rows]
+
+    # -- Fase B: Workout pianificati (calendario intervals.icu) ------------- #
+    def save_planned_workout(self, athlete_id: str, workout: dict) -> None:
+        """Upsert idempotente di un workout pianificato (chiave = id evento)."""
+        import json
+        wid = workout.get("external_id") or make_timeseries_id(
+            athlete_id, "planned", f"{workout.get('date')}::{workout.get('name')}")
+        self.conn.execute(
+            "INSERT INTO planned_workouts (id, athlete_id, date, created_at, data) "
+            "VALUES (?, ?, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET date=excluded.date, data=excluded.data",
+            (str(wid), athlete_id, workout.get("date"), _now(), json.dumps(workout)),
+        )
+        self.conn.commit()
+
+    def list_planned_workouts(self, athlete_id: str, since: Optional[str] = None) -> List[dict]:
+        import json
+        if since:
+            rows = self.conn.execute(
+                "SELECT data FROM planned_workouts WHERE athlete_id=? AND date>=? ORDER BY date ASC",
+                (athlete_id, since),
+            ).fetchall()
+        else:
+            rows = self.conn.execute(
+                "SELECT data FROM planned_workouts WHERE athlete_id=? ORDER BY date ASC",
+                (athlete_id,),
+            ).fetchall()
+        return [json.loads(r["data"]) for r in rows]
 
     # -- Fase B: Valutazioni ------------------------------------------------ #
     def save_assessment(self, assessment: Assessment) -> Assessment:

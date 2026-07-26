@@ -17,8 +17,8 @@ from __future__ import annotations
 import base64
 from typing import Any, Dict, List, Optional
 
-from ..athlete_models import (ActivitySummary, MetricType, TimeseriesPoint,
-                              make_activity_id)
+from ..athlete_models import (ActivitySummary, MetricType, Race, RacePriority,
+                              TimeseriesPoint, make_activity_id, make_race_id)
 from ..config import get_settings
 from .base import HttpFetcher
 
@@ -28,6 +28,14 @@ BASE = "https://intervals.icu/api/v1"
 # `type` accetta un solo valore per chiamata, quindi outdoor+indoor = due chiamate.
 POWER_CURVE_WINDOWS = "42d,90d,365d,all"
 POWER_CURVE_TYPES = ("Ride", "VirtualRide")
+
+# Categoria evento intervals.icu → priorità gara. Le gare vivono sul CALENDARIO
+# (/events), non su /activities: senza ingerirle il sistema pianifica alla cieca.
+_RACE_CATEGORY = {
+    "RACE_A": RacePriority.A,
+    "RACE_B": RacePriority.B,
+    "RACE_C": RacePriority.C,
+}
 
 # Campo dell'endpoint wellness → nostra grandezza (MetricType).
 _WELLNESS_FIELDS = {
@@ -124,6 +132,25 @@ class IntervalsClient:
         periods = _parse_power_curve_list(data)
         point = _build_power_curve_point(athlete_id, periods)
         return [point] if point else []
+
+    async def fetch_events(self, athlete_id: str, oldest: Optional[str] = None,
+                           newest: Optional[str] = None):
+        """Ingesta il **calendario** intervals.icu (`/events`): gare + pianificato.
+
+        Il calendario è la fonte di verità di intervals.icu per ciò che è *programmato*
+        (gare `RACE_*`, allenamenti `WORKOUT` con watt/target). Non ingerirlo è la causa
+        del "pianificare alla cieca": gare e piano non stanno in `/activities`.
+
+        Ritorna `(races, planned)` dove `races` sono `Race` e `planned` sono dict
+        leggeri dei workout programmati. Offline/no-key → `([], [])`.
+        """
+        params: Dict[str, Any] = {}
+        if oldest:
+            params["oldest"] = oldest
+        if newest:
+            params["newest"] = newest
+        data = await self._get(f"/athlete/{athlete_id}/events", params or None)
+        return _parse_events(athlete_id, data)
 
     async def fetch_activity_power_curve(self, activity_external_id: str) -> Optional[Dict[str, Any]]:
         """Curva mean-max della **singola** attività (già calcolata da intervals.icu).
@@ -230,6 +257,47 @@ def _build_power_curve_point(
         value=None, source="intervals_icu",
         extra={"as_of": as_of, "periods": periods,
                "note": "curva cycling combinata (Ride + VirtualRide indoor)"})
+
+
+def _parse_events(athlete_id: str, data: Any):
+    """Divide gli eventi del calendario in gare (`Race`) e workout pianificati (dict).
+
+    Categorie `RACE_A/B/C` → `Race` con priorità; `WORKOUT` → dict leggero (data,
+    nome, tipo, target di carico/tempo, descrizione). Altre categorie (NOTE, ecc.)
+    ignorate. Eventi senza data scartati.
+    """
+    races: List[Race] = []
+    planned: List[Dict[str, Any]] = []
+    if not data:
+        return races, planned
+    for ev in data:
+        if not isinstance(ev, dict):
+            continue
+        date = str(ev.get("start_date_local") or "")[:10]
+        if not date:
+            continue
+        cat = ev.get("category")
+        name = ev.get("name")
+        if cat in _RACE_CATEGORY:
+            races.append(Race(
+                id=make_race_id(athlete_id, name or cat, date),
+                athlete_id=athlete_id, name=name or "Gara", date=date,
+                priority=_RACE_CATEGORY[cat], discipline="strada",
+                role="allenante" if cat == "RACE_C" else None,
+                notes=ev.get("description")))
+        elif cat == "WORKOUT":
+            planned.append({
+                "external_id": str(ev.get("id")) if ev.get("id") is not None else None,
+                "date": date,
+                "name": name,
+                "type": ev.get("type"),
+                "category": cat,
+                "load_target": ev.get("load_target"),
+                "moving_time_s": ev.get("moving_time"),
+                "indoor": ev.get("indoor"),
+                "description": ev.get("description"),
+            })
+    return races, planned
 
 
 def _parse_activity_power_curve(data: Any) -> Optional[Dict[str, Any]]:

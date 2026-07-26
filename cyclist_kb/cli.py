@@ -172,7 +172,8 @@ def athlete_sync(
         )
     typer.echo(
         f"Serie storiche: {summary['timeseries_points']}  Attività: {summary['activities']}  "
-        f"Curve di potenza: {summary['power_curve_points']}"
+        f"Curve di potenza: {summary['power_curve_points']}  "
+        f"Gare: {summary['races']}  Pianificati: {summary['planned_workouts']}"
     )
 
 

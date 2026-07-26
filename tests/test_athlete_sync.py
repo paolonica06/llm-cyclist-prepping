@@ -57,8 +57,51 @@ def test_sync_offline_is_clean_noop(tmp_path):
     assert summary["timeseries_points"] == 0
     assert summary["activities"] == 0
     assert summary["power_curve_points"] == 0
+    assert summary["races"] == 0
+    assert summary["planned_workouts"] == 0
     assert db.list_timeseries(a.id) == []
     assert db.list_activities(a.id) == []
+    assert db.list_races(a.id) == []
+    assert db.list_planned_workouts(a.id) == []
+
+
+def test_sync_ingests_races_and_planned_from_calendar(tmp_path):
+    from cyclist_kb.athlete_models import Race, RacePriority, make_race_id
+
+    db = _db(tmp_path)
+    a = _athlete(db)
+    agent = AthleteSyncAgent(db)
+
+    async def daily(aid, oldest=None, newest=None):
+        return []
+
+    async def acts(aid, oldest=None, newest=None):
+        return []
+
+    async def curve(aid, **kw):
+        return []
+
+    async def events(aid, oldest=None, newest=None):
+        race = Race(id=make_race_id(aid, "Zanè Monte Cengio", "2026-08-01"),
+                    athlete_id=aid, name="Zanè Monte Cengio", date="2026-08-01",
+                    priority=RacePriority.B)
+        workout = {"external_id": "99", "date": "2026-07-28", "name": "TEST CP",
+                   "type": "Ride", "load_target": 82}
+        return [race], [workout]
+
+    agent.intervals.fetch_daily = daily
+    agent.intervals.fetch_activities = acts
+    agent.intervals.fetch_power_curve = curve
+    agent.intervals.fetch_events = events
+
+    s = asyncio.run(agent.run(a.id))
+    asyncio.run(agent.run(a.id))                  # idempotente: NON duplica
+
+    assert s["races"] == 1 and s["planned_workouts"] == 1
+    assert len(db.list_races(a.id)) == 1
+    assert db.list_races(a.id)[0].priority == RacePriority.B
+    planned = db.list_planned_workouts(a.id)
+    assert len(planned) == 1 and planned[0]["load_target"] == 82
 
 
 def test_sync_ingests_power_curve(tmp_path):
