@@ -2,6 +2,37 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Protocollo decisioni atleta (coaching) — REGOLA VINCOLANTE
+
+**Trigger.** Quando l'utente (Paolo, atleta `i215294`) pone una domanda decisionale su
+allenamento/recupero/gara — es. «mi posso riposare?», «cosa faccio oggi?», «salto o
+no?», «reggo questo carico?», «come sto?» — **non** rispondere dal solo piano scritto né
+con un'opinione da buon senso. Prima di rispondere esegui SEMPRE, in quest'ordine, e
+fonda la risposta su tutto:
+
+1. **Dati misurati** — interroga `data/kb.sqlite3` → `athlete_timeseries` (athlete_id
+   `i215294`), metric_type `ctl/atl/tsb/hrv/resting_hr/sleep`(sec)/`weight/power_curve`:
+   **trend ultimi ~14 giorni**, non l'ultimo punto. Confronta con le baseline recenti
+   (HRV 54,4 ± 9,7 · RHR 50,6 ± 2,3 · alert SWC HRV < 48 · sonno target ≥ 7,5 h) —
+   ma **verifica i valori nel DB, non citarli a memoria** (possono cambiare).
+2. **Pianificato vs fatto** — `activities` (`load`=TSS, `moving_time_s`, `intensity`=IF%):
+   cosa era previsto vs cosa ha *davvero* fatto. Non assumere che il piano sia stato eseguito.
+3. **Evidenza verificata** — `wiki/topics/*.md` pertinenti (HRV-guided, sleep-recovery,
+   training-load/overtraining, tapering, ecc.), citando **confidenza e caveat**; niente
+   affermazioni non ancorate.
+4. **Storico → pattern distruttivi** — analizza lo storico completo (952+ gg) per firme
+   ricorrenti e loro *early-warning*; **segnala se il momento attuale assomiglia a una
+   firma di rischio nota** (boom-bust ~ogni 4-5 mesi, collisione esami mag-giu/nov-dic,
+   firma ramp-dig: ramp 28g > +12/15 CTL · TSB<−25 per >7-10 gg · ACWR>1,5). Watchlist
+   completa nella memory `paolo-destructive-patterns`.
+5. **Contesto strategico** — `data/report_analisi_atleta_*.md` + piano in `wiki/athlete/`.
+
+**Regole di risposta.** (a) Distingui sempre **«sei costretto a X dai dati»** da **«X è
+la scelta migliore»**. (b) Marca la provenienza come fa il piano: `studi` (evidenza) /
+`dati_atleta` (N=1) / `euristica` (giudizio). (c) Se una tua affermazione precedente è
+contraddetta dai dati, **correggila esplicitamente**. (d) Confine medico: sintomi/RED-S
+sospetto → stop + professionista, non un aggiustamento di piano.
+
 ## Routing autonomo delle skill (selezione proattiva)
 
 **Seleziona e invoca proattivamente la skill migliore in base all'intento, senza
