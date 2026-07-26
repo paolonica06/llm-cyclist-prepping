@@ -1,31 +1,38 @@
 # training load, immune function and upper respiratory tract illness risk in competitive cyclists
 
-> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-24 18:32 UTC** · Ricerca `training-load-immune-function-an-1edd91` · Studi verificati inclusi: **20**.
+> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-26 09:15 UTC** · Ricerca `training-load-immune-function-an-1c766a` · Studi verificati inclusi: **37**.
 
 Ogni affermazione è collegata ai paper che la sostengono. I record non verificati sono esclusi da questa sintesi.
 
 ## Evidenze
 
 ### VO₂max / capacità aerobica
-- The 2-min CWR test evoked a smaller decline in sprint mechanical power than the 4-min test (32% vs. 47%, p < 0.001). Physiological variables and sprint mechanical power were independently and strongly correlated between tests. Differences in VO2peak and blood lactate concentration in both tests… — [Plessis 2021](../papers/65088f6c1ac217b8.md) *(disegno: studio sperimentale crossover o a misure ripetute di validità concorrente; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- RESULTS: Lactobacillus numbers increased 7.7-fold (90% confidence limits 2.1- to 28-fold) more in males on the probiotic, while there was an unclear 2.2-fold (0.2- to 18-fold) increase in females taking the probiotic. — [Nicholas 2011](../papers/67c6536181757d91.md) *(disegno: randomized controlled trial; confidenza: high; popolazione: cycling; fonte dato: abstract)*
 
 ### Performance / potenza
-- Plank duration and push-up repetitions predicted hill TT performance time (r = 0.66, r2 = 0.44, t(2, 33) = 13.099, p < 0.001) and average cycling speed (r = 0.69, r2 = 0.48, t(2, 33) = 9.149, p < 0.001). Anthropometric parameters did not predict hill TT duration (t(2, 33) = 2.132, p = 0.070) or… — [Anon 2025](../papers/b696a12a61ee90df.md) *(disegno: studio osservazionale trasversale predittivo; confidenza: high; popolazione: cycling; fonte dato: abstract)*
-- The 2-min CWR test evoked a smaller decline in sprint mechanical power than the 4-min test (32% vs. 47%, p < 0.001). Physiological variables and sprint mechanical power were independently and strongly correlated between tests. Differences in VO2peak and blood lactate concentration in both tests… — [Plessis 2021](../papers/65088f6c1ac217b8.md) *(disegno: studio sperimentale crossover o a misure ripetute di validità concorrente; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
-- Vitamin deficiency impairs physical performance, and correcting a deficiency usually improves performance. Vitamin supplementation in an athlete consuming a well-balanced diet has generally not been shown to improve performance. Additional research was considered warranted for the vitamin B complex… — [Williams 1989](../papers/3b85c61062fbe173.md) *(disegno: revisione narrativa; confidenza: high; popolazione: mixed; fonte dato: abstract)*
+- The majority of the studies that have examined the recovery of immunoendocrine responses during 1-3 week tapers in trained athletes have mainly reported enhanced performance, often accompanied by increased anabolic activity, reduced physiological stress and restoration of mucosal immunity and… — [Elena 2013](../papers/42f66fdf0ddcbd64.md) *(disegno: unknown; confidenza: low; popolazione: mixed; fonte dato: abstract)*
+- The results found that the likelihood of suffering from an URTI increased when sIgA significantly decreased (p = 0.046). — [Tiernan 2020](../papers/762532efdd1febd2.md) *(disegno: unknown; confidenza: low; popolazione: endurance_other; fonte dato: abstract)*
+- Abstract Severe-intensity constant work rate (CWR) cycling tests are useful for monitoring training progression and adaptation as they impose significant physiological and psychological strain and thus simulate the high-intensity competition environment. — [Plessis 2021](../papers/51b041928820cf84.md) *(disegno: unknown; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- In the endurance capacity test, maximal work values were significantly increased by 30HT and 60HT. — [Suzuki 2020](../papers/4bea9707bf2cb251.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- Caffeine resulted in improved repetitions to failure (t [17]=3.119, P=0.006), greater peak blood lactate (t [17] =5.080, P=0.0001) and lower RPE (t 17=-3.431, P=0.003) compared to placebo. — [Michael 2012](../papers/728c7a57b0446d41.md) *(disegno: randomized controlled trial; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
+- Depending upon the nature of their sport, e.g., strength, speed, power, endurance, or fine motor control, athletes may use megadoses of various vitamins in attempts to increase specific metabolic processes important to improved performance. — [Williams 1989](../papers/0972a315faac8982.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- Results: Creatine users had significantly less cramping (χ 2 1 = 5.35 P = .021); heat illness or dehydration (χ 2 1 = 4.09, P = .043); muscle tightness (χ 2 1 = 5.39, P = .020); muscle strains (χ 2 1 = 5.36, P = .021); and total injuries (χ 2 1 = 17.80, P .001) than nonusers. — [Michael 2003](../papers/a1cf89f638e519a0.md) *(disegno: review; confidenza: low; popolazione: unclear; fonte dato: full_text)*
 
 ### Soglia / metabolismo
-- The 2-min CWR test evoked a smaller decline in sprint mechanical power than the 4-min test (32% vs. 47%, p < 0.001). Physiological variables and sprint mechanical power were independently and strongly correlated between tests. Differences in VO2peak and blood lactate concentration in both tests… — [Plessis 2021](../papers/65088f6c1ac217b8.md) *(disegno: studio sperimentale crossover o a misure ripetute di validità concorrente; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
-- Estimated lean body mass was 57.6 ± 3.9 kg, years training 5.9 ± 3.0 years, weekly on-bike training 16.4 ± 3.2 h, and functional threshold power 355 ± 33 W. Mean SNKQ score was 60.0 ± 8.4% and BEDA-Q score was 4.3 ± 4.1 AU. Training-day and rest-day energy availability were 16 ± 18 and 44 ± 14… — [Cook 2022](../papers/187e73541c3610ac.md) *(disegno: studio osservazionale trasversale di associazione; confidenza: high; popolazione: cycling; fonte dato: abstract)*
-- Compared with placebo, caffeine improved repetitions to failure (t[17] = 3.119, P = 0.006), increased peak blood lactate (t[17] = 5.080, P = 0.0001), reduced RPE (t[17] = −3.431, P = 0.003), and reduced muscle pain perception (t[17] = −2.567, P = 0.04). — [Michael 2012](../papers/bb30a9bcfd5779a5.md) *(disegno: trial randomizzato crossover in doppio cieco controllato con placebo; confidenza: high; popolazione: endurance_other; fonte dato: abstract)*
+- On the first day, an incremental test was performed to determine the power values for the gas exchange threshold, the ventilatory threshold (VT), and V̇O2max levels from pulmonary ventilation. — [Reinpõld 2023](../papers/1319f5b990c5f82f.md) *(disegno: unknown; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- The large, negative association between SNKQ and BEDA-Q suggests that those highly trained cyclists with less sport nutrition knowledge may be at a greater risk of an eating disorder. — [Cook 2022](../papers/5e9f49e693887eb0.md) *(disegno: cohort; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- Greater awareness of EIAE among the scientific and medical community who work with cyclists is needed to improve the efficiency and overall management of EIAE. — [Carcia 2026](../papers/9babae1643793b75.md) *(disegno: unknown; confidenza: low; popolazione: mixed; fonte dato: abstract)*
+- Caffeine resulted in improved repetitions to failure (t [17]=3.119, P=0.006), greater peak blood lactate (t [17] =5.080, P=0.0001) and lower RPE (t 17=-3.431, P=0.003) compared to placebo. — [Michael 2012](../papers/728c7a57b0446d41.md) *(disegno: randomized controlled trial; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
 
 ### Altri outcome
-- Training loads were not different between males and females. Salivary lysozyme and lactoferrin concentrations were higher in males (both P < 0.04), whereas SIgA and amylase concentrations were not. Saliva flow rates were higher in males (P < 0.03), as were secretion rates of lysozyme, lactoferrin… — [Cheng-Shiun 2014](../papers/033e4a9edce1f4ad.md) *(disegno: studio osservazionale prospettico di coorte; confidenza: high; popolazione: endurance_other; fonte dato: abstract)*
-- The maximum left ventricular wall thickness was 16 mm. Wall thickness >=13 mm occurred in 16 of 947 athletes (1.7%): 15 rowers or canoeists and 1 cyclist. It occurred in 7% of 219 rowers, canoeists and cyclists and in none of 728 participants in 22 other sports. All athletes with wall thickness… — [Antonio 1991](../papers/824aa8854d8f4d7f.md) *(disegno: studio trasversale multicentrico ecocardiografico; confidenza: high; popolazione: mixed; fonte dato: abstract)*
-- The microbiomes separated into three taxonomic clusters characterized by high Prevotella, high Bacteroides, or a mixture of genera including Bacteroides, Prevotella, Eubacterium, Ruminococcus and Akkermansia. Taxonomic cluster was not significantly associated with professional or amateur status.… — [Lauren 2017](../papers/fefd28c2dca41a28.md) *(disegno: studio pilota trasversale multi-omico; confidenza: high; popolazione: cycling; fonte dato: abstract)*
+- With increased professionalism in sport there has been a greater interest in the scientific approach to training and recovery of athletes. — [Michael 2019](../papers/35e062eda5b80a8f.md) *(disegno: unknown; confidenza: low; popolazione: mixed; fonte dato: abstract)*
+- Item - Sex differences in upper respiratory symptoms prevalence and oral-respiratory mucosal immunity in endurance athletes - Loughborough University - Figshare Skip to main content Browse Browse and Search Search… — [Cheng-Shiun 2014](../papers/00428d31f24961c1.md) *(disegno: review; confidenza: low; popolazione: endurance_other; fonte dato: full_text)*
+- In this pilot study, we used metagenomic whole genome shotgun (mWGS) and metatranscriptomic (RNA-Seq) sequencing to show what organisms are both present and active in the gut microbiomes of both professional and amateur level competitive cyclists and to determine if any significant differences… — [Lauren 2017](../papers/34cb9cbd010d7f6c.md) *(disegno: unknown; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- Results Block2 showed significantly lower $${\dot{\text{V}}\text{O}}_{{2}}$$ peak (β = − 2.51 mL·kg⁻¹·min⁻¹) and Wmax (β = − 24.3 W) values. — [Rayo 2026](../papers/3853b30cf36be580.md) *(disegno: unknown; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
 
 ## Risultati contrastanti
 
+- **Performance / potenza**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
 - **Soglia / metabolismo**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
 - **Altri outcome**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
 
@@ -33,44 +40,62 @@ Ogni affermazione è collegata ai paper che la sostengono. I record non verifica
 
 > Sintesi derivata dagli studi elencati in *Evidenze* e *Studi inclusi* (che riportano i collegamenti ai singoli paper).
 
-Le evidenze fornite consentono solo un’interpretazione limitata del rapporto tra carico di allenamento, funzione immunitaria e rischio di sintomi o malattia delle alte vie respiratorie nei ciclisti competitivi. Lo studio più direttamente pertinente (Cheng-Shiun 2014) non rileva differenze di carico tra sessi né differenze significative nel tasso di secrezione della SIgA o nel numero medio di episodi respiratori; tuttavia, le donne presentano concentrazioni o secrezioni inferiori di alcuni fattori salivari antimicrobici, più neutrofili circolanti e una maggiore durata complessiva dei sintomi e dei singoli episodi. Ciò suggerisce possibili differenze sessuali nella difesa mucosale o nella persistenza dei sintomi, ma non dimostra che un carico elevato provochi immunodepressione o aumenti l’incidenza delle infezioni: mancano causalità, conferma eziologica infettiva e una chiara relazione dose-risposta con il carico. Gli altri studi descritti riguardano soprattutto microbioma, disponibilità energetica, prestazione, caffeina, vitamine o adattamenti cardiaci e non verificano direttamente l’associazione in esame. Il microbioma correlato al volume di esercizio (Lauren 2017) indica adattamenti metabolici, non un effetto immunitario o respiratorio dimostrato; la bassa disponibilità energetica nei giorni di allenamento (Cook 2022) rappresenta un possibile cofattore biologicamente plausibile, ma nello studio non è collegata a esiti immunitari o respiratori. Gli studi senza risultati riportati e con confidenza bassa non permettono di colmare queste lacune. Nel complesso, il dataset è compatibile con l’ipotesi che carichi elevati, recupero insufficiente e disponibilità energetica ridotta possano interagire con la funzione immunitaria, ma non la conferma nei ciclisti competitivi; restano elevati il rischio di confondimento, l’eterogeneità degli indicatori immunitari e l’incertezza nel distinguere infezioni da sintomi respiratori non infettivi.
+La base attuale include 37 studi verificati (1 ad alta confidenza). Su alcuni outcome (Performance / potenza, Soglia / metabolismo, Altri outcome) l'evidenza è eterogenea: le differenze possono dipendere da protocollo, livello degli atleti e durata. Molti dati provengono da soli abstract: le conclusioni vanno considerate provvisorie e riviste all'arrivo di full text e nuovi studi.
 
 ## Applicazione pratica
 
 > Indicazioni orientative, da adattare al singolo atleta (vedi Athlete Context Agent). Non costituiscono prescrizioni.
 
-- **VO₂max / capacità aerobica**: evidenza non conclusiva (0/1 positivi); evitare generalizzazioni. Studi: [Plessis 2021](../papers/65088f6c1ac217b8.md).
-- **Performance / potenza**: evidenza non conclusiva (0/3 positivi); evitare generalizzazioni. Studi: [Anon 2025](../papers/b696a12a61ee90df.md), [Plessis 2021](../papers/65088f6c1ac217b8.md), [Williams 1989](../papers/3b85c61062fbe173.md).
-- **Soglia / metabolismo**: evidenza non conclusiva (0/3 positivi); evitare generalizzazioni. Studi: [Plessis 2021](../papers/65088f6c1ac217b8.md), [Cook 2022](../papers/187e73541c3610ac.md), [Michael 2012](../papers/bb30a9bcfd5779a5.md).
-- **Altri outcome**: evidenza non conclusiva (0/3 positivi); evitare generalizzazioni. Studi: [Cheng-Shiun 2014](../papers/033e4a9edce1f4ad.md), [Antonio 1991](../papers/824aa8854d8f4d7f.md), [Lauren 2017](../papers/fefd28c2dca41a28.md).
+- **VO₂max / capacità aerobica**: la maggioranza degli studi (1/1) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Nicholas 2011](../papers/67c6536181757d91.md).
+- **Performance / potenza**: evidenza non conclusiva (2/7 positivi); evitare generalizzazioni. Studi: [Elena 2013](../papers/42f66fdf0ddcbd64.md), [Tiernan 2020](../papers/762532efdd1febd2.md), [Plessis 2021](../papers/51b041928820cf84.md), [Suzuki 2020](../papers/4bea9707bf2cb251.md), [Michael 2012](../papers/728c7a57b0446d41.md), [Williams 1989](../papers/0972a315faac8982.md), [Michael 2003](../papers/a1cf89f638e519a0.md).
+- **Soglia / metabolismo**: la maggioranza degli studi (2/4) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Reinpõld 2023](../papers/1319f5b990c5f82f.md), [Cook 2022](../papers/5e9f49e693887eb0.md), [Carcia 2026](../papers/9babae1643793b75.md), [Michael 2012](../papers/728c7a57b0446d41.md).
+- **Altri outcome**: evidenza non conclusiva (1/4 positivi); evitare generalizzazioni. Studi: [Michael 2019](../papers/35e062eda5b80a8f.md), [Cheng-Shiun 2014](../papers/00428d31f24961c1.md), [Lauren 2017](../papers/34cb9cbd010d7f6c.md), [Rayo 2026](../papers/3853b30cf36be580.md).
 
 ## Studi inclusi
 
 | Studio | Anno | Disegno | Qualità | Confidenza | Trasferibilità | Fonte dato |
 |---|---|---|---|---|---|---|
-| [Anon 2025](../papers/b696a12a61ee90df.md) | 2025 | studio osservazionale trasversale predittivo | moderate | high | high | abstract |
-| [Cook 2022](../papers/187e73541c3610ac.md) | 2022 | studio osservazionale trasversale di associazione | moderate | high | high | abstract |
-| [Plessis 2021](../papers/65088f6c1ac217b8.md) | 2021 | studio sperimentale crossover o a misure ripetute di validità concorrente | moderate | moderate | high | abstract |
-| [Natur 2020](../papers/f36d01f73456c6c2.md) | 2020 | studio acuto comparativo osservazionale | low | low | moderate | not_available |
-| [Christensen 2019](../papers/b8e017ac1713f5b5.md) | 2019 | studio sperimentale controllato sull'integrazione | moderate | low | high | not_available |
-| [Lauren 2017](../papers/fefd28c2dca41a28.md) | 2017 | studio pilota trasversale multi-omico | low | high | moderate | abstract |
-| [Cheng-Shiun 2014](../papers/033e4a9edce1f4ad.md) | 2014 | studio osservazionale prospettico di coorte | moderate | high | moderate | abstract |
-| [Ferrari 2013](../papers/5e9df3dc4a4f4c97.md) | 2013 | studio longitudinale osservazionale stagionale | moderate | low | high | not_available |
-| [Cavaglieri 2012](../papers/d000cdf8ac9522c8.md) | 2012 | studio longitudinale osservazionale durante un periodo preparatorio | low | low | moderate | not_available |
-| [Daryl 2012](../papers/7e170d0be8b55c1c.md) | 2012 | studio sperimentale acuto di supplementazione nutrizionale | moderate | low | high | not_available |
-| [Michael 2012](../papers/bb30a9bcfd5779a5.md) | 2012 | trial randomizzato crossover in doppio cieco controllato con placebo | high | high | low | abstract |
-| [Cavaglieri 2011](../papers/95ced11ef500d907.md) | 2011 | studio osservazionale di monitoraggio in atleti di pallavolo | low | low | low | not_available |
-| [Ulrich 2011](../papers/08101fa0a5779502.md) | 2011 | studio osservazionale comparativo trasversale | low | low | moderate | not_available |
-| [Whitham 2006](../papers/dc5fdb3733d2bcc3.md) | 2006 | studio prospettico osservazionale in ambito militare | low | low | low | not_available |
-| [Michael 2003](../papers/d7ce5a210b51bcbc.md) | 2003 | studio osservazionale prospettico di coorte non randomizzato | low | moderate | low | full_text |
-| [Taylor 2000](../papers/2311b6c7a4e3449e.md) | 2000 | studio osservazionale comparativo trasversale | low | low | moderate | not_available |
-| [Christopher 1997](../papers/4f4b98a73e566aa9.md) | 1997 | studio di intervento con interval training | moderate | low | high | not_available |
-| [Nieman 1993](../papers/be2cd31a09c397e2.md) | 1993 | revisione narrativa o articolo di sintesi | low | low | low | not_available |
-| [Antonio 1991](../papers/824aa8854d8f4d7f.md) | 1991 | studio trasversale multicentrico ecocardiografico | moderate | high | moderate | abstract |
-| [Williams 1989](../papers/3b85c61062fbe173.md) | 1989 | revisione narrativa | low | high | moderate | abstract |
+| [Rayo 2026](../papers/3853b30cf36be580.md) | 2026 | unknown | moderate | moderate | high | abstract |
+| [Carcia 2026](../papers/9babae1643793b75.md) | 2026 | unknown | low | low | moderate | abstract |
+| [Reinpõld 2023](../papers/1319f5b990c5f82f.md) | 2023 | unknown | moderate | moderate | high | abstract |
+| [Cook 2022](../papers/5e9f49e693887eb0.md) | 2022 | cohort | low | moderate | high | abstract |
+| [Anon 2022](../papers/d7efc72ebaa9daf7.md) | 2022 | unknown | low | low | low | not_available |
+| [Plessis 2021](../papers/51b041928820cf84.md) | 2021 | unknown | moderate | moderate | high | abstract |
+| [CICCHELLA 2020](../papers/7bb949d257dc4779.md) | 2020 | review | low | low | moderate | abstract |
+| [Natur 2020](../papers/3ab6d8110021e5d6.md) | 2020 | unknown | low | low | high | not_available |
+| [Tiernan 2020](../papers/762532efdd1febd2.md) | 2020 | unknown | low | low | low | abstract |
+| [Suzuki 2020](../papers/4bea9707bf2cb251.md) | 2020 | unknown | low | low | low | abstract |
+| [Michael 2019](../papers/35e062eda5b80a8f.md) | 2019 | unknown | low | low | moderate | abstract |
+| [Christensen 2019](../papers/df16a5639c309d37.md) | 2019 | unknown | low | low | high | not_available |
+| [John 2018](../papers/2dfd6f23c89145a7.md) | 2018 | review | low | low | moderate | abstract |
+| [Lauren 2017](../papers/34cb9cbd010d7f6c.md) | 2017 | unknown | moderate | moderate | high | abstract |
+| [Somerville 2016](../papers/6f85a75941723504.md) | 2016 | meta-analysis | low | moderate | moderate | not_available |
+| [Gillespie 2015](../papers/4264f9a921a6309a.md) | 2015 | unknown | low | low | high | not_available |
+| [Cheng-Shiun 2014](../papers/00428d31f24961c1.md) | 2014 | review | low | low | low | full_text |
+| [Kristoffersen 2014](../papers/4b0b456dc6f6aceb.md) | 2014 | unknown | low | low | moderate | not_available |
+| [Hessling 2014](../papers/1c55c68397df09e9.md) | 2014 | unknown | low | low | low | not_available |
+| [Elena 2013](../papers/42f66fdf0ddcbd64.md) | 2013 | unknown | low | low | moderate | abstract |
+| [Ferrari 2013](../papers/591d833755a9b177.md) | 2013 | unknown | low | low | high | not_available |
+| [Lamberts 2013](../papers/36d9c7a0a6e4a43b.md) | 2013 | unknown | low | low | moderate | not_available |
+| [Cavaglieri 2012](../papers/60502c8141ebe6da.md) | 2012 | unknown | low | low | moderate | not_available |
+| [Michael 2012](../papers/728c7a57b0446d41.md) | 2012 | randomized controlled trial | moderate | moderate | low | abstract |
+| [Nicholas 2011](../papers/67c6536181757d91.md) | 2011 | randomized controlled trial | high | high | high | abstract |
+| [Ferraro 2011](../papers/ac6efcb4c94c95f9.md) | 2011 | unknown | low | low | high | not_available |
+| [Cavaglieri 2011](../papers/6eb955169a722105.md) | 2011 | unknown | low | low | low | not_available |
+| [Brandtzaeg 2010](../papers/40723a16a7687a11.md) | 2010 | unknown | low | low | low | abstract |
+| [Whitham 2006](../papers/9c82b6b9f2ad44f1.md) | 2006 | unknown | low | low | low | not_available |
+| [Anon 2004](../papers/502d406edab2b917.md) | 2004 | unknown | low | low | low | not_available |
+| [Michael 2003](../papers/a1cf89f638e519a0.md) | 2003 | review | moderate | low | low | full_text |
+| [Nieman 1993](../papers/4fb6d5fbd16ef0f3.md) | 1993 | unknown | low | low | moderate | not_available |
+| [Häkkinen 1989](../papers/39c61521a41150b8.md) | 1989 | unknown | low | low | low | not_available |
+| [Williams 1989](../papers/0972a315faac8982.md) | 1989 | unknown | low | low | low | abstract |
+| [Vickers 1988](../papers/1ce07f78a70597ff.md) | 1988 | unknown | low | low | low | not_available |
+| [King 1982](../papers/43c1294f436b5133.md) | 1982 | unknown | low | low | high | not_available |
+| [Shing s.d.](../papers/64e584b77277b3de.md) | ? | unknown | low | low | high | not_available |
 
 ## Cronologia aggiornamenti
 
+- **2026-07-26 09:15 UTC** — ricerca `training-load-immune-function-an-1c766a`: 37 studi verificati sintetizzati (query: 4, grezzi: 275).
 - **2026-07-24 18:32 UTC** — ricerca `training-load-immune-function-an-1edd91`: 20 studi verificati sintetizzati (query: 4, grezzi: 275).
 - **2026-07-24 16:34 UTC** — ricerca `training-load-immune-function-an-1edd91`: 3 studi verificati sintetizzati (query: 4, grezzi: 275).
 - **2026-07-24 09:47 UTC** — ricerca `training-load-immune-function-an-1edd91`: 22 studi verificati sintetizzati (query: 4, grezzi: 275).
