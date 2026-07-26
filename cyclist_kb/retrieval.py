@@ -8,9 +8,10 @@ Vedi `docs/specs/fase-c-retrieval-rag.md`, `docs/adr/0005`, `CONTEXT.md`.
 
 from __future__ import annotations
 
+import json
 import math
 from collections import Counter
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -28,6 +29,8 @@ DEFAULT_K = 8
 
 _QL = {QualityLevel.LOW: 0.0, QualityLevel.MODERATE: 1.0, QualityLevel.HIGH: 2.0}
 
+_RERANK_SYSTEM = "Sei un bibliotecario scientifico. Rispondi SOLO con JSON valido."
+
 
 class RetrievalResult(BaseModel):
     record: PaperRecord
@@ -37,6 +40,19 @@ class RetrievalResult(BaseModel):
     score: float
     direction: str                     # positive | null | negative | mixed | unclear
     signals: Dict[str, object] = Field(default_factory=dict)
+    rerank_score: Optional[float] = None   # pertinenza semantica LLM (tier opzionale)
+
+
+def _sort_key(r: RetrievalResult):
+    """Chiave di ordinamento unica per l'intero retriever.
+
+    Il tier di rerank LLM (opzionale) è additivo: quando valorizza `rerank_score`,
+    domina; altrimenti si ricade sullo `score` deterministico. Usare la STESSA
+    chiave nel sort iniziale e in `_conflict_aware` garantisce che il rerank non
+    venga silenziosamente annullato dal riordino finale.
+    """
+    primary = r.rerank_score if r.rerank_score is not None else r.score
+    return (primary, r.score, r.relevance)
 
 
 # --------------------------------------------------------------------------- #
@@ -146,7 +162,16 @@ def direction_of(rec: PaperRecord) -> str:
 # --------------------------------------------------------------------------- #
 # Retrieve (conflict-aware)
 # --------------------------------------------------------------------------- #
-def retrieve(db, query: str, athlete=None, k: int = DEFAULT_K) -> List[RetrievalResult]:
+def retrieve(db, query: str, athlete=None, k: int = DEFAULT_K,
+             rerank: bool = False, llm=None) -> List[RetrievalResult]:
+    """Recupera l'evidenza verificata pertinente, conflict-aware.
+
+    `rerank=True` attiva il tier opzionale di rerank LLM/semantico sopra il ranking
+    lessicale deterministico: se un LLM è disponibile riordina i candidati per
+    pertinenza semantica alla query, altrimenti degrada in modo pulito all'ordine
+    deterministico (offline → risultato identico a `rerank=False`). `llm` è
+    iniettabile per i test; se None si usa il client globale.
+    """
     pool = verified_pool(db)
     idf = build_idf(pool)
     qtok = expand_query(query)
@@ -164,8 +189,55 @@ def retrieve(db, query: str, athlete=None, k: int = DEFAULT_K) -> List[Retrieval
             direction=direction_of(rec),
             signals={"population": pop, "verified": True},
         ))
-    results.sort(key=lambda r: (r.score, r.relevance), reverse=True)
+    if rerank:
+        _llm_rerank(query, results, llm)                 # valorizza rerank_score in-place (o no-op)
+    results.sort(key=_sort_key, reverse=True)
     return _conflict_aware(results, k)
+
+
+def _llm_rerank(query: str, results: List[RetrievalResult], llm=None) -> bool:
+    """Tier opzionale: chiede all'LLM un punteggio di pertinenza semantica per ogni
+    candidato e lo scrive in `rerank_score`. Ritorna True se ha rerankato, False
+    (no-op) se offline/errore — mai un'eccezione (degradazione, come gli agenti)."""
+    if not results:
+        return False
+    if llm is None:
+        from .llm import get_llm
+        llm = get_llm()
+    if not getattr(llm, "available", False):
+        return False
+    payload = [
+        {"id": r.record.id, "title": r.record.title or "",
+         "abstract": (r.record.abstract or "")[:280]}
+        for r in results
+    ]
+    prompt = (
+        f"Query dell'atleta: «{query}».\n"
+        f"Studi candidati (già filtrati come pertinenti e verificati): "
+        f"{json.dumps(payload, ensure_ascii=False)}\n"
+        "Assegna a ciascuno studio un punteggio di pertinenza SEMANTICA alla query "
+        "fra 0.0 (irrilevante) e 1.0 (centratissimo), considerando popolazione, "
+        "intervento ed esito.\n"
+        'Rispondi con JSON: {"scores": {"<id>": 0.0}}'
+    )
+    try:
+        data = llm.complete_json(prompt=prompt, system=_RERANK_SYSTEM)
+    except Exception:
+        return False
+    if not isinstance(data, dict):
+        return False
+    scores = data.get("scores")
+    if not isinstance(scores, dict):
+        return False
+    touched = False
+    for r in results:
+        raw = scores.get(r.record.id)
+        try:
+            r.rerank_score = float(raw)
+            touched = True
+        except (TypeError, ValueError):
+            r.rerank_score = 0.0                         # candidato non citato → in coda
+    return touched
 
 
 def _conflict_aware(results: List[RetrievalResult], k: int) -> List[RetrievalResult]:
@@ -176,7 +248,7 @@ def _conflict_aware(results: List[RetrievalResult], k: int) -> List[RetrievalRes
     chosen = {id(r) for r in top}
 
     def best(pred):
-        for r in results:                                # results è già ordinato per score
+        for r in results:                                # results è già ordinato per _sort_key
             if pred(r.direction):
                 return r
         return None
@@ -191,5 +263,5 @@ def _conflict_aware(results: List[RetrievalResult], k: int) -> List[RetrievalRes
                     top.append(cand)
                 chosen.add(id(cand))
 
-    top.sort(key=lambda r: (r.score, r.relevance), reverse=True)
+    top.sort(key=_sort_key, reverse=True)
     return top

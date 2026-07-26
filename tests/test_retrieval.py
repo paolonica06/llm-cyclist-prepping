@@ -92,6 +92,50 @@ def test_conflict_aware_surfaces_both_directions(tmp_path):
     assert "null" in dirs or "negative" in dirs            # la faccia opposta è comunque presente
 
 
+class _FakeLLM:
+    """LLM fittizio per il tier di rerank: ritorna gli scores forniti."""
+
+    def __init__(self, scores):
+        self.available = True
+        self._scores = scores
+
+    def complete_json(self, prompt, system=None, max_tokens=None):
+        return {"scores": self._scores}
+
+
+def test_rerank_offline_is_identity(tmp_path):
+    # Offline (nessun LLM): rerank=True degrada all'ordine deterministico.
+    recs = [
+        _rec("Interval training VO2max cyclists one", "interval training VO2max cyclists", doi="10.1/a"),
+        _rec("Interval training VO2max cyclists two", "interval training VO2max cyclists", doi="10.1/b",
+             conf=QualityLevel.MODERATE),
+    ]
+    db = _db(tmp_path, recs)
+    base = [r.record.doi for r in retrieve(db, "interval training VO2max")]
+    reranked = [r.record.doi for r in retrieve(db, "interval training VO2max", rerank=True)]
+    assert base == reranked
+
+
+def test_rerank_llm_reorders_by_semantic_score(tmp_path):
+    # Con un LLM disponibile, il rerank riordina per pertinenza semantica anche
+    # quando lo score deterministico direbbe il contrario.
+    recs = [
+        _rec("Interval training VO2max cyclists high-quality",
+             "interval training VO2max cyclists", doi="10.1/hi"),
+        _rec("Interval training VO2max cyclists low-quality",
+             "interval training VO2max cyclists", doi="10.1/lo",
+             conf=QualityLevel.LOW, method=QualityLevel.LOW),
+    ]
+    db = _db(tmp_path, recs)
+    hi_id = make_record_id("r1", doi="10.1/hi", title="Interval training VO2max cyclists high-quality")
+    lo_id = make_record_id("r1", doi="10.1/lo", title="Interval training VO2max cyclists low-quality")
+    # Deterministico: hi (alta qualità) davanti. Il rerank premia lo, che passa in testa.
+    llm = _FakeLLM({hi_id: 0.1, lo_id: 0.9})
+    out = retrieve(db, "interval training VO2max", rerank=True, llm=llm)
+    assert out[0].record.doi == "10.1/lo"
+    assert out[0].rerank_score == 0.9
+
+
 def test_deterministic_same_query_same_order(tmp_path):
     recs = [
         _rec("Interval training VO2max cyclists one", "interval training VO2max cyclists", doi="10.1/a"),

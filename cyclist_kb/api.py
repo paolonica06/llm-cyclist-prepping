@@ -18,6 +18,7 @@ from .agents.athlete import load_profile
 from .db import Database
 from .models import PaperRecord, RecordState, Research
 from .pipeline import Pipeline, ResearchNotFound
+from .retrieval import RetrievalResult, retrieve
 
 app = FastAPI(title="Cyclist KB", version="0.1.0",
               description="Knowledge base scientifica ciclistica auto-mantenuta (MVP).")
@@ -38,6 +39,13 @@ class RunRequest(BaseModel):
 
 class AthleteRequest(BaseModel):
     profile_path: str
+
+
+class RetrieveRequest(BaseModel):
+    query: str
+    athlete_id: Optional[str] = None
+    k: int = 8
+    rerank: bool = False
 
 
 def _research_or_404(research_id: str) -> Research:
@@ -133,6 +141,18 @@ def athlete(research_id: str, req: AthleteRequest) -> dict:
         raise HTTPException(status_code=400, detail="Profilo atleta non trovato.")
     except (ValidationError, yaml.YAMLError, json.JSONDecodeError) as exc:
         raise HTTPException(status_code=422, detail=f"Profilo atleta non valido: {exc}")
+
+
+@app.post("/retrieve", response_model=List[RetrievalResult])
+def retrieve_endpoint(req: RetrieveRequest) -> List[RetrievalResult]:
+    """Fase C: interroga il pozzo di evidenza verificata (conflict-aware).
+
+    `rerank=True` attiva il tier LLM opzionale (degrada all'ordine deterministico
+    se nessun LLM è disponibile).
+    """
+    db = Database()
+    ath = db.get_athlete(req.athlete_id) if req.athlete_id else None
+    return retrieve(db, req.query, athlete=ath, k=req.k, rerank=req.rerank)
 
 
 @app.post("/research/run", response_model=Research)

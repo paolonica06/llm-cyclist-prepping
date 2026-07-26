@@ -202,13 +202,14 @@ def retrieve(
     query: str = typer.Argument(..., help="Interrogazione (libera o derivata dallo stato atleta)."),
     athlete: Optional[str] = typer.Option(None, "--athlete", help="Id atleta per la personalizzazione."),
     k: int = typer.Option(8, "--k", help="Numero di studi da restituire."),
+    rerank: bool = typer.Option(False, "--rerank", help="Tier LLM opzionale (degrada offline)."),
 ):
     """Interroga il pozzo di evidenza verificata (Fase C): studi pertinenti, pesati, conflict-aware."""
     from .retrieval import retrieve as _retrieve
 
     db = Database()
     ath = db.get_athlete(athlete) if athlete else None
-    results = _retrieve(db, query, athlete=ath, k=k)
+    results = _retrieve(db, query, athlete=ath, k=k, rerank=rerank)
     if not results:
         typer.secho("Nessuno studio verificato pertinente.", fg=typer.colors.YELLOW)
         return
