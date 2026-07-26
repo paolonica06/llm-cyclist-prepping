@@ -306,6 +306,7 @@ class TrainingPlan(BaseModel):
     target_metric_date: Optional[str] = None
     supersedes_id: Optional[str] = None
     notes: Optional[str] = None
+    narrative: Optional[str] = None           # spiegazione discorsiva "da preparatore" (Fase D)
 
     def next_version(self, *, valid_from: Optional[str] = None,
                      status: PlanStatus = PlanStatus.ACTIVE) -> "TrainingPlan":

@@ -294,3 +294,56 @@ def test_medical_boundary_flag_absent_with_benign_constraint(tmp_path, monkeypat
     # il disclaimer strutturale 'ipotesi' rimane sempre
     assert "ipotesi" in plan.notes.lower(), \
         "il disclaimer strutturale 'ipotesi' deve sempre comparire"
+
+
+# --------------------------------------------------------------------------- #
+# Fase D (chiusura) — narrativa "da preparatore" ricca, con fallback offline
+# --------------------------------------------------------------------------- #
+def test_run_offline_generates_heuristic_narrative(tmp_path, monkeypatch):
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete(db)
+    goal = MetricGoal(metric_type=MetricType.FTP, target=340.0, target_date="2026-09-30")
+    plan = CoachAgent(db).run(ath, goal)
+    assert plan.narrative, "run() offline deve generare una narrativa deterministica"
+    low = plan.narrative.lower()
+    assert "ftp" in low                              # cita l'obiettivo
+    assert "340" in plan.narrative                   # il valore-target compare
+    assert "provenienza" in low                      # marca la provenienza (protocollo)
+    assert "ipotesi" in low                          # chiude col disclaimer strutturale
+
+
+def test_run_uses_llm_narrative_when_available(tmp_path, monkeypatch):
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete(db)
+
+    def factory():
+        c = LLMClient()
+        c._available = True
+        c._backend = "anthropic"
+        c.complete_json = lambda *a, **k: None       # nessun piano LLM → euristico
+        c.complete_text = lambda *a, **k: "NARRATIVA RICCA DAL MODELLO."
+        return c
+    monkeypatch.setattr("cyclist_kb.agents.coach.get_llm", factory)
+
+    goal = MetricGoal(metric_type=MetricType.FTP, target=340.0, target_date="2026-09-30")
+    plan = CoachAgent(db).run(ath, goal)
+    assert plan.narrative == "NARRATIVA RICCA DAL MODELLO."
+
+
+def test_llm_narrative_falls_back_to_heuristic_on_none(tmp_path, monkeypatch):
+    # complete_text ritorna None (errore/offline) → narrativa euristica, mai vuota.
+    db = _db(tmp_path, monkeypatch)
+    ath = _seed_athlete(db)
+
+    def factory():
+        c = LLMClient()
+        c._available = True
+        c._backend = "anthropic"
+        c.complete_json = lambda *a, **k: None
+        c.complete_text = lambda *a, **k: None
+        return c
+    monkeypatch.setattr("cyclist_kb.agents.coach.get_llm", factory)
+
+    goal = MetricGoal(metric_type=MetricType.FTP, target=340.0, target_date="2026-09-30")
+    plan = CoachAgent(db).run(ath, goal)
+    assert plan.narrative and "ipotesi" in plan.narrative.lower()

@@ -251,7 +251,7 @@ def _raise(rid: str):
 # --------------------------------------------------------------------------- #
 
 def _print_plan(plan) -> None:
-    """Stampa id, status, obiettivo e numero di blocchi del piano."""
+    """Stampa id, status, obiettivo, numero di blocchi e narrativa del piano."""
     typer.echo(f"Piano: {plan.id}")
     typer.echo(f"  Status: {plan.status.value}")
     if plan.target_metric_type:
@@ -260,6 +260,10 @@ def _print_plan(plan) -> None:
             f" entro {plan.target_metric_date}"
         )
     typer.echo(f"  Blocchi: {len(plan.blocks)}")
+    if plan.narrative:
+        typer.echo("  Narrativa:")
+        for line in plan.narrative.splitlines():
+            typer.echo(f"    {line}")
 
 
 @app.command()

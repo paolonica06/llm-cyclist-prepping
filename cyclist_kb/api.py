@@ -15,9 +15,12 @@ from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel, ValidationError
 
 from .agents.athlete import load_profile
+from .athlete_models import (MetricGoal, MetricType, TrainingPlan,
+                            TransferabilityMemo)
 from .db import Database
 from .models import PaperRecord, RecordState, Research
-from .pipeline import Pipeline, ResearchNotFound
+from .pipeline import (AthleteNotFound, Pipeline, PlanNotFound, PlanStateError,
+                      ResearchNotFound)
 from .retrieval import RetrievalResult, retrieve
 
 app = FastAPI(title="Cyclist KB", version="0.1.0",
@@ -46,6 +49,14 @@ class RetrieveRequest(BaseModel):
     athlete_id: Optional[str] = None
     k: int = 8
     rerank: bool = False
+
+
+class CoachRequest(BaseModel):
+    metric: str = "ftp"
+    to: float
+    by: str                                   # data-obiettivo ISO YYYY-MM-DD
+    start: Optional[float] = None             # valore di partenza (opzionale)
+    profile_path: Optional[str] = None
 
 
 def _research_or_404(research_id: str) -> Research:
@@ -153,6 +164,70 @@ def retrieve_endpoint(req: RetrieveRequest) -> List[RetrievalResult]:
     db = Database()
     ath = db.get_athlete(req.athlete_id) if req.athlete_id else None
     return retrieve(db, req.query, athlete=ath, k=req.k, rerank=req.rerank)
+
+
+# --------------------------------------------------------------------------- #
+# Fase D: CoachAgent (piano vivo verso obiettivo metrico datato)
+# --------------------------------------------------------------------------- #
+@app.post("/coach/{athlete_id}", response_model=TrainingPlan)
+def coach(athlete_id: str, req: CoachRequest) -> TrainingPlan:
+    """Genera un piano PROPOSED verso l'obiettivo metrico datato (proponi-poi-approva)."""
+    try:
+        goal = MetricGoal(metric_type=MetricType(req.metric), target=req.to,
+                          target_date=req.by, start=req.start)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=f"Grandezza obiettivo non valida: {exc}")
+    profile = Path(req.profile_path) if req.profile_path else None
+    try:
+        return pipeline().coach(athlete_id, goal, profile)
+    except AthleteNotFound as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+
+
+@app.post("/coach/accept/{plan_id}", response_model=TrainingPlan)
+def coach_accept(plan_id: str) -> TrainingPlan:
+    """Promuove un piano PROPOSED → ACTIVE."""
+    try:
+        return pipeline().coach_accept(plan_id)
+    except PlanNotFound as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+    except PlanStateError as exc:
+        raise HTTPException(status_code=409, detail=str(exc))
+
+
+@app.post("/coach/adapt/{athlete_id}", response_model=TrainingPlan)
+def coach_adapt(athlete_id: str) -> TrainingPlan:
+    """Loop veloce: adatta il microciclo entrante e propone una nuova versione PROPOSED."""
+    try:
+        return pipeline().coach_adapt(athlete_id)
+    except AthleteNotFound as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+    except PlanStateError as exc:
+        raise HTTPException(status_code=409, detail=str(exc))
+
+
+@app.post("/coach/assess/{athlete_id}/{plan_id}/{block_id}",
+          response_model=TransferabilityMemo)
+def coach_assess(athlete_id: str, plan_id: str, block_id: str) -> TransferabilityMemo:
+    """Loop lento: valuta un blocco eseguito → TransferabilityMemo (N=1)."""
+    try:
+        return pipeline().coach_assess(athlete_id, plan_id, block_id)
+    except PlanNotFound as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+    except PlanStateError as exc:
+        raise HTTPException(status_code=409, detail=str(exc))
+
+
+@app.get("/coach/plans/{athlete_id}", response_model=List[TrainingPlan])
+def coach_plans(athlete_id: str, status: Optional[str] = Query(None)) -> List[TrainingPlan]:
+    """Elenca i piani dell'atleta (filtro `status` opzionale: proposed/active/superseded)."""
+    return Database().list_plans(athlete_id, status=status)
+
+
+@app.get("/coach/memos/{athlete_id}", response_model=List[TransferabilityMemo])
+def coach_memos(athlete_id: str, block_id: Optional[str] = Query(None)) -> List[TransferabilityMemo]:
+    """Elenca i memo di trasferibilità dell'atleta (filtro `block_id` opzionale)."""
+    return Database().list_memos(athlete_id, block_id=block_id)
 
 
 @app.post("/research/run", response_model=Research)

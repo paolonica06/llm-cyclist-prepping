@@ -35,6 +35,12 @@ _CONFLICT_DIRECTIONS = {"negative", "mixed"}
 
 _DISCLAIMER = "Questo è un piano-ipotesi generato automaticamente, non una prescrizione medica."
 
+_NARRATIVE_SYSTEM = ("Sei un preparatore ciclistico scientifico e onesto. Rispondi in "
+                    "italiano, in modo discorsivo e concreto, senza inventare numeri.")
+
+_PROV_LABEL = {"study": "sostenuto da studi", "athlete_data": "dai tuoi dati",
+               "heuristic": "scelta euristica"}
+
 
 class CoachAgent:
     def __init__(self, db: Database) -> None:
@@ -54,6 +60,7 @@ class CoachAgent:
         if plan is None:
             plan = self._heuristic_generate_plan(athlete_id, goal, start, prev_active)
         self._apply_guardrails_and_disclaimer(plan, profile)
+        plan.narrative = self._narrate(plan, profile)
         plan.status = PlanStatus.PROPOSED
         if prev_active is not None:
             plan.supersedes_id = prev_active.id
@@ -107,6 +114,7 @@ class CoachAgent:
                        "entrante confermato (proponi-poi-approva).")
             new.notes = (new.notes + "\n" + neutral) if new.notes else neutral
 
+        new.narrative = self._narrate(new, None, adaptation=caveat)
         new.supersedes_id = plan.id
         # Marca SUPERSEDED i PROPOSED pendenti sotto i LORO id (ora distinti da `new`):
         # preservati append-only, non sovrascritti. Poi salva la nuova proposta.
@@ -278,6 +286,92 @@ class CoachAgent:
             notes.append(med)
         plan.notes = ("\n".join(notes) if not plan.notes
                       else plan.notes + "\n" + "\n".join(notes))
+
+    # -- Narrativa "da preparatore" (ricca, con fallback deterministico) --- #
+    def _narrate(self, plan: TrainingPlan, profile,
+                 adaptation: Optional[str] = None) -> str:
+        """Spiegazione discorsiva del piano. Ramo LLM se disponibile, altrimenti
+        una narrativa euristica deterministica (mai un'eccezione). Marca la
+        provenienza come impone il protocollo: `studi` per la struttura citata,
+        `dati_atleta`/`euristica` per i numeri."""
+        text = None
+        if self.llm.available:
+            text = self._llm_narrative(plan, profile, adaptation)
+        return text or self._heuristic_narrative(plan, adaptation)
+
+    def _heuristic_narrative(self, plan: TrainingPlan,
+                             adaptation: Optional[str] = None) -> str:
+        lines: List[str] = []
+        if plan.target_metric_type is not None:
+            start = plan.target_metric_start
+            start_txt = f"da {start:g} " if start is not None else ""
+            lines.append(
+                f"Obiettivo: {plan.target_metric_type.value} {start_txt}"
+                f"→ {plan.target_metric_value:g} entro {plan.target_metric_date}."
+            )
+        n_study = sum(1 for b in plan.blocks
+                      if b.provenance == ProvenanceKind.STUDY)
+        lines.append(
+            f"Struttura: {len(plan.blocks)} blocchi periodizzati a ritroso "
+            f"({n_study} con struttura sostenuta da studi verificati)."
+        )
+        for b in plan.blocks:
+            prov = _PROV_LABEL.get(b.provenance.value, b.provenance.value)
+            window = (f" ({b.planned_start} → {b.planned_end})"
+                      if b.planned_start and b.planned_end else "")
+            seg = f"• {b.goal}{window}: {prov}"
+            if b.citations:
+                seg += f", {len(b.citations)} studi verificati citati"
+            if b.conflicts:
+                seg += f"; ⚠ {len(b.conflicts)} evidenze in conflitto conservate"
+            lines.append(seg)
+        lines.append(
+            "Provenienza (dati_atleta/euristica): la STRUTTURA cita `studi` verificati "
+            "dove esistono; i NUMERI (watt, durate) restano `dati_atleta`/`euristica`, "
+            "mai spacciati per evidenza."
+        )
+        if adaptation:
+            lines.append(f"Adattamento (loop veloce): {adaptation}")
+        lines.append(_DISCLAIMER)
+        return "\n".join(lines)
+
+    def _llm_narrative(self, plan: TrainingPlan, profile,
+                       adaptation: Optional[str] = None) -> Optional[str]:
+        try:
+            blocks = [
+                {"goal": b.goal, "provenance": b.provenance.value,
+                 "planned_start": b.planned_start, "planned_end": b.planned_end,
+                 "n_citations": len(b.citations), "conflicts": b.conflicts,
+                 "prescriptions": [
+                     {"description": p.description, "target_watts": p.target_watts,
+                      "duration_s": p.duration_s} for p in b.prescriptions]}
+                for b in plan.blocks
+            ]
+            payload = {
+                "goal": {
+                    "metric": (plan.target_metric_type.value
+                               if plan.target_metric_type else None),
+                    "start": plan.target_metric_start,
+                    "target": plan.target_metric_value,
+                    "by": plan.target_metric_date,
+                },
+                "blocks": blocks,
+                "adaptation": adaptation,
+            }
+            prompt = (
+                "Spiega questo piano di allenamento come farebbe un preparatore ciclistico, "
+                "in 4-8 frasi discorsive e concrete: cosa si sviluppa in ciascun blocco e "
+                "perché, in che ordine, e a cosa serve verso l'obiettivo.\n"
+                "Vincoli inderogabili: NON inventare numeri (usa solo quelli presenti); "
+                "marca la provenienza (`studi` per la struttura citata, `dati_atleta`/"
+                "`euristica` per i numeri); se ci sono conflitti citali onestamente; chiudi "
+                "ricordando che è un'ipotesi, non una prescrizione medica.\n"
+                f"Piano (JSON): {json.dumps(payload, ensure_ascii=False)}\n"
+                f"Profilo atleta: {self._serialize_profile(profile)}"
+            )
+            return self.llm.complete_text(prompt=prompt, system=_NARRATIVE_SYSTEM)
+        except Exception:
+            return None
 
     def _heuristic_generate_plan(self, athlete_id, goal, start, prev_active) -> TrainingPlan:
         version = self._next_free_version(athlete_id)

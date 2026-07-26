@@ -73,3 +73,48 @@ def test_retrieve_endpoint_rerank_offline_ok(client):
     db.upsert_record(_verified_rec("Interval VO2max one", "interval VO2max cyclists", "10.1/a"))
     resp = tc.post("/retrieve", json={"query": "interval VO2max", "rerank": True})
     assert resp.status_code == 200
+
+
+def _seed_athlete(dbp):
+    from cyclist_kb.athlete_models import (Assessment, AssessmentProtocol,
+                                          make_assessment_id, make_athlete_id)
+    db = Database(path=dbp)
+    ath = make_athlete_id("Paolo")
+    db.save_athlete(Athlete(id=ath, name="Paolo", category="U23", discipline="road"))
+    db.save_assessment(Assessment(
+        id=make_assessment_id(ath, "ftp", "2026-07-01"), athlete_id=ath,
+        protocol=AssessmentProtocol.FTP, executed_date="2026-07-01", value=329.0, unit="W"))
+    return ath
+
+
+def test_coach_generate_accept_and_list(client):
+    tc, dbp = client
+    ath = _seed_athlete(dbp)
+    # genera → PROPOSED con narrativa
+    resp = tc.post(f"/coach/{ath}", json={"metric": "ftp", "to": 340.0, "by": "2026-09-30"})
+    assert resp.status_code == 200
+    plan = resp.json()
+    assert plan["status"] == "proposed"
+    assert plan["blocks"]
+    assert plan["narrative"]
+    # promuovi → ACTIVE
+    acc = tc.post(f"/coach/accept/{plan['id']}")
+    assert acc.status_code == 200
+    assert acc.json()["status"] == "active"
+    # elenca gli ACTIVE
+    plans = tc.get(f"/coach/plans/{ath}", params={"status": "active"})
+    assert plans.status_code == 200
+    assert [p["id"] for p in plans.json()] == [plan["id"]]
+
+
+def test_coach_unknown_athlete_is_404(client):
+    tc, _ = client
+    resp = tc.post("/coach/inesistente", json={"metric": "ftp", "to": 340.0, "by": "2026-09-30"})
+    assert resp.status_code == 404
+
+
+def test_coach_invalid_metric_is_422(client):
+    tc, dbp = client
+    ath = _seed_athlete(dbp)
+    resp = tc.post(f"/coach/{ath}", json={"metric": "banana", "to": 1.0, "by": "2026-09-30"})
+    assert resp.status_code == 422

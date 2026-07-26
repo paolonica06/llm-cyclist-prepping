@@ -20,6 +20,8 @@ from typing import Any, Dict, Optional
 from .config import get_settings
 
 _DEFAULT_SYSTEM = "Sei un assistente scientifico rigoroso. Rispondi SOLO con JSON valido."
+_DEFAULT_TEXT_SYSTEM = ("Sei un preparatore ciclistico scientifico, chiaro e onesto. "
+                       "Rispondi in italiano, senza inventare numeri.")
 
 
 class LLMClient:
@@ -94,19 +96,40 @@ class LLMClient:
         Non solleva mai: un fallimento deve degradare all'euristica, non
         interrompere la pipeline.
         """
+        text = self._raw_complete(prompt, system, max_tokens)
+        return _extract_json(text) if text else None
+
+    def complete_text(
+        self,
+        prompt: str,
+        system: str = _DEFAULT_TEXT_SYSTEM,
+        max_tokens: Optional[int] = None,
+    ) -> Optional[str]:
+        """Output testuale libero (narrativa coach, conversazione «chiedi al preparatore»).
+
+        A differenza di `complete_json` NON forza né estrae JSON: ritorna il testo
+        grezzo del modello, o None in caso di errore/offline (il chiamante degrada
+        a una risposta deterministica). Non solleva mai.
+        """
+        text = self._raw_complete(prompt, system, max_tokens)
+        return text.strip() if text else None
+
+    def _raw_complete(self, prompt: str, system: str,
+                      max_tokens: Optional[int]) -> Optional[str]:
+        """Dispatch sul backend attivo → testo grezzo (o None). Mai un'eccezione."""
         if not self._available:
             return None
         if self._backend == "anthropic":
-            return self._complete_anthropic(prompt, system, max_tokens)
+            return self._raw_anthropic(prompt, system, max_tokens)
         if self._backend == "claude_code":
-            return self._complete_claude_code(prompt, system, max_tokens)
+            return self._raw_claude_code(prompt, system, max_tokens)
         if self._backend == "codex":
-            return self._complete_codex(prompt, system, max_tokens)
+            return self._raw_codex(prompt, system, max_tokens)
         return None
 
     # -- Backend: raw Messages API ----------------------------------------- #
-    def _complete_anthropic(self, prompt: str, system: str,
-                            max_tokens: Optional[int]) -> Optional[Dict[str, Any]]:
+    def _raw_anthropic(self, prompt: str, system: str,
+                       max_tokens: Optional[int]) -> Optional[str]:
         if self._client is None:
             return None
         try:
@@ -116,16 +139,15 @@ class LLMClient:
                 system=system,
                 messages=[{"role": "user", "content": prompt}],
             )
-            text = "".join(
+            return "".join(
                 block.text for block in resp.content if getattr(block, "type", None) == "text"
             )
-            return _extract_json(text)
         except Exception:
             return None
 
     # -- Backend: Claude Code CLI (`claude -p`) ---------------------------- #
-    def _complete_claude_code(self, prompt: str, system: str,
-                              max_tokens: Optional[int]) -> Optional[Dict[str, Any]]:
+    def _raw_claude_code(self, prompt: str, system: str,
+                         max_tokens: Optional[int]) -> Optional[str]:
         import os
         import subprocess
 
@@ -145,13 +167,13 @@ class LLMClient:
             if proc.returncode != 0 or not proc.stdout:
                 return None
             envelope = json.loads(proc.stdout)          # {"result": "...", ...}
-            return _extract_json(envelope.get("result") or "")
+            return envelope.get("result") or None
         except Exception:
             return None
 
     # -- Backend: Codex CLI (`codex exec`, abbonamento ChatGPT) ------------ #
-    def _complete_codex(self, prompt: str, system: str,
-                        max_tokens: Optional[int]) -> Optional[Dict[str, Any]]:
+    def _raw_codex(self, prompt: str, system: str,
+                   max_tokens: Optional[int]) -> Optional[str]:
         import os
         import subprocess
         import tempfile
@@ -177,7 +199,7 @@ class LLMClient:
             if proc.returncode != 0:
                 return None
             with open(out_path, "r", encoding="utf-8") as fh:
-                return _extract_json(fh.read())          # -o = solo il messaggio finale
+                return fh.read() or None                 # -o = solo il messaggio finale
         except Exception:
             return None
         finally:
