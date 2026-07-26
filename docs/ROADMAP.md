@@ -10,7 +10,11 @@
 > «cosa manca / qual è il prossimo passo», «apri il piano per <fase>».
 > Legenda: `- [x]` fatto · `- [~]` in corso · `- [ ]` da fare.
 
-Ultimo aggiornamento: 2026-07-24 · Test: **132 verdi** · Stato: **Fase B live ok** · **Fase A** corpus 18 temi + ri-arricchimento LLM uniforme (prompt loose, Codex) via **`reassess`** · **Fase C retriever IMPLEMENTATO** (deterministico, validato live) · **Fase D CoachAgent IMPLEMENTATO** (TDD, offline verde; piano vivo a target metrico, provenienza 3-fonti, doppio loop, proponi-poi-approva).
+Ultimo aggiornamento: 2026-07-26 · Test: **178 verdi** · Stato: **backlog roadmap chiuso (Fasi A–E)**.
+Fase B: campi wellness `readiness/rampRate/vo2max` ingeriti (curva di potenza già wired).
+Fase C: endpoint API `/retrieve` + tier LLM-rerank opzionale (degrada offline).
+Fase D: endpoint API coach + narrativa "da preparatore" (LLM+euristica) + verifica live su i215294 (run→accept→adapt).
+Fase E: interfaccia conversazionale «chiedi al preparatore» su **CLI** (`research ask`), **API** (`POST /ask`) e **GUI web** (`GET /`), ancorata a dati+piano+evidenza con provenienza marcata; snapshot `as_of` che esclude le proiezioni future.
 
 ---
 
@@ -34,56 +38,43 @@ Ultimo aggiornamento: 2026-07-24 · Test: **132 verdi** · Stato: **Fase B live 
 
 ## 🔨 In corso
 
-- [~] **Fase B — Modello dati atleta longitudinale** — *implementazione completa, verifica live pendente*
-  - Requisiti → PRD → dominio → piano → **implementazione + code review**: fatti. Artefatti:
-    [PRD](specs/fase-b-atleta-longitudinale.md) · [glossario](../CONTEXT.md) · [ADR](adr/) ·
-    [piano](superpowers/plans/fase-b-atleta-longitudinale.md) ·
-    **[report autonomo](specs/fase-b-report-autonomo.md)**.
-  - Consegnato: modello dati (`athlete_models.py`) + 7 tabelle SQLite + ingestione intervals.icu
-    (morning sync idempotente, separato dalla pipeline paper) + metriche derivate + invarianti
-    (gate citabilità solo-verificati, congelamento immutabile). **66 test verdi**, pyflakes pulito.
-  - **Verifica live FATTA** (athlete i215294: 1216 serie storiche + 148 attività; mappatura confermata
-    campo-per-campo; bug TSB trovato e corretto — derivata come identità CTL−ATL). Resta opzionale il
-    **wiring della curva di potenza** e alcuni campi wellness non mappati (readiness/rampRate/vo2max).
-- [x] **Fase A — Corpus wiki** — 18 temi; **ri-arricchimento LLM uniforme** completato (prompt loose, backend
-  Codex `gpt-5.6-sol` reasoning `low`, batch 11): **318 record synthesized, 100% LLM** (screening/extraction/quality,
-  0 fallback euristici residui — verificato via `assessed_by`/`extracted_by`).
-  Comando **`research reassess <id>`**: ri-esegue *solo* gli step LLM (screening→extract→quality→synthesize)
-  sui record già verificati, **senza** rifare search/verify (niente rate-limiting bibliografico; sblocca Codex locale).
-- [~] **Fase C — Retrieval/RAG** — requisiti (`grill-me`) + PRD (`to-spec`) fatti:
-  [PRD](specs/fase-c-retrieval-rag.md). **Prossimo:** `domain-modeling` → `writing-plans` → implementazione.
-  Retriever deterministico offline: in-tema-prima, qualità, personalizzato, **conflict-aware**, solo verificati,
-  **pozzo unico cross-tema**; generazione = operatore/Claude Code/Fase D (non è il deliverable).
+- _(nessuna fase aperta: backlog roadmap chiuso il 2026-07-26)._ Restano solo idee di
+  evoluzione oltre la roadmap originale (vedi "Oltre la roadmap" in fondo).
 
 ---
 
 ## ⏳ Prossimi passi (backlog)
 
-- [~] **Fase A — Corpus wiki** — 18 temi (2 batch) → 360 studi verificati; arricchimento LLM notturno a blocchi
-  - [x] Backend LLM Claude Code (`claude -p`, Sonnet) + Codex (`codex exec`) con **batching** (N record/chiamata)
-  - [x] Action `enrich-corpus` notturna con registro `enriched.txt` (avanza sui temi non fatti)
-  - [x] Comando **`reassess`**: ri-arricchimento LLM sui record verificati senza search/verify (estrazione scopata
-    al pool → niente fetch OA né token sprecati sui needs_review); 5 test; verificato live sul corpus reale
-- [~] **Fase B — Modello dati atleta longitudinale** → dettaglio in [PRD](specs/fase-b-atleta-longitudinale.md) · [report](specs/fase-b-report-autonomo.md)
-  - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → dominio (`domain-modeling`) → piano (`writing-plans`)
+- [x] **Fase A — Corpus wiki** — 18 temi; **318 record synthesized 100% LLM**; comando `reassess`.
+- [x] **Fase B — Modello dati atleta longitudinale** → [PRD](specs/fase-b-atleta-longitudinale.md) · [report](specs/fase-b-report-autonomo.md)
   - [x] Schema serie storiche + piano versionato/congelato + memoria trasferibilità
-  - [x] Ingestione da **API intervals.icu** (morning sync) — *offline-tested; verifica live pendente*
-  - [x] Metriche derivate (compliance, delta-test) + test (**67 verdi**)
-  - [x] Verifica live con API key (sync reale ok; fix TSB=CTL−ATL)
-  - [ ] *(opzionale)* wiring curva di potenza + campi wellness extra
-- [~] **Fase C — Retrieval/RAG sulla wiki** → [PRD](specs/fase-c-retrieval-rag.md) · [piano](superpowers/plans/fase-c-retrieval-rag.md)
-  - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → dominio (`domain-modeling`, ADR-0005) → piano (`writing-plans`)
-  - [x] **`retrieval.py` implementato**: pozzo unico verificato, pertinenza BM25-lite in-tema-prima, qualità+personalizzazione, conflict-aware; CLI `research retrieve`. 7 test; **84 verdi**; validato live sul corpus reale
-  - [ ] *(dopo)* tier LLM/embedding-rerank opzionale + endpoint API
+  - [x] Ingestione **API intervals.icu** (morning sync) + verifica live (fix TSB=CTL−ATL)
+  - [x] **Curva di potenza** (multi-periodo + per-attività) wired
+  - [x] **Campi wellness** `readiness`/`rampRate`/`vo2max` ingeriti (loop generico `_parse_daily`)
+- [x] **Fase C — Retrieval/RAG sulla wiki** → [PRD](specs/fase-c-retrieval-rag.md) · [piano](superpowers/plans/fase-c-retrieval-rag.md)
+  - [x] `retrieval.py`: pozzo verificato, BM25-lite in-tema-prima, qualità+personalizzazione, conflict-aware; CLI `research retrieve`
+  - [x] **Tier LLM-rerank opzionale** (`rerank=True`/`--rerank`): riordino semantico sopra il lessicale, `_sort_key` unica preserva il conflict-aware, degrada all'identità offline
+  - [x] **Endpoint API** `POST /retrieve`
 - [x] **Fase D — CoachAgent + feedback loop** → **[PRD](specs/fase-d-coachagent.md)** · **[piano](superpowers/plans/fase-d-coachagent.md)** · ADR [0006](adr/0006-obiettivo-piano-target-metrico-datato.md)/[0007](adr/0007-provenienza-tre-fonti-coaching.md)/[0008](adr/0008-stato-proposed-transizione-atomica.md)
-  - [x] Requisiti (`grill-me`) → PRD (`to-spec`) → piano TDD (`writing-plans`) → implementazione (`subagent-driven`, CP0→CP11)
-  - [x] Schema: `ProvenanceKind` (studi/dati_atleta/euristica), `PlanStatus.PROPOSED`, obiettivo metrico datato nel Piano,
-    `EvidenceCitation.source_kind` (citazione N=1), validator `supported == provenance==study`
-  - [x] Funzioni pure attribuzione/compliance/guardrail + `Database.promote_plan` atomico (PROPOSED→ACTIVE)
-  - [x] `CoachAgent` (`run`/`accept`/`assess_block`/`adapt_microcycle`, ramo LLM+euristico, mai-eccezione) + Retriever conflict-aware
-  - [x] Wiring `Pipeline` + CLI (`coach`/`coach-accept`/`coach-adapt`/`coach-assess`). **132 test verdi**, pyflakes pulito
-  - [ ] *(dopo)* verifica live con atleta seminato + endpoint API + narrativa coach ricca (Fase E)
-- [ ] **Fase E — Interfaccia conversazionale** ("chiedi al preparatore") su CLI/API/GUI
+  - [x] Schema provenienza 3-fonti, `PlanStatus.PROPOSED`, obiettivo metrico datato, `promote_plan` atomico
+  - [x] `CoachAgent` (`run`/`accept`/`assess_block`/`adapt_microcycle`) + Retriever conflict-aware + CLI
+  - [x] **Verifica live** con atleta seminato i215294 (run→accept→adapt sul pozzo reale)
+  - [x] **Endpoint API coach** (`/coach/{id}`, `/coach/accept`, `/coach/adapt`, `/coach/assess`, `GET /coach/plans`, `/coach/memos`)
+  - [x] **Narrativa coach ricca** (`TrainingPlan.narrative`): ramo LLM `complete_text` + fallback euristico, provenienza marcata
+- [x] **Fase E — Interfaccia conversazionale** ("chiedi al preparatore") su CLI/API/GUI
+  - [x] `agents/conversation.py` `CoachChatAgent.ask()`: dati misurati + piano + evidenza → risposta NL, LLM+euristica
+  - [x] `llm.complete_text` (output libero) + snapshot `as_of` (esclude le proiezioni future)
+  - [x] CLI `research ask`, endpoint `POST /ask`, **GUI web** vanilla (`GET /`, `cyclist_kb/web/chat.html`)
+
+---
+
+## 🌱 Oltre la roadmap (idee, non impegnate)
+
+- Fix del `_last_value`/loop-veloce del CoachAgent affinché legga lo stato "a oggi"
+  e non la **proiezione futura** di intervals.icu (stesso tema risolto in Fase E per lo
+  snapshot; il coach ha però il vincolo di design "no `date.today()`").
+- Tier embedding-rerank vero (oltre l'LLM-scoring) + endpoint API per `ask` con storia/sessione.
+- Narrativa coach in streaming; autenticazione della GUI se esposta fuori da localhost.
 
 ---
 
@@ -96,4 +87,5 @@ Ultimo aggiornamento: 2026-07-24 · Test: **132 verdi** · Stato: **Fase B live 
    qui in "In corso" metto solo il link + stato sintetico.
 4. **Handoff**: la skill `handoff` referenzia questo file, così una nuova sessione
    riparte leggendo `ROADMAP.md` + il piano attivo.
-5. **Git = audit-log del fatto**: committo i milestone (commit locale; push bloccato).
+5. **Git = audit-log del fatto**: committo e pusho i milestone (push autonomo autorizzato;
+   force-push/reset restano bloccati).

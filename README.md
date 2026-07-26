@@ -63,13 +63,24 @@ research list
 # intera pipeline in un colpo (ogni fase resta comunque eseguibile a parte):
 research run "interval training and VO2max in trained competitive cyclists" \
     --profile profiles/example_athlete.yaml
+
+# atleta (Fase B) · retrieval (Fase C) · coach (Fase D) · chat (Fase E)
+research athlete-sync i215294
+research retrieve "interval training vo2max cyclists" --athlete i215294 [--rerank]
+research coach i215294 --metric ftp --to 300 --by 2026-09-28
+research coach-accept <plan_id> ; research coach-adapt i215294
+research ask "reggo il carico o scarico?" --athlete i215294
 ```
 
-## API (prima della GUI)
+## API + GUI
 
 ```bash
 uvicorn cyclist_kb.api:app --reload
-# POST /research, POST /research/{id}/search, ... GET /research/{id}
+# GUI «chiedi al preparatore»:  GET  /            (cyclist_kb/web/chat.html)
+# Chat:                         POST /ask         {question, athlete_id?}
+# Retrieval:                    POST /retrieve    {query, athlete_id?, k, rerank}
+# Coach:                        POST /coach/{id}, /coach/accept/{plan}, /coach/adapt/{id}, ...
+# Pipeline paper:               POST /research, POST /research/{id}/search, ... GET /research/{id}
 ```
 
 ## Demo
