@@ -306,7 +306,7 @@ git diff --check
 
 Expected: test mirati e suite completi verdi; nessun errore di formato.
 
-- [ ] **Step 5: Committare il follow-up della review**
+- [x] **Step 5: Committare il follow-up della review**
 
 ```bash
 git add cyclist_kb tests wiki docs/superpowers/plans/2026-07-27-physical-preparation-evidence-topics.md

@@ -53,7 +53,7 @@ degli infortuni.
 
 ## Confine medico
 
-Interrompere l'autogestione e richiedere valutazione professionale tempestiva in caso
+**[euristica]** Interrompere l'autogestione e richiedere valutazione professionale tempestiva in caso
 di trauma importante, dolore severo o rapidamente progressivo, gonfiore marcato,
 incapacità di caricare o usare normalmente l'arto, debolezza o alterazioni
 neurologiche, sintomi sistemici, oppure dolore notturno persistente e non meccanico.
