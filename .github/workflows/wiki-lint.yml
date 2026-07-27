@@ -4,7 +4,9 @@ on:
   push:
     paths:
       - "wiki/**"
+      - "cyclist_kb/wiki.py"
       - "cyclist_kb/wiki_lint.py"
+      - "cyclist_kb/wiki_markers.py"
       - "scripts/lint_wiki.py"
       - "tests/test_wiki_lint.py"
       - ".github/workflows/wiki-lint.yml"
@@ -12,7 +14,9 @@ on:
   pull_request:
     paths:
       - "wiki/**"
+      - "cyclist_kb/wiki.py"
       - "cyclist_kb/wiki_lint.py"
+      - "cyclist_kb/wiki_markers.py"
       - "scripts/lint_wiki.py"
       - "tests/test_wiki_lint.py"
       - ".github/workflows/wiki-lint.yml"

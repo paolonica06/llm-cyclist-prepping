@@ -10,16 +10,19 @@ import sys
 from typing import List, Optional, Sequence
 from urllib.parse import unquote, urlsplit
 
+from .wiki_markers import MANUAL_BEGIN_RE, MANUAL_END_RE
+
 
 _MARKDOWN_LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
 _WIKILINK_RE = re.compile(r"\[\[([^\]]+)\]\]")
-_MANUAL_MARKER_RE = re.compile(
-    r"^\s*<!--\s*(BEGIN|END)\s+MANUAL:\s*([A-Za-z0-9_.-]+)\s*-->\s*$"
+_MANUAL_MARKER_CANDIDATE_RE = re.compile(
+    r"^\s*<!--\s*(?:BEGIN|END)\s+MANUAL:", re.IGNORECASE
 )
 _HEADING_RE = re.compile(r"^(#{1,6})\s+\S")
 _NUMBERED_ITEM_RE = re.compile(r"^\s*\d+\.\s+")
 _PROVENANCE_RE = re.compile(r"^\s*\d+\.\s+\*\*\[(studi|dati_atleta|euristica)\]\*\*")
 _URL_RE = re.compile(r"https?://[^\s<>\]]+")
+_FENCE_RE = re.compile(r"^ {0,3}(?P<fence>`{3,}|~{3,})(?P<rest>.*)$")
 _PRIVATE_PATTERNS = (
     re.compile(r"\bi215294\b", re.IGNORECASE),
     re.compile(r"\bdata/private/mental-health(?:/|\b)", re.IGNORECASE),
@@ -69,9 +72,32 @@ def _lint_relative_links(path: Path, text: str) -> List[LintIssue]:
     return issues
 
 
-def _line_is_fenced(line: str, in_fence: bool) -> bool:
-    stripped = line.lstrip()
-    return stripped.startswith("```") or stripped.startswith("~~~")
+def _mask_fenced_content(text: str) -> str:
+    """Oscura i code fence preservando offset e numeri di linea."""
+    masked: List[str] = []
+    active_fence: Optional[str] = None
+    for line in text.splitlines(keepends=True):
+        match = _FENCE_RE.match(line)
+        opens_fence = active_fence is None and match is not None
+        closes_fence = (
+            active_fence is not None
+            and match is not None
+            and match.group("fence")[0] == active_fence[0]
+            and len(match.group("fence")) >= len(active_fence)
+            and not match.group("rest").strip()
+        )
+        if active_fence is not None or opens_fence:
+            masked.append(
+                "".join(char if char in "\r\n" else "x" for char in line)
+            )
+        else:
+            masked.append(line)
+
+        if opens_fence:
+            active_fence = match.group("fence")
+        elif closes_fence:
+            active_fence = None
+    return "".join(masked)
 
 
 def _lint_wikilinks(
@@ -131,10 +157,25 @@ def _lint_manual_markers(path: Path, lines: List[str]) -> List[LintIssue]:
     completed_names: set[str] = set()
 
     for line_number, line in enumerate(lines, start=1):
-        match = _MANUAL_MARKER_RE.match(line)
-        if not match:
+        if not _MANUAL_MARKER_CANDIDATE_RE.match(line):
             continue
-        kind, name = match.groups()
+        begin_match = MANUAL_BEGIN_RE.match(line)
+        end_match = MANUAL_END_RE.match(line)
+        if begin_match is None and end_match is None:
+            issues.append(
+                LintIssue(
+                    path,
+                    line_number,
+                    "WIKI003",
+                    "sintassi marker MANUAL non preservabile",
+                )
+            )
+            continue
+        kind = "BEGIN" if begin_match is not None else "END"
+        marker_match = begin_match if begin_match is not None else end_match
+        if marker_match is None:  # pragma: no cover - ristretto dai rami precedenti
+            continue
+        name = marker_match.group("name")
         if kind == "BEGIN":
             if open_marker is not None:
                 issues.append(
@@ -223,12 +264,14 @@ def _lint_identifiers(path: Path, text: str) -> List[LintIssue]:
         hostname = (parsed.hostname or "").casefold()
         line = _line_number(text, match.start())
 
-        if hostname in {"doi.org", "dx.doi.org"}:
+        if hostname in {"doi.org", "dx.doi.org", "www.doi.org"}:
             suffix = unquote(parsed.path.lstrip("/"))
             canonical = (
                 parsed.scheme == "https"
                 and hostname == "doi.org"
                 and bool(re.fullmatch(r"10\.\d{4,9}/\S+", suffix))
+                and not parsed.query
+                and not parsed.fragment
             )
             if not canonical:
                 issues.append(
@@ -245,6 +288,13 @@ def _lint_identifiers(path: Path, text: str) -> List[LintIssue]:
                 issues.append(
                     LintIssue(path, line, "WIKI005", f"URL PubMed non canonico: {url}")
                 )
+        elif (
+            hostname in {"ncbi.nlm.nih.gov", "www.ncbi.nlm.nih.gov"}
+            and parsed.path.casefold().startswith("/pubmed/")
+        ):
+            issues.append(
+                LintIssue(path, line, "WIKI005", f"URL PubMed legacy: {url}")
+            )
     return issues
 
 
@@ -328,14 +378,8 @@ def _lint_headings(path: Path, lines: List[str]) -> List[LintIssue]:
     issues: List[LintIssue] = []
     h1_lines: List[int] = []
     previous_level: Optional[int] = None
-    in_fence = False
 
     for line_number, line in enumerate(lines, start=1):
-        if _line_is_fenced(line, in_fence):
-            in_fence = not in_fence
-            continue
-        if in_fence:
-            continue
         match = _HEADING_RE.match(line)
         if not match:
             continue
@@ -389,14 +433,15 @@ def lint_wiki(root: Path) -> List[LintIssue]:
 
     for path in files:
         text = path.read_text(encoding="utf-8")
-        lines = text.splitlines()
-        issues.extend(_lint_relative_links(path, text))
-        issues.extend(_lint_wikilinks(root, path, text, files_by_stem))
+        scan_text = _mask_fenced_content(text)
+        lines = scan_text.splitlines()
+        issues.extend(_lint_relative_links(path, scan_text))
+        issues.extend(_lint_wikilinks(root, path, scan_text, files_by_stem))
         issues.extend(_lint_manual_markers(path, lines))
-        issues.extend(_lint_duplicate_index_targets(root, path, text))
-        issues.extend(_lint_identifiers(path, text))
-        issues.extend(_lint_curated_provenance(path, text, lines))
-        issues.extend(_lint_private_content(path, lines))
+        issues.extend(_lint_duplicate_index_targets(root, path, scan_text))
+        issues.extend(_lint_identifiers(path, scan_text))
+        issues.extend(_lint_curated_provenance(path, scan_text, lines))
+        issues.extend(_lint_private_content(path, text.splitlines()))
         issues.extend(_lint_tables(path, lines))
         issues.extend(_lint_headings(path, lines))
         issues.extend(_lint_whitespace(root, path, lines))

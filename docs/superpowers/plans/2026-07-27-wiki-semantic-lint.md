@@ -227,7 +227,7 @@ git ls-files data/private
 
 Expected: lint OK, suite completa verde, nessun errore diff e nessun file privato tracciato.
 
-- [ ] **Step 2: Richiedere e ricevere code review**
+- [x] **Step 2: Richiedere e ricevere code review**
 
 Revisionare il range dall'ultimo commit su `origin/main`, correggere ogni rilievo
 Critical/Important confermato e rieseguire i gate.

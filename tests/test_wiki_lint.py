@@ -5,6 +5,7 @@ import subprocess
 import sys
 
 from cyclist_kb.wiki_lint import lint_wiki
+from cyclist_kb.wiki import extract_manual_blocks
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -62,6 +63,20 @@ def test_reports_mismatched_manual_marker(tmp_path):
     assert "WIKI003" in _codes(wiki)
 
 
+def test_rejects_manual_marker_that_preservation_engine_cannot_extract(tmp_path):
+    wiki = tmp_path / "wiki"
+    text = (
+        "# Index\n\n"
+        "<!-- BEGIN MANUAL: Curated.Name -->\n"
+        "testo\n"
+        "<!-- END MANUAL: Curated.Name -->\n"
+    )
+    _write(wiki, "index.md", text)
+
+    assert extract_manual_blocks(text) == {}
+    assert "WIKI003" in _codes(wiki)
+
+
 def test_reports_duplicate_index_target(tmp_path):
     wiki = tmp_path / "wiki"
     _write(wiki, "topics/topic.md", "# Topic\n")
@@ -87,6 +102,48 @@ def test_reports_noncanonical_doi_and_malformed_pubmed_url(tmp_path):
     )
 
     assert "WIKI005" in _codes(wiki)
+
+
+def test_reports_doi_query_and_legacy_pubmed_url(tmp_path):
+    wiki = tmp_path / "wiki"
+    _write(
+        wiki,
+        "index.md",
+        "# Index\n\n"
+        "- [DOI](https://doi.org/10.1234/example?tracking=1)\n"
+        "- [PMID](https://www.ncbi.nlm.nih.gov/pubmed/12345678)\n",
+    )
+
+    issues = [issue for issue in lint_wiki(wiki) if issue.code == "WIKI005"]
+
+    assert len(issues) == 2
+
+
+def test_ignores_structural_examples_inside_fenced_code(tmp_path):
+    wiki = tmp_path / "wiki"
+    _write(
+        wiki,
+        "index.md",
+        "# Index\n\n"
+        "````markdown\n"
+        "```markdown\n"
+        "```not-a-closing-fence\n"
+        "[esempio](missing.md)\n"
+        "<!-- BEGIN MANUAL: Invalid.Name -->\n"
+        "| A | B |\n"
+        "|---|---|\n"
+        "| una |\n"
+        "### Heading di esempio\n"
+        "token=sk-proj-fenced-example\n"
+        "```\n"
+        "````\n",
+    )
+
+    codes = _codes(wiki)
+    assert codes.isdisjoint(
+        {"WIKI001", "WIKI003", "WIKI008", "WIKI009", "WIKI010"}
+    )
+    assert "WIKI007" in codes
 
 
 def test_reports_unlabelled_curated_recommendation(tmp_path):

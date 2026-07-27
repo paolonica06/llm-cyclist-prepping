@@ -15,22 +15,15 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from .config import get_settings
+from .wiki_markers import MANUAL_BLOCK_RE
 
 logger = logging.getLogger("cyclist_kb.wiki")
-
-_MANUAL_BLOCK_RE = re.compile(
-    r"<!-- BEGIN MANUAL: (?P<name>[a-z0-9][a-z0-9_-]*) -->\n"
-    r".*?\n"
-    r"<!-- END MANUAL: (?P=name) -->",
-    re.DOTALL,
-)
-
 
 def extract_manual_blocks(markdown: str) -> Dict[str, str]:
     """Estrae blocchi Markdown nominati che una rigenerazione deve preservare."""
     return {
         match.group("name"): match.group(0)
-        for match in _MANUAL_BLOCK_RE.finditer(markdown)
+        for match in MANUAL_BLOCK_RE.finditer(markdown)
     }
 
 
