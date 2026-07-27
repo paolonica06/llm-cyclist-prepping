@@ -1,0 +1,41 @@
+name: Wiki lint
+
+on:
+  push:
+    paths:
+      - "wiki/**"
+      - "cyclist_kb/wiki_lint.py"
+      - "scripts/lint_wiki.py"
+      - "tests/test_wiki_lint.py"
+      - ".github/workflows/wiki-lint.yml"
+      - ".github/workflows/enrich-corpus.yml"
+  pull_request:
+    paths:
+      - "wiki/**"
+      - "cyclist_kb/wiki_lint.py"
+      - "scripts/lint_wiki.py"
+      - "tests/test_wiki_lint.py"
+      - ".github/workflows/wiki-lint.yml"
+      - ".github/workflows/enrich-corpus.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installa il progetto
+        run: pip install -e ".[test]"
+
+      - name: Verifica la wiki
+        run: python scripts/lint_wiki.py
+
+      - name: Esegue i test del lint
+        run: pytest tests/test_wiki_lint.py -q

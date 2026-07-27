@@ -70,6 +70,9 @@ jobs:
           done < research_topics.txt
           echo "Temi arricchiti in questo run: $done"
 
+      - name: Verifica la wiki
+        run: python scripts/lint_wiki.py
+
       - name: Commit della wiki arricchita
         run: |
           git config user.name "corpus-enrich-bot"

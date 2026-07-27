@@ -101,6 +101,17 @@ pytest tests/test_dedup.py -q
 pytest tests/test_verification.py::test_title_mismatch_flags_needs_review -q
 ```
 
+### Lint della wiki
+
+```bash
+python scripts/lint_wiki.py
+```
+
+Il controllo è offline e deterministico: verifica link Markdown e Obsidian, marker
+manuali, indice, DOI/PMID, provenienza delle raccomandazioni curate, privacy, tabelle,
+heading e whitespace. I file in `wiki/papers/` sono esclusi soltanto dal controllo
+del whitespace storico; restano soggetti a tutti i controlli strutturali e semantici.
+
 ## Etica del recupero
 
 Il full text viene recuperato **solo** se disponibile via open access come testo
