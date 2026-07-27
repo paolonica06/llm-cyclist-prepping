@@ -72,4 +72,7 @@ persone e protocolli.
 - [Mental Health Evidence and Safeguards](../Mental%20Health%20Evidence%20and%20Safeguards.md)
 - [Psychological skills and endurance performance](psychological-skills-and-endurance-performance.md)
 - [Mental health in competitive athletes](mental-health-in-competitive-athletes.md)
+- [Perfectionism, burnout and compulsive training](perfectionism-burnout-and-compulsive-training.md)
+- [Motivation, goal setting and motivational climate](motivation-goal-setting-and-motivational-climate.md)
+- [Athletic identity, self-worth and transitions](athletic-identity-self-worth-and-transitions.md)
 - [sleep, recovery and endurance performance](sleep-recovery-and-endurance-performance-in-athletes.md)

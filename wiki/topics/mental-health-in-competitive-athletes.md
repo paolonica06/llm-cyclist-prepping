@@ -61,3 +61,6 @@ diagnosi. Nessun punteggio personale viene pubblicato nella wiki.
 - [sleep, recovery and endurance performance](sleep-recovery-and-endurance-performance-in-athletes.md)
 - [training load monitoring and overtraining](training-load-monitoring-and-overtraining-in-endurance-cyclists.md)
 - [body composition and energy availability](body-composition-energy-availability-and-resting-metabolic-rate-across-the-cycli.md)
+- [Competitive anxiety, pressure and choking](competitive-anxiety-pressure-and-choking.md)
+- [Perfectionism, burnout and compulsive training](perfectionism-burnout-and-compulsive-training.md)
+- [Athletic identity, self-worth and transitions](athletic-identity-self-worth-and-transitions.md)

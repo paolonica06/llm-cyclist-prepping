@@ -54,3 +54,10 @@ mentale.
 Le popolazioni mescolano livelli e sport diversi; molti outcome sono soggettivi, i
 campioni sono spesso piccoli e la cecità è difficile. La trasferibilità diretta a un
 ciclista competitivo individuale resta quindi **moderata o bassa**.
+
+## Collegamenti
+
+- [Mental Health Evidence and Safeguards](../Mental%20Health%20Evidence%20and%20Safeguards.md)
+- [Competitive anxiety, pressure and choking](competitive-anxiety-pressure-and-choking.md)
+- [Motivation, goal setting and motivational climate](motivation-goal-setting-and-motivational-climate.md)
+- [Mental health in competitive athletes](mental-health-in-competitive-athletes.md)
