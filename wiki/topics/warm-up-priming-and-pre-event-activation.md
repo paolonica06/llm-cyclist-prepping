@@ -49,16 +49,16 @@ endurance.
 
 ## Applicazione prudente
 
-1. Definire il compito: sprint breve, prova di alcuni minuti o endurance prolungata
+1. **[euristica]** Definire il compito: sprint breve, prova di alcuni minuti o endurance prolungata
    richiedono domande diverse.
-2. Costruire prima un warm-up generale progressivo e specifico; aggiungere openers o
+2. **[euristica]** Costruire prima un warm-up generale progressivo e specifico; aggiungere openers o
    conditioning activity solo se il loro contributo viene testato separatamente.
-3. Standardizzare durata, intensità, recupero e tempo tra fine warm-up e partenza. Una
+3. **[euristica]** Standardizzare durata, intensità, recupero e tempo tra fine warm-up e partenza. Una
    lunga attesa può dissipare temperatura e modificare l'effetto.
-4. Evitare novità e sforzi all-out non provati prima di un test o una gara importante.
-5. Confrontare più repliche in condizioni simili usando outcome prestativo, RPE e
+4. **[euristica]** Evitare novità e sforzi all-out non provati prima di un test o una gara importante.
+5. **[euristica]** Confrontare più repliche in condizioni simili usando outcome prestativo, RPE e
    percezione di readiness; non concludere da una sola giornata.
-6. Se una routine peggiora la prestazione o lascia fatica residua, ridurre dose o
+6. **[euristica]** Se una routine peggiora la prestazione o lascia fatica residua, ridurre dose o
    intensità prima di aggiungere altre attivazioni.
 
 ## Studi inclusi

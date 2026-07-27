@@ -12,11 +12,26 @@ import re
 import subprocess
 import unicodedata
 from pathlib import Path
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from .config import get_settings
 
 logger = logging.getLogger("cyclist_kb.wiki")
+
+_MANUAL_BLOCK_RE = re.compile(
+    r"<!-- BEGIN MANUAL: (?P<name>[a-z0-9][a-z0-9_-]*) -->\n"
+    r".*?\n"
+    r"<!-- END MANUAL: (?P=name) -->",
+    re.DOTALL,
+)
+
+
+def extract_manual_blocks(markdown: str) -> Dict[str, str]:
+    """Estrae blocchi Markdown nominati che una rigenerazione deve preservare."""
+    return {
+        match.group("name"): match.group(0)
+        for match in _MANUAL_BLOCK_RE.finditer(markdown)
+    }
 
 
 def slugify(text: str) -> str:
@@ -93,12 +108,18 @@ class Wiki:
 
 def update_index(wiki: Wiki, topics: List[dict]) -> None:
     """(Ri)genera l'indice della wiki da un elenco di descrittori topic."""
+    path = wiki.root / "index.md"
+    manual = extract_manual_blocks(wiki.read(path))
     lines = ["# Knowledge base — Allenamento ciclistico", "",
              "Base di conoscenza scientifica mantenuta automaticamente dagli agenti.", ""]
+    if "index-preamble" in manual:
+        lines.extend([manual["index-preamble"], ""])
     lines.append("## Argomenti")
+    if "index-topics" in manual:
+        lines.append(manual["index-topics"])
     for t in topics:
         rel = f"topics/{slugify(t['topic'])}.md"
         lines.append(f"- [{t['topic']}]({rel}) — {t.get('n_studies', 0)} studi sintetizzati "
                      f"(aggiornato {t.get('updated', 'n/d')})")
     lines.append("")
-    wiki.write(wiki.root / "index.md", "\n".join(lines))
+    wiki.write(path, "\n".join(lines))

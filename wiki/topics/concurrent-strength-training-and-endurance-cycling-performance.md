@@ -56,6 +56,7 @@ La base attuale include 11 studi verificati (0 ad alta confidenza). Su alcuni ou
 | [Holm 2004](../papers/b1b19a143668e305.md) | 2004 | unknown | low | low | moderate | not_available |
 | [David 2000](../papers/3d12691e094455fd.md) | 2000 | unknown | low | low | moderate | not_available |
 
+<!-- BEGIN MANUAL: topic-heavy-strength-2026 -->
 ## Integrazione manuale: forza pesante (2026)
 
 > Questa integrazione è curata manualmente e **non modifica il conteggio degli 11 studi
@@ -91,6 +92,7 @@ Fonte: [Llanos-Lagos et al., 2026](https://doi.org/10.1007/s00421-025-05883-2)
 
 - [Torque training, bassa cadenza e forza specifica](torque-training-low-cadence-and-cycling-specific-strength.md)
 - [Infortuni da sovraccarico, dolore e bike fitting](cycling-overuse-injuries-pain-and-bike-fitting.md)
+<!-- END MANUAL: topic-heavy-strength-2026 -->
 
 ## Cronologia aggiornamenti
 

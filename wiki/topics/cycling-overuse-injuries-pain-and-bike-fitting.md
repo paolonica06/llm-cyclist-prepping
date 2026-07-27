@@ -39,15 +39,15 @@ degli infortuni.
 
 ## Applicazione prudente
 
-1. Descrivere il problema con sede, andamento, intensità, durata, impatto funzionale e
+1. **[euristica]** Descrivere il problema con sede, andamento, intensità, durata, impatto funzionale e
    relazione temporale con variazioni di volume, intensità, terreno, attrezzatura o
    posizione.
-2. Per sintomi lievi senza segnali d'allarme, ridurre temporaneamente l'esposizione che
+2. **[euristica]** Per sintomi lievi senza segnali d'allarme, ridurre temporaneamente l'esposizione che
    li provoca e usare modifiche piccole, reversibili e tracciate; non cambiare insieme
    sella, tacchette, pedivelle e carico.
-3. Valutare separatamente comfort, dolore durante/dopo, funzione e capacità di
+3. **[euristica]** Valutare separatamente comfort, dolore durante/dopo, funzione e capacità di
    sostenere il carico. Un fitting più confortevole non dimostra prevenzione futura.
-4. Coinvolgere un professionista qualificato quando il dolore persiste, recidiva o
+4. **[euristica]** Coinvolgere un professionista qualificato quando il dolore persiste, recidiva o
    limita funzione/allenamento, oppure quando servono diagnosi differenziale,
    valutazione clinica e integrazione tra bike fitting e riabilitazione.
 
@@ -61,12 +61,12 @@ Questi segnali sono un confine di sicurezza, non una diagnosi né una lista esau
 
 ## Studi inclusi
 
-| Studio | Disegno | Dato chiave | Confidenza | Fonte |
-|---|---|---|---|---|
-| Visentini et al., 2022 | revisione sistematica, 18 studi | solo 3 studi a basso rischio di bias; associazione moderata carico-sintomi; molte misure di fitting senza relazione dimostrata | bassa-moderata | [DOI](https://doi.org/10.1016/j.jsams.2021.12.008) · [PMID](https://pubmed.ncbi.nlm.nih.gov/35151569/) |
-| Bini e Bini, 2018 | revisione sistematica, 11 studi | differenze biomeccaniche retrospettive nel dolore al ginocchio; causalità e trattamento non determinabili | bassa | [DOI](https://doi.org/10.2147/OAJSM.S136653) · [PMID](https://pubmed.ncbi.nlm.nih.gov/29872355/) |
-| Johnston et al., 2017 | revisione sistematica, 14 studi | parametri della bici modificano la biomeccanica, ma pochi studi includono dolore/infortunio | bassa | [DOI](https://doi.org/10.26603/ijspt20171023) · [PMID](https://pubmed.ncbi.nlm.nih.gov/29234554/) |
-| Barrajón et al., 2026 | revisione sistematica, 3 studi | riduzione di lombalgia/discomfort dopo fitting individualizzato; protocolli e follow-up eterogenei | bassa-moderata | [DOI](https://doi.org/10.7759/cureus.101718) · [PMID](https://pubmed.ncbi.nlm.nih.gov/41705012/) |
+| Studio | Disegno | Dato chiave | Confidenza | Fonte dati | Fonte |
+|---|---|---|---|---|---|
+| Visentini et al., 2022 | revisione sistematica, 18 studi | solo 3 studi a basso rischio di bias; associazione moderata carico-sintomi; molte misure di fitting senza relazione dimostrata | bassa-moderata | abstract | [DOI](https://doi.org/10.1016/j.jsams.2021.12.008) · [PMID](https://pubmed.ncbi.nlm.nih.gov/35151569/) |
+| Bini e Bini, 2018 | revisione sistematica, 11 studi | differenze biomeccaniche retrospettive nel dolore al ginocchio; causalità e trattamento non determinabili | bassa | full text | [DOI](https://doi.org/10.2147/OAJSM.S136653) · [PMID](https://pubmed.ncbi.nlm.nih.gov/29872355/) |
+| Johnston et al., 2017 | revisione sistematica, 14 studi | parametri della bici modificano la biomeccanica, ma pochi studi includono dolore/infortunio | bassa | full text | [DOI](https://doi.org/10.26603/ijspt20171023) · [PMID](https://pubmed.ncbi.nlm.nih.gov/29234554/) |
+| Barrajón et al., 2026 | revisione sistematica, 3 studi | riduzione di lombalgia/discomfort dopo fitting individualizzato; protocolli e follow-up eterogenei | bassa-moderata | abstract | [DOI](https://doi.org/10.7759/cureus.101718) · [PMID](https://pubmed.ncbi.nlm.nih.gov/41705012/) |
 
 ## Limiti
 

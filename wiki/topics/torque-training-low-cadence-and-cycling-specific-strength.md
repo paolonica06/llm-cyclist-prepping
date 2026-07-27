@@ -51,25 +51,25 @@ massimale né garantisce gli adattamenti del resistance training pesante.
 
 ## Applicazione prudente
 
-1. Scrivere il protocollo con cadenza, potenza, torque o resistenza, durata, recupero e
+1. **[euristica]** Scrivere il protocollo con cadenza, potenza, torque o resistenza, durata, recupero e
    frequenza; “SFR” o “forza in bici” da soli non sono riproducibili.
-2. Distinguere intervalli moderati lunghi da cicli brevi high-load: appartengono alla
+2. **[euristica]** Distinguere intervalli moderati lunghi da cicli brevi high-load: appartengono alla
    stessa etichetta pratica ma non alla stessa dose.
-3. Introdurre la bassa cadenza progressivamente e con tecnica stabile; torque elevato e
+3. **[euristica]** Introdurre la bassa cadenza progressivamente e con tecnica stabile; torque elevato e
    fatica possono cambiare il gesto senza garantire un adattamento utile.
-4. Misurare l'outcome bersaglio e un comparatore: a parità di tempo, una cadenza
+4. **[euristica]** Misurare l'outcome bersaglio e un comparatore: a parità di tempo, una cadenza
    spontanea o il normale allenamento potrebbero funzionare altrettanto bene.
-5. Non usare un singolo RCT per ribaltare la revisione sistematica: il risultato
+5. **[studi]** Non usare un singolo RCT per ribaltare la revisione sistematica: il risultato
    high-load è promettente e richiede replica, campioni più ampi e confronto diretto
    sufficientemente potente.
 
 ## Studi inclusi
 
-| Studio | Disegno | Dato chiave | Confidenza | Fonte |
-|---|---|---|---|---|
-| Hansen e Rønnestad, 2017 | revisione sistematica, 7 studi | nessuna evidenza forte di beneficio; protocolli e popolazioni molto eterogenei | bassa-moderata | [DOI](https://doi.org/10.1123/ijspp.2016-0574) · [PMID](https://pubmed.ncbi.nlm.nih.gov/28095074/) |
-| de Pablos et al., 2026 | RCT a tre bracci, 46 ciclisti uomini ben allenati | segnale favorevole per high-load, ma nessuna superiorità high-vs-low statisticamente dimostrata | bassa-moderata | [DOI](https://doi.org/10.1111/sms.70294) · [PMID](https://pubmed.ncbi.nlm.nih.gov/42076918/) |
-| Kristoffersen et al., 2014 | RCT, 22 ciclisti veterani allenati | 12 settimane a 40 rpm e intensità moderata senza beneficio su performance, efficienza o forza | bassa | [record locale](../papers/4b0b456dc6f6aceb.md) · [DOI](https://doi.org/10.3389/fphys.2014.00034) · [PMID](https://pubmed.ncbi.nlm.nih.gov/24550843/) |
+| Studio | Disegno | Dato chiave | Confidenza | Fonte dati | Fonte |
+|---|---|---|---|---|---|
+| Hansen e Rønnestad, 2017 | revisione sistematica, 7 studi | nessuna evidenza forte di beneficio; protocolli e popolazioni molto eterogenei | bassa-moderata | abstract | [DOI](https://doi.org/10.1123/ijspp.2016-0574) · [PMID](https://pubmed.ncbi.nlm.nih.gov/28095074/) |
+| de Pablos et al., 2026 | RCT a tre bracci, 46 ciclisti uomini ben allenati | segnale favorevole per high-load, ma nessuna superiorità high-vs-low statisticamente dimostrata | bassa-moderata | abstract | [DOI](https://doi.org/10.1111/sms.70294) · [PMID](https://pubmed.ncbi.nlm.nih.gov/42076918/) |
+| Kristoffersen et al., 2014 | RCT, 22 ciclisti veterani allenati | 12 settimane a 40 rpm e intensità moderata senza beneficio su performance, efficienza o forza | bassa | full text | [record locale](../papers/4b0b456dc6f6aceb.md) · [DOI](https://doi.org/10.3389/fphys.2014.00034) · [PMID](https://pubmed.ncbi.nlm.nih.gov/24550843/) |
 
 ## Limiti
 

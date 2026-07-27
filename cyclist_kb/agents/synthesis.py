@@ -17,7 +17,7 @@ from ..config import get_settings
 from ..dedup import deduplicate
 from ..llm import get_llm
 from ..models import (ExtractedField, PaperRecord, RecordState, Research, ResearchStatus)
-from ..wiki import Wiki, slugify, update_index
+from ..wiki import Wiki, extract_manual_blocks, slugify, update_index
 
 logger = logging.getLogger("cyclist_kb.synthesis")
 
@@ -174,7 +174,14 @@ class SynthesisAgent:
             )
         out.append("")
 
-        # 6) CRONOLOGIA (append, mai sovrascrittura silenziosa)
+        # 6) BLOCCHI CURATI (preservati fra rigenerazioni automatiche)
+        existing = self.wiki.read(self.wiki.topic_path(research.topic))
+        for name, block in extract_manual_blocks(existing).items():
+            if name.startswith("topic-"):
+                out.append(block)
+                out.append("")
+
+        # 7) CRONOLOGIA (append, mai sovrascrittura silenziosa)
         out.append(self._changelog(research, records, now))
         return "\n".join(out)
 

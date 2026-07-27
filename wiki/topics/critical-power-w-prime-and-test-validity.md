@@ -51,27 +51,27 @@ diversi: non sono intercambiabili per definizione.
 
 ## Applicazione prudente
 
-1. Definire prima il costrutto e il protocollo: CP/W′ multi-duration, 3-min all-out o
+1. **[euristica]** Definire prima il costrutto e il protocollo: CP/W′ multi-duration, 3-min all-out o
    altro test non rispondono esattamente alla stessa domanda.
-2. Per il modello multi-duration usare almeno tre sforzi massimali di durata
+2. **[euristica]** Per il modello multi-duration usare almeno tre sforzi massimali di durata
    sufficientemente separata, eseguiti freschi e con pacing/familiarizzazione adeguati.
-3. Confrontare più forme del modello e ispezionare residui, errore standard e plausibilità
+3. **[euristica]** Confrontare più forme del modello e ispezionare residui, errore standard e plausibilità
    di CP e W′; non scegliere il valore solo perché “sembra giusto”.
-4. Nel 3-min all-out riportare **EP** e **WEP** con il loro nome. L'eventuale uso di EP
+4. **[studi]** Nel 3-min all-out riportare **EP** e **WEP** con il loro nome. L'eventuale uso di EP
    come stima di CP deve conservare il caveat di sovrastima; WEP non va presentato come
    misura accurata di W′.
-5. Usare CP per ancorare i domini d'intensità e W′ per formulare ipotesi sulla tolleranza
+5. **[euristica]** Usare CP per ancorare i domini d'intensità e W′ per formulare ipotesi sulla tolleranza
    sopra CP, non come prescrizione perfetta: la ricostituzione di W′ resta
    individuo- e contesto-dipendente.
 
 ## Studi inclusi
 
-| Studio | Disegno | Dato chiave | Confidenza | Fonte |
-|---|---|---|---|---|
-| Quittmann e Piehl, 2026 | revisione sistematica e meta-analisi, 20 studi/284 partecipanti | EP ripetibile ma mediamente superiore a CP; WEP non stima accuratamente W′; familiarizzazione necessaria | moderata | [DOI](https://doi.org/10.1007/s00421-026-06356-w) · [PMID](https://pubmed.ncbi.nlm.nih.gov/42479066/) |
-| Chorley e Lamb, 2020 | revisione narrativa | quadro del modello CP/W′, protocolli e ricostituzione di W′; limiti espliciti della prescrizione | moderata | [record locale](../papers/4081090101b05813.md) · [DOI](https://doi.org/10.3390/sports8090123) · [PMID](https://pubmed.ncbi.nlm.nih.gov/32899777/) |
-| Karsten et al., 2015 | studio di validità e affidabilità sul campo | protocolli 3/7/12 min ripetibili, ma errore e limiti di accordo individuali non trascurabili | bassa-moderata | [DOI](https://doi.org/10.1007/s00421-014-3001-z) · [PMID](https://pubmed.ncbi.nlm.nih.gov/25260244/) |
-| Bouillod et al., 2022 | scoping review, 74 studi | validità del power meter dipendente da proprietà metrologiche e condizioni d'uso | moderata | [DOI](https://doi.org/10.3390/s22010386) · [PMID](https://pubmed.ncbi.nlm.nih.gov/35009945/) |
+| Studio | Disegno | Dato chiave | Confidenza | Fonte dati | Fonte |
+|---|---|---|---|---|---|
+| Quittmann e Piehl, 2026 | revisione sistematica e meta-analisi, 20 studi/284 partecipanti | EP ripetibile ma mediamente superiore a CP; WEP non stima accuratamente W′; familiarizzazione necessaria | moderata | abstract | [DOI](https://doi.org/10.1007/s00421-026-06356-w) · [PMID](https://pubmed.ncbi.nlm.nih.gov/42479066/) |
+| Chorley e Lamb, 2020 | revisione narrativa | quadro del modello CP/W′, protocolli e ricostituzione di W′; limiti espliciti della prescrizione | moderata | full text | [record locale](../papers/4081090101b05813.md) · [DOI](https://doi.org/10.3390/sports8090123) · [PMID](https://pubmed.ncbi.nlm.nih.gov/32899777/) |
+| Karsten et al., 2015 | studio di validità e affidabilità sul campo | protocolli 3/7/12 min ripetibili, ma errore e limiti di accordo individuali non trascurabili | bassa-moderata | abstract | [DOI](https://doi.org/10.1007/s00421-014-3001-z) · [PMID](https://pubmed.ncbi.nlm.nih.gov/25260244/) |
+| Bouillod et al., 2022 | scoping review, 74 studi | validità del power meter dipendente da proprietà metrologiche e condizioni d'uso | moderata | full text | [DOI](https://doi.org/10.3390/s22010386) · [PMID](https://pubmed.ncbi.nlm.nih.gov/35009945/) |
 
 ## Limiti
 

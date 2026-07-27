@@ -262,11 +262,60 @@ Run: `git status --short && git diff --stat HEAD && git diff HEAD -- wiki docs/s
 
 Expected: solo piano, indice e note scientifiche previste; nessun dato personale o modifica al piano atleta.
 
-- [ ] **Step 7: Committare e pubblicare**
+### Task 7: Durabilità della rigenerazione e pubblicazione
+
+**Files:**
+- Modify: `cyclist_kb/wiki.py`
+- Modify: `cyclist_kb/agents/synthesis.py`
+- Create: `tests/test_wiki_manual_blocks.py`
+- Modify: `wiki/index.md`
+- Modify: `wiki/topics/concurrent-strength-training-and-endurance-cycling-performance.md`
+- Modify: le quattro nuove note del pacchetto
+
+**Interfaces:**
+- Consumes: i blocchi curati creati nei task precedenti e il feedback della review
+- Produces: contratto di preservazione dei blocchi manuali e corpus pronto alla pubblicazione
+
+- [x] **Step 1: Scrivere e osservare fallire i test di regressione**
+
+Run: `.venv/bin/python -m pytest tests/test_wiki_manual_blocks.py -q`
+
+Expected prima del fix: 2 FAIL, perché indice e pagina topic perdono i blocchi manuali.
+
+- [x] **Step 2: Implementare il contratto minimo di preservazione**
+
+Estrarre i blocchi delimitati da `<!-- BEGIN MANUAL: nome -->` e
+`<!-- END MANUAL: nome -->`; preservare `index-preamble`, `index-topics` e i blocchi
+con prefisso `topic-` nelle rigenerazioni.
+
+- [x] **Step 3: Delimitare i blocchi curati e completare la provenienza**
+
+Aggiungere i marker all'indice e all'integrazione sulla forza; etichettare ogni
+raccomandazione applicativa come `[studi]` o `[euristica]`; aggiungere `Fonte dati`
+per studio dove abstract e full text erano mescolati.
+
+- [x] **Step 4: Riverificare test mirati, suite, link, privacy e diff**
+
+Run:
 
 ```bash
-git add wiki/index.md wiki/topics docs/superpowers/plans/2026-07-27-physical-preparation-evidence-topics.md
-git commit -m "Integra il corpus sulla preparazione fisica"
+.venv/bin/python -m pytest tests/test_wiki_manual_blocks.py -q
+.venv/bin/python -m pytest -q
+git diff --check
+```
+
+Expected: test mirati e suite completi verdi; nessun errore di formato.
+
+- [ ] **Step 5: Committare il follow-up della review**
+
+```bash
+git add cyclist_kb tests wiki docs/superpowers/plans/2026-07-27-physical-preparation-evidence-topics.md
+git commit -m "Preserva le integrazioni curate della wiki"
+```
+
+- [ ] **Step 6: Pubblicare**
+
+```bash
 git push
 ```
 
