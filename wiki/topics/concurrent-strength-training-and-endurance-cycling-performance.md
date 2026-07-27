@@ -56,6 +56,37 @@ La base attuale include 11 studi verificati (0 ad alta confidenza). Su alcuni ou
 | [Holm 2004](../papers/b1b19a143668e305.md) | 2004 | unknown | low | low | moderate | not_available |
 | [David 2000](../papers/3d12691e094455fd.md) | 2000 | unknown | low | low | moderate | not_available |
 
+## Integrazione manuale: forza pesante (2026)
+
+> Questa integrazione è curata manualmente e **non modifica il conteggio degli 11 studi
+> della pipeline** riportato nell'intestazione. Metadati e abstract sono stati
+> verificati su PubMed il 2026-07-27.
+
+La meta-analisi di Llanos-Lagos et al. ha incluso 17 studi controllati, 262 ciclisti
+endurance (60 donne), interventi di 5–25 settimane e 1–3 sessioni settimanali di forza
+pesante (`≥80% 1RM`). La certezza GRADE per gli outcome era **bassa**.
+
+| Outcome | Effetto rispetto al solo allenamento endurance | Lettura prudente |
+|---|---|---|
+| Efficienza ciclistica | favorevole (`ES=0,353`, `p=0,012`) | segnale piccolo; modelli a tre livelli e protocolli eterogenei |
+| Potenza anaerobica | favorevole (`ES=0,560`, `p=0,024`) | effetto moderato, `I²=29,1%` |
+| Performance combinata | favorevole (`ES=0,463`, `p=0,016`) | time-to-exhaustion e time trial sono stati combinati |
+| VO₂max, pVO₂max e MMSS | nessun effetto significativo | il beneficio prestativo non richiede un aumento di questi determinanti |
+| Capacità anaerobica | nessun effetto significativo | non confondere capacità anaerobica e potenza anaerobica |
+
+- **[studi]** I risultati sono compatibili con un miglioramento della performance
+  mediato soprattutto da efficienza e potenza anaerobica, non da VO₂max, pVO₂max o
+  massimo stato stazionario metabolico (MMSS).
+- **[studi]** Sesso, livello prestativo, esperienza di forza, durata e frequenza non
+  risultarono moderatori significativi; questo non prova equivalenza tra sottogruppi,
+  perché la potenza delle analisi di moderazione può essere limitata.
+- **[euristica]** La meta-analisi sostiene l'inclusione della forza pesante come opzione
+  plausibile, ma la certezza bassa non identifica una dose universale né autorizza a
+  sostituire lavoro specifico in bici o gestione del carico.
+
+Fonte: [Llanos-Lagos et al., 2026](https://doi.org/10.1007/s00421-025-05883-2)
+([PMID 40632222](https://pubmed.ncbi.nlm.nih.gov/40632222/)).
+
 ## Cronologia aggiornamenti
 
 - **2026-07-27 09:45 UTC** — ricerca `concurrent-strength-training-and-445f66`: 11 studi verificati sintetizzati (query: 8, grezzi: 343).
