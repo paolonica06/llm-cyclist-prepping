@@ -32,6 +32,22 @@ Prima di creare o modificare un piano, leggi il calendario intervals.icu già in
 qui si fa pull/mirror, mai push cieco sopra un piano esistente. Verifica volume reale e
 gare; se una gara manca, chiedi data, tipo, priorità e percorso.
 
+## Protocollo salute mentale e privacy
+
+Il repository remoto e `wiki/` sono pubblici: pubblica soltanto evidenza generale e
+sintesi anonime. Dati personali, check-in, sintomi e screening di Paolo vivono solo in
+`data/private/mental-health/`, ignorato da Git; non copiarli in wiki, commit, issue, log,
+report versionati o ricerche bibliografiche.
+
+Tratta i check-in 0–10 come segnali non clinici e longitudinali, mai come diagnosi o gate
+automatico di allenamento. Uno screening positivo richiede contesto e, quando indicato,
+valutazione professionale; non somministrare o interpretare strumenti riservati ai
+sanitari come IOC SMHAT2 (successore di SMHAT-1). Sintomi persistenti, compromissione,
+disturbi alimentari/RED-S, ansia/depressione clinica o dipendenze sospette richiedono
+professionista. Rischio di autolesionismo/suicidio, psicosi o grave compromissione
+richiedono stop del coaching adattivo e assistenza urgente. Registra consenso e revoca
+soltanto nel percorso privato.
+
 ## Routing autonomo delle skill
 
 Scegli proattivamente la skill in base all'intento, senza aspettare che l'utente ne

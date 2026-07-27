@@ -13,6 +13,9 @@ data/kb.sqlite3
 data/raw/
 data/*.log
 
+# Dati personali sensibili: solo locali, mai nella cronologia Git pubblica.
+data/private/
+
 # Profili personali (PII): non versionati. Solo l'esempio di riferimento resta tracciato.
 profiles/*.yaml
 !profiles/example_athlete.yaml

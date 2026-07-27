@@ -48,6 +48,32 @@ sospetto → stop + professionista, non un aggiustamento di piano.
    gara cambia struttura e taper. Non trasformare un giorno-gara in "lunga endurance".
 Dettaglio in memory `paolo-volume-and-race-calendar`.
 
+## Protocollo salute mentale e dati sensibili — REGOLA VINCOLANTE
+
+La wiki e il repository remoto sono pubblici. Gli studi e le sintesi generali su
+psicologia della prestazione e salute mentale possono vivere in `wiki/`; dati personali,
+check-in, sintomi e risultati di screening dell'atleta vivono esclusivamente in
+`data/private/mental-health/`, ignorato da Git. Non copiarli mai in wiki, commit, issue,
+log, report versionati o prompt bibliografici.
+
+- Leggi dati privati solo quando la richiesta dell'atleta riguarda esplicitamente la
+  dimensione mentale o quando ha autorizzato il loro uso per una decisione specifica;
+  mostra in risposta solo il minimo necessario.
+- Check-in 0–10 su stress, fatica mentale, umore, motivazione, ansia e fiducia sono
+  monitoraggio non clinico: nessun valore singolo produce diagnosi o cambia
+  automaticamente l'allenamento.
+- Uno screening positivo non è una diagnosi. Strumenti riservati a professionisti
+  sanitari, incluso IOC SMHAT2 (successore di SMHAT-1), non vengono somministrati o
+  interpretati dall'agente.
+- Sintomi persistenti, compromissione del funzionamento, disturbi alimentari/RED-S,
+  depressione, ansia clinica o dipendenze sospette richiedono rinvio a professionisti.
+  Rischio di autolesionismo/suicidio, sintomi psicotici o grave compromissione richiedono
+  stop del coaching adattivo e assistenza professionale urgente.
+- Registra modifiche o revoca del consenso solo nel file privato locale; non pubblicare
+  l'esistenza o il contenuto del consenso personale.
+
+La governance pubblica è in `wiki/Mental Health Evidence and Safeguards.md`.
+
 ## Routing autonomo delle skill (selezione proattiva)
 
 **Seleziona e invoca proattivamente la skill migliore in base all'intento, senza
