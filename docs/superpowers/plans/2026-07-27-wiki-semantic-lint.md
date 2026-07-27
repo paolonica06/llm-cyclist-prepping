@@ -232,11 +232,11 @@ Expected: lint OK, suite completa verde, nessun errore diff e nessun file privat
 Revisionare il range dall'ultimo commit su `origin/main`, correggere ogni rilievo
 Critical/Important confermato e rieseguire i gate.
 
-- [ ] **Step 3: Marcare il piano completato**
+- [x] **Step 3: Marcare il piano completato**
 
 Mettere `[x]` soltanto sui passi con evidenza positiva.
 
-- [ ] **Step 4: Committare e pubblicare**
+- [x] **Step 4: Committare e pubblicare**
 
 ```bash
 git add README.md .github cyclist_kb scripts tests wiki/topics docs/superpowers/plans/2026-07-27-wiki-semantic-lint.md
