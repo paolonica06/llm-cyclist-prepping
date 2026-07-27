@@ -1,0 +1,4 @@
+interface:
+  display_name: "Handoff"
+  short_description: "Prepara un passaggio di consegne sicuro"
+  default_prompt: "Usa $handoff per preparare il passaggio alla prossima sessione."

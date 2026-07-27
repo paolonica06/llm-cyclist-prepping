@@ -1,0 +1,4 @@
+interface:
+  display_name: "To Spec"
+  short_description: "Formalizza requisiti chiari in una spec"
+  default_prompt: "Usa $to-spec per trasformare i requisiti già chiariti in una spec verificabile."

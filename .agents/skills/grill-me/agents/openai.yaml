@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grill Me"
+  short_description: "Intervista rigorosa per chiarire requisiti"
+  default_prompt: "Usa $grill-me per chiarire questa idea con una domanda alla volta."

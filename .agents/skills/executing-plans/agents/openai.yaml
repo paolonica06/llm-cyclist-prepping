@@ -1,0 +1,4 @@
+interface:
+  display_name: "Executing Plans"
+  short_description: "Esegue un piano con test e checkpoint"
+  default_prompt: "Usa $executing-plans per implementare il piano scritto nel repository."

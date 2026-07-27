@@ -1,0 +1,43 @@
+{
+  "description": "Equivalenti Codex degli hook di progetto Claude.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^Bash$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$(git rev-parse --show-toplevel)/.claude/hooks/block-dangerous-git.sh\"",
+            "timeout": 10,
+            "statusMessage": "Controllo sicurezza Git"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/scripts/athlete_state_card.py\"",
+            "timeout": 10,
+            "statusMessage": "Caricamento stato atleta"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "nohup \"$(git rev-parse --show-toplevel)/scripts/auto_sync.sh\" >/dev/null 2>&1 &",
+            "timeout": 10,
+            "statusMessage": "Sincronizzazione atleta in background"
+          }
+        ]
+      }
+    ]
+  }
+}

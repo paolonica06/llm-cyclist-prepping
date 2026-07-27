@@ -1,12 +1,15 @@
 # AGENT_WORKFLOW.md — Flusso di lavoro conversazionale con le skill
 
 Questo documento descrive come pilotare il progetto **solo tramite conversazione**
-usando le skill installate a livello di repository (`.claude/skills/`). Non è
+usando le skill installate a livello di repository (`.claude/skills/` per Claude,
+`.agents/skills/` per Codex). Non è
 necessario modificare manualmente codice, configurazioni o architettura: si
 impartiscono comandi in linguaggio naturale e l'agente invoca la skill giusta.
 
 Provenienza e integrità delle skill sono tracciate in `skills-lock.json` (hash per
-ogni skill). Ambito di installazione: **project** (nessuna installazione globale).
+ogni skill sorgente Claude). Le versioni Codex compatibili sono linkate alla stessa
+sorgente quando possibile; i workflow incompatibili sono adattati localmente.
+Ambito di installazione: **project**.
 
 ---
 
@@ -28,7 +31,7 @@ ogni skill). Ambito di installazione: **project** (nessuna installazione globale
 | Debugging sistematico | `systematic-debugging` | «Debugga in modo sistematico il bug Y» |
 | Verifica prima del completamento | `verification-before-completion` | «Verifica prima di dichiarare completo» |
 | Revisione indipendente del codice | `requesting-code-review` → `receiving-code-review` | «Richiedi una code review» / «Analizza i rilievi della review» |
-| Protezioni Git | `git-guardrails-claude-code` (hook già ATTIVO) | (attivo di default; vedi §6) |
+| Protezioni Git | hook Claude + Codex già configurati | (attivi di default; vedi §5) |
 | Handoff tra sessioni | `handoff` | «Prepara un handoff per la prossima sessione» |
 | Scoperta nuove skill | `find-skills` | «Esiste una skill per X?» |
 
@@ -93,7 +96,8 @@ solo dichiararlo (principio di `verification-before-completion`).
 - **Requisiti**: intervista conclusa senza ambiguità aperte; assunzioni esplicitate.
   Se `grill-with-docs`: `CONTEXT.md` aggiornato.
 - **PRD/Spec**: documento con obiettivi, criteri di accettazione e out-of-scope;
-  salvato (in `.scratch/` di default, o sul tracker se configurato).
+  salvato in `docs/specs/` (o nel percorso esplicitamente richiesto). Pubblicazione
+  su tracker solo dopo conferma.
 - **Dominio**: glossario (`CONTEXT.md`) senza termini ambigui non risolti; decisioni
   chiave registrate come ADR (`docs/adr/`).
 - **Piano**: file di piano prodotto (es. `docs/superpowers/plans/…`) con passi atomici
@@ -116,8 +120,9 @@ solo dichiararlo (principio di `verification-before-completion`).
 pushare in autonomia** durante la conversazione (nessuna conferma per-commit/push).
 L'agente gestisce Git da sé: commit ai milestone e push dopo modifiche verificate.
 
-L'hook `.claude/hooks/block-dangerous-git.sh` (in `.claude/settings.json`) resta
-attivo ma **blocca solo le operazioni irreversibili**:
+Lo script condiviso `.claude/hooks/block-dangerous-git.sh` è attivato da
+`.claude/settings.json` per Claude e da `.codex/hooks.json` per Codex. **Blocca solo
+le operazioni irreversibili**:
 
 `git reset --hard`, `git clean -f`/`-fd`, `git branch -D`, `git checkout .`,
 `git restore .`, e il **force-push** (`push --force` / `--force-with-lease`).
@@ -147,8 +152,9 @@ edita `.claude/hooks/block-dangerous-git.sh`).
 4. **Dati rigenerabili del progetto**: `data/kb.sqlite3` e `data/raw/` sono ricostruibili
    → si possono cancellare e rilanciare la pipeline (`research run "…"`). La wiki è
    l'output versionato: non cancellarla, semmai ripristinala da Git.
-5. **Skill che si comporta male**: `npx skills remove <skill>`; reinstalla da
-   `skills-lock.json` con `npx skills experimental_install` (ripristino riproducibile).
+5. **Skill che si comporta male**: per Claude, rimuovi/reinstalla dalla provenienza in
+   `skills-lock.json`; per Codex, correggi o rimuovi l'adattatore/link corrispondente
+   in `.agents/skills/`.
 6. **Chiudi con la verifica**: prima di dichiarare risolto, gate di §4 (test verdi +
    output mostrato).
 
@@ -160,8 +166,9 @@ edita `.claude/hooks/block-dangerous-git.sh`).
    documento di passaggio, **redigendo** chiavi/segreti/PII, salvato nella cartella
    temporanea del sistema (fuori dal repo).
 2. Porta con te anche il contesto durevole del repo: `CLAUDE.md` (architettura),
-   `docs/AGENT_WORKFLOW.md` (questo file), e — se in corso — il file di piano in
-   `docs/superpowers/plans/` con i checkpoint di `executing-plans`.
+   `AGENTS.md` (istruzioni Codex), `docs/AGENT_WORKFLOW.md` (questo file), e — se in
+   corso — il file di piano in `docs/superpowers/plans/` con i checkpoint di
+   `executing-plans`.
 3. Nella nuova sessione: apri con «**Riprendi da questo handoff**» e incolla/indica il
    documento; poi «continua il piano da dove eravamo».
 4. Se il lavoro è a metà di un piano, `executing-plans` mantiene i checkpoint: riprendi
@@ -180,13 +187,13 @@ edita `.claude/hooks/block-dangerous-git.sh`).
   bersaglio (possibili side-effect). Usala con consapevolezza di questi comportamenti.
 - **`pdf`**: alla prima esecuzione può installare librerie note (pypdf, pdfplumber,
   poppler…), tutte locali e senza rete.
-- **`to-spec` / handoff**: di default scrivono in locale (`.scratch/`, cartella temp).
-  La pubblicazione su un issue tracker esterno avviene solo se configuri
-  `/setup-matt-pocock-skills` e usa le credenziali già presenti nell'ambiente.
+- **`to-spec` / handoff**: scrivono in locale (`docs/specs/`, cartella temp).
+  La pubblicazione su un issue tracker esterno avviene solo dopo conferma e usa
+  l'eventuale connettore già configurato.
 
 ---
 
-## 9. Inventario skill installate (18)
+## 9. Inventario skill sorgente (18)
 
 | Skill | Fonte | Rischio |
 |---|---|---|
@@ -210,3 +217,8 @@ edita `.claude/hooks/block-dangerous-git.sh`).
 | pdf | anthropics/skills | low |
 
 **Esclusa:** `ubiquitous-language` (deprecata, sostituita da `domain-modeling`).
+
+Codex espone 15 skill di progetto: riusa 10 sorgenti compatibili, adatta localmente
+`grill-me`, `grill-with-docs`, `to-spec`, `executing-plans` e `handoff`, e usa le
+installazioni native per `pdf` e `find-skills`. `git-guardrails-claude-code` non viene
+esposto come skill Codex perché il guardrail è già configurato direttamente negli hook.

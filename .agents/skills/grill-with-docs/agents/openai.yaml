@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grill With Docs"
+  short_description: "Intervista con glossario e ADR aggiornati"
+  default_prompt: "Usa $grill-with-docs per chiarire il design e documentare le decisioni."
