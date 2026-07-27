@@ -83,5 +83,6 @@ protocollo prestativo**.
 ## Collegamenti
 
 - [Forza concorrente e performance endurance](concurrent-strength-training-and-endurance-cycling-performance.md)
+- [Sovraccarico, dolore e bike fitting](cycling-overuse-injuries-pain-and-bike-fitting.md)
 - [Threshold e sweet spot](threshold-and-sweet-spot-training-for-ftp-development-in-trained-cyclists.md)
 - [Repeated-sprint ability](repeated-sprint-ability-and-intermittent-high-intensity-performance-in-endurance.md)

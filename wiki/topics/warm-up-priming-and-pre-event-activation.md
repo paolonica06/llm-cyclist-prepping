@@ -80,6 +80,7 @@ principio del warm-up**, **bassa per una ricetta specifica di openers/PAPE**.
 
 ## Collegamenti
 
+- [Critical Power, W′ e validità dei test](critical-power-w-prime-and-test-validity.md)
 - [Taper pre-gara](tapering-strategies-before-endurance-cycling-competitions.md)
 - [Repeated-sprint ability](repeated-sprint-ability-and-intermittent-high-intensity-performance-in-endurance.md)
 - [Pacing e distribuzione della potenza](pacing-strategy-and-power-output-distribution-in-prolonged-cycling-over-variable.md)

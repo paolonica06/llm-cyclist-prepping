@@ -83,6 +83,7 @@ vincolata al protocollo.
 
 ## Collegamenti
 
+- [Warm-up, priming e attivazione pre-evento](warm-up-priming-and-pre-event-activation.md)
 - [Threshold e sweet spot](threshold-and-sweet-spot-training-for-ftp-development-in-trained-cyclists.md)
 - [Pacing e distribuzione della potenza](pacing-strategy-and-power-output-distribution-in-prolonged-cycling-over-variable.md)
 - [Repeated-sprint ability](repeated-sprint-ability-and-intermittent-high-intensity-performance-in-endurance.md)

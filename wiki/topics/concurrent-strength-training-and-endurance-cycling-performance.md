@@ -87,6 +87,11 @@ pesante (`≥80% 1RM`). La certezza GRADE per gli outcome era **bassa**.
 Fonte: [Llanos-Lagos et al., 2026](https://doi.org/10.1007/s00421-025-05883-2)
 ([PMID 40632222](https://pubmed.ncbi.nlm.nih.gov/40632222/)).
 
+## Collegamenti
+
+- [Torque training, bassa cadenza e forza specifica](torque-training-low-cadence-and-cycling-specific-strength.md)
+- [Infortuni da sovraccarico, dolore e bike fitting](cycling-overuse-injuries-pain-and-bike-fitting.md)
+
 ## Cronologia aggiornamenti
 
 - **2026-07-27 09:45 UTC** — ricerca `concurrent-strength-training-and-445f66`: 11 studi verificati sintetizzati (query: 8, grezzi: 343).
