@@ -17,7 +17,7 @@
 - **Specializzare sui tuoi punti di forza** (la strategia giusta per te, perché profilo e gare coincidono): **soglia prolungata, TT-effort, over-unders, fuga-sim**;
 - **Polizza sui finali**: un po' di lavoro anaerobico/allunghi per reggere volate di gruppo e mosse nervose — **non** da velocista, solo per non farti tagliare fuori.
 
-**20 h/sett** disponibili; **niente palestra** → forza via **SFR**; **recuperi ≥1h30**. Prima gara: **Zanè Monte Cengio, sab 1 ago** (gara-allenamento).
+**20 h/sett** disponibili; **niente palestra** → forza via **SFR**; **recuperi ≥1h30**. Prima gara: **Zanè Monte Cengio, sab 1 ago** (**categoria C**, gara-allenamento e lavoro di squadra; nessun taper dedicato).
 
 ## 2. Perché "allenarsi per il tipo di atleta che sei" — e come
 
@@ -51,7 +51,7 @@ La regola: **prima elimina il deficit che ti fa *perdere* la gara, poi affila l'
 ```
  Periodo          Fase                        Focus (profilo TT)              Ore   CTL~
  ──────────────────────────────────────────────────────────────────────────────────
- 25 lug–2 ago     Rientro + GARA Zanè (1/8)   riprendere                      ~16   68
+ 25 lug–2 ago     Rientro + GARA C Zanè (1/8) test + gara come 2ª qualità     ~17   68
  3–9 ago          B1 · Ricostruzione base     Z2 + SOGLIA + SFR               ~18   76
  10–16 ago         (piramidale)               volume ↑ + sweet-spot lungo     ~20   84
  17–23 ago        Scarico                     assorbimento −35%               ~13   81
@@ -65,22 +65,24 @@ La regola: **prima elimina il deficit che ti fa *perdere* la gara, poi affila l'
 
 ## 6. Calendario giorno-per-giorno
 
-> Watt su FTP 329 (ricalibra dopo il test 25-ago). Ris. 15–20′ + def. 10′ inclusi. 🟢 Z2 · 🟠 soglia/sweet-spot · 🔵 TT/fuga · 🔀 over-unders · 🔴 VO2 · ⛰️ SFR · ⚡ allunghi · 🏁 gara.
+> Watt provvisori fino al test CP del 28-lug; dal 29-lug ricalibra le sedute di qualità sul CP misurato. Ris. 15–20′ + def. 10′ inclusi. 🟢 Z2 · 🟠 soglia/sweet-spot · 🔵 TT/fuga · 🔀 over-unders · 🔴 VO2 · ⛰️ SFR · ⚡ allunghi · 🏁 gara.
 
-### 🔁 RIENTRO + GARA ZANÈ
+### 🔁 RIENTRO + GARA C ZANÈ
 
-**Sett 1 · sab 25 lug – dom 2 ago · ~16 h · CTL→68**
+**Sett 1 · sab 25 lug – dom 2 ago · ~17 h previste sul fatto reale · CTL→68**
 | G | Data | Seduta | Dettaglio | h |
 |---|---|---|---|---|
-| **Sab** | 25/7 | 🟢 Lunga | **4 h @ 200–235 W** · CHO 60 g/h | 4 |
-| Dom | 26/7 | 🟢 Z2 | 3 h @ 195–230 W | 3 |
-| Lun | 27/7 | 😴 Recupero | 1h30 Z1 <181 W | 1.5 |
+| **Sab** | 25/7 | 🟢 Endurance *(fatto)* | **2h33**, IF 61%, 96 TSS (rispetto alle 4 h pianificate) | 2.55 |
+| Dom | 26/7 | 😴 Riposo *(fatto)* | nessuna attività sincronizzata (rispetto alle 3 h pianificate) | 0 |
+| Lun | 27/7 | ⚡ Attivazione pre-test | **55′ totali**: 20′ Z1 + **3×45″ @ 330–350 W** rec 4′15″ + **3×10″ agilità 110–120 rpm** rec 2′50″ + 11′ Z1; finire brillante, non affaticato | 0.9 |
 | **Mar** | 28/7 | 🎯 **TEST CP 3′+12′** | all-out → FTP reale (baseline vero) · vedi §9 | 1.5 |
-| Mer | 29/7 | 🟢 Z2 + ⚡ | 2h30 @ 195–225 W + 6×15″ allunghi @ 500 W | 2.5 |
-| Gio | 30/7 | 🔵 Apertura crono | **2×8′ @ 305–315 W** aero rec 5′ (in 1h45) | 1.75 |
-| Ven | 31/7 | 😌 Scarico | 1h30 Z1 + 3×1′ @ 330 W | 1.5 |
-| **Sab** | 1/8 | 🏁 **GARA Zanè Monte Cengio** | gara-allenamento · CHO 80–90 g/h | ~3–4 |
+| Mer | 29/7 | 🟢 Z2 | 2h30 @ 195–225 W | 2.5 |
+| Gio | 30/7 | 🟢 Z2 endurance | **2h30 @ 195–225 W**, nessun intervallo strutturato | 2.5 |
+| Ven | 31/7 | 🟢 Facile + agilità | 1h30 facile + **3×10″ agilità 110–120 rpm**, rec 4′50″; niente aperture da 1′ | 1.5 |
+| **Sab** | 1/8 | 🏁 **GARA C Zanè Monte Cengio** | **qualità n. 2 della settimana**: gara-allenamento, lavoro di squadra, nessun obiettivo di risultato · CHO 80–90 g/h | ~4 |
 | Dom | 2/8 | 😴 Recupero | 1h30 Z1 | 1.5 |
+
+**Logica della settimana (`dati_atleta` + `euristica`):** il test CP è la qualità n. 1 e la gara C fornisce la qualità n. 2. I precedenti richiami duri di giovedì e venerdì sono rimossi per evitare tre esposizioni intense in cinque giorni; il volume viene mantenuto con Z2. La gara non riceve un taper dedicato, ma il recupero successivo resta necessario perché il costo fisiologico non dipende dalla priorità assegnata.
 
 ### 🔧 BLOCCO 1 — Base + soglia (piramidale)
 
@@ -88,7 +90,7 @@ La regola: **prima elimina il deficit che ti fa *perdere* la gara, poi affila l'
 | G | Data | Seduta | Dettaglio | h |
 |---|---|---|---|---|
 | Lun | 3/8 | 😴 Recupero | 1h30 Z1 | 1.5 |
-| Mar | 4/8 | 🟠 Soglia | **3×15′ @ 300–310 W** rec 6′ (in 2 h) | 2 |
+| Mar | 4/8 | 🟠 Soglia condizionata | **3×15′**, target da ricalibrare sul CP del 28/7; eseguire solo con recupero e wellness normali dopo la gara (in 2 h) | 2 |
 | Mer | 5/8 | 🟢 Z2 | 3.5 h @ 200–235 W | 3.5 |
 | Gio | 6/8 | 🟠 Sweet-spot lungo | **3×18′ @ 292–305 W** rec 6′ (in 2.5 h) | 2.5 |
 | Ven | 7/8 | 🟢 Z2 + ⛰️ | 3 h @ 195–230 W + 4×6′ SFR @ 290–305 W 55rpm | 3 |
