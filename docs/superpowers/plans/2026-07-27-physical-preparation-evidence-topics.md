@@ -313,7 +313,7 @@ git add cyclist_kb tests wiki docs/superpowers/plans/2026-07-27-physical-prepara
 git commit -m "Preserva le integrazioni curate della wiki"
 ```
 
-- [ ] **Step 6: Pubblicare**
+- [x] **Step 6: Pubblicare**
 
 ```bash
 git push
