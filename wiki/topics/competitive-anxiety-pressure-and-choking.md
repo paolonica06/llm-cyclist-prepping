@@ -44,14 +44,14 @@ da solo, un miglioramento prestativo.
 
 ## Applicazione prudente a test e gare
 
-1. Definire il punto critico: attesa della partenza, errore iniziale, tratto tecnico,
+1. **[euristica]** Definire il punto critico: attesa della partenza, errore iniziale, tratto tecnico,
    attacco, pacing o giudizio sul risultato.
-2. Scegliere una routine breve: respiro non forzato, cue attentiva, istruzione d'azione
+2. **[euristica]** Scegliere una routine breve: respiro non forzato, cue attentiva, istruzione d'azione
    e primo comportamento controllabile.
-3. Provare la routine in allenamenti con pressione simulata e criterio osservabile.
-4. Registrare separatamente ansia percepita, aderenza alla routine, decisioni/pacing e
+3. **[euristica]** Provare la routine in allenamenti con pressione simulata e criterio osservabile.
+4. **[euristica]** Registrare separatamente ansia percepita, aderenza alla routine, decisioni/pacing e
    prestazione.
-5. Mantenere la strategia se è utile e sostenibile; non interpretare una singola gara
+5. **[euristica]** Mantenere la strategia se è utile e sostenibile; non interpretare una singola gara
    come prova definitiva.
 
 **[euristica]** Un possibile protocollo N=1 è confrontare più prove simili con e senza

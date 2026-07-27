@@ -44,15 +44,15 @@ prestazione migliore o maggiore benessere.
 
 ## Principi osservabili
 
-1. Collegare ogni obiettivo di risultato a uno o due comportamenti di processo
+1. **[euristica]** Collegare ogni obiettivo di risultato a uno o due comportamenti di processo
    controllabili.
-2. Usare un riferimento di miglioramento personale insieme al confronto competitivo.
-3. Spiegare il razionale delle sessioni e offrire scelte reali quando compatibili con
+2. **[euristica]** Usare un riferimento di miglioramento personale insieme al confronto competitivo.
+3. **[euristica]** Spiegare il razionale delle sessioni e offrire scelte reali quando compatibili con
    l'obiettivo.
-4. Definire criteri di adattamento del piano: modificare una seduta non deve equivalere
+4. **[euristica]** Definire criteri di adattamento del piano: modificare una seduta non deve equivalere
    a fallire.
-5. Verificare comprensione e ownership, non soltanto obbedienza.
-6. Riesaminare periodicamente se l'obiettivo conserva significato e compatibilità con
+5. **[euristica]** Verificare comprensione e ownership, non soltanto obbedienza.
+6. **[euristica]** Riesaminare periodicamente se l'obiettivo conserva significato e compatibilità con
    salute, recupero e altre aree di vita.
 
 **[euristica]** Per un esperimento N=1 si può scegliere un obiettivo di processo per un

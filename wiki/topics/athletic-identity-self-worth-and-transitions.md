@@ -53,12 +53,12 @@ prestazione. Questa nota non valuta né diagnostica l'identità di una persona.
 
 ## Applicazione prudente
 
-1. Nominare più ruoli e qualità personali oltre a quello di atleta.
-2. Definire cosa dello sport rimane significativo anche senza un risultato specifico.
-3. Preparare scenari per infortunio, pausa, cambio di squadra o modifica degli
+1. **[euristica]** Nominare più ruoli e qualità personali oltre a quello di atleta.
+2. **[euristica]** Definire cosa dello sport rimane significativo anche senza un risultato specifico.
+3. **[euristica]** Preparare scenari per infortunio, pausa, cambio di squadra o modifica degli
    obiettivi, includendo contatti e routine alternative.
-4. Proteggere relazioni, studio/lavoro e interessi che non dipendono dalla prestazione.
-5. Durante una transizione, osservare funzionamento, appartenenza, senso di controllo e
+4. **[euristica]** Proteggere relazioni, studio/lavoro e interessi che non dipendono dalla prestazione.
+5. **[euristica]** Durante una transizione, osservare funzionamento, appartenenza, senso di controllo e
    accesso al supporto, non soltanto la motivazione ad allenarsi.
 
 **[dati_atleta]** Nel lavoro individuale, eventuali segnali personali appartengono

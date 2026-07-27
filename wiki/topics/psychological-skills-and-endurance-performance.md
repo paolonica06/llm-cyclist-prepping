@@ -31,12 +31,12 @@ mentale.
 
 ## Applicazione prudente
 
-1. Scegliere una sola abilità e definire prima l'outcome.
-2. Provarla in allenamento ripetuto, non introdurla per la prima volta in una gara
+1. **[euristica]** Scegliere una sola abilità e definire prima l'outcome.
+2. **[euristica]** Provarla in allenamento ripetuto, non introdurla per la prima volta in una gara
    importante.
-3. Confrontare sessioni simili, annotando contesto, aspettative e aderenza.
-4. Mantenere la tecnica solo se utile, sostenibile e priva di effetti indesiderati.
-5. Se emergono sintomi clinici o compromissione, passare dal coaching al percorso di
+3. **[euristica]** Confrontare sessioni simili, annotando contesto, aspettative e aderenza.
+4. **[euristica]** Mantenere la tecnica solo se utile, sostenibile e priva di effetti indesiderati.
+5. **[euristica]** Se emergono sintomi clinici o compromissione, passare dal coaching al percorso di
    riconoscimento e referral descritto in
    [Mental Health Evidence and Safeguards](../Mental%20Health%20Evidence%20and%20Safeguards.md).
 

@@ -146,3 +146,9 @@ def test_reports_curated_whitespace_but_ignores_generated_paper_whitespace(tmp_p
 
     assert any(issue.code == "WIKI010" and issue.path.name == "topic.md" for issue in issues)
     assert not any(issue.code == "WIKI010" and issue.path.name == "paper.md" for issue in issues)
+
+
+def test_repository_wiki_passes_lint():
+    issues = lint_wiki(REPO_ROOT / "wiki")
+
+    assert issues == [], "\n".join(issue.format(REPO_ROOT) for issue in issues)
