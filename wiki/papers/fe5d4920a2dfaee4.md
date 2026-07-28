@@ -9,17 +9,19 @@
 **Verifica metadati**: ✔ verificato
 
 ## Qualità metodologica
-- Tipo di studio: **unknown**
+- Tipo di studio: **Non determinabile - solo titolo disponibile, nessun abstract/testo fornito**
 - Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **low**
-  - sample: unknown
-  - control: absent_or_unclear
-  - randomization: absent_or_unclear
-  - duration: unknown
-  - measures: unclear
-  - transferability: low
-  - _Numerosità del campione non riportata nel testo disponibile._
+  - sample: non determinabile - assenza di testo
+  - control: non determinabile
+  - randomization: non determinabile
+  - duration: non determinabile
+  - measures: non determinabile
+  - transferability: low - il titolo suggerisce potenziale rilevanza (HIIT + resistance in endurance athletes) ma non verificabile senza contenuto
+  - _Nessun abstract/full text disponibile: impossibile valutare disegno, campione, controllo o risultati_
+  - _Da trattare come NEEDS_REVIEW: recuperare abstract/full text prima di usarlo come evidenza_
+  - _Il titolo è coerente con l'argomento (endurance athletes) ma non basta per giudicare qualità metodologica_
 
-## Dati estratti (fonte: not_available, metodo: heuristic)
+## Dati estratti (fonte: not_available, metodo: llm)
 - **Disegno dello studio**: _non disponibile_
 - **Partecipanti**: _non disponibile_
 - **Livello di allenamento**: _non disponibile_
