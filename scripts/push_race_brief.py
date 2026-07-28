@@ -26,27 +26,31 @@ ATHLETE = "i215294"
 EVENT_ID = 124969208
 EXPECTED_NAME = "🏁 GARA Zanè Monte Cengio"
 
-DESCRIPTION = """Categoria C: gara-allenamento e lavoro di squadra, senza obiettivo di risultato. È la qualità n. 2 della settimana dopo il test CP.
+DESCRIPTION = """OBIETTIVO: squadra e gruppo. Nessun risultato personale, nessun cronometro. Non guardare chi ti passa.
 
-PERCORSO (da GPX: 119,5 km / 2078 m D+ / arrivo a 1268 m)
+PERCORSO (da GPX: 119,5 km / 2078 m D+ / arrivo a 1268 m, punto-a-punto)
 - km 0-48: pianura
 - km 48-105: 3 giri di circuito mosso, 5 strappi per giro (475-1900 m, 2,6-5,3%)
-- km 105-119,5: SALITA FINALE 14,2 km al 6,7%, +958 m
+- km 105-119,5: salita finale 14,2 km al 6,7%, +958 m
 
-LA SALITA FINALE È LA GARA. Dura 54-60 minuti: su quella durata W' vale solo +9W di supplemento, quindi conta soltanto CP. Non è terreno da attacchi.
-- km 1-2 all'8,5-9,1% → la trappola: NON strafare qui
-- km 3-11 al 4,6-5,3% → il tratto dove si fa il tempo
-- km 12-13 al 10,7% e 9,1% → il muro vero
+CIRCUITO — LAVORA LIBERAMENTE. Simulato il consumo di W' sui 15 strappi tutti a CP+60W con i 4' di respiro reali: oscilla fra 43% e 67%, non si accumula (tau 8,9 min a 180W recupera il 36% per intervallo). Non c'è un budget da razionare.
+Il lavoro in pianura costa ZERO W' perché è sotto CP: tirare a 250-270W sul piano è il modo più utile alla squadra al costo più basso. Fai il motore lì.
+
+SALITA FINALE — il costo non dipende da come la fai: 200W = 74' e 46 TSS, 255W = 59' e 59 TSS. Solo 13 TSS di differenza. Quindi scegli sullo stimolo, non sul costo.
+Target: 240-255W (88-93% di CP) a sensazione, come LAVORO non come gara — 55-60' continui su CP sono esattamente lo stimolo che serve al blocco d'autunno. Se arrivi ai piedi cotto dal lavoro di squadra, sali a 200-220W: sono 9 TSS, non è un problema.
+- km 1-2 all'8,5-9,1% → LA TRAPPOLA: parti a 230-240W e sali, non inseguire
+- km 3-11 al 4,6-5,3% → tratto regolare
+- km 12-13 al 10,7% e 9,1% → il muro
 - km 14-15 al 6,5% e 9,2% → arrivo
+Rapporti: sui muri non scendere sotto 60 rpm. Con 34x30 a 240W sul 10,7% sei a 63 rpm; con 34x28 a 58 rpm. Se hai un 30 o 32, montalo.
 
-PACING SALITA: 250-265W (92-97% di CP). Il tetto teorico è 281W con W' pieno ai piedi, ma dopo 105 km non lo avrai pieno. Sui muri non scendere sotto 60 rpm: con 34x30 servono 63 rpm a 240W sul 10,7%.
+LE 3 COSE CHE CONTANO PIÙ DEI WATT
+1. CHO 320-390 g TOTALI (80-90 g/h): mangia ogni 20' DAL KM 5, non quando hai fame. La salita arriva dopo 3h15, cioè quando finisce il glicogeno.
+2. Punto-a-punto: arrivo a 1268 m, +1091 m netti. Piano per il rientro + qualcosa di caldo in cima.
+3. Non partire disidratato.
 
-CIRCUITO: gli strappi durano 1'23"-4'17", lì W' è la valuta. Tutti a CP+20W costerebbero 45 kJ contro un budget di 28 kJ — si recupera fra uno e l'altro (tau ~8 min sotto CP), ma il margine non è infinito. Non inseguire ogni sparata.
-
-DURATA ATTESA 4h00-4h20 · TSS 230-280.
-CHO 80-90 g/h → 320-390 g TOTALI: borraccia + gel ogni 20'. Non partire disidratato.
-
-NB: watt provvisori su CP 273 stimato dalla curva 42gg. RICALIBRARE dopo il test del 29/07."""
+DURATA ATTESA 4h00-4h20 · TSS 195-230.
+NB: watt su CP 273 stimato dalla curva 42gg. Ricalibrare dopo il test del 29/07."""
 
 PATCH = {"description": DESCRIPTION, "distance": 119490}
 
