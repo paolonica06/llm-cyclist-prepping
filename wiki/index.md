@@ -22,6 +22,7 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [motivation, goal setting and motivational climate](topics/motivation-goal-setting-and-motivational-climate.md) — clima mastery/ego, autonomia e qualità della motivazione (aggiornato 2026-07-27)
 - [athletic identity, self-worth and transitions](topics/athletic-identity-self-worth-and-transitions.md) — identità atletica, infortunio e transizioni (aggiornato 2026-07-27)
 <!-- END MANUAL: index-topics -->
+- [warm-up and cool-down duration, total session length and structure of high-intensity interval training sessions in trained cyclists](topics/warm-up-and-cool-down-duration-total-session-length-and-structure-of-high-intens.md) — 30 studi sintetizzati (aggiornato 2026-07-28)
 - [work interval duration and number of repetitions in high intensity interval training dose response in trained cyclists](topics/work-interval-duration-and-number-of-repetitions-in-high-intensity-interval-trai.md) — 25 studi sintetizzati (aggiornato 2026-07-28)
 - [training load, immune function and upper respiratory tract illness risk in competitive cyclists](topics/training-load-immune-function-and-upper-respiratory-tract-illness-risk-in-compet.md) — 20 studi sintetizzati (aggiornato 2026-07-24)
 - [body composition energy availability and resting metabolic rate across the cycling training season](topics/body-composition-energy-availability-and-resting-metabolic-rate-across-the-cycli.md) — 9 studi sintetizzati (aggiornato 2026-07-24)
