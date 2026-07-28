@@ -20,7 +20,7 @@ from typing import Any, Dict, List, Optional
 from ..athlete_models import (ActivitySummary, MetricType, Race, RacePriority,
                               TimeseriesPoint, make_activity_id, make_race_id)
 from ..config import get_settings
-from .base import HttpFetcher
+from .base import HttpFetcher, WriteResult
 
 BASE = "https://intervals.icu/api/v1"
 
@@ -166,6 +166,36 @@ class IntervalsClient:
         """
         data = await self._get(f"/activity/{activity_external_id}/power-curve")
         return _parse_activity_power_curve(data)
+
+    # --- Scrittura (l'unica del client) -----------------------------------------
+    # Il progetto tratta intervals.icu come sorgente di verità in *lettura*: il
+    # calendario lo scrive l'atleta. `update_event` esiste per riscrivere un evento
+    # GIÀ ESISTENTE e identificato, mai per creare piani alla cieca — chi chiama deve
+    # aver letto prima l'evento e mostrato il diff. Nessun metodo di create/delete:
+    # aggiungerli richiede una decisione esplicita, non è una dimenticanza.
+
+    async def update_event(self, athlete_id: str, event_id: int | str,
+                           patch: Dict[str, Any]) -> WriteResult:
+        """PUT parziale su `/athlete/{id}/events/{eventId}`.
+
+        `patch` contiene solo i campi da cambiare (es. `name`, `description`,
+        `moving_time`). Passando una `description` con i passi del workout,
+        intervals.icu ri-genera lato server il `workout_doc`: non lo costruiamo noi.
+        """
+        if not self.available:
+            return WriteResult(ok=False, status=None, body=None,
+                               error="client non disponibile (offline o key mancante)")
+        own = self._fetcher is None
+        fetcher = self._fetcher or HttpFetcher()
+        if own:
+            await fetcher.__aenter__()
+        try:
+            return await fetcher.send_json(
+                "PUT", f"{BASE}/athlete/{athlete_id}/events/{event_id}",
+                payload=patch, headers=self._auth_headers())
+        finally:
+            if own:
+                await fetcher.__aexit__()
 
 
 def _date_of(rec: dict) -> Optional[str]:
