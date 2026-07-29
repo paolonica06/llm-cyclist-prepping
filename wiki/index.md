@@ -22,7 +22,7 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [motivation, goal setting and motivational climate](topics/motivation-goal-setting-and-motivational-climate.md) — clima mastery/ego, autonomia e qualità della motivazione (aggiornato 2026-07-27)
 - [athletic identity, self-worth and transitions](topics/athletic-identity-self-worth-and-transitions.md) — identità atletica, infortunio e transizioni (aggiornato 2026-07-27)
 <!-- END MANUAL: index-topics -->
-- [concurrent strength training and endurance cycling performance](topics/concurrent-strength-training-and-endurance-cycling-performance.md) — 11 studi sintetizzati (aggiornato 2026-07-27)
-- [tapering strategies before endurance cycling competitions](topics/tapering-strategies-before-endurance-cycling-competitions.md) — 45 studi sintetizzati (aggiornato 2026-07-27)
-- [block vs traditional periodization for competitive cyclists](topics/block-vs-traditional-periodization-for-competitive-cyclists.md) — 27 studi sintetizzati (aggiornato 2026-07-27)
-- [polarized vs threshold training intensity distribution in endurance cyclists](topics/polarized-vs-threshold-training-intensity-distribution-in-endurance-cyclists.md) — 12 studi sintetizzati (aggiornato 2026-07-27)
+- [training load monitoring and overtraining in endurance cyclists](topics/training-load-monitoring-and-overtraining-in-endurance-cyclists.md) — 16 studi sintetizzati (aggiornato 2026-07-29)
+- [heart rate variability guided training in endurance athletes](topics/heart-rate-variability-guided-training-in-endurance-athletes.md) — 24 studi sintetizzati (aggiornato 2026-07-29)
+- [sleep, recovery and endurance performance in athletes](topics/sleep-recovery-and-endurance-performance-in-athletes.md) — 19 studi sintetizzati (aggiornato 2026-07-29)
+- [heat acclimatization and endurance cycling performance](topics/heat-acclimatization-and-endurance-cycling-performance.md) — 14 studi sintetizzati (aggiornato 2026-07-29)
