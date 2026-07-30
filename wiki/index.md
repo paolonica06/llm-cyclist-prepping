@@ -22,7 +22,4 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [motivation, goal setting and motivational climate](topics/motivation-goal-setting-and-motivational-climate.md) — clima mastery/ego, autonomia e qualità della motivazione (aggiornato 2026-07-27)
 - [athletic identity, self-worth and transitions](topics/athletic-identity-self-worth-and-transitions.md) — identità atletica, infortunio e transizioni (aggiornato 2026-07-27)
 <!-- END MANUAL: index-topics -->
-- [training load monitoring and overtraining in endurance cyclists](topics/training-load-monitoring-and-overtraining-in-endurance-cyclists.md) — 16 studi sintetizzati (aggiornato 2026-07-29)
-- [heart rate variability guided training in endurance athletes](topics/heart-rate-variability-guided-training-in-endurance-athletes.md) — 24 studi sintetizzati (aggiornato 2026-07-29)
-- [sleep, recovery and endurance performance in athletes](topics/sleep-recovery-and-endurance-performance-in-athletes.md) — 19 studi sintetizzati (aggiornato 2026-07-29)
-- [heat acclimatization and endurance cycling performance](topics/heat-acclimatization-and-endurance-cycling-performance.md) — 14 studi sintetizzati (aggiornato 2026-07-29)
+- [interval training and VO2max in trained competitive cyclists](topics/interval-training-and-vo2max-in-trained-competitive-cyclists.md) — 11 studi sintetizzati (aggiornato 2026-07-30)
