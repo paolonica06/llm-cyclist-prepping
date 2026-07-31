@@ -1,83 +1,72 @@
 # training load monitoring and overtraining in endurance cyclists
 
-> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-24 18:07 UTC** · Ricerca `training-load-monitoring-and-ove-7d58a6` · Studi verificati inclusi: **20**.
+> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-29 07:36 UTC** · Ricerca `training-load-monitoring-and-ove-7cd70d` · Studi verificati inclusi: **16**.
 
 Ogni affermazione è collegata ai paper che la sostengono. I record non verificati sono esclusi da questa sintesi.
 
 ## Evidenze
 
 ### VO₂max / capacità aerobica
-- Acute exposure to moderate altitude increases ventilation and heart rate, decreases stroke volume and plasma volume, and reduces VO2max by approximately 15-20%. Over several weeks, acclimatization can increase red blood cell volume and consequently VO2max, provided altitude exposure and iron stores… — [Philo 2009](../papers/41d45651ebcce83b.md) *(disegno: revisione narrativa fisiologica e applicativa; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- VO2max did not change in the ETG or CG overall, but decreased in five ETG athletes from 53.0 ± 2.2 (CI 46.8–59.2) to 50.2 ± 2.3 (CI 43.8–56.6) ml kg−1 min−1 (P<0.01), indicating overtraining. Baroreflex sensitivity and blood pressure variability did not change. Low-frequency power of R–R interval… — [Uusitalo 1998](../papers/a1046e0eb60922e7.md) *(disegno: Studio prospettico controllato non randomizzato con incremento del carico di allenamento; confidenza: high; popolazione: endurance_other; fonte dato: abstract)*
+- V̇o 2max, VEmax, and the root mean square of the successive differences of normal-to-normal time interval between heartbeats (RMSSD), which is the time domain of HRV all increased significantly. — [Hebisz 2020](../papers/48cdd721732b55ee.md) *(disegno: unknown; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
 
 ### Performance / potenza
-- All training-load methods showed large to very large relationships with changes in submaximal fitness variables. The strongest relationships with changes in aerobic fitness variables were observed for individualized TRIMP and Training Stress Score. The strongest dose-response relationships with… — [Dajo 2017](../papers/dacf8b97b3b4f001.md) *(disegno: studio prospettico osservazionale pre-post; confidenza: high; popolazione: cycling; fonte dato: abstract)*
-- Acute exposure to moderate altitude increases ventilation and heart rate, decreases stroke volume and plasma volume, and reduces VO2max by approximately 15-20%. Over several weeks, acclimatization can increase red blood cell volume and consequently VO2max, provided altitude exposure and iron stores… — [Philo 2009](../papers/41d45651ebcce83b.md) *(disegno: revisione narrativa fisiologica e applicativa; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- Short-term high-intensity interval training can increase intense exercise performance by 2-4% in well-trained athletes. High-volume training also induces important metabolic adaptations. Although adaptations from high-volume and high-intensity training overlap considerably, their molecular… — [Paul 2010](../papers/74e81580ffbf2631.md) *(disegno: revisione narrativa sull'allenamento ad alta intensità e alto volume; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
-- Intensified training significantly decreased RMR, body mass, fat mass, and HRV, with improvement after recovery. Overreaching was induced, as indicated by reduced anaerobic and aerobic performance and increased total mood disturbance. If increased energy demands are not compensated by dietary… — [Amy 2018](../papers/9095536da074efbc.md) *(disegno: studio longitudinale interventistico a misure ripetute senza controllo parallelo; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
-- Plasma α-tocopherol increased significantly in the supplemented group, whereas the placebo group showed a trend toward decrease. Physical performance did not improve compared with placebo. Heart rates were not significantly different, and lactate concentrations at the aerobic and anaerobic… — [Rokitzki 1994](../papers/c39011f3bae0f5b9.md) *(disegno: Studio longitudinale di supplementazione controllato con placebo; randomizzazione e cecità non documentate; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- Training quantification is basic to evaluate an endurance athlete's responses to training loads, ensure adequate stress/recovery balance, and determine the relationship between training and performance. — [Iñigo 2016](../papers/8a234babc15b6bc0.md) *(disegno: review; confidenza: low; popolazione: mixed; fonte dato: abstract)*
+- PURPOSE: To assess the dose-response relationships between different training-load methods and aerobic fitness and performance in competitive road cyclists. — [Dajo 2017](../papers/461fc7af3a754d57.md) *(disegno: unknown; confidenza: low; popolazione: cycling; fonte dato: abstract)*
+- Other stresses, depression and an increased susceptibility to infections may be important. — [Richard 1990](../papers/c0c2b47779664abb.md) *(disegno: review; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- Performance in intense exercise events, such as Olympic rowing, swimming, kayak, track running and track cycling events, involves energy contribution from aerobic and anaerobic sources. — [Paul 2010](../papers/48ff223e0b2a478f.md) *(disegno: unknown; confidenza: low; popolazione: mixed; fonte dato: abstract)*
+- TEE of endurance athletes was significantly higher during the competition phase than during the preparation phase (p < 0.001) and significantly higher than energy intake in both phases (p < 0.001). — [Juliane 2017](../papers/ec06d3d94736c19f.md) *(disegno: systematic review; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
+- Plasma α-tocopherol concentration increased significantly in the vitamin E-supplemented group, whereas the placebo group showed a trend toward decrease. — [Rokitzki 1994](../papers/e227622211528b8f.md) *(disegno: unknown; confidenza: low; popolazione: cycling; fonte dato: abstract)*
 
 ### Soglia / metabolismo
-- Most retrospective studies reported a pyramidal training intensity distribution with a high proportion of high-volume, low-intensity training. Some world-class athletes appeared to use a polarized distribution during certain seasonal phases. Emerging prospective randomized controlled studies… — [Thomas 2015](../papers/bdff0b68526bb2bc.md) *(disegno: revisione narrativa di studi retrospettivi e prospettici; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- Plasma α-tocopherol increased significantly in the supplemented group, whereas the placebo group showed a trend toward decrease. Physical performance did not improve compared with placebo. Heart rates were not significantly different, and lactate concentrations at the aerobic and anaerobic… — [Rokitzki 1994](../papers/c39011f3bae0f5b9.md) *(disegno: Studio longitudinale di supplementazione controllato con placebo; randomizzazione e cecità non documentate; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
+- Some world-class athletes appear to adopt a so-called "polarized" TID (i.e., significant % of HVLIT and high-intensity training) during certain phases of the season. — [Thomas 2015](../papers/05ec4cacfa825107.md) *(disegno: randomized controlled trial; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
 
 ### Altri outcome
-- The reviewed studies confirmed the validity, good reliability, and internal consistency of the session-RPE method across several sports and physical activities, age categories, sexes, and expertise levels. The method could be used as a stand-alone method for training-load monitoring, although some… — [Monoem 2017](../papers/f02a72669b67835d.md) *(disegno: revisione narrativa con ricerca bibliografica strutturata; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
-- Athletes were relatively unstressed and had high energy levels at the beginning of each university semester, but energy and sleep parameters deteriorated toward examination periods. Logistic regression indicated that perceived mood, sleep duration, academic stress, and energy levels predicted… — [Michael 2019](../papers/040a46462cc81f67.md) *(disegno: studio longitudinale osservazionale di coorte; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
-- Total energy expenditure, energy intake, and body composition across the training season — [Juliane 2017](../papers/6574066e832ee757.md) *(disegno: revisione sistematica; confidenza: high; popolazione: endurance_other; fonte dato: abstract)*
-- Muscular strength and hypertrophy — [Universitas 2025](../papers/b564fc362c907f09.md) *(disegno: Revisione sistematica e meta-analisi dichiarata, ma descritta in modo incompleto e con incoerenza terminologica; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
-- Symptoms include thigh pain and loss of power during high-intensity efforts. Mean time from symptom onset to diagnosis is 3 years. Conservative interventions are generally not acceptable for competitive cyclists. Percutaneous procedures are not recommended as a primary intervention because… — [Carcia 2026](../papers/7f73bfcfea36046e.md) *(disegno: Revisione narrativa clinica sulla diagnosi e sul trattamento di una patologia vascolare nei ciclisti; confidenza: high; popolazione: cycling; fonte dato: abstract)*
-- After acute exercise, miR-106a, miR-221, miR-30b, miR-151-5p, let-7i, miR-146, miR-652, and miR-151-3p were downregulated at 0 hours; miR-338-3p, miR-330-3p, miR-223, miR-139-5p, and miR-143 were upregulated at 1 hour; and miR-1 was upregulated at 3 hours (P<0.00032). After chronic training,… — [Søren 2014](../papers/dd3c3015b1f4f6e5.md) *(disegno: Studio esplorativo longitudinale prima-dopo su esercizio acuto e 12 settimane di allenamento; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
+- With increased professionalism in sport there has been a greater interest in the scientific approach to training and recovery of athletes. — [Michael 2019](../papers/d773473e18fcd45a.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- While HLRT is widely considered superior for strength development due to greater neuromuscular adaptation, LLRT has been suggested to produce comparable hypertrophy when performed to failure. — [Universitas 2025](../papers/f0bd3fb1938a7361.md) *(disegno: meta-analysis; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
 
 ## Risultati contrastanti
 
-- **VO₂max / capacità aerobica**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
-- **Performance / potenza**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
-- **Soglia / metabolismo**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
-- **Altri outcome**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
+_Nessuna contraddizione rilevata fra gli studi attualmente inclusi._
 
 ## Interpretazione
 
 > Sintesi derivata dagli studi elencati in *Evidenze* e *Studi inclusi* (che riportano i collegamenti ai singoli paper).
 
-Le evidenze indicano che il carico negli endurance cyclists è interpretabile più rigorosamente mediante un monitoraggio multidimensionale e individualizzato che attraverso un singolo indicatore. La session-RPE è valida e affidabile anche come misura autonoma, ma l’integrazione con frequenza cardiaca e metriche calibrate sulla fisiologia individuale può migliorare la sensibilità: individualized TRIMP, Training Stress Score e Lucia TRIMP mostrano infatti le associazioni più forti con variazioni di fitness submassimale, aerobica e prestazione, senza però dimostrare da soli un rapporto causale. Distribuzioni piramidali risultano comuni retrospettivamente, mentre alcuni studi prospettici favoriscono la polarizzazione e l’HIIT può produrre miglioramenti prestativi a breve termine; tali risultati non stabiliscono tuttavia una distribuzione universalmente ottimale e possono dipendere da fase stagionale, livello e obiettivo. L’intensificazione non adeguatamente compensata dal recupero e dall’apporto energetico può indurre overreaching, con cali prestativi, riduzione di massa corporea, metabolismo a riposo e HRV e peggioramento dell’umore; sonno, stress non sportivo, energia percepita e malattia costituiscono confondenti o co-determinanti importanti. Nell’overtraining, la diminuzione individuale del VO2max può essere informativa, mentre HRV, baroriflesso e variabilità pressoria mostrano risposte non uniformi, escludendo un biomarcatore diagnostico unico. Altitudine, acclimatazione, stato del ferro e variazioni plasmatiche alterano frequenza cardiaca, VO2max e interpretazione del carico; il beneficio a livello del mare resta incerto. MicroRNA e marcatori di danno o stress ossidativo descrivono risposte biologiche all’esercizio, ma non sono validati come strumenti clinici specifici dell’overtraining; inoltre, la riduzione di alcuni marcatori con α-tocoferolo non coincide con un miglioramento prestativo. Dolore alla coscia e perdita selettiva di potenza richiedono anche una diagnosi differenziale rispetto a patologie vascolari del ciclista, spesso riconosciute tardivamente, anziché essere attribuiti automaticamente al sovrallenamento. Nel complesso, la convergenza tra andamento del carico individualizzato, prestazione, recupero, disponibilità energetica, sonno, umore, stress e sintomi è più informativa di soglie isolate; rimangono incertezze sulla causalità, sui valori limite e sulla generalizzabilità. Gli studi privi di risultati riportati non contribuiscono all’interpretazione, mentre le conclusioni provenienti da fonti a bassa confidenza devono essere considerate particolarmente fragili.
+La base attuale include 16 studi verificati (0 ad alta confidenza). Le evidenze disponibili sono complessivamente concordi, pur con numerosità campionaria spesso limitata. Molti dati provengono da soli abstract: le conclusioni vanno considerate provvisorie e riviste all'arrivo di full text e nuovi studi.
 
 ## Applicazione pratica
 
 > Indicazioni orientative, da adattare al singolo atleta (vedi Athlete Context Agent). Non costituiscono prescrizioni.
 
-- **VO₂max / capacità aerobica**: la maggioranza degli studi (1/2) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Philo 2009](../papers/41d45651ebcce83b.md), [Uusitalo 1998](../papers/a1046e0eb60922e7.md).
-- **Performance / potenza**: evidenza non conclusiva (1/5 positivi); evitare generalizzazioni. Studi: [Dajo 2017](../papers/dacf8b97b3b4f001.md), [Philo 2009](../papers/41d45651ebcce83b.md), [Paul 2010](../papers/74e81580ffbf2631.md), [Amy 2018](../papers/9095536da074efbc.md), [Rokitzki 1994](../papers/c39011f3bae0f5b9.md).
-- **Soglia / metabolismo**: evidenza non conclusiva (0/2 positivi); evitare generalizzazioni. Studi: [Thomas 2015](../papers/bdff0b68526bb2bc.md), [Rokitzki 1994](../papers/c39011f3bae0f5b9.md).
-- **Altri outcome**: evidenza non conclusiva (1/6 positivi); evitare generalizzazioni. Studi: [Monoem 2017](../papers/f02a72669b67835d.md), [Michael 2019](../papers/040a46462cc81f67.md), [Juliane 2017](../papers/6574066e832ee757.md), [Universitas 2025](../papers/b564fc362c907f09.md), [Carcia 2026](../papers/7f73bfcfea36046e.md), [Søren 2014](../papers/dd3c3015b1f4f6e5.md).
+- **VO₂max / capacità aerobica**: la maggioranza degli studi (1/1) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Hebisz 2020](../papers/48cdd721732b55ee.md).
+- **Performance / potenza**: la maggioranza degli studi (3/6) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Iñigo 2016](../papers/8a234babc15b6bc0.md), [Dajo 2017](../papers/461fc7af3a754d57.md), [Richard 1990](../papers/c0c2b47779664abb.md), [Paul 2010](../papers/48ff223e0b2a478f.md), [Juliane 2017](../papers/ec06d3d94736c19f.md), [Rokitzki 1994](../papers/e227622211528b8f.md).
+- **Soglia / metabolismo**: evidenza non conclusiva (0/1 positivi); evitare generalizzazioni. Studi: [Thomas 2015](../papers/05ec4cacfa825107.md).
+- **Altri outcome**: la maggioranza degli studi (2/2) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Michael 2019](../papers/d773473e18fcd45a.md), [Universitas 2025](../papers/f0bd3fb1938a7361.md).
 
 ## Studi inclusi
 
 | Studio | Anno | Disegno | Qualità | Confidenza | Trasferibilità | Fonte dato |
 |---|---|---|---|---|---|---|
-| [Carcia 2026](../papers/7f73bfcfea36046e.md) | 2026 | Revisione narrativa clinica sulla diagnosi e sul trattamento di una patologia vascolare nei ciclisti | low | high | high | abstract |
-| [Universitas 2025](../papers/b564fc362c907f09.md) | 2025 | Revisione sistematica e meta-analisi dichiarata, ma descritta in modo incompleto e con incoerenza terminologica | low | moderate | low | abstract |
-| [Michael 2019](../papers/040a46462cc81f67.md) | 2019 | studio longitudinale osservazionale di coorte | moderate | moderate | moderate | abstract |
-| [Amy 2018](../papers/9095536da074efbc.md) | 2018 | studio longitudinale interventistico a misure ripetute senza controllo parallelo | moderate | moderate | high | abstract |
-| [Rønnestad 2018](../papers/5bbb23f77b48bbb1.md) | 2018 | Revisione narrativa o articolo applicativo; disegno non verificabile dai dati forniti | low | low | high | not_available |
-| [Monoem 2017](../papers/f02a72669b67835d.md) | 2017 | revisione narrativa con ricerca bibliografica strutturata | moderate | moderate | moderate | abstract |
-| [Dajo 2017](../papers/dacf8b97b3b4f001.md) | 2017 | studio prospettico osservazionale pre-post | moderate | high | high | abstract |
-| [Juliane 2017](../papers/6574066e832ee757.md) | 2017 | revisione sistematica | high | high | moderate | abstract |
-| [Thomas 2015](../papers/bdff0b68526bb2bc.md) | 2015 | revisione narrativa di studi retrospettivi e prospettici | moderate | moderate | moderate | abstract |
-| [Søren 2014](../papers/dd3c3015b1f4f6e5.md) | 2014 | Studio esplorativo longitudinale prima-dopo su esercizio acuto e 12 settimane di allenamento | moderate | moderate | low | abstract |
-| [Ivarsson 2011](../papers/bc5c910176efeae9.md) | 2011 | revisione narrativa o articolo meccanicistico non determinabile dal solo titolo | low | low | low | not_available |
-| [Paul 2010](../papers/74e81580ffbf2631.md) | 2010 | revisione narrativa sull'allenamento ad alta intensità e alto volume | moderate | moderate | moderate | abstract |
-| [Philo 2009](../papers/41d45651ebcce83b.md) | 2009 | revisione narrativa fisiologica e applicativa | moderate | moderate | moderate | abstract |
-| [Holm 2004](../papers/bab93edfeb1856a7.md) | 2004 | Studio primario di intervento sull'allenamento dei muscoli respiratori; disegno non verificabile dai dati forniti | low | low | high | not_available |
-| [Uusitalo 1998](../papers/a1046e0eb60922e7.md) | 1998 | Studio prospettico controllato non randomizzato con incremento del carico di allenamento | moderate | high | moderate | abstract |
-| [Lehmann 1997](../papers/23f5a3331570bee6.md) | 1997 | Studio primario presumibilmente osservazionale o di monitoraggio longitudinale; disegno non verificabile dai dati forniti | low | low | moderate | not_available |
-| [Rokitzki 1994](../papers/c39011f3bae0f5b9.md) | 1994 | Studio longitudinale di supplementazione controllato con placebo; randomizzazione e cecità non documentate | moderate | moderate | high | abstract |
-| [Lundin 1985](../papers/8e1fcb9b8f381088.md) | 1985 | Revisione narrativa o articolo di indirizzo sul monitoraggio del recupero; disegno non verificabile dai dati forniti | low | low | moderate | not_available |
-| [Bishop s.d.](../papers/34fb7855bd130418.md) | ? | studio non determinabile dal solo titolo | low | low | moderate | not_available |
-| [Laursen s.d.](../papers/a46bad09e6888467.md) | ? | studio interventistico o revisione non determinabile dal solo titolo | low | low | high | not_available |
+| [Universitas 2025](../papers/f0bd3fb1938a7361.md) | 2025 | meta-analysis | low | moderate | low | abstract |
+| [Anon 2021](../papers/a3e71a62ec41d717.md) | 2021 | unknown | low | low | low | not_available |
+| [Hebisz 2020](../papers/48cdd721732b55ee.md) | 2020 | unknown | moderate | moderate | high | abstract |
+| [Michael 2019](../papers/d773473e18fcd45a.md) | 2019 | unknown | low | low | low | abstract |
+| [Dajo 2017](../papers/461fc7af3a754d57.md) | 2017 | unknown | low | low | high | abstract |
+| [Juliane 2017](../papers/ec06d3d94736c19f.md) | 2017 | systematic review | low | moderate | low | abstract |
+| [Iñigo 2016](../papers/8a234babc15b6bc0.md) | 2016 | review | low | low | moderate | abstract |
+| [Thomas 2015](../papers/05ec4cacfa825107.md) | 2015 | randomized controlled trial | moderate | moderate | low | abstract |
+| [Ivarsson 2011](../papers/f93e88b9474eccb7.md) | 2011 | unknown | low | low | low | not_available |
+| [Paul 2010](../papers/48ff223e0b2a478f.md) | 2010 | unknown | low | low | moderate | abstract |
+| [Chris 2005](../papers/2a148e4248dba707.md) | 2005 | unknown | low | low | moderate | not_available |
+| [Hawley 2001](../papers/ac15e204aa231484.md) | 2001 | unknown | low | low | moderate | not_available |
+| [Rokitzki 1994](../papers/e227622211528b8f.md) | 1994 | unknown | moderate | low | moderate | abstract |
+| [Richard 1990](../papers/c0c2b47779664abb.md) | 1990 | review | low | low | low | abstract |
+| [Bishop s.d.](../papers/3d174d47a5b8cae1.md) | ? | unknown | low | low | moderate | not_available |
+| [Laursen s.d.](../papers/7716bff990c63031.md) | ? | unknown | low | low | high | not_available |
 
 ## Cronologia aggiornamenti
 
+- **2026-07-29 07:36 UTC** — ricerca `training-load-monitoring-and-ove-7cd70d`: 16 studi verificati sintetizzati (query: 4, grezzi: 276).
 - **2026-07-24 18:07 UTC** — ricerca `training-load-monitoring-and-ove-7d58a6`: 20 studi verificati sintetizzati (query: 4, grezzi: 275).
 - **2026-07-24 16:18 UTC** — ricerca `training-load-monitoring-and-ove-7d58a6`: 8 studi verificati sintetizzati (query: 4, grezzi: 275).
 - **2026-07-24 08:58 UTC** — ricerca `training-load-monitoring-and-ove-7d58a6`: 22 studi verificati sintetizzati (query: 4, grezzi: 275).

@@ -1,73 +1,88 @@
 # heart rate variability guided training in endurance athletes
 
-> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-24 18:12 UTC** · Ricerca `heart-rate-variability-guided-tr-1c7915` · Studi verificati inclusi: **15**.
+> Pagina mantenuta automaticamente. Ultimo aggiornamento: **2026-07-29 07:34 UTC** · Ricerca `heart-rate-variability-guided-tr-289c40` · Studi verificati inclusi: **24**.
 
 Ogni affermazione è collegata ai paper che la sostengono. I record non verificati sono esclusi da questa sintesi.
 
 ## Evidenze
 
+### VO₂max / capacità aerobica
+- In recent years, its use in sports medicine has increased significantly due to its usefulness in monitoring training load, recovery, and cardiovascular health in athletes. — [Katarzyna 2025](../papers/456568a704c9ee40.md) *(disegno: review; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+
 ### Performance / potenza
-- No interaction effects between groups were observed. Significant main time effects were found for absolute and relative V̇O2max, RE, sVT1, sVT2, and TT (P < 0.001). The RP group improved TT (P < 0.05), showed greater effectiveness for maximal aerobic speed and fat mass reduction, but did not… — [Ranieri 2025](../papers/23253447b7075d82.md) *(disegno: Randomized controlled training intervention; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- Most HRV-guided interventions included fewer moderate- and/or high-intensity sessions. HRV-guided training had a significant positive effect on submaximal physiological parameters (p = 0.028), but small, non-significant effects on performance (p = 0.597) and V̇O2peak (p = 0.130). It was associated… — [Düking 2021](../papers/372e18b8de78f40e.md) *(disegno: Systematic review and meta-analysis; confidenza: moderate; popolazione: mixed; fonte dato: abstract)*
-- All groups significantly improved 1-min, 5-min, 20-min, FTP™, and FTP™/kg performance. Group 3 showed the greatest improvements, particularly for 5-min power (310.5 ± 60 to 337.9 ± 71 W) and 20-min power (260.9 ± 55 to 284.5 ± 64 W). Stress had the highest day-to-day consistency among subjective… — [Carla 2025](../papers/29c4e968e8744b21.md) *(disegno: Non-randomized comparative training intervention; confidenza: low; popolazione: cycling; fonte dato: abstract)*
-- RMSSD and DFA alpha 1 were the most sensitive markers of acute autonomic fatigue and organismic stress. HRV-guided training using the Smallest Worthwhile Change threshold significantly improved VO₂max and peak power output compared with fixed periodization. High-end chest straps such as Polar H10… — [Dominik 2026](../papers/d05a696ce2384d3b.md) *(disegno: Systematic review of clinical trials and longitudinal studies; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
+- Endurance performance is regulated by integrated physiological, perceptual, and behavioral mechanisms, and is markedly impaired by environmental heat stress. — [Andrade 2026](../papers/cfb0a212c1c71661.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- Fixed effects meta-analysis revealed a significant medium-sized positive effect of HRV-guided training on submaximal physiological parameters (g = 0.296, 95% CI 0.031 to 0.562, p = 0.028), but its effects on performance (g = 0.079, 95% CI -0.050 to 0.393, p = 0.597) and V̇O2peak (g = 0.171, 95% CI… — [Düking 2021](../papers/5e6cd24ab8d55cd6.md) *(disegno: meta-analysis; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
+- Such a measurement method can favor individualized training planning to improve athletes’ performance. — [María 2020](../papers/56831e87d460d18e.md) *(disegno: randomized controlled trial; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
+- Subjective well-being was typically impaired with an acute increase in training load, and also with chronic training, while an acute decrease in training load improved subjective well-being. — [Anna 2015](../papers/d2dadc8958a09dd5.md) *(disegno: review; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- Athletic performance is reduced by a night or more without sleep, but the influence on performance of partial sleep restriction over 1-3 nights, a more real-world scenario, remains unclear. — [Neil 2020](../papers/e93ea8d0097dd54a.md) *(disegno: review; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- Across all groups, significant performance improvements were observed for 1-min, 5-min, 20-min, FTP™, and FTP™/kg. — [Carla 2025](../papers/2cb6aa029c4a8157.md) *(disegno: unknown; confidenza: low; popolazione: cycling; fonte dato: abstract)*
+- Purpose: This systematic review with meta-analysis was conducted to establish whether heart rate variability (HRV)-guided training enhances cardiac-vagal modulation, aerobic fitness, or endurance performance to a greater extent than predefined training while accounting for methodological factors. — [A. 2021](../papers/6d8a3530d65b5633.md) *(disegno: meta-analysis; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
+- In recent years, its use in sports medicine has increased significantly due to its usefulness in monitoring training load, recovery, and cardiovascular health in athletes. — [Katarzyna 2025](../papers/456568a704c9ee40.md) *(disegno: review; confidenza: low; popolazione: unclear; fonte dato: abstract)*
+- Evidence indicates that HRV-guided training (HRV-GT), using the Smallest Worthwhile Change (SWC) threshold, significantly improves VO₂max and peak power output compared with fixed periodization. — [Dominik 2026](../papers/273f6e7524e437d3.md) *(disegno: systematic review; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
+- Results: Correlation analysis revealed that elevated ApoB, increased fat mass, and higher RHR were strongly associated with lower HRV. — [Patsialos 2026](../papers/ab5f6f81389a29f0.md) *(disegno: cohort; confidenza: low; popolazione: unclear; fonte dato: abstract)*
 
 ### Soglia / metabolismo
-- No interaction effects between groups were observed. Significant main time effects were found for absolute and relative V̇O2max, RE, sVT1, sVT2, and TT (P < 0.001). The RP group improved TT (P < 0.05), showed greater effectiveness for maximal aerobic speed and fat mass reduction, but did not… — [Ranieri 2025](../papers/23253447b7075d82.md) *(disegno: Randomized controlled training intervention; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- All groups significantly improved 1-min, 5-min, 20-min, FTP™, and FTP™/kg performance. Group 3 showed the greatest improvements, particularly for 5-min power (310.5 ± 60 to 337.9 ± 71 W) and 20-min power (260.9 ± 55 to 284.5 ± 64 W). Stress had the highest day-to-day consistency among subjective… — [Carla 2025](../papers/29c4e968e8744b21.md) *(disegno: Non-randomized comparative training intervention; confidenza: low; popolazione: cycling; fonte dato: abstract)*
-- RMSSD and DFA alpha 1 were the most sensitive markers of acute autonomic fatigue and organismic stress. HRV-guided training using the Smallest Worthwhile Change threshold significantly improved VO₂max and peak power output compared with fixed periodization. High-end chest straps such as Polar H10… — [Dominik 2026](../papers/d05a696ce2384d3b.md) *(disegno: Systematic review of clinical trials and longitudinal studies; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
+- Across all groups, significant performance improvements were observed for 1-min, 5-min, 20-min, FTP™, and FTP™/kg. — [Carla 2025](../papers/2cb6aa029c4a8157.md) *(disegno: unknown; confidenza: low; popolazione: cycling; fonte dato: abstract)*
+- Both short-term (daily/weekly) and long-term (multi-week) HRV-guided interventions were considered, including protocols for load adjustment based on individualized thresholds. — [Martyna 2026](../papers/4e621fe1f9e0a814.md) *(disegno: meta-analysis; confidenza: moderate; popolazione: unclear; fonte dato: full_text)*
+- Evidence indicates that HRV-guided training (HRV-GT), using the Smallest Worthwhile Change (SWC) threshold, significantly improves VO₂max and peak power output compared with fixed periodization. — [Dominik 2026](../papers/273f6e7524e437d3.md) *(disegno: systematic review; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
 
 ### Altri outcome
-- Both HRV-guided and control training enhanced V̇O2max (p < 0.0001), but the effect size for HRV-guided training was significantly higher (p < 0.0001). The amateur-level and female subgroups reported better and significant V̇O2max results (p < 0.0001). HRV-guided training had a small positive effect… — [Antonio 2020](../papers/457efe0c7c7ed620.md) *(disegno: Systematic review and meta-analysis of randomized controlled trials; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- Training load management, recovery, autonomic balance, vagal tone, and personalized monitoring. — [Martyna 2026](../papers/d8242d1673c45776.md) *(disegno: Narrative review; confidenza: low; popolazione: endurance_other; fonte dato: full_text)*
-- RMSSD and SDNN were reported to be sensitive to training intensity and recovery status. HRV-guided training may improve VO₂max and reduce overtraining risk. HRV also responds to sleep quality, supplementation, and biofeedback. Low HRV is associated with increased cardiovascular risk. Interpretation… — [Katarzyna 2025](../papers/e303cf70d2227e15.md) *(disegno: Narrative literature review; confidenza: low; popolazione: mixed; fonte dato: abstract)*
-- Stride-length percentage change was the strongest predictor of speed (β = 0.677). HRV analysis revealed delayed parasympathetic reactivation. Horses with better recovery capacity had higher parasympathetic activity. Red blood cell measures increased after training. — [E. 2025](../papers/0e16aff59d61dde2.md) *(disegno: Observational exercise study in endurance horses; confidenza: moderate; popolazione: endurance_other; fonte dato: abstract)*
-- Morning HR increased from 52.2 ± 6.7 bpm PRE to 58.8 ± 7.0, 58.5 ± 8.1, and 57.9 ± 7.2 bpm at POST 1–3 (p < 0.001). Parasympathetic HRV indices decreased (p < 0.001), while sympathetically modulated HRV did not change significantly (p = 0.101). Hct decreased from 49.9 ± 4.0% to 43.2 ± 3.4% by POST… — [M. 2018](../papers/02e74f8b5806f399.md) *(disegno: Small prospective repeated-measures observational study; confidenza: low; popolazione: cycling; fonte dato: abstract)*
-- Pro@Heart athletes trained more and had higher total 3-month training load than Master@Heart athletes: 9718 ± 3190 versus 5499 ± 3775 min and 22339 ± 7350 versus 13438 ± 8880 AU (both P < 0.05). Across all athletes, training duration and eTRIMP strongly correlated with LVEDVi, LVESVi, LVMi, RVEDVi,… — [C. 2024](../papers/2c8b2d9a7a6f9e33.md) *(disegno: Prospective multicenter observational cohort analysis; confidenza: moderate; popolazione: cycling; fonte dato: abstract)*
-- Elevated ApoB, increased fat mass, and higher RHR were strongly associated with lower HRV. Glucose variability showed weaker associations. Machine-learning models demonstrated limited predictive accuracy, suggesting that the selected features alone were insufficient to fully explain HRV variability… — [Patsialos 2026](../papers/72bc75ea192ee59c.md) *(disegno: studio pilota osservazionale longitudinale con modelli predittivi di machine learning; confidenza: high; popolazione: endurance_other; fonte dato: abstract)*
+- The participants were divided into two groups, with no significant differences in height, weight, BMI, waist circumference, or blood pressure. — [Paisal 2025](../papers/0a68bea24eaddef8.md) *(disegno: unknown; confidenza: low; popolazione: cycling; fonte dato: abstract)*
+- Early diagnosis remains difficult because no single validated biomarker can reliably distinguish physiological fatigue from clinically significant maladaptation. — [Magdalena 2026](../papers/38653023ec2d3d33.md) *(disegno: systematic review; confidenza: moderate; popolazione: unclear; fonte dato: abstract)*
+- Fitness is associated with reductions in rest and exercise heart rate, probably to be due to increased vagal drive and reduced sympathetic tone. — [Coats 1993](../papers/5f634cfa9de60af5.md) *(disegno: unknown; confidenza: low; popolazione: unclear; fonte dato: abstract)*
 
 ## Risultati contrastanti
 
 - **Performance / potenza**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
-- **Soglia / metabolismo**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
 - **Altri outcome**: sono presenti sia evidenze di miglioramento sia risultati nulli/negativi. Le posizioni divergenti sono mantenute entrambe nella sezione Evidenze e non riconciliate d'ufficio.
 
 ## Interpretazione
 
 > Sintesi derivata dagli studi elencati in *Evidenze* e *Studi inclusi* (che riportano i collegamenti ai singoli paper).
 
-Nel complesso, l’allenamento guidato dalla variabilità della frequenza cardiaca (HRV) negli atleti di endurance sembra offrire benefici piccoli o selettivi rispetto alla periodizzazione prestabilita, soprattutto per parametri fisiologici submassimali, VO₂max e soglie ventilatorie, senza prove coerenti di un vantaggio sulla prestazione. Ranieri 2025 non rileva interazioni significative tra gruppi: il gruppo HRV migliora maggiormente sVT1, sVT2 e VO₂max, mentre la periodizzazione prestabilita mostra risultati più favorevoli e meno variabili nel time trial e nella velocità aerobica massima. Düking 2021 conferma effetti significativi soltanto sui parametri submassimali, con effetti piccoli e non significativi su prestazione e VO₂peak, pur suggerendo meno non-responder; Antonio 2020 identifica invece un piccolo vantaggio sul VO₂max, apparentemente maggiore nelle donne e negli amatori. Risultati più favorevoli riportati da Dominik 2026 richiedono conferma indipendente. L’HRV può riflettere fatica e recupero autonomico, ma risente anche di sonno, stress, stato di salute, composizione corporea, condizioni di misurazione e differenze individuali; pertanto non è un indicatore diagnostico autonomo di sovrallenamento. RMSSD, valutato longitudinalmente con protocolli standardizzati e strumenti accurati, appare tra gli indici più sensibili, mentre i sensori PPG da polso sono più vulnerabili agli artefatti. Le evidenze restano limitate da campioni piccoli, protocolli eterogenei, possibili differenze per sesso e livello atletico, esiti discordanti e numerosi studi a bassa confidenza o privi di risultati riportati. I dati equini e gli studi osservazionali su biomarcatori, carico cardiaco o associazioni metaboliche forniscono solo supporto indiretto e non dimostrano l’efficacia dell’allenamento HRV-guidato. L’interpretazione più prudente è quindi che l’HRV possa contribuire a personalizzare la distribuzione dell’intensità e a descrivere il recupero, ma non sia dimostrato che migliori sistematicamente la performance rispetto a una periodizzazione ben costruita.
+La base attuale include 24 studi verificati (0 ad alta confidenza). Su alcuni outcome (Performance / potenza, Altri outcome) l'evidenza è eterogenea: le differenze possono dipendere da protocollo, livello degli atleti e durata. Molti dati provengono da soli abstract: le conclusioni vanno considerate provvisorie e riviste all'arrivo di full text e nuovi studi.
 
 ## Applicazione pratica
 
 > Indicazioni orientative, da adattare al singolo atleta (vedi Athlete Context Agent). Non costituiscono prescrizioni.
 
-- **Performance / potenza**: la maggioranza degli studi (2/4) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Ranieri 2025](../papers/23253447b7075d82.md), [Düking 2021](../papers/372e18b8de78f40e.md), [Carla 2025](../papers/29c4e968e8744b21.md), [Dominik 2026](../papers/d05a696ce2384d3b.md).
-- **Soglia / metabolismo**: la maggioranza degli studi (2/3) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Ranieri 2025](../papers/23253447b7075d82.md), [Carla 2025](../papers/29c4e968e8744b21.md), [Dominik 2026](../papers/d05a696ce2384d3b.md).
-- **Altri outcome**: evidenza non conclusiva (3/7 positivi); evitare generalizzazioni. Studi: [Antonio 2020](../papers/457efe0c7c7ed620.md), [Martyna 2026](../papers/d8242d1673c45776.md), [Katarzyna 2025](../papers/e303cf70d2227e15.md), [E. 2025](../papers/0e16aff59d61dde2.md), [M. 2018](../papers/02e74f8b5806f399.md), [C. 2024](../papers/2c8b2d9a7a6f9e33.md), [Patsialos 2026](../papers/72bc75ea192ee59c.md).
+- **VO₂max / capacità aerobica**: la maggioranza degli studi (1/1) riporta un beneficio; ipotesi applicativa da testare individualmente. Studi: [Katarzyna 2025](../papers/456568a704c9ee40.md).
+- **Performance / potenza**: evidenza non conclusiva (2/10 positivi); evitare generalizzazioni. Studi: [Andrade 2026](../papers/cfb0a212c1c71661.md), [Düking 2021](../papers/5e6cd24ab8d55cd6.md), [María 2020](../papers/56831e87d460d18e.md), [Anna 2015](../papers/d2dadc8958a09dd5.md), [Neil 2020](../papers/e93ea8d0097dd54a.md), [Carla 2025](../papers/2cb6aa029c4a8157.md), [A. 2021](../papers/6d8a3530d65b5633.md), [Katarzyna 2025](../papers/456568a704c9ee40.md), [Dominik 2026](../papers/273f6e7524e437d3.md), [Patsialos 2026](../papers/ab5f6f81389a29f0.md).
+- **Soglia / metabolismo**: evidenza non conclusiva (0/3 positivi); evitare generalizzazioni. Studi: [Carla 2025](../papers/2cb6aa029c4a8157.md), [Martyna 2026](../papers/4e621fe1f9e0a814.md), [Dominik 2026](../papers/273f6e7524e437d3.md).
+- **Altri outcome**: evidenza non conclusiva (0/3 positivi); evitare generalizzazioni. Studi: [Paisal 2025](../papers/0a68bea24eaddef8.md), [Magdalena 2026](../papers/38653023ec2d3d33.md), [Coats 1993](../papers/5f634cfa9de60af5.md).
 
 ## Studi inclusi
 
 | Studio | Anno | Disegno | Qualità | Confidenza | Trasferibilità | Fonte dato |
 |---|---|---|---|---|---|---|
-| [Martyna 2026](../papers/d8242d1673c45776.md) | 2026 | Narrative review | low | low | low | full_text |
-| [Dominik 2026](../papers/d05a696ce2384d3b.md) | 2026 | Systematic review of clinical trials and longitudinal studies | moderate | moderate | moderate | abstract |
-| [Patsialos 2026](../papers/72bc75ea192ee59c.md) | 2026 | studio pilota osservazionale longitudinale con modelli predittivi di machine learning | low | high | low | abstract |
-| [Ranieri 2025](../papers/23253447b7075d82.md) | 2025 | Randomized controlled training intervention | moderate | moderate | moderate | abstract |
-| [Carla 2025](../papers/29c4e968e8744b21.md) | 2025 | Non-randomized comparative training intervention | moderate | low | high | abstract |
-| [Katarzyna 2025](../papers/e303cf70d2227e15.md) | 2025 | Narrative literature review | low | low | moderate | abstract |
-| [E. 2025](../papers/0e16aff59d61dde2.md) | 2025 | Observational exercise study in endurance horses | low | moderate | low | abstract |
-| [C. 2024](../papers/2c8b2d9a7a6f9e33.md) | 2024 | Prospective multicenter observational cohort analysis | moderate | moderate | moderate | abstract |
-| [V. 2024](../papers/7b9ab5d2359ca3f3.md) | 2024 | Unclassifiable record or conference/database entry | low | low | low | full_text |
-| [Düking 2021](../papers/372e18b8de78f40e.md) | 2021 | Systematic review and meta-analysis | moderate | moderate | moderate | abstract |
-| [Antonio 2020](../papers/457efe0c7c7ed620.md) | 2020 | Systematic review and meta-analysis of randomized controlled trials | high | moderate | moderate | abstract |
-| [M. 2018](../papers/02e74f8b5806f399.md) | 2018 | Small prospective repeated-measures observational study | low | low | moderate | abstract |
-| [Herzig 2018](../papers/028fe68e5dc7cfc7.md) | 2018 | studio associativo sull'allenamento di endurance con analisi del ruolo confondente della frequenza cardiaca; disegno specifico non determinabile | low | low | low | not_available |
-| [Hynynen 2002](../papers/a3e8c116a5c53202.md) | 2002 | intervento con aumento del volume di allenamento; disegno specifico non determinabile dal titolo | low | low | moderate | not_available |
-| [Lee s.d.](../papers/945b8050659f0e6f.md) | ? | intervento di allenamento a breve termine; disegno specifico non determinabile dal titolo | low | low | low | not_available |
+| [Andrade 2026](../papers/cfb0a212c1c71661.md) | 2026 | unknown | low | low | low | abstract |
+| [Martyna 2026](../papers/4e621fe1f9e0a814.md) | 2026 | meta-analysis | low | moderate | low | full_text |
+| [Magdalena 2026](../papers/38653023ec2d3d33.md) | 2026 | systematic review | low | moderate | low | abstract |
+| [Dominik 2026](../papers/273f6e7524e437d3.md) | 2026 | systematic review | moderate | moderate | low | abstract |
+| [Patsialos 2026](../papers/ab5f6f81389a29f0.md) | 2026 | cohort | low | low | low | abstract |
+| [Paisal 2025](../papers/0a68bea24eaddef8.md) | 2025 | unknown | low | low | moderate | abstract |
+| [Carla 2025](../papers/2cb6aa029c4a8157.md) | 2025 | unknown | low | low | moderate | abstract |
+| [Katarzyna 2025](../papers/456568a704c9ee40.md) | 2025 | review | low | low | low | abstract |
+| [V. 2024](../papers/926f8d85e8d0dc29.md) | 2024 | unknown | low | low | low | abstract |
+| [Düking 2021](../papers/5e6cd24ab8d55cd6.md) | 2021 | meta-analysis | moderate | moderate | low | abstract |
+| [A. 2021](../papers/6d8a3530d65b5633.md) | 2021 | meta-analysis | moderate | moderate | low | abstract |
+| [María 2020](../papers/56831e87d460d18e.md) | 2020 | randomized controlled trial | moderate | moderate | low | abstract |
+| [Neil 2020](../papers/e93ea8d0097dd54a.md) | 2020 | review | low | low | low | abstract |
+| [C. 2020](../papers/ccbe4bd5fbf0ab43.md) | 2020 | unknown | low | low | moderate | abstract |
+| [Anon 2020](../papers/5a33064505822e34.md) | 2020 | unknown | low | low | low | not_available |
+| [Guzii 2018](../papers/c23eb1b3ddfb464d.md) | 2018 | unknown | low | low | low | not_available |
+| [Lindsay 2017](../papers/a1d8e6f48ac56bc7.md) | 2017 | review | low | low | low | abstract |
+| [Anna 2015](../papers/d2dadc8958a09dd5.md) | 2015 | review | low | low | low | abstract |
+| [Plews 2013](../papers/97980e4bda801596.md) | 2013 | unknown | low | low | low | not_available |
+| [Kiviniemi 2007](../papers/dccf69302800193f.md) | 2007 | unknown | low | low | low | not_available |
+| [Chris 2005](../papers/5be328c4904bfb74.md) | 2005 | unknown | low | low | moderate | not_available |
+| [Kiviniemi 2003](../papers/850c961c2d6cac5a.md) | 2003 | unknown | low | low | low | not_available |
+| [Hynynen 2002](../papers/5fc6d811b83909f0.md) | 2002 | unknown | low | low | low | not_available |
+| [Coats 1993](../papers/5f634cfa9de60af5.md) | 1993 | unknown | low | low | low | abstract |
 
 ## Cronologia aggiornamenti
 
+- **2026-07-29 07:34 UTC** — ricerca `heart-rate-variability-guided-tr-289c40`: 24 studi verificati sintetizzati (query: 2, grezzi: 176).
 - **2026-07-24 18:12 UTC** — ricerca `heart-rate-variability-guided-tr-1c7915`: 15 studi verificati sintetizzati (query: 2, grezzi: 175).
 - **2026-07-24 16:20 UTC** — ricerca `heart-rate-variability-guided-tr-1c7915`: 9 studi verificati sintetizzati (query: 2, grezzi: 175).
 - **2026-07-24 08:57 UTC** — ricerca `heart-rate-variability-guided-tr-1c7915`: 16 studi verificati sintetizzati (query: 2, grezzi: 175).
