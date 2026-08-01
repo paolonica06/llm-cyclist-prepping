@@ -18,3 +18,7 @@ training load monitoring and overtraining in endurance cyclists
 interval training and VO2max in trained competitive cyclists
 drafting, energy savings and lead-out/breakaway physiology in road cycling
 team cohesion, communication and group dynamics in cycling teams
+aerodynamics and time-trial position optimization for road cyclists
+altitude and hypoxic training for endurance cyclists
+detraining and rapid fitness loss during forced training breaks
+hydration and fluid balance strategies in endurance cycling

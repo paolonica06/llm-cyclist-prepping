@@ -22,5 +22,7 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [motivation, goal setting and motivational climate](topics/motivation-goal-setting-and-motivational-climate.md) — clima mastery/ego, autonomia e qualità della motivazione (aggiornato 2026-07-27)
 - [athletic identity, self-worth and transitions](topics/athletic-identity-self-worth-and-transitions.md) — identità atletica, infortunio e transizioni (aggiornato 2026-07-27)
 <!-- END MANUAL: index-topics -->
-- [team cohesion, communication and group dynamics in cycling teams](topics/team-cohesion-communication-and-group-dynamics-in-cycling-teams.md) — 47 studi sintetizzati (aggiornato 2026-07-31)
-- [drafting, energy savings and lead-out/breakaway physiology in road cycling](topics/drafting-energy-savings-and-lead-out-breakaway-physiology-in-road-cycling.md) — 36 studi sintetizzati (aggiornato 2026-07-31)
+- [hydration and fluid balance strategies in endurance cycling](topics/hydration-and-fluid-balance-strategies-in-endurance-cycling.md) — 19 studi sintetizzati (aggiornato 2026-08-01)
+- [detraining and rapid fitness loss during forced training breaks](topics/detraining-and-rapid-fitness-loss-during-forced-training-breaks.md) — 9 studi sintetizzati (aggiornato 2026-08-01)
+- [altitude and hypoxic training for endurance cyclists](topics/altitude-and-hypoxic-training-for-endurance-cyclists.md) — 19 studi sintetizzati (aggiornato 2026-08-01)
+- [aerodynamics and time-trial position optimization for road cyclists](topics/aerodynamics-and-time-trial-position-optimization-for-road-cyclists.md) — 39 studi sintetizzati (aggiornato 2026-08-01)
