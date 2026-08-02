@@ -22,7 +22,7 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [motivation, goal setting and motivational climate](topics/motivation-goal-setting-and-motivational-climate.md) — clima mastery/ego, autonomia e qualità della motivazione (aggiornato 2026-07-27)
 - [athletic identity, self-worth and transitions](topics/athletic-identity-self-worth-and-transitions.md) — identità atletica, infortunio e transizioni (aggiornato 2026-07-27)
 <!-- END MANUAL: index-topics -->
-- [hydration and fluid balance strategies in endurance cycling](topics/hydration-and-fluid-balance-strategies-in-endurance-cycling.md) — 19 studi sintetizzati (aggiornato 2026-08-01)
-- [detraining and rapid fitness loss during forced training breaks](topics/detraining-and-rapid-fitness-loss-during-forced-training-breaks.md) — 9 studi sintetizzati (aggiornato 2026-08-01)
-- [altitude and hypoxic training for endurance cyclists](topics/altitude-and-hypoxic-training-for-endurance-cyclists.md) — 19 studi sintetizzati (aggiornato 2026-08-01)
-- [aerodynamics and time-trial position optimization for road cyclists](topics/aerodynamics-and-time-trial-position-optimization-for-road-cyclists.md) — 39 studi sintetizzati (aggiornato 2026-08-01)
+- [active vs passive recovery modalities in endurance cycling](topics/active-vs-passive-recovery-modalities-in-endurance-cycling.md) — 38 studi sintetizzati (aggiornato 2026-08-02)
+- [iron status, anemia and haematological monitoring in endurance athletes](topics/iron-status-anemia-and-haematological-monitoring-in-endurance-athletes.md) — 32 studi sintetizzati (aggiornato 2026-08-02)
+- [protein intake, timing and recovery in endurance athletes](topics/protein-intake-timing-and-recovery-in-endurance-athletes.md) — 25 studi sintetizzati (aggiornato 2026-08-02)
+- [carbohydrate periodization and fat oxidation training in endurance cyclists](topics/carbohydrate-periodization-and-fat-oxidation-training-in-endurance-cyclists.md) — 29 studi sintetizzati (aggiornato 2026-08-02)
