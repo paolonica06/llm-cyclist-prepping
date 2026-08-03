@@ -167,6 +167,33 @@ def test_backfill_activity_power_curves(tmp_path):
     assert s2["fetched"] == 0 and s2["skipped"] == 2
 
 
+def test_backfill_activity_intervals(tmp_path):
+    db = _db(tmp_path)
+    a = _athlete(db)
+    # 1 Ride + 1 VirtualRide (candidati), 1 Run (da ignorare).
+    db.save_activity(ActivitySummary(id=make_activity_id(a.id, "i1"), athlete_id=a.id,
+                                     date="2026-07-20", type="Ride", external_id="i1"))
+    db.save_activity(ActivitySummary(id=make_activity_id(a.id, "i2"), athlete_id=a.id,
+                                     date="2026-07-21", type="VirtualRide", external_id="i2"))
+    db.save_activity(ActivitySummary(id=make_activity_id(a.id, "i3"), athlete_id=a.id,
+                                     date="2026-07-22", type="Run", external_id="i3"))
+    agent = AthleteSyncAgent(db)
+
+    async def laps(external_id):
+        return [{"index": 0, "avg_watts": 300}] if external_id in ("i1", "i2") else None
+
+    agent.intervals.fetch_activity_intervals = laps
+
+    s = asyncio.run(agent.backfill_activity_intervals(a.id))
+    assert s["candidates"] == 2                   # solo Ride + VirtualRide
+    assert s["fetched"] == 2
+    got = db.get_activity_intervals(make_activity_id(a.id, "i1"))
+    assert got[0]["avg_watts"] == 300
+
+    s2 = asyncio.run(agent.backfill_activity_intervals(a.id))   # incrementale
+    assert s2["fetched"] == 0 and s2["skipped"] == 2
+
+
 def test_sync_second_run_adds_new_point_without_duplicating(tmp_path):
     db = _db(tmp_path)
     a = _athlete(db)

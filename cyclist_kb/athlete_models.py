@@ -200,6 +200,9 @@ class ActivitySummary(BaseModel):
     load: Optional[float] = None                 # TSS (icu_training_load)
     intensity: Optional[float] = None            # IF (icu_intensity)
     distance_m: Optional[float] = None
+    avg_power: Optional[float] = None             # icu_average_watts
+    avg_hr: Optional[float] = None                # average_heartrate
+    max_hr: Optional[float] = None                # max_heartrate
     external_id: Optional[str] = None            # id sulla Piattaforma esterna
     source: str = "intervals_icu"
 

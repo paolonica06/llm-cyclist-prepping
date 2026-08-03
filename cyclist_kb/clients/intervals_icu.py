@@ -167,12 +167,42 @@ class IntervalsClient:
         data = await self._get(f"/activity/{activity_external_id}/power-curve")
         return _parse_activity_power_curve(data)
 
-    # --- Scrittura (l'unica del client) -----------------------------------------
+    async def fetch_activity_intervals(self, activity_external_id: str) -> Optional[List[Dict[str, Any]]]:
+        """Lap/intervalli auto-rilevati di una singola attività (segmentati da intervals.icu).
+
+        Endpoint `/activity/{id}/intervals` → `{icu_intervals: [...]}`. A differenza
+        della curva mean-max, il dato è per-blocco: permette di verificare se un
+        allenamento strutturato (es. 3×15' a target) è stato eseguito alla potenza
+        prescritta blocco per blocco, non solo in media sull'intera uscita.
+        `None` se offline/no-key o nessun intervallo rilevato.
+        """
+        data = await self._get(f"/activity/{activity_external_id}/intervals")
+        return _parse_activity_intervals(data)
+
+    async def fetch_activity_streams(
+        self, activity_external_id: str,
+        types: str = "watts,heartrate,time",
+    ) -> Optional[Dict[str, List[Any]]]:
+        """Stream raw secondo-per-secondo (potenza/HR/tempo) di una singola attività.
+
+        Endpoint `/activity/{id}/streams` → lista di `{type, data}`. A differenza di
+        curva mean-max (miglior potenza per durata) e lap (aggregato per blocco), qui
+        il dato è punto-per-punto: l'unico modo per vedere come si è distribuito lo
+        sforzo DENTRO un singolo intervallo (es. pacing in crescendo/calo entro un
+        test massimale). Non persistito su DB (volume pesante, ~1 punto/sec): fetch
+        on-demand per analisi puntuali, non backfill storico.
+        """
+        data = await self._get(f"/activity/{activity_external_id}/streams",
+                               {"types": types})
+        return _parse_activity_streams(data)
+
+    # --- Scrittura ----------------------------------------------------------------
     # Il progetto tratta intervals.icu come sorgente di verità in *lettura*: il
-    # calendario lo scrive l'atleta. `update_event` esiste per riscrivere un evento
-    # GIÀ ESISTENTE e identificato, mai per creare piani alla cieca — chi chiama deve
-    # aver letto prima l'evento e mostrato il diff. Nessun metodo di create/delete:
-    # aggiungerli richiede una decisione esplicita, non è una dimenticanza.
+    # calendario lo scrive l'atleta. `update_event`/`create_event` esistono solo per
+    # applicare una decisione ESPLICITA e già concordata con l'atleta (mai
+    # pianificazione automatica silenziosa) — chi chiama deve aver mostrato il
+    # diff/piano prima di scrivere. Nessun metodo di delete: aggiungerlo richiede
+    # una decisione esplicita, non è una dimenticanza.
 
     async def update_event(self, athlete_id: str, event_id: int | str,
                            patch: Dict[str, Any]) -> WriteResult:
@@ -193,6 +223,30 @@ class IntervalsClient:
             return await fetcher.send_json(
                 "PUT", f"{BASE}/athlete/{athlete_id}/events/{event_id}",
                 payload=patch, headers=self._auth_headers())
+        finally:
+            if own:
+                await fetcher.__aexit__()
+
+    async def create_event(self, athlete_id: str, event: Dict[str, Any]) -> WriteResult:
+        """POST di un evento NUOVO su `/athlete/{id}/events`.
+
+        `event` tipicamente include `category` (es. "WORKOUT"), `start_date_local`,
+        `type`, `name`, `description`, `moving_time`. A differenza di `update_event`
+        aggiunge una entry al calendario invece di modificarne una esistente: usarlo
+        solo quando l'atleta ha esplicitamente chiesto una nuova sessione, mai per
+        pianificare interi microcicli senza conferma puntuale.
+        """
+        if not self.available:
+            return WriteResult(ok=False, status=None, body=None,
+                               error="client non disponibile (offline o key mancante)")
+        own = self._fetcher is None
+        fetcher = self._fetcher or HttpFetcher()
+        if own:
+            await fetcher.__aenter__()
+        try:
+            return await fetcher.send_json(
+                "POST", f"{BASE}/athlete/{athlete_id}/events",
+                payload=event, headers=self._auth_headers())
         finally:
             if own:
                 await fetcher.__aexit__()
@@ -353,6 +407,43 @@ def _parse_activity_power_curve(data: Any) -> Optional[Dict[str, Any]]:
     return out
 
 
+def _parse_activity_intervals(data: Any) -> Optional[List[Dict[str, Any]]]:
+    """Lap auto-rilevati di una attività → lista di blocchi normalizzati o None."""
+    if not isinstance(data, dict):
+        return None
+    raw = data.get("icu_intervals") or []
+    if not raw:
+        return None
+    laps: List[Dict[str, Any]] = []
+    for i, lap in enumerate(raw):
+        laps.append({
+            "index": i,
+            "type": lap.get("type"),
+            "label": lap.get("label"),
+            "start_time": lap.get("start_time"),
+            "end_time": lap.get("end_time"),
+            "duration_s": lap.get("moving_time"),
+            "avg_watts": lap.get("average_watts"),
+            "weighted_avg_watts": lap.get("weighted_average_watts"),
+            "max_watts": lap.get("max_watts"),
+            "avg_hr": lap.get("average_heartrate"),
+            "max_hr": lap.get("max_heartrate"),
+            "avg_cadence": lap.get("average_cadence"),
+            "intensity": lap.get("intensity"),
+            "training_load": lap.get("training_load"),
+            "zone": lap.get("zone"),
+        })
+    return laps
+
+
+def _parse_activity_streams(data: Any) -> Optional[Dict[str, List[Any]]]:
+    """Stream raw di una attività → {tipo: [valori]} o None."""
+    if not isinstance(data, list):
+        return None
+    streams = {s["type"]: s["data"] for s in data if s.get("type") and s.get("data")}
+    return streams or None
+
+
 def _parse_activities(athlete_id: str, data: Any) -> List[ActivitySummary]:
     if not data:
         return []
@@ -371,6 +462,9 @@ def _parse_activities(athlete_id: str, data: Any) -> List[ActivitySummary]:
             load=rec.get("icu_training_load"),
             intensity=rec.get("icu_intensity"),
             distance_m=rec.get("distance"),
+            avg_power=rec.get("icu_average_watts"),
+            avg_hr=rec.get("average_heartrate"),
+            max_hr=rec.get("max_heartrate"),
             external_id=str(ext) if ext is not None else None,
         ))
     return acts

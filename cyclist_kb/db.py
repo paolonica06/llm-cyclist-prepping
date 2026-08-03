@@ -94,6 +94,18 @@ CREATE TABLE IF NOT EXISTS activity_power_curves (
 );
 CREATE INDEX IF NOT EXISTS idx_apc_athlete ON activity_power_curves(athlete_id, date);
 
+-- Lap/intervalli auto-rilevati per-attività (segmentati da intervals.icu). Tabella
+-- separata come activity_power_curves: permette di verificare l'esecuzione blocco
+-- per blocco di un allenamento strutturato, non solo la media sull'intera uscita.
+CREATE TABLE IF NOT EXISTS activity_intervals (
+    activity_id TEXT PRIMARY KEY,
+    athlete_id  TEXT NOT NULL,
+    date        TEXT,
+    created_at  TEXT NOT NULL,
+    data        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_ai_athlete ON activity_intervals(athlete_id, date);
+
 -- Workout PIANIFICATI, ingeriti dal calendario intervals.icu (/events, category
 -- WORKOUT). Mirror del "pianificato": senza questo il confronto pianificato-vs-fatto
 -- del protocollo coaching userebbe il piano generico interno invece del calendario reale.
@@ -371,6 +383,35 @@ class Database:
         """Id (interni) delle attività che hanno già una curva → skip incrementale."""
         rows = self.conn.execute(
             "SELECT activity_id FROM activity_power_curves WHERE athlete_id=?", (athlete_id,)
+        ).fetchall()
+        return {r["activity_id"] for r in rows}
+
+    # -- Fase B: Lap/intervalli per-attività --------------------------------- #
+    def save_activity_intervals(
+        self, activity_id: str, athlete_id: str, intervals: list,
+        date: Optional[str] = None,
+    ) -> None:
+        """Upsert idempotente dei lap auto-rilevati di una singola attività."""
+        import json
+        self.conn.execute(
+            "INSERT INTO activity_intervals (activity_id, athlete_id, date, created_at, data) "
+            "VALUES (?, ?, ?, ?, ?) "
+            "ON CONFLICT(activity_id) DO UPDATE SET date=excluded.date, data=excluded.data",
+            (activity_id, athlete_id, date, _now(), json.dumps(intervals)),
+        )
+        self.conn.commit()
+
+    def get_activity_intervals(self, activity_id: str) -> Optional[list]:
+        import json
+        row = self.conn.execute(
+            "SELECT data FROM activity_intervals WHERE activity_id=?", (activity_id,)
+        ).fetchone()
+        return json.loads(row["data"]) if row else None
+
+    def activity_ids_with_intervals(self, athlete_id: str) -> set:
+        """Id (interni) delle attività che hanno già i lap → skip incrementale."""
+        rows = self.conn.execute(
+            "SELECT activity_id FROM activity_intervals WHERE athlete_id=?", (athlete_id,)
         ).fetchall()
         return {r["activity_id"] for r in rows}
 

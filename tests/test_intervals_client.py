@@ -3,10 +3,13 @@
 import asyncio
 
 from cyclist_kb.athlete_models import MetricType, RacePriority
+from cyclist_kb.clients.base import WriteResult
 from cyclist_kb.clients.intervals_icu import (IntervalsClient,
                                               _build_power_curve_point,
                                               _parse_activities,
+                                              _parse_activity_intervals,
                                               _parse_activity_power_curve,
+                                              _parse_activity_streams,
                                               _parse_daily, _parse_events,
                                               _parse_power_curve_list)
 
@@ -19,6 +22,8 @@ def test_offline_or_no_key_returns_empty():
     assert asyncio.run(client.fetch_activities("i1")) == []
     assert asyncio.run(client.fetch_power_curve("i1")) == []
     assert asyncio.run(client.fetch_activity_power_curve("i1")) is None
+    assert asyncio.run(client.fetch_activity_intervals("i1")) is None
+    assert asyncio.run(client.fetch_activity_streams("i1")) is None
     assert asyncio.run(client.fetch_events("i1")) == ([], [])
 
 
@@ -67,7 +72,9 @@ def test_parse_daily_skips_missing_fields_and_bad_dates():
 def test_parse_activities_maps_fields():
     sample = [{"id": "i123", "start_date_local": "2026-07-20T09:00:00",
                "type": "Ride", "name": "Z2", "moving_time": 3600,
-               "icu_training_load": 65, "icu_intensity": 0.72, "distance": 40000}]
+               "icu_training_load": 65, "icu_intensity": 0.72, "distance": 40000,
+               "icu_average_watts": 210,
+               "average_heartrate": 142, "max_heartrate": 178}]
     acts = _parse_activities("ath1", sample)
     assert len(acts) == 1
     a = acts[0]
@@ -75,6 +82,20 @@ def test_parse_activities_maps_fields():
     assert a.load == 65
     assert a.intensity == 0.72
     assert a.external_id == "i123"
+    assert a.avg_power == 210
+    assert a.avg_hr == 142
+    assert a.max_hr == 178
+
+
+def test_parse_activities_missing_power_hr_are_none():
+    # Gara/uscita senza power meter o cardio attivo: i campi restano assenti, non 0.
+    sample = [{"id": "i124", "start_date_local": "2026-08-01T09:00:00",
+               "type": "Ride", "name": "Gara", "moving_time": 10801,
+               "icu_training_load": 206, "icu_intensity": 0.829}]
+    a = _parse_activities("ath1", sample)[0]
+    assert a.avg_power is None
+    assert a.avg_hr is None
+    assert a.max_hr is None
 
 
 def test_parse_empty_payloads_are_empty():
@@ -144,6 +165,60 @@ def test_parse_activity_power_curve_empty_is_none():
     assert _parse_activity_power_curve({"secs": [1, 2], "values": [None, None]}) is None
 
 
+def test_parse_activity_intervals_maps_fields():
+    data = {"id": "i1", "icu_intervals": [
+        {"type": "RECOVERY", "label": None, "start_time": 0, "end_time": 1791,
+         "moving_time": 1791, "average_watts": 187, "weighted_average_watts": 194,
+         "max_watts": 296, "average_heartrate": 125, "max_heartrate": 143,
+         "average_cadence": 78.5, "intensity": 60, "training_load": 15.5, "zone": 2},
+        {"type": "WORK", "label": None, "start_time": 1791, "end_time": 2685,
+         "moving_time": 894, "average_watts": 295, "weighted_average_watts": 298,
+         "max_watts": 343, "average_heartrate": 148, "max_heartrate": 160,
+         "average_cadence": 88.0, "intensity": 95, "training_load": 22.1, "zone": 4},
+    ]}
+    laps = _parse_activity_intervals(data)
+    assert len(laps) == 2
+    first, second = laps
+    assert first["index"] == 0
+    assert first["type"] == "RECOVERY"
+    assert first["duration_s"] == 1791
+    assert first["avg_watts"] == 187
+    assert first["weighted_avg_watts"] == 194
+    assert first["max_watts"] == 296
+    assert first["avg_hr"] == 125
+    assert first["max_hr"] == 143
+    assert first["avg_cadence"] == 78.5
+    assert first["intensity"] == 60
+    assert first["training_load"] == 15.5
+    assert first["zone"] == 2
+    assert second["index"] == 1
+    assert second["avg_watts"] == 295
+
+
+def test_parse_activity_intervals_empty_is_none():
+    assert _parse_activity_intervals(None) is None
+    assert _parse_activity_intervals({}) is None
+    assert _parse_activity_intervals({"icu_intervals": []}) is None
+
+
+def test_parse_activity_streams_maps_fields():
+    data = [
+        {"type": "time", "data": [0, 1, 2]},
+        {"type": "watts", "data": [200, 210, 220]},
+        {"type": "heartrate", "data": [140, 141, 142]},
+    ]
+    streams = _parse_activity_streams(data)
+    assert streams["time"] == [0, 1, 2]
+    assert streams["watts"] == [200, 210, 220]
+    assert streams["heartrate"] == [140, 141, 142]
+
+
+def test_parse_activity_streams_empty_is_none():
+    assert _parse_activity_streams(None) is None
+    assert _parse_activity_streams([]) is None
+    assert _parse_activity_streams([{"type": "watts", "data": []}]) is None
+
+
 def test_parse_events_splits_races_and_workouts():
     data = [
         {"id": 1, "start_date_local": "2026-08-01T00:00:00", "category": "RACE_B",
@@ -164,6 +239,43 @@ def test_parse_events_splits_races_and_workouts():
     assert planned[0]["external_id"] == "2"
     assert planned[0]["load_target"] == 82
     assert planned[0]["date"] == "2026-07-28"
+
+
+def test_create_event_offline_returns_error():
+    client = IntervalsClient()
+    result = asyncio.run(client.create_event("i1", {"name": "x"}))
+    assert result.ok is False
+    assert result.error
+
+
+def test_create_event_posts_payload(monkeypatch):
+    monkeypatch.setattr(IntervalsClient, "available", property(lambda self: True))
+    client = IntervalsClient()
+    client._api_key = "test-key"
+
+    calls = []
+
+    class FakeFetcher:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *exc):
+            return None
+
+        async def send_json(self, method, url, payload, headers=None):
+            calls.append((method, url, payload))
+            return WriteResult(ok=True, status=200, body={"id": 999})
+
+    client._fetcher = FakeFetcher()
+    event = {"category": "WORKOUT", "start_date_local": "2026-08-05T07:00:00",
+              "type": "Ride", "name": "Test", "description": "d", "moving_time": 1800}
+    result = asyncio.run(client.create_event("i215294", event))
+    assert result.ok is True
+    assert result.body == {"id": 999}
+    method, url, payload = calls[0]
+    assert method == "POST"
+    assert url == "https://intervals.icu/api/v1/athlete/i215294/events"
+    assert payload == event
 
 
 def test_parse_events_priority_mapping_and_empty():

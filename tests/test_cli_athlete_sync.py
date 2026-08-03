@@ -15,3 +15,12 @@ def test_cli_athlete_sync_offline(tmp_path, monkeypatch):
     assert result.exit_code == 0
     assert "nessun dato sincronizzato" in result.output      # avviso: key assente/offline
     assert "Serie storiche: 0" in result.output
+
+
+def test_cli_activity_intervals_offline(tmp_path, monkeypatch):
+    monkeypatch.setattr(cli, "_pipeline",
+                        lambda: Pipeline(db=Database(path=tmp_path / "kb.sqlite3")))
+    result = CliRunner().invoke(cli.app, ["activity-intervals", "12345"])
+    assert result.exit_code == 0
+    assert "nessun lap scaricato" in result.output.lower()
+    assert "Candidate: 0" in result.output

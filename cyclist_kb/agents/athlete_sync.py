@@ -96,3 +96,42 @@ class AthleteSyncAgent:
         }
         logger.info("Backfill power curves %s: %s", athlete_id, summary)
         return summary
+
+    async def backfill_activity_intervals(
+        self, athlete_id: str,
+        types: Sequence[str] = POWER_CURVE_TYPES,
+        limit: Optional[int] = None,
+        force: bool = False,
+    ) -> Dict[str, object]:
+        """Ingesta i lap/intervalli auto-rilevati **per-attività** (Ride + indoor VirtualRide).
+
+        Incrementale come `backfill_activity_power_curves`: salta le attività che
+        hanno già i lap (a meno di `force`). Le attività senza intervalli rilevati
+        (nessun power meter, uscita non strutturata) tornano None e non vengono salvate.
+        """
+        wanted = set(types)
+        done = set() if force else self.db.activity_ids_with_intervals(athlete_id)
+        eligible = [a for a in self.db.list_activities(athlete_id)
+                    if a.type in wanted and a.external_id]
+        candidates = [a for a in eligible if a.id not in done]
+        skipped = len(eligible) - len(candidates)
+        fetched = empty = 0
+        for activity in candidates:
+            if limit is not None and fetched >= limit:
+                break
+            laps = await self.intervals.fetch_activity_intervals(activity.external_id)
+            if not laps:
+                empty += 1
+                continue
+            self.db.save_activity_intervals(activity.id, athlete_id, laps, date=activity.date)
+            fetched += 1
+        summary: Dict[str, object] = {
+            "athlete_id": athlete_id,
+            "available": self.intervals.available,
+            "candidates": len(eligible),
+            "fetched": fetched,
+            "skipped": skipped,
+            "empty": empty,
+        }
+        logger.info("Backfill lap %s: %s", athlete_id, summary)
+        return summary
