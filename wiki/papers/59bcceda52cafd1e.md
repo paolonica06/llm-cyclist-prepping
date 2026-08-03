@@ -1,0 +1,42 @@
+# Nutrition and Supplement Update for the Endurance Athlete: Review and Recommendations
+
+- **Autori**: Kenneth Vitale, Andrew Getzin
+- **Anno**: 2019 · **Rivista**: Nutrients
+- **DOI**: https://doi.org/10.3390/nu11061289 · **PMID**: 31181616
+- **Provenienza banche dati**: openalex
+- **Scoperto via**: query
+- **Open access**: [gold](https://www.mdpi.com/2072-6643/11/6/1289/pdf?version=1559893866)
+
+**Verifica metadati**: ✔ verificato
+
+  - ⚠ [PubMed] Primo autore discordante: 'kenneth' vs 'vitale'
+
+## Qualità metodologica
+- Tipo di studio: **Narrative review**
+- Qualità: **low** · Confidenza: **low** · Trasferibilità ciclisti competitivi: **low**
+  - sample: unknown
+  - control: absent_or_unclear
+  - randomization: absent_or_unclear
+  - duration: unknown
+  - measures: unclear
+  - transferability: low
+  - _Numerosità del campione non riportata nel testo disponibile._
+
+## Dati estratti (fonte: abstract, metodo: llm)
+- **Disegno dello studio** (`abstract`): Narrative review
+- **Partecipanti** (`abstract`): Endurance athletes (review population, not experimental subjects)
+- **Livello di allenamento** (`abstract`): Endurance athletes
+- **Sesso**: _non disponibile_
+- **Età**: _non disponibile_
+- **Numerosità campione**: _non disponibile_
+- **Protocollo** (`abstract`): PubMed/Medline search on topics of endurance, athletes, nutrition, and performance; review of current evidence on macronutrients, hydration, and supplements
+- **Comparatore**: _non disponibile_
+- **Durata**: _non disponibile_
+- **Outcome** (`abstract`): Recommendations on macronutrient intake, hydration, and supplements for endurance athletes
+- **Risultati** (`abstract`): Carbohydrate and hydration recommendations largely unchanged; protein and fat traditionally underemphasized in endurance athletes; supplements with potential benefit: nitrates, antioxidants, caffeine, probiotics; 'train low' (training in low carbohydrate state) discussed; post-exercise nutritional recovery window emphasized
+- **Effect size**: _non disponibile_
+- **Limiti**: _non disponibile_
+- **Conflitti di interesse**: _non disponibile_
+
+## Abstract
+BACKGROUND: Endurance events have experienced a significant increase in growth in the new millennium and are popular activities for participation globally. Sports nutrition recommendations for endurance exercise however remains a complex issue with often opposing views and advice by various health care professionals. METHODS: A PubMed/Medline search on the topics of endurance, athletes, nutrition, and performance was undertaken and a review performed summarizing the current evidence concerning macronutrients, hydration, and supplements as it pertains to endurance athletes. RESULTS: Carbohydrate and hydration recommendations have not drastically changed in years, while protein and fat intake have been traditionally underemphasized in endurance athletes. Several supplements are commercially available to athletes, of which, few may be of benefit for endurance activities, including nitrates, antioxidants, caffeine, and probiotics, and are reviewed here. The topic of "train low," training in a low carbohydrate state is also discussed, and the post-exercise nutritional "recovery window" remains an important point to emphasize to endurance competitors. CONCLUSIONS: This review summarizes the key recommendations for macronutrients, hydration, and supplements for endurance athletes, and helps clinicians treating endurance athletes clear up misconceptions in sports nutrition research when counseling the endurance athlete.
