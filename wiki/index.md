@@ -22,7 +22,6 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [motivation, goal setting and motivational climate](topics/motivation-goal-setting-and-motivational-climate.md) — clima mastery/ego, autonomia e qualità della motivazione (aggiornato 2026-07-27)
 - [athletic identity, self-worth and transitions](topics/athletic-identity-self-worth-and-transitions.md) — identità atletica, infortunio e transizioni (aggiornato 2026-07-27)
 <!-- END MANUAL: index-topics -->
-- [active vs passive recovery modalities in endurance cycling](topics/active-vs-passive-recovery-modalities-in-endurance-cycling.md) — 38 studi sintetizzati (aggiornato 2026-08-02)
-- [iron status, anemia and haematological monitoring in endurance athletes](topics/iron-status-anemia-and-haematological-monitoring-in-endurance-athletes.md) — 32 studi sintetizzati (aggiornato 2026-08-02)
-- [protein intake, timing and recovery in endurance athletes](topics/protein-intake-timing-and-recovery-in-endurance-athletes.md) — 25 studi sintetizzati (aggiornato 2026-08-02)
-- [carbohydrate periodization and fat oxidation training in endurance cyclists](topics/carbohydrate-periodization-and-fat-oxidation-training-in-endurance-cyclists.md) — 29 studi sintetizzati (aggiornato 2026-08-02)
+- [long-term athletic development and U23-to-elite transition pathways in cycling](topics/long-term-athletic-development-and-u23-to-elite-transition-pathways-in-cycling.md) — 35 studi sintetizzati (aggiornato 2026-08-03)
+- [cardiovascular adaptations and arrhythmia risk in endurance athletes](topics/cardiovascular-adaptations-and-arrhythmia-risk-in-endurance-athletes.md) — 34 studi sintetizzati (aggiornato 2026-08-03)
+- [bone health and osteopenia risk in cyclists](topics/bone-health-and-osteopenia-risk-in-cyclists.md) — 47 studi sintetizzati (aggiornato 2026-08-03)
