@@ -24,6 +24,7 @@ def test_offline_or_no_key_returns_empty():
     assert asyncio.run(client.fetch_activity_power_curve("i1")) is None
     assert asyncio.run(client.fetch_activity_intervals("i1")) is None
     assert asyncio.run(client.fetch_activity_streams("i1")) is None
+    assert asyncio.run(client.fetch_sport_settings("i1")) is None
     assert asyncio.run(client.fetch_events("i1")) == ([], [])
 
 
@@ -276,6 +277,41 @@ def test_create_event_posts_payload(monkeypatch):
     assert method == "POST"
     assert url == "https://intervals.icu/api/v1/athlete/i215294/events"
     assert payload == event
+
+
+def test_update_sport_settings_offline_returns_error():
+    client = IntervalsClient()
+    result = asyncio.run(client.update_sport_settings("i1", "Ride", {"ftp": 318}))
+    assert result.ok is False
+    assert result.error
+
+
+def test_update_sport_settings_puts_payload(monkeypatch):
+    monkeypatch.setattr(IntervalsClient, "available", property(lambda self: True))
+    client = IntervalsClient()
+    client._api_key = "test-key"
+
+    calls = []
+
+    class FakeFetcher:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *exc):
+            return None
+
+        async def send_json(self, method, url, payload, headers=None):
+            calls.append((method, url, payload))
+            return WriteResult(ok=True, status=200, body=payload)
+
+    client._fetcher = FakeFetcher()
+    settings = {"ftp": 318, "w_prime": 25321, "power_zones": [55, 75, 90, 105, 120, 150, 999]}
+    result = asyncio.run(client.update_sport_settings("i215294", "Ride", settings))
+    assert result.ok is True
+    method, url, payload = calls[0]
+    assert method == "PUT"
+    assert url == "https://intervals.icu/api/v1/athlete/i215294/sport-settings/Ride"
+    assert payload == settings
 
 
 def test_parse_events_priority_mapping_and_empty():

@@ -196,6 +196,16 @@ class IntervalsClient:
                                {"types": types})
         return _parse_activity_streams(data)
 
+    async def fetch_sport_settings(self, athlete_id: str, sport_type: str = "Ride") -> Optional[Dict[str, Any]]:
+        """Legge le sport-settings correnti (FTP, W', zone) per uno sport.
+
+        Endpoint `/athlete/{id}/sport-settings/{type}`. Base per un `update_sport_settings`
+        sicuro: le zone sono percentuali di FTP (non assolute), quindi normalmente
+        cambia solo il campo `ftp` — ma il PUT va costruito a partire da QUESTA lettura,
+        non da un body scritto a mano, per non perdere altri campi del profilo.
+        """
+        return await self._get(f"/athlete/{athlete_id}/sport-settings/{sport_type}")
+
     # --- Scrittura ----------------------------------------------------------------
     # Il progetto tratta intervals.icu come sorgente di verità in *lettura*: il
     # calendario lo scrive l'atleta. `update_event`/`create_event` esistono solo per
@@ -247,6 +257,30 @@ class IntervalsClient:
             return await fetcher.send_json(
                 "POST", f"{BASE}/athlete/{athlete_id}/events",
                 payload=event, headers=self._auth_headers())
+        finally:
+            if own:
+                await fetcher.__aexit__()
+
+    async def update_sport_settings(self, athlete_id: str, sport_type: str,
+                                    settings: Dict[str, Any]) -> WriteResult:
+        """PUT su `/athlete/{id}/sport-settings/{type}` (FTP, W', zone di potenza/HR).
+
+        `settings` va costruito a partire da `fetch_sport_settings` (l'oggetto
+        completo con solo i campi da cambiare aggiornati), non scritto a mano: da
+        usare solo su una decisione ESPLICITA e già concordata con l'atleta, mai
+        ricalibrazione automatica silenziosa.
+        """
+        if not self.available:
+            return WriteResult(ok=False, status=None, body=None,
+                               error="client non disponibile (offline o key mancante)")
+        own = self._fetcher is None
+        fetcher = self._fetcher or HttpFetcher()
+        if own:
+            await fetcher.__aenter__()
+        try:
+            return await fetcher.send_json(
+                "PUT", f"{BASE}/athlete/{athlete_id}/sport-settings/{sport_type}",
+                payload=settings, headers=self._auth_headers())
         finally:
             if own:
                 await fetcher.__aexit__()

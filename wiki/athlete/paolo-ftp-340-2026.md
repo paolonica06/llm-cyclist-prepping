@@ -10,7 +10,9 @@
 
 **Curva di potenza reale (dati intervals, best stagionale):** 5s **1180 W** · 1′ **633 W** · 5′ **402 W** (5.46 w/kg) · 20′ **323 W** · eFTP **329 W** · **TTE 18′**. Rapporto 5′/20′ = **1.24 → diesel** (profilo confermato); sprint 16 w/kg = nella norma; **TTE corta = la leva è allungare la tenuta a soglia**. *(VO₂max e valori "da lab" sono stimati, mai testati → non usati.)*
 
-**✅ Baseline misurato il 29-lug (test CP 3′+12′): CP 306 W · W′ 25,3 kJ · Pmax 579 W → FTP di lavoro 310 W (4,10 w/kg).** Sforzi: 3′ **443 W**, 12′ **341 W** (miglior 12′ del 2026, precedente 338 del 28-feb). Il **329 era il picco del 28-mar, derivato da uno sforzo di 7′30″ ed è scaduto** dopo il dig di mag-giu. **Caveat: 310 è un pavimento** — pacing in crescendo su entrambi gli sforzi, W′ svuotato all'81%, HR sotto LTHR per i primi 9′ del 12′; il CP reale sta plausibilmente fra 306 e 320. Il test del 25-ago lo verifica. **Obiettivo 340 resta stretch goal** (+30 W sul baseline misurato): 320–330 è l'atterraggio probabile.
+**✅ Baseline misurato il 29-lug (test CP 3′+12′): CP 306 W · W′ 25,3 kJ · Pmax 579 W → FTP di lavoro 310 W (4,10 w/kg).** Sforzi: 3′ **443 W**, 12′ **341 W** (miglior 12′ del 2026, precedente 338 del 28-feb). Il **329 era il picco del 28-mar, derivato da uno sforzo di 7′30″ ed è scaduto** dopo il dig di mag-giu. **Caveat: 310 è un pavimento** — pacing in crescendo su entrambi gli sforzi, W′ svuotato all'81%, HR sotto LTHR per i primi 9′ del 12′; il CP reale sta plausibilmente fra 306 e 320.
+
+**✅ Ricalibrato il 03-ago (verifica soglia 3×15′ post-CP, dati punto-per-punto): FTP di lavoro 310→318 W (4,21 w/kg).** Il piano stesso poneva la regola: *"se il terzo blocco (303–308 W) si chiude pulito, l'FTP reale è 315–318 W."* Esito: blocco 1 **295 W**, blocco 2 **303 W**, blocco 3 **negative split 293→333 W** (non piatto: partito sotto target, chiuso accelerando, HR ancora in salita a fine blocco senza segni di cedimento) — il segnale più forte possibile per la parte alta del range concordato. **CP resta 306 W** (non ritestato oggi): 318 è l'FTP di lavoro per zone/target, il **test del 25-ago resta quello che verifica/ricalibra il CP**. **Obiettivo 340 resta stretch goal** (+22 W sul nuovo baseline): 325–332 è l'atterraggio probabile.
 
 **Decisione condivisa — ibrido + specializzazione sul profilo:**
 - **Ricostruire la base** (volume + FTP + durabilità), con le **gare come allenamento**, forma crescente, **nessuna gara-A**, FTP 340 al 30-set come marker;
@@ -23,19 +25,19 @@
 
 La regola: **prima elimina il deficit che ti fa *perdere* la gara, poi affila l'arma che te la fa *vincere*.** Nel tuo caso il deficit critico **non** è la salita (le tue gare sono di pianura), quindi non "sprechi" tempo lì: **carichi sull'arma** (soglia/tenuta), tenendo solo una polizza sui finali. Nota: la specializzazione rende di più **quando la base c'è** → nelle prime 3 settimane la priorità resta *ricostruire*, poi il piano si piega sempre più sul profilo TT.
 
-## 3. Zone di potenza (FTP 310 W — misurato 29-lug 2026)
+## 3. Zone di potenza (FTP 318 W — ricalibrato 03-ago 2026, verifica soglia post-CP)
 
 | Zona | %FTP | Watt | Uso per te (passista) |
 |---|---|---|---|
-| Z2 Endurance | 56–75% | 174–233 | volume/durabilità (~65–75%) |
-| Z3 Tempo | 76–90% | 236–279 | raccordo, tenuta |
-| **Sweet Spot** | 88–94% | **273–291** | **pane quotidiano** (volume a soglia) |
-| **Z4 Soglia** | 91–105% | **282–326** | **la tua arma** (FTP, fuga, crono) |
-| **Over-under** | 95↔108% | **295↔335** | tenuta al ritmo variabile del gruppo/fuga |
-| Z5 VO2max | 106–120% | 329–372 | il tetto (1×/sett, non enfatizzato) |
+| Z2 Endurance | 56–75% | 178–239 | volume/durabilità (~65–75%) |
+| Z3 Tempo | 76–90% | 242–286 | raccordo, tenuta |
+| **Sweet Spot** | 88–94% | **280–299** | **pane quotidiano** (volume a soglia) |
+| **Z4 Soglia** | 91–105% | **289–334** | **la tua arma** (FTP, fuga, crono) |
+| **Over-under** | 95↔108% | **302↔343** | tenuta al ritmo variabile del gruppo/fuga |
+| Z5 VO2max | 106–120% | 337–382 | il tetto (1×/sett, non enfatizzato) |
 | Sprint/allunghi | — | 480–560 | polizza finali (6–8×10–15″); Pmax misurato **579 W** |
 
-> **I target dei workout sul calendario NON sono stati riscalati**: erano già scritti su ~310 W (soglia a 95–102%, VO2max a 115–123%), quindi restano validi. Ricalibrati solo il profilo intervals (329→310, W′ 25321) e i tre eventi che citavano il vecchio 329: 4-ago, 25-ago, 30-set.
+> **I target dei workout sul calendario NON sono stati riscalati**: erano scritti su ~295–320 W (soglia/sweet-spot), un range che il nuovo FTP 318 attraversa comunque, quindi restano validi senza intervento. Aggiornato solo il profilo intervals (310→318, `ftp` via API, W′ 25321 invariato — non ritestato oggi).
 
 ## 4. Strategia (vincolata dall'Evidenza) — `studi`
 

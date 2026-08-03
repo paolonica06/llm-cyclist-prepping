@@ -9,8 +9,8 @@
 - **Livello**: competitivo
 - **Disciplina**: strada
 - **TSS/sett.**: 430.0
-- **FTP (W)**: 310.0
-- **FTP (W/kg)**: 4.10
+- **FTP (W)**: 318.0
+- **FTP (W/kg)**: 4.21
 - **Obiettivi**: (ASSUNTO) migliorare potenza a soglia e FTP
 - **Storico**: Dati su intervals.icu dal dic 2023; monitoraggio HRV/sonno dal nov 2024, CTL attuale ≈ 63; peso 75.5 kg; FC max 203; LTHR 177
 - **Vincoli**: (da definire)
