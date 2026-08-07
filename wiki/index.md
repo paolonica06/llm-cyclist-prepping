@@ -22,6 +22,6 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [motivation, goal setting and motivational climate](topics/motivation-goal-setting-and-motivational-climate.md) — clima mastery/ego, autonomia e qualità della motivazione (aggiornato 2026-07-27)
 - [athletic identity, self-worth and transitions](topics/athletic-identity-self-worth-and-transitions.md) — identità atletica, infortunio e transizioni (aggiornato 2026-07-27)
 <!-- END MANUAL: index-topics -->
-- [long-term athletic development and U23-to-elite transition pathways in cycling](topics/long-term-athletic-development-and-u23-to-elite-transition-pathways-in-cycling.md) — 35 studi sintetizzati (aggiornato 2026-08-03)
-- [cardiovascular adaptations and arrhythmia risk in endurance athletes](topics/cardiovascular-adaptations-and-arrhythmia-risk-in-endurance-athletes.md) — 34 studi sintetizzati (aggiornato 2026-08-03)
-- [bone health and osteopenia risk in cyclists](topics/bone-health-and-osteopenia-risk-in-cyclists.md) — 47 studi sintetizzati (aggiornato 2026-08-03)
+- [functional overreaching, non-functional overreaching and supercompensation timing in endurance athletes](topics/functional-overreaching-non-functional-overreaching-and-supercompensation-timing.md) — 39 studi sintetizzati (aggiornato 2026-08-07)
+- [acute:chronic workload ratio and injury or illness risk in endurance athletes](topics/acute-chronic-workload-ratio-and-injury-or-illness-risk-in-endurance-athletes.md) — 30 studi sintetizzati (aggiornato 2026-08-07)
+- [validity and limitations of the impulse-response training load model (CTL, ATL, TSB) in endurance cyclists](topics/validity-and-limitations-of-the-impulse-response-training-load-model-ctl-atl-tsb.md) — 34 studi sintetizzati (aggiornato 2026-08-07)
