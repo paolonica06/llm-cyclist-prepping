@@ -9,8 +9,8 @@ import logging
 from typing import List
 
 from ..config import get_settings
-from ..domain import (CYCLING_MARKERS, ENDURANCE_OTHER_MARKERS, EXERCISE_CONTEXT_MARKERS,
-                      TRAINED_MARKERS, UNTRAINED_MARKERS)
+from ..domain import (CLINICAL_NONATHLETE_MARKERS, CYCLING_MARKERS, ENDURANCE_OTHER_MARKERS,
+                      EXERCISE_CONTEXT_MARKERS, TRAINED_MARKERS, UNTRAINED_MARKERS)
 from ..llm import chunked, get_llm
 from ..models import (PaperRecord, PopulationType, RecordState, Research,
                       ResearchStatus, ScreeningResult)
@@ -82,7 +82,11 @@ class ScreeningAgent:
                 "che non è uno studio (didascalie di figure/tabelle, frammenti, titoli-stub "
                 "generici); (b) un dominio palesemente estraneo alla fisiologia/allenamento "
                 "sportivo; (c) una popolazione clinica/sedentaria senza alcuna rilevanza per atleti "
-                "di endurance. Nel dubbio, INCLUDI. Registra sempre il motivo."
+                "di endurance; (d) una popolazione clinica non atletica esplicitamente dichiarata "
+                "(es. pazienti diabetici/oncologici/dializzati, neonati, gravidanza) SENZA alcun "
+                "collegamento con atleti o allenamento sportivo — se lo studio riguarda atleti CON "
+                "una condizione clinica (es. ciclisti con diabete di tipo 1), non è (d): includi. "
+                "Nel dubbio, INCLUDI. Registra sempre il motivo."
             )
         )
         if not data:
@@ -120,6 +124,7 @@ class ScreeningAgent:
         untr = _count(blob, UNTRAINED_MARKERS)
         trained = _count(blob, TRAINED_MARKERS)
         context = _count(blob, EXERCISE_CONTEXT_MARKERS)
+        clinical = _count(blob, CLINICAL_NONATHLETE_MARKERS)
         is_cycling = cyc > 0
 
         # Bonus di pertinenza se la popolazione è ciclistica e allenata.
@@ -145,7 +150,8 @@ class ScreeningAgent:
             population = PopulationType.UNCLEAR
 
         signals = {"cycling": cyc, "endurance_other": endo, "untrained": untr,
-                   "trained": trained, "exercise_context": context, "token_overlap": overlap}
+                   "trained": trained, "exercise_context": context, "token_overlap": overlap,
+                   "clinical_nonathlete": clinical}
 
         # Decisione: includi se pertinente e con segnale ciclistico o incertezza.
         if context == 0:
@@ -164,6 +170,11 @@ class ScreeningAgent:
                 if population == PopulationType.CYCLING
                 else "Popolazione mista con coorte ciclistica: incluso, distinzione da verificare in estrazione."
             )
+        elif population == PopulationType.UNCLEAR and clinical and not trained:
+            # Popolazione clinica non atletica dichiarata esplicitamente (neonati, gravidanza,
+            # dialisi, oncologia...) senza alcun segnale di atleti/allenamento: fuori perimetro.
+            # Uno studio su "cyclists with type 1 diabetes" non arriva qui: cyc>0 lo rende CYCLING/MIXED sopra.
+            decision, reason = "exclude", "Popolazione clinica non atletica (es. patologia, neonatale, gravidanza) senza segnale di allenamento sportivo: fuori perimetro."
         else:  # UNCLEAR
             decision, reason = "include", "Popolazione non chiara ma pertinente: incluso in via cautelativa (da rivedere)."
 

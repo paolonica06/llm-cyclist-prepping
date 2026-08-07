@@ -18,6 +18,7 @@ dependencies = [
     "pyyaml>=6",
     "anthropic>=0.40",
     "python-dotenv>=1",
+    "pypdf>=4",
 ]
 
 [project.optional-dependencies]

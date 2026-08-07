@@ -93,7 +93,7 @@ def _find_fuzzy(clusters: List[PaperRecord], rec: PaperRecord) -> Optional[int]:
     for i, c in enumerate(clusters):
         if _strong_conflict(rec, c):  # DOI/PMID discordanti ⇒ non è lo stesso lavoro
             continue
-        if c.year and rec.year and c.year != rec.year:
+        if c.year and rec.year and abs(c.year - rec.year) > 1:  # tolleranza online/print (v. verification.py)
             continue
         if fkey and first_author_key(c.authors) and fkey != first_author_key(c.authors):
             continue

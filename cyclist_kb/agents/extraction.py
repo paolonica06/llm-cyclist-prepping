@@ -7,10 +7,12 @@ recuperare il full text solo da fonti open access, senza scaricare PDF protetti.
 
 from __future__ import annotations
 
+import io
 import logging
 import re
 from typing import List, Optional
-from urllib.parse import urlparse
+
+import pypdf
 
 from ..clients.base import HttpFetcher
 from ..config import get_settings
@@ -22,6 +24,7 @@ from ..models import (DataSource, Extraction, ExtractedField, PaperRecord,
 logger = logging.getLogger("cyclist_kb.extraction")
 
 MIN_FULLTEXT_CHARS = 1500  # sotto questa soglia non consideriamo "full text" affidabile
+MAX_PDF_BYTES = 15_000_000  # non scarichiamo/parsiamo PDF oltre questa soglia (MVP)
 
 
 class ExtractionAgent:
@@ -78,22 +81,16 @@ class ExtractionAgent:
 
     # -- Recupero (lecito) del full text ------------------------------------ #
     async def _prepare_source(self, rec: PaperRecord) -> DataSource:
-        """Se disponibile via OA e recuperabile come testo, popola rec.full_text."""
+        """Se disponibile via OA e recuperabile come testo (HTML o PDF), popola rec.full_text."""
         if rec.full_text and len(rec.full_text) >= MIN_FULLTEXT_CHARS:
             return DataSource.FULL_TEXT
         url = rec.oa_url
-        # Ignora la query string nel controllo del suffisso (es. .../a.pdf?download=1).
-        path = urlparse(url).path.lower() if url else ""
-        if not url or path.endswith(".pdf"):
-            # Non scarichiamo/parsiamo PDF protetti o pesanti in questo MVP.
+        if not url:
             return DataSource.ABSTRACT if rec.abstract else DataSource.NOT_AVAILABLE
         try:
             async with HttpFetcher() as fetcher:
-                text = await fetcher.get_text(url)
-            if text and text.lstrip().startswith("%PDF"):
-                text = None  # è un PDF servito come testo: non lo parsiamo (MVP)
-            if text and "<html" in text.lower():
-                text = _html_to_text(text)
+                raw = await fetcher.get_bytes(url)
+            text = _decode_source(raw)
             if text and len(text) >= MIN_FULLTEXT_CHARS and _looks_like_text(text):
                 rec.full_text = text
                 return DataSource.FULL_TEXT
@@ -338,3 +335,35 @@ def _html_to_text(html: str) -> str:
     text = re.sub(r"(?s)<[^>]+>", " ", html)
     text = re.sub(r"&[a-z]+;", " ", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def _decode_source(raw: Optional[bytes]) -> Optional[str]:
+    """Decodifica il corpo grezzo di una risposta OA: PDF, HTML o testo semplice.
+
+    Riconosce il contenuto dai byte (magic number), non dall'estensione dell'URL:
+    un link OA senza suffisso .pdf può comunque servire un PDF, e viceversa.
+    """
+    if not raw or len(raw) > MAX_PDF_BYTES:
+        return None
+    if raw.lstrip().startswith(b"%PDF"):
+        return _pdf_to_text(raw)
+    try:
+        text = raw.decode("utf-8", errors="replace")
+    except Exception:
+        return None
+    if "<html" in text.lower():
+        text = _html_to_text(text)
+    return text
+
+
+def _pdf_to_text(raw: bytes) -> Optional[str]:
+    """Estrae il testo da un PDF open access. None se cifrato o illeggibile."""
+    try:
+        reader = pypdf.PdfReader(io.BytesIO(raw))
+        if reader.is_encrypted:
+            return None
+        text = "\n".join(page.extract_text() or "" for page in reader.pages)
+    except Exception as exc:
+        logger.debug("Parsing PDF fallito: %s", exc)
+        return None
+    return text.strip() or None

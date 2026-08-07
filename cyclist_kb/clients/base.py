@@ -51,7 +51,7 @@ class HttpFetcher:
             await self._client.aclose()
             self._client = None
 
-    async def _request(self, url: str, params: Optional[Dict[str, Any]], as_json: bool,
+    async def _request(self, url: str, params: Optional[Dict[str, Any]], mode: str,
                        headers: Optional[Dict[str, str]] = None):
         assert self._client is not None
         # Gli header per-richiesta si FONDONO con quelli di default (User-Agent/mailto):
@@ -68,7 +68,9 @@ class HttpFetcher:
                         delay *= 2
                         continue
                 resp.raise_for_status()
-                return resp.json() if as_json else resp.text
+                if mode == "json":
+                    return resp.json()
+                return resp.content if mode == "bytes" else resp.text
             except (httpx.HTTPError, ValueError) as exc:
                 logger.warning("Errore su %s (tentativo %d/%d): %s",
                                url, attempt, self._max_retries, exc)
@@ -81,7 +83,7 @@ class HttpFetcher:
 
     async def get_json(self, url: str, params: Optional[Dict[str, Any]] = None,
                        headers: Optional[Dict[str, str]] = None) -> Optional[Any]:
-        return await self._request(url, params, as_json=True, headers=headers)
+        return await self._request(url, params, mode="json", headers=headers)
 
     async def send_json(self, method: str, url: str, payload: Any,
                         headers: Optional[Dict[str, str]] = None) -> "WriteResult":
@@ -118,4 +120,10 @@ class HttpFetcher:
                        headers: Optional[Dict[str, str]] = None) -> Optional[str]:
         # Di default per il testo/HTML sovrascrive l'Accept JSON del client.
         headers = headers or {"Accept": "text/html,application/xhtml+xml,text/plain,*/*"}
-        return await self._request(url, params, as_json=False, headers=headers)
+        return await self._request(url, params, mode="text", headers=headers)
+
+    async def get_bytes(self, url: str, params: Optional[Dict[str, Any]] = None,
+                        headers: Optional[Dict[str, str]] = None) -> Optional[bytes]:
+        # Per contenuti binari (es. PDF open access) serve il corpo grezzo, non testo decodificato.
+        headers = headers or {"Accept": "application/pdf,text/html,application/xhtml+xml,*/*"}
+        return await self._request(url, params, mode="bytes", headers=headers)

@@ -46,6 +46,17 @@ TRAINED_MARKERS = [
     "trained", "well-trained", "highly trained", "elite", "competitive",
     "professional", "endurance-trained", "national level", "world class",
 ]
+# Popolazioni cliniche/non atletiche palesemente estranee al dominio (pazienti di
+# patologie non legate allo sport, neonati, gravidanza). Escludono SOLO in assenza
+# di segnale ciclistico/allenato — uno studio su "cyclists with type 1 diabetes"
+# resta ammissibile perché CYCLING_MARKERS/TRAINED_MARKERS lo compensano.
+CLINICAL_NONATHLETE_MARKERS = [
+    "type 2 diabetes", "diabetes mellitus", "diabetic patients", "chronic kidney disease",
+    "dialysis", "cancer patients", "oncology", "chemotherapy", "copd",
+    "chronic obstructive pulmonary", "heart failure patients", "postoperative",
+    "post-surgical", "neonate", "neonatal", "newborn", "infant", "infants",
+    "pediatric patients", "pregnant", "pregnancy",
+]
 
 # Marcatori del disegno dello studio (qualità).
 STUDY_DESIGN_MARKERS: Dict[str, List[str]] = {

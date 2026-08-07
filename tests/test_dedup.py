@@ -122,3 +122,30 @@ def test_doi_normalization_variants_collapse():
     out = deduplicate(recs)
     assert len(out) == 1
     assert set(out[0].source_dbs) == {"crossref", "openalex", "pubmed"}
+
+
+def test_fuzzy_merge_tolerates_one_year_drift():
+    # Stesso lavoro indicizzato con epub 2020 da una fonte e print 2021 dall'altra
+    # (nessun DOI/PMID condiviso): la firma fuzzy deve tollerare ±1 anno, come già
+    # fa verification.py per la discrepanza online/print.
+    recs = [
+        make("openalex", title="Threshold training and durability in cyclists", year=2020,
+             authors=["Verdi G"]),
+        make("crossref", title="Threshold training and durability in cyclists", year=2021,
+             authors=["Verdi G"]),
+    ]
+    out = deduplicate(recs)
+    assert len(out) == 1
+    assert set(out[0].source_dbs) == {"openalex", "crossref"}
+
+
+def test_fuzzy_merge_rejects_two_year_drift():
+    # Oltre la tolleranza di ±1 anno restano trattati come lavori distinti.
+    recs = [
+        make("openalex", title="Threshold training and durability in cyclists", year=2018,
+             authors=["Verdi G"]),
+        make("crossref", title="Threshold training and durability in cyclists", year=2021,
+             authors=["Verdi G"]),
+    ]
+    out = deduplicate(recs)
+    assert len(out) == 2
