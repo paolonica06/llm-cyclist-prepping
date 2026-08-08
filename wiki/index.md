@@ -22,6 +22,7 @@ Base di conoscenza scientifica mantenuta automaticamente dagli agenti.
 - [motivation, goal setting and motivational climate](topics/motivation-goal-setting-and-motivational-climate.md) — clima mastery/ego, autonomia e qualità della motivazione (aggiornato 2026-07-27)
 - [athletic identity, self-worth and transitions](topics/athletic-identity-self-worth-and-transitions.md) — identità atletica, infortunio e transizioni (aggiornato 2026-07-27)
 <!-- END MANUAL: index-topics -->
-- [functional overreaching, non-functional overreaching and supercompensation timing in endurance athletes](topics/functional-overreaching-non-functional-overreaching-and-supercompensation-timing.md) — 39 studi sintetizzati (aggiornato 2026-08-07)
-- [acute:chronic workload ratio and injury or illness risk in endurance athletes](topics/acute-chronic-workload-ratio-and-injury-or-illness-risk-in-endurance-athletes.md) — 30 studi sintetizzati (aggiornato 2026-08-07)
-- [validity and limitations of the impulse-response training load model (CTL, ATL, TSB) in endurance cyclists](topics/validity-and-limitations-of-the-impulse-response-training-load-model-ctl-atl-tsb.md) — 34 studi sintetizzati (aggiornato 2026-08-07)
+- [cold water immersion, sauna and compression garments for post-exercise recovery in endurance athletes](topics/cold-water-immersion-sauna-and-compression-garments-for-post-exercise-recovery-i.md) — 40 studi sintetizzati (aggiornato 2026-08-08)
+- [multiple daily training sessions versus single session training in endurance athletes](topics/multiple-daily-training-sessions-versus-single-session-training-in-endurance-ath.md) — 41 studi sintetizzati (aggiornato 2026-08-08)
+- [reliability and measurement error of field-based FTP and critical power testing protocols](topics/reliability-and-measurement-error-of-field-based-ftp-and-critical-power-testing-.md) — 25 studi sintetizzati (aggiornato 2026-08-08)
+- [cross-training transfer and injury risk between road, mountain bike, track and cyclocross disciplines](topics/cross-training-transfer-and-injury-risk-between-road-mountain-bike-track-and-cyc.md) — 37 studi sintetizzati (aggiornato 2026-08-08)
